@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:background="@layout/fond"
+    android:background="#43b1cb"
     android:id="@+id/register">
 
     <Button
@@ -15,24 +15,50 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/editEmail"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="119dp"
-        android:hint="Email" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Email"
+        android:textColor="#fff"
+        android:textAllCaps="true"
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/editEmail"
+        android:layout_alignLeft="@+id/editEmail"
+        android:layout_alignStart="@+id/editEmail"
+        android:layout_marginBottom="40dp" />
 
     <EditText
         android:layout_width="wrap_content"
+        android:layout_height="50px"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:background="#fff"
+        android:id="@+id/editEmail"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="119dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Mot de passe"
+        android:textColor="#fff"
+        android:textAllCaps="true"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/editEmail"
+        android:layout_alignLeft="@+id/editPassword"
+        android:layout_alignStart="@+id/editPassword"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="50px"
         android:inputType="textPassword"
         android:ems="10"
+        android:background="#fff"
         android:id="@+id/editPassword"
-        android:hint="Mot de passe"
         android:layout_marginTop="43dp"
         android:layout_below="@+id/editEmail"
         android:layout_alignLeft="@+id/editEmail"
@@ -61,5 +87,17 @@
         android:layout_centerHorizontal="true"
         android:singleLine="false"
         android:hint="Prénom" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textView3"
+        android:layout_alignBaseline="@+id/editName"
+        android:layout_alignBottom="@+id/editName"
+        android:layout_alignLeft="@+id/editName"
+        android:layout_alignStart="@+id/editName" />
+
 
 </RelativeLayout>
