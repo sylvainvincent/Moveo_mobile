@@ -36,15 +36,14 @@ public class RegisterActivity extends ActionBarActivity {
         buttonRegister.setOnClickListener(
                 new View.OnClickListener(){
                     public void onClick(View v){
-                        final String email = editMail.getText().toString();
-                        final String password = editPassword.getText().toString();
-                        final String name = editName.getText().toString();
-                        final String firstName = editFirstName.getText().toString();
+                        String email = editMail.getText().toString();
+                        String password = editPassword.getText().toString();
+                        String name = editName.getText().toString();
+                        String firstName = editFirstName.getText().toString();
                         UserFunctions userFunction = new UserFunctions();
-                        JSONObject json = userFunction.registerUser("email","password","name","firstName");
+                        JSONObject json = userFunction.registerUser(email,password,name,firstName);
 
-
-                        }
+                    }
                 }
         );
     }

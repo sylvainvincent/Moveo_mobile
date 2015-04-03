@@ -58,6 +58,7 @@ public class JSONParser {
                     is, "iso-8859-1"), 8);
             StringBuilder sb = new StringBuilder();
             String line = null;
+
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "n");
             }
