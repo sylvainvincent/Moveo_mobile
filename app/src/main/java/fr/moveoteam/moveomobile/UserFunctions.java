@@ -15,9 +15,9 @@ public class UserFunctions {
     private JSONParser jsonParser;
 
     // Testing in localhost using wamp or xampp
-    // Il faut utilisé l'adresse http://10.0.2.2/ pour se connecter au localhost : http://localhost/
-    private static String loginURL = "http://10.0.2.2/webservice/";
-    private static String registerURL = "http://10.0.2.2/webservice/";
+    // Il faut utiliser l'adresse http://10.0.2.2/ pour se connecter au localhost : http://localhost/
+    private static String loginURL = "http://10.0.2.2/webService/";
+    private static String registerURL = "http://10.0.2.2/webService/";
 
     private static String login_tag = "login";
     private static String register_tag = "register";
