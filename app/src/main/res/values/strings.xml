@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!-- ajout_lieu strings -->
 
-    <string name="app_name">Moveo mobile</string>
-    <string name="hello_world">Hello world!</string>
+	<string name="app_name"></string>
+	<string name="ek_img_content">PSD Image</string>
+	<string name="ou_annuler_string">Ou Annuler</string>
+	<string name="ajouter_string">Ajouter</string>
+	<string name="description_string">Description</string>
+	<string name="adresse_string">Adresse</string>
+	<string name="lieu_string">Lieu</string>
+	<string name="description_du_lieu_shopping_string">Description du Lieu\rShopping</string>
     <string name="action_settings">Settings</string>
 
 </resources>

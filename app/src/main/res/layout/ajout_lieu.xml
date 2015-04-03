@@ -1,0 +1,163 @@
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent" android:layout_height="wrap_content" >
+	<!-- 
+	/*
+	 *	This content is generated from the PSD File Info.
+	 *	(Alt+Shift+Ctrl+I).
+	 *
+	 *	@desc 		Normale
+	 *	@file 		ajout_lieu
+	 *	@date 		sRVB
+	 *	@title 		
+	 *	@author 	
+	 *	@keywords 	
+	 *	@generator 	Export Kit v1.2.8
+	 *
+	 */
+	-->
+	<ScrollView android:id="@+id/ajout_lieu" 
+		android:layout_width="wrap_content" 
+		android:layout_height="match_parent" >
+
+		<RelativeLayout android:id="@+id/content_container" 
+			android:layout_width="wrap_content" 
+			android:layout_height="2035dp" >
+
+			<TextView android:id="@+id/ou_annuler"
+				android:fontFamily="Raleway-Medium"
+				android:textAllCaps="true"
+				android:textSize="9sp"
+				android:textColor="@color/ou_annuler_color"
+				android:layout_marginLeft="505dp"
+				android:layout_marginTop="1864dp"
+				android:layout_width="303dp"
+				android:layout_height="39dp"
+				android:text="@string/ou_annuler_string"
+				 />
+
+			<View android:id="@+id/button_ajout"
+				android:background="@drawable/button_ajout_shape"
+				 android:layout_marginLeft="465dp"
+				android:layout_marginTop="1693dp"
+				android:layout_width="386dp"
+				android:layout_height="120dp" />
+
+			<TextView android:id="@+id/ajouter"
+				android:fontFamily="Raleway-Medium"
+				android:textAllCaps="true"
+				android:textSize="9sp"
+				android:textColor="@color/ajouter_color"
+				android:layout_marginLeft="558dp"
+				android:layout_marginTop="1739dp"
+				android:layout_width="212dp"
+				android:layout_height="39dp"
+				android:text="@string/ajouter_string"
+				 />
+
+			<View android:id="@+id/input_adresse"
+				android:background="@drawable/input_adresse_shape"
+				 android:layout_marginLeft="251dp"
+				android:layout_marginTop="1254dp"
+				android:layout_width="798dp"
+				android:layout_height="357dp"
+                android:layout_alignParentEnd="true" />
+
+			<TextView android:id="@+id/description"
+				android:fontFamily="Raleway-Medium"
+				android:textAllCaps="true"
+				android:textSize="9sp"
+				android:textColor="@color/description_color"
+				android:layout_marginLeft="257dp"
+				android:layout_marginTop="1200dp"
+				android:layout_width="300dp"
+				android:layout_height="39dp"
+				android:text="@string/description_string"
+				 />
+
+			<View android:id="@+id/input_adresse_1"
+				android:background="@drawable/input_adresse_1_shape"
+				 android:layout_marginLeft="251dp"
+				android:layout_marginTop="989dp"
+				android:layout_width="798dp"
+				android:layout_height="124dp" />
+
+			<TextView android:id="@+id/adresse"
+				android:fontFamily="Raleway-Medium"
+				android:textAllCaps="true"
+				android:textSize="9sp"
+				android:textColor="@color/description_color"
+				android:layout_marginLeft="254dp"
+				android:layout_marginTop="934dp"
+				android:layout_width="211dp"
+				android:layout_height="39dp"
+				android:text="@string/adresse_string"
+				 />
+
+			<View android:id="@+id/input_lieu"
+				android:background="@drawable/input_lieu_shape"
+				 android:layout_marginLeft="251dp"
+				android:layout_marginTop="727dp"
+				android:layout_width="798dp"
+				android:layout_height="123dp" />
+
+			<TextView android:id="@+id/lieu"
+				android:fontFamily="Raleway-Medium"
+				android:textAllCaps="true"
+				android:textSize="9sp"
+				android:textColor="@color/description_color"
+				android:layout_marginLeft="257dp"
+				android:layout_marginTop="672dp"
+				android:layout_width="102dp"
+				android:layout_height="39dp"
+				android:text="@string/lieu_string"
+				 />
+
+			<View android:id="@+id/bg_menu"
+				android:background="@drawable/bg_menu_shape"
+				 android:layout_marginLeft="0dp"
+				android:layout_marginTop="0dp"
+				android:layout_width="1353dp"
+				android:layout_height="253dp" />
+
+			<ImageView android:id="@+id/menu_icon"
+				android:src="@drawable/menu_icon"
+				android:contentDescription="@string/ek_img_content"
+				 android:layout_marginLeft="1158dp"
+				android:layout_marginTop="95dp"
+				android:layout_width="87dp"
+				android:layout_height="77dp" />
+
+			<ImageView android:id="@+id/search"
+				android:src="@drawable/search"
+				android:contentDescription="@string/ek_img_content"
+				 android:layout_marginLeft="1010dp"
+				android:layout_marginTop="96dp"
+				android:layout_width="79dp"
+				android:layout_height="75dp" />
+
+			<ImageView android:id="@+id/logo"
+				android:src="@drawable/logo"
+				android:contentDescription="@string/ek_img_content"
+				 android:layout_marginLeft="97dp"
+				android:layout_marginTop="58dp"
+				android:layout_width="387dp"
+				android:layout_height="108dp" />
+
+			<TextView android:id="@+id/description_du_lieu_shopping"
+				android:fontFamily="Raleway-Bold"
+				android:layout_gravity="center_horizontal|center"
+				android:gravity="center"
+				android:textAllCaps="true"
+				android:textSize="15sp"
+				android:textColor="@color/button_ajout_color"
+				android:layout_marginLeft="250dp"
+				android:layout_marginTop="416dp"
+				android:layout_width="781dp"
+				android:layout_height="match_parent"
+				android:text="@string/description_du_lieu_shopping_string"
+				 />
+
+		</RelativeLayout>
+
+	</ScrollView>
+</HorizontalScrollView>

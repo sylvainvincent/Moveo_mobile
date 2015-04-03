@@ -7,13 +7,13 @@
     android:background="@layout/fond"
     android:id="@+id/register">
 
-    <Button
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Créer un compte"
-        android:id="@+id/buttonRegister"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/scrollView"
+        android:fillViewport="true"
+        android:layout_alignParentTop="true">
+
 
     <EditText
         android:layout_width="wrap_content"
@@ -62,4 +62,12 @@
         android:singleLine="false"
         android:hint="Prénom" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Créer un compte"
+            android:id="@+id/buttonRegister"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+    </ScrollView>
 </RelativeLayout>

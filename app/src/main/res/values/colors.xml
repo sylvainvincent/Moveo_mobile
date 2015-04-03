@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- ajout_lieu colors -->
+
+	<color name="ou_annuler_color">#080706</color>
+	<color name="button_ajout_color">#3CB2CC</color>
+	<color name="ajouter_color">#FFFFFF</color>
+	<color name="description_color">#000000</color>
+</resources>
