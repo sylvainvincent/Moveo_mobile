@@ -15,7 +15,8 @@
         android:src="@drawable/logo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp" />
+        android:layout_marginTop="29dp"
+        android:contentDescription="@string/logo_description" />
 
     <!-- LINEAR LAYOUT 1 EMAIL -->
     <LinearLayout
@@ -34,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Email"
+                android:text="@string/text_mail"
                 android:textColor="#fff"
                 android:textAllCaps="true"
                 android:id="@+id/email" />
@@ -42,14 +43,11 @@
             <!-- EditText Email -->
             <EditText
                 android:layout_width="fill_parent"
-                android:layout_height="50px"
+                android:layout_height="@dimen/register_edit_text_height"
                 android:inputType="textEmailAddress"
-                android:ems="10"
-                android:layout_below="@id/email"
                 android:background="#fff"
                 android:id="@+id/editEmail"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_gravity="bottom" />
 
     </LinearLayout>
 
@@ -70,7 +68,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Mot de passe"
+            android:text="@string/text_password"
+            android:layout_gravity="top"
             android:textColor="#fff"
             android:textAllCaps="true"
             android:id="@+id/password" />
@@ -78,11 +77,11 @@
         <!-- EditText Password -->
         <EditText
             android:layout_width="fill_parent"
-            android:layout_height="50px"
+            android:layout_height="@dimen/register_edit_text_height"
             android:inputType="textPassword"
             android:background="#fff"
             android:id="@+id/editPassword"
-            android:layout_below="@+id/password" />
+            android:layout_gravity="bottom"/>
 
     </LinearLayout>
 
@@ -98,24 +97,24 @@
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true">
 
-        <!-- TextView Name -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Nom"
-            android:textColor="#fff"
-            android:textAllCaps="true"
-            android:id="@+id/name" />
+            <!-- TextView Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/text_name"
+                android:textColor="#fff"
+                android:textAllCaps="true"
+                android:id="@+id/name" />
 
-        <!-- EditText Name -->
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="50px"
-            android:inputType="textPersonName"
-            android:background="#fff"
-            android:id="@+id/editName"
-            android:layout_below="@+id/name" />
+            <!-- EditText Name -->
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/register_edit_text_height"
+                android:inputType="textPersonName"
+                android:background="#fff"
+                android:id="@+id/editName"
+                android:layout_gravity="bottom" />
 
     </LinearLayout>
 
@@ -136,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Prénom"
+            android:text="@string/prenom"
             android:textColor="#fff"
             android:textAllCaps="true"
             android:id="@+id/firstName" />
@@ -144,38 +143,23 @@
         <!-- EditText Firstname -->
         <EditText
             android:layout_width="fill_parent"
-            android:layout_height="50px"
+            android:layout_height="@dimen/register_edit_text_height"
             android:inputType="textPersonName"
             android:id="@+id/editFirstName"
             android:background="#fff"
-            android:layout_below="@+id/firstName" />
+            android:layout_gravity="bottom" />
 
     </LinearLayout>
 
-    <!-- LINEAR LAYOUT 4 PRÉNOM -->
-    <LinearLayout
+    <Button
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/linear4"
-        android:id="@+id/linear5"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true">
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Créer un compte"
-                android:id="@+id/buttonRegister"
-                android:textColor="#fff"
-                android:textSize="13dp"
-                android:background="@drawable/style_button"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="28dp" />
-
-    </LinearLayout>
+        android:layout_height="30dp"
+        android:text="@string/button_register"
+        android:id="@+id/buttonRegister"
+        android:textColor="#fff"
+        android:textSize="@dimen/text_size_button_form"
+        android:background="@drawable/style_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
