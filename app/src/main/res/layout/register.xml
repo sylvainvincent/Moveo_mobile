@@ -64,6 +64,17 @@
         android:layout_alignLeft="@+id/editEmail"
         android:layout_alignStart="@+id/editEmail" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Nom"
+        android:id="@+id/textView3"
+        android:layout_alignBaseline="@+id/editName"
+        android:layout_alignBottom="@+id/editName"
+        android:layout_alignLeft="@+id/editName"
+        android:layout_alignStart="@+id/editName" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,17 +98,6 @@
         android:layout_centerHorizontal="true"
         android:singleLine="false"
         android:hint="Prénom" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/textView3"
-        android:layout_alignBaseline="@+id/editName"
-        android:layout_alignBottom="@+id/editName"
-        android:layout_alignLeft="@+id/editName"
-        android:layout_alignStart="@+id/editName" />
 
 
 </RelativeLayout>
