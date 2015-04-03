@@ -70,7 +70,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Nom"
         android:textColor="#fff"
+        android:textAllCaps="true"
         android:id="@+id/textView3"
+        android
         android:layout_alignBaseline="@+id/editName"
         android:layout_alignBottom="@+id/editName"
         android:layout_alignLeft="@+id/editName"
