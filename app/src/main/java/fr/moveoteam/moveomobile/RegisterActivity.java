@@ -41,15 +41,9 @@ public class RegisterActivity extends ActionBarActivity {
                         final String name = editName.getText().toString();
                         final String firstName = editFirstName.getText().toString();
                         UserFunctions userFunction = new UserFunctions();
-                        JSONObject json = userFunction.registerUser(email,password,name,firstName);
+                        JSONObject json = userFunction.registerUser("email","password","name","firstName");
 
-                        try{
-                            if (json.getString("success") != null) {
-                                System.out.println(email+" "+password+" "+name+" "+firstName);
-                            }
-                        }catch (JSONException e) {
-                                e.printStackTrace();
-                            }
+
                         }
                 }
         );
