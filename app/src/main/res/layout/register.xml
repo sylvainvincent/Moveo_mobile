@@ -89,7 +89,7 @@
         android:singleLine="false"
         android:hint="Prénom" />
 
-    <!-- Image View -->
+    <!-- Image View Logo -->
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
