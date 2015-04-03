@@ -64,25 +64,12 @@
         android:layout_alignLeft="@+id/editEmail"
         android:layout_alignStart="@+id/editEmail" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Nom"
-        android:textColor="#fff"
-        android:textAllCaps="true"
-        android:id="@+id/textView3"
-        android
-        android:layout_alignBaseline="@+id/editName"
-        android:layout_alignBottom="@+id/editName"
-        android:layout_alignLeft="@+id/editName"
-        android:layout_alignStart="@+id/editName" />
-
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50px"
         android:inputType="textPersonName"
         android:ems="10"
+        android:background="#fff"
         android:id="@+id/editName"
         android:layout_below="@+id/editPassword"
         android:layout_alignLeft="@+id/editPassword"
@@ -101,6 +88,15 @@
         android:layout_centerHorizontal="true"
         android:singleLine="false"
         android:hint="Prénom" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp" />
 
 
 </RelativeLayout>
