@@ -24,8 +24,8 @@
         android:orientation="vertical"
         android:layout_below="@id/logo"
         android:id="@+id/linear1"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true">
 
@@ -61,8 +61,8 @@
         android:layout_below="@id/linear1"
         android:id="@+id/linear2"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_centerHorizontal="true">
 
         <!-- TextView Password -->
@@ -93,8 +93,8 @@
         android:orientation="vertical"
         android:layout_below="@id/linear2"
         android:id="@+id/linear3"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true">
 
@@ -126,8 +126,8 @@
         android:orientation="vertical"
         android:layout_below="@id/linear3"
         android:id="@+id/linear4"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true">
 
@@ -159,22 +159,21 @@
         android:orientation="vertical"
         android:layout_below="@id/linear4"
         android:id="@+id/linear5"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true">
 
             <Button
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="Créer un compte"
                 android:id="@+id/buttonRegister"
                 android:textColor="#fff"
                 android:textSize="13dp"
                 android:background="@drawable/style_button"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="28dp" />
+                android:layout_centerHorizontal="true" />
 
     </LinearLayout>
 
