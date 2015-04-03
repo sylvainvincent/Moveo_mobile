@@ -26,7 +26,7 @@
         android:id="@+id/linear1"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true">
 
             <!-- TextView Email -->
@@ -152,14 +152,30 @@
 
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
+    <!-- LINEAR LAYOUT 4 PRÉNOM -->
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Créer un compte"
-        android:id="@+id/buttonRegister"
-        android:background="#1392b0"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="28dp" />
+        android:orientation="vertical"
+        android:layout_below="@id/linear4"
+        android:id="@+id/linear5"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true">
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Créer un compte"
+                android:id="@+id/buttonRegister"
+                android:textColor="#fff"
+                android:textSize="13dp"
+                android:background="@drawable/style_button"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="28dp" />
+
+    </LinearLayout>
 
 </RelativeLayout>
