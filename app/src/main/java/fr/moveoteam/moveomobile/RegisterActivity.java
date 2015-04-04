@@ -93,7 +93,7 @@ public class RegisterActivity extends ActionBarActivity {
 
                 //Set JSON Data in TextView
 
-                registerErrorMsg.setText("b");
+                registerErrorMsg.setText("b"); // A changer
 
 
             } catch (JSONException e) {
