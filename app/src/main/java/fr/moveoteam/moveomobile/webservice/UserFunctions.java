@@ -1,4 +1,4 @@
-package fr.moveoteam.moveomobile;
+package fr.moveoteam.moveomobile.webservice;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -46,9 +46,9 @@ public class UserFunctions {
         // test
         System.out.println(params.get(0)+" "+params.get(1)+" "+params.get(2)+" "+params.get(3)+" "+params.get(4));
         // Obtenir un objet json avec l'adresse du webservice et le formulaire sous forme d'Arraylist
-        JSONObject json = jsonParser.getJSONFromUrl(registerURL, params);
         // retourner l'objet json
-        return json;
+        return jsonParser.getJSONFromUrl(registerURL, params);
     }
+
 
 }

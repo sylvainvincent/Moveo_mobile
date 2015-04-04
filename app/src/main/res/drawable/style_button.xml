@@ -4,5 +4,4 @@
         android:startColor="#1392b0"
         android:centerColor="#1392b0"
         android:endColor="#1392b0" />
-    <solid android:color="@color/app_theme_light" />
 </shape>

@@ -1,4 +1,4 @@
-package fr.moveoteam.moveomobile;
+package fr.moveoteam.moveomobile.webservice;
 
 import android.util.Log;
 
@@ -20,31 +20,28 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 /**
- * Created by Sylvain on 01/04/15.
+ * Created by Sylvain on 04/04/15.
  */
 public class JSONParser {
     static InputStream is = null;
     static JSONObject jObj = null;
     static String json = "";
-
-    // constructeur
+    // constructor
     public JSONParser() {
-
     }
-
-    public JSONObject getJSONFromUrl(String url, List<NameValuePair> params) {
-
-        // Faire une requete HTTP
+    public JSONObject getJSONFromUrl(String url,List<NameValuePair> postParameters) {
+        // Making HTTP request
         try {
-
+            // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
+            // Pour créer une requête POST nous allons créer un objet HttpPost avec comme parametre l'url du web service
             HttpPost httpPost = new HttpPost(url);
-            httpPost.setEntity(new UrlEncodedFormEntity(params));
-
+            // on affecte le resultat du formulaire sur l'objet
+            httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
+            //La requête est envoyée !!! on recupere la reponse
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
-
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
@@ -52,33 +49,26 @@ public class JSONParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        try {
+        try { // Nous lisons le resultat qui nous a été envoyé
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     is, "iso-8859-1"), 8);
             StringBuilder sb = new StringBuilder();
             String line = null;
-
             while ((line = reader.readLine()) != null) {
-                sb.append(line + "n");
+                sb.append(line + "\n");
             }
             is.close();
             json = sb.toString();
-            Log.e("JSON", json);
         } catch (Exception e) {
-            Log.e("Buffer Error", "Erreur du conversion du resultat " + e.toString());
+            Log.e("Buffer Error", "Erreur dans la conversion du resultat " + e.toString());
         }
-
-        // Parser le string en un objet JSON
+        // essayer de parser un string en un objet Json
         try {
             jObj = new JSONObject(json);
         } catch (JSONException e) {
-            Log.e("JSON Parser", "Erreur de parsing" + e.toString());
+            Log.e("JSON Parser", "Erreur de parse " + e.toString());
         }
-
-        // return JSON String
+        // Retour un objet Json
         return jObj;
-
     }
-
 }
