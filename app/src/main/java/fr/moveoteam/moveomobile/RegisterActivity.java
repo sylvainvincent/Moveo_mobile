@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,7 +61,7 @@ public class RegisterActivity extends ActionBarActivity {
             super.onPreExecute();
             registerErrorMsg = (TextView) findViewById(R.id.registerErrorMsg);
             pDialog = new ProgressDialog(RegisterActivity.this);
-            pDialog.setMessage("Getting Data ...");
+            pDialog.setMessage("Envoi des données ...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -84,14 +85,15 @@ public class RegisterActivity extends ActionBarActivity {
             pDialog.dismiss();
             try {
                 // Getting JSON Array
+                Log.e("Message", " je suis passé par là");
                 user = json.getJSONArray("error_msg");
-                JSONObject c = user.getJSONObject(0);
+                JSONObject a = user.getJSONObject(0);
                 // Storing  JSON item in a Variable
-                String msg = (String) user.get(0);
+                // String msg = (String) c.getString(msg);
 
                 //Set JSON Data in TextView
 
-                registerErrorMsg.setText(msg);
+                registerErrorMsg.setText("b");
 
 
             } catch (JSONException e) {
