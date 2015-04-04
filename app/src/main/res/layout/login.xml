@@ -7,7 +7,7 @@
     android:background="#43b1cb"
     android:id="@+id/login">
 
-    <!-- Logo -->
+    <!-- LOGO -->
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:id="@+id/linear1"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true">
 
             <!-- TextView Email -->
@@ -59,7 +59,7 @@
         android:id="@+id/linear2"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true">
 
         <!-- TextView Mot de passe -->
@@ -81,6 +81,84 @@
             android:background="#fff"
             android:layout_below="@+id/password" />
 
+    </LinearLayout>
+
+    <!-- LOGIN BUTTON -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/linear2"
+        android:id="@+id/linear3"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:text="Se connecter"
+            android:id="@+id/buttonLogin"
+            android:textColor="#fff"
+            android:textSize="13dp"
+            android:background="@drawable/style_button"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+    </LinearLayout>
+
+    <!-- NOT REGISTER YET ? -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/linear3"
+        android:id="@+id/linear4"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Mot de passe oublié ?"
+            android:id="@+id/lost_password"
+            android:textAllCaps="true"
+            android:layout_gravity="center"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:textColor="#056b83"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/linear4"
+        android:id="@+id/linear5"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Pas encore inscrit ?"
+            android:id="@+id/registration"
+            android:textAllCaps="true"
+            android:layout_gravity="center"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:textColor="#056b83"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
     </LinearLayout>
 
 </RelativeLayout>
