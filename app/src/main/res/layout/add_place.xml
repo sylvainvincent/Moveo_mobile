@@ -11,6 +11,7 @@
         android:background="#fff"
         android:id="@+id/add_place">
 
+        <!-- MENU -->
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
