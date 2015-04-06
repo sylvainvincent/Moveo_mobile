@@ -26,10 +26,20 @@ public class JSONParser {
     static InputStream is = null;
     static JSONObject jObj = null;
     static String json = "";
-    // constructor
+
+    // constructeur vide
     public JSONParser() {
     }
-    public JSONObject getJSONFromUrl(String url,List<NameValuePair> postParameters) {
+
+   /**
+    * Fonction qui récupere les informations d'un formulaire,les traite puis les envoie à l'adresse indiqué en parametre(url).
+    * Ensuite elle recupére et parse une réponse (un message d'erreur ou de succes par exemple)
+    * Pour finir elle renvoie la reponse sous la forme d'un objet JSON
+    *
+    *
+    *
+    */
+    public JSONObject getJSONFromUrl(String url, List<NameValuePair> postParameters) {
         // Making HTTP request
         try {
             // defaultHttpClient
@@ -60,7 +70,7 @@ public class JSONParser {
             is.close();
             json = sb.toString();
         } catch (Exception e) {
-            Log.e("Buffer Error", "Erreur dans la conversion du resultat " + e.toString());
+            Log.e("Erreur du Buffer", "Erreur dans la conversion du resultat " + e.toString());
         }
         // essayer de parser un string en un objet Json
         try {
