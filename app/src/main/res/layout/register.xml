@@ -176,6 +176,8 @@
                 android:text="@string/button_register"
                 android:id="@+id/buttonRegister"
                 android:textColor="#fff"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:textSize="@dimen/text_size_button_form"
                 android:background="@drawable/style_button"
                 android:layout_alignParentBottom="true"

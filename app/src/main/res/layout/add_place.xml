@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:id="@+id/add_place">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/menu"
+            android:background="#3cb2cc"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/small_logo"
+                    android:id="@+id/logo" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/search"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="110dp"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/search_icon" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/menu"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/menu_icon" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Description du lieu"
+            android:textColor="#3cb2cc"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:id="@+id/explore_title"
+            android:layout_below="@+id/menu"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Shopping"
+            android:textAllCaps="true"
+            android:textColor="#666"
+            android:textStyle="bold"
+            android:id="@+id/category"
+            android:layout_below="@+id/explore_title"
+            android:layout_centerHorizontal="true" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/category"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRightt="80dp"
+            android:layout_centerHorizontal="true">
+
+                <!-- PLACE -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Lieu"
+                    android:textColor="#666"
+                    android:textAllCaps="true"
+                    android:id="@+id/place" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:background="#ccc"
+                    android:id="@+id/editPlace" />
+
+            <!-- ADRESS -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Adresse"
+                android:layout_marginTop="20dp"
+                android:textColor="#666"
+                android:textAllCaps="true"
+                android:id="@+id/adress" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:background="#ccc"
+                android:id="@+id/editAdress" />
+
+            <!-- ADRESS -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Description"
+                android:layout_marginTop="20dp"
+                android:textColor="#666"
+                android:textAllCaps="true"
+                android:id="@+id/descriptionPlace" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:background="#ccc"
+                android:id="@+id/edtDescriptionPlace" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Ajouter un lieu"
+                android:id="@+id/buttonAddPlace"
+                android:textColor="#fff"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:layout_marginTop="30dp"
+                android:textSize="@dimen/text_size_button_form"
+                android:background="@drawable/style_button"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Ou annuler"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"
+                android:textSize="13dp"
+                android:id="@+id/cancelAddPlace"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</ScrollView>
