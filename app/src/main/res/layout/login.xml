@@ -14,7 +14,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/logo"
+        android:id="@+id/logo_login"
         android:src="@drawable/logo"
         android:layout_marginTop="60dp"
         android:layout_alignParentTop="true"
@@ -22,11 +22,11 @@
 
     <!-- EMAIL -->
     <LinearLayout
+        android:id="@+id/linear_email_login"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/logo"
-        android:id="@+id/linear1"
+        android:layout_below="@id/logo_login"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginTop="40dp"
@@ -40,14 +40,14 @@
                 android:text="Email"
                 android:textColor="#fff"
                 android:textAllCaps="true"
-                android:id="@+id/email" />
+                android:id="@+id/text_email_login" />
 
             <!-- EditText Email -->
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="50px"
                 android:inputType="textPersonName"
-                android:id="@+id/editEmail"
+                android:id="@+id/edit_email_login"
                 android:background="#fff"
                 android:layout_below="@+id/firstName" />
 
@@ -58,8 +58,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/linear1"
-        android:id="@+id/linear2"
+        android:layout_below="@id/linear_email_login"
+        android:id="@+id/linear_password_login"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginTop="30dp"
@@ -73,14 +73,14 @@
             android:text="Mot de passe"
             android:textColor="#fff"
             android:textAllCaps="true"
-            android:id="@+id/password" />
+            android:id="@+id/text_password_login" />
 
         <!-- EditText Password -->
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="50px"
             android:inputType="textPersonName"
-            android:id="@+id/editPassword"
+            android:id="@+id/edit_password_login"
             android:background="#fff"
             android:layout_below="@+id/password" />
 
@@ -91,8 +91,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/linear2"
-        android:id="@+id/linear3"
+        android:layout_below="@id/linear_password_login"
+        android:id="@+id/linear_button_login"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginTop="30dp"
@@ -102,7 +102,7 @@
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:text="Se connecter"
-            android:id="@+id/buttonLogin"
+            android:id="@+id/button_login"
             android:textColor="#fff"
             android:textSize="13dp"
             android:background="@drawable/style_button"
@@ -111,13 +111,13 @@
 
     </LinearLayout>
 
-    <!-- NOT REGISTER YET ? -->
+    <!-- Mot de passe oublié -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/linear3"
-        android:id="@+id/linear4"
+        android:layout_below="@id/linear_button_login"
+        android:id="@+id/linear_link_lost_password"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginTop="40dp"
@@ -128,7 +128,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Mot de passe oublié ?"
-            android:id="@+id/lost_password"
+            android:id="@+id/link_lost_password"
             android:textAllCaps="true"
             android:layout_gravity="center"
             android:textSize="12dp"
@@ -142,8 +142,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/linear4"
-        android:id="@+id/linear5"
+        android:layout_below="@id/linear_link_lost_password"
+        android:id="@+id/linear_link_registration"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginTop="20dp"
@@ -154,7 +154,7 @@
             android:layout_height="30dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Pas encore inscrit ?"
-            android:id="@+id/registration"
+            android:id="@+id/link_registration"
             android:textAllCaps="true"
             android:layout_gravity="center"
             android:textSize="12dp"

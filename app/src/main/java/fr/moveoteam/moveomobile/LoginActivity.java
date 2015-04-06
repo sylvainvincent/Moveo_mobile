@@ -2,64 +2,52 @@ package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-/**
- * Created by Sylvain on 01/04/15.
- */import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.moveoteam.moveomobile.webservice.JSONParser;
 import fr.moveoteam.moveomobile.webservice.UserFunctions;
 
-public class RegisterActivity extends ActionBarActivity {
+/**
+ * Created by Sylvain on 06/04/15.
+ */
+public class LoginActivity extends Activity {
 
+    EditText editMail;
+    EditText editPassword;
+    TextView linkRegistration;
 
-        Button buttonRegister;
-        EditText editMail;
-        EditText editPassword;
-        EditText editName;
-        EditText editFirstName;
-        TextView registerErrorMsg;
-        JSONArray user = null;
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register);
+        setContentView(R.layout.login);
 
-        buttonRegister = (Button) findViewById(R.id.button_register);
-        editMail = (EditText) findViewById(R.id.edit_email_register);
-        editPassword = (EditText) findViewById(R.id.edit_password_register);
-        editName = (EditText) findViewById(R.id.edit_name_register);
-        editFirstName = (EditText) findViewById(R.id.edit_firstname_register);
+        linkRegistration = (TextView) findViewById(R.id.link_registration);
 
-
-        // on selectionne le bouton créer un compte
-        buttonRegister.setOnClickListener(
+        linkRegistration.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                         // on execute la methode "execute" de la classe JSONParse
-                        new ExecuteThread().execute();
+                        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                        startActivity(intent);
                     }
                 }
         );
     }
 
+    /*
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
+            registerErrorMsg = (TextView) findViewById(R.id.registerErrorMsg);
             pDialog = new ProgressDialog(RegisterActivity.this);
             pDialog.setMessage("Envoi des données ...");
             pDialog.setIndeterminate(false);
@@ -92,13 +80,15 @@ public class RegisterActivity extends ActionBarActivity {
 
                 //Set JSON Data in TextView
 
-                //registerErrorMsg.setText("b"); // A changer
+                registerErrorMsg.setText("b"); // A changer
 
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-    }
+    } */
+
 
 }
+
