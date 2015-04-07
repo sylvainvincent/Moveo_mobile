@@ -78,7 +78,9 @@
         <!-- EditText Password -->
         <EditText
             android:layout_width="fill_parent"
-            android:layout_height="50px"
+            android:layout_height="fill_parent"
+            android:textSize="12dp"
+            android:padding="10dp"
             android:inputType="textPersonName"
             android:id="@+id/edit_password_login"
             android:background="#fff"

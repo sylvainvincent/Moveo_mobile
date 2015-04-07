@@ -9,7 +9,7 @@ import android.view.MenuItem;
 public class MainActivity extends ActionBarActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(aBundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
     }
