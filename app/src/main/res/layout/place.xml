@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Hô-Ch-Minh-Ville"
+                android:text="Hô-Chi-Minh-Ville"
                 android:layout_marginBottom="5dp"
                 android:id="@+id/city"
                 android:textStyle="bold"
