@@ -1,5 +1,7 @@
 package fr.moveoteam.moveomobile.model;
 
+import android.graphics.drawable.Drawable;
+
 import java.util.Date;
 
 /**
@@ -9,18 +11,21 @@ public class Trip {
     int id;
     String country, city, description;
     Date insert;
+    Drawable mainPicture;
 
-    public Trip(String country, String city, Date insert) {
+    public Trip(String country, String city, Date insert, Drawable mainPicture) {
         this.country = country;
         this.city = city;
         this.insert = insert;
+        this.mainPicture = mainPicture;
     }
 
-    public Trip(String country, String city, String description, Date insert) {
+    public Trip(String country, String city, String description, Date insert, Drawable mainPicture) {
         this.country = country;
         this.city = city;
         this.description = description;
         this.insert = insert;
+        this.mainPicture = mainPicture;
     }
 
     public int getId() {
@@ -59,6 +64,14 @@ public class Trip {
         this.insert = insert;
     }
 
+    public Drawable getMainPicture() {
+        return mainPicture;
+    }
+
+    public void setMainPicture(Drawable mainPicture) {
+        this.mainPicture = mainPicture;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,6 +85,8 @@ public class Trip {
         if (description != null ? !description.equals(trip.description) : trip.description != null)
             return false;
         if (insert != null ? !insert.equals(trip.insert) : trip.insert != null) return false;
+        if (mainPicture != null ? !mainPicture.equals(trip.mainPicture) : trip.mainPicture != null)
+            return false;
 
         return true;
     }
@@ -83,6 +98,7 @@ public class Trip {
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (insert != null ? insert.hashCode() : 0);
+        result = 31 * result + (mainPicture != null ? mainPicture.hashCode() : 0);
         return result;
     }
 
@@ -94,8 +110,7 @@ public class Trip {
                 ", city='" + city + '\'' +
                 ", description='" + description + '\'' +
                 ", insert=" + insert +
+                ", mainPicture=" + mainPicture +
                 '}';
     }
-
-
 }

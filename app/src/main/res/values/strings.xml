@@ -17,5 +17,10 @@
     <string name="text_password">Mot de passe</string>
     <string name="logo_description">logo</string>
     <string name="text_name">Nom</string>
+    <string name="explore_trip_name">Nom du voyage</string>
+    <string name="explore_country">Pays</string>
+    <string name="explore_username">Username</string>
+    <string name="bulle_discussion">discussion</string>
+    <string name="nb_picture">photos</string>
 
 </resources>
