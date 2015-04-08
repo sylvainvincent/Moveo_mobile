@@ -11,8 +11,14 @@ public class User {
     String firstname, lastName, email, password, country, city, favoriteCountry, favoriteCity;
     Date birthday, register, lastConnexion;
 
-    public User(int id, int accesAccount, String firstname, String lastName, String email, String password, String country, String city, String favoriteCountry, String favoriteCity, Date birthday, Date register, Date lastConnexion) {
-        this.id = id;
+    public User(String firstname, String lastName, String email, String password) {
+        this.firstname = firstname;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(int accesAccount, String firstname, String lastName, String email, String password, String country, String city, String favoriteCountry, String favoriteCity, Date birthday, Date register, Date lastConnexion) {
         this.accesAccount = accesAccount;
         this.firstname = firstname;
         this.lastName = lastName;
@@ -98,10 +104,6 @@ public class User {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getAccesAccount() {

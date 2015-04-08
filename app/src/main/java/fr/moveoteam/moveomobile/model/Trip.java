@@ -10,8 +10,13 @@ public class Trip {
     String country, city, description;
     Date insert;
 
-    public Trip(int id, String country, String city, String description, Date insert) {
-        this.id = id;
+    public Trip(String country, String city, Date insert) {
+        this.country = country;
+        this.city = city;
+        this.insert = insert;
+    }
+
+    public Trip(String country, String city, String description, Date insert) {
         this.country = country;
         this.city = city;
         this.description = description;
@@ -20,10 +25,6 @@ public class Trip {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCountry() {
