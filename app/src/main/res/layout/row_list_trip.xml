@@ -21,7 +21,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="76dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="130dp"
@@ -47,7 +47,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="59dp"
                 android:weightSum="1"
                 android:baselineAligned="false">
 
@@ -55,16 +55,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/imageButtonComments"
-                    android:src=""
-                    android:contentDescription="@string/bulle_discussion"
-                    android:layout_weight="0.19" />
+                    android:src="@drawable/comment_icon"
+                    android:contentDescription="@string/bulle_discussion" />
 
                 <ImageButton
                     android:layout_width="wrap_content"
-                    android:layout_height="34dp"
+                    android:layout_height="match_parent"
                     android:id="@+id/imageButtonPictures"
-                    android:contentDescription="@string/nb_picture"
-                    android:layout_weight="0.41" />
+                    android:src="@drawable/picture_icon"
+                    android:contentDescription="@string/nb_picture" />
             </LinearLayout>
         </LinearLayout>
 

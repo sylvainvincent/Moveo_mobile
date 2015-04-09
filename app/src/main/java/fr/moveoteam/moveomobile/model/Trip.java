@@ -14,7 +14,7 @@ public class Trip {
     Drawable mainPicture;
     User user;
 
-    public Trip(String country, String name, Date insert, Drawable mainPicture, User user) {
+    public Trip() {
         this.country = country;
         this.name = name;
         this.insert = insert;
