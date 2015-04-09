@@ -57,72 +57,60 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Description du lieu"
+            android:text="Ajouter un voyage"
             android:textColor="#3cb2cc"
             android:textAllCaps="true"
             android:textStyle="bold"
-            android:id="@+id/explore_title"
+            android:id="@+id/add_trip_title"
             android:layout_below="@+id/menu"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="5dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Shopping"
-            android:textAllCaps="true"
-            android:textColor="#666"
-            android:textStyle="bold"
-            android:id="@+id/category"
-            android:layout_below="@+id/explore_title"
-            android:layout_centerHorizontal="true" />
-
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@+id/category"
+            android:layout_below="@+id/add_trip_title"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="80dp"
             android:layout_centerHorizontal="true">
 
-                <!-- PLACE -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Lieu"
-                    android:textColor="#666"
-                    android:textAllCaps="true"
-                    android:id="@+id/place" />
-
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="30dp"
-                    android:background="#ccc"
-                    android:id="@+id/editPlace" />
-
-            <!-- ADRESS -->
+            <!-- CITY -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Adresse"
-                android:layout_marginTop="20dp"
+                android:text="Ville"
                 android:textColor="#666"
                 android:textAllCaps="true"
-                android:id="@+id/adress" />
+                android:id="@+id/city" />
 
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
                 android:background="#ccc"
-                android:id="@+id/editAdress" />
+                android:id="@+id/editCity" />
 
-            <!-- ADRESS -->
+            <!-- COUNTRY -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Pays"
+                android:layout_marginTop="20dp"
+                android:textColor="#666"
+                android:textAllCaps="true"
+                android:id="@+id/country" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:background="#ccc"
+                android:id="@+id/editCountry" />
+
+            <!-- DESCRIPTION -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -131,13 +119,37 @@
                 android:layout_marginTop="20dp"
                 android:textColor="#666"
                 android:textAllCaps="true"
-                android:id="@+id/descriptionPlace" />
+                android:id="@+id/descriptionTrip" />
 
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="70dp"
                 android:background="#ccc"
-                android:id="@+id/editDescriptionPlace" />
+                android:id="@+id/editDescriptionTrip" />
+
+            <!-- ADD A COVER -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Photo principale"
+                android:layout_marginTop="20dp"
+                android:textColor="#666"
+                android:textAllCaps="true"
+                android:id="@+id/add_cover" />
+
+            <Button
+                android:layout_width="103dp"
+                android:layout_height="29dp"
+                android:text="Parcourir"
+                android:background="#3cb2cc"
+                android:textColor="#fff"
+                android:layout_marginTop="5dp"
+                android:id="@+id/add_file"
+                android:textSize="13dp"
+                android:layout_alignParentRight="true"
+                android:onClick="getfile" >
+            </Button>
 
             <Button
                 android:layout_width="wrap_content"
@@ -147,7 +159,7 @@
                 android:textColor="#fff"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="50dp"
                 android:textSize="@dimen/text_size_button_form"
                 android:background="@drawable/style_button"
                 android:layout_alignParentBottom="true"
@@ -161,7 +173,7 @@
                 android:text="Ou annuler"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="13dp"
                 android:textSize="13dp"
                 android:id="@+id/cancelAddPlace"
                 android:layout_gravity="center_horizontal" />

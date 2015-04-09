@@ -15,7 +15,7 @@ public class UserFunctions {
     private JSONParser jsonParser;
 
 
-    // Il faut utilisé l'adresse http://10.0.2.2/ pour se connecter au localhost : http://localhost/
+    // Il faut utiliser l'adresse http://10.0.2.2/ pour se connecter au localhost : http://localhost/
     private static String loginURL = "http://10.0.3.2/Moveo_webservice/index.php";
     private static String registerURL = "http://10.0.3.2/Moveo_webservice/index.php";
 
