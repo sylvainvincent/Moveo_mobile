@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="157dp"
             android:layout_height="107dp"
-            android:id="@+id/imageView"
+            android:id="@+id/imageViewMainPictureTrip"
             android:src="@drawable/journey"/>
 
         <LinearLayout
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/explore_trip_name"
-                android:id="@+id/textView"
+                android:id="@+id/explore_trip_name"
                 android:textStyle="bold" />
 
             <TextView
@@ -36,14 +36,14 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/explore_country"
-                android:id="@+id/textView2" />
+                android:id="@+id/explore_country" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/explore_username"
-                android:id="@+id/textView3" />
+                android:id="@+id/explore_username" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/imageButton"
+                    android:id="@+id/imageButtonComments"
                     android:src=""
                     android:contentDescription="@string/bulle_discussion"
                     android:layout_weight="0.19" />
@@ -62,7 +62,7 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="34dp"
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/imageButtonPictures"
                     android:contentDescription="@string/nb_picture"
                     android:layout_weight="0.41" />
             </LinearLayout>
