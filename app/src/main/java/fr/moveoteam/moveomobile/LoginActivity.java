@@ -49,22 +49,18 @@ public class LoginActivity extends Activity {
                 }
         );
 
-
-
         buttonLogin.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
                         m = patternMail.matcher(editMail.getText().toString());
                         if(!m.matches()){
                             Toast.makeText(LoginActivity.this, "Adresse mail non conforme",
-                                    Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_LONG).show();
                         }
                     }
                 }
         );
     }
-
-    /*
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
         @Override
@@ -110,7 +106,7 @@ public class LoginActivity extends Activity {
                 e.printStackTrace();
             }
         }
-    } */
+    }
 
 
 }
