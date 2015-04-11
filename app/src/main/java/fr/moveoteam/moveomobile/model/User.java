@@ -1,6 +1,5 @@
 package fr.moveoteam.moveomobile.model;
 
-import java.net.PasswordAuthentication;
 import java.util.Date;
 
 /**

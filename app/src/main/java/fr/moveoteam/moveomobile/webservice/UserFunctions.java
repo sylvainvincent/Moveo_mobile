@@ -14,10 +14,9 @@ public class UserFunctions {
 
     private JSONParser jsonParser;
 
-
     // Il faut utiliser l'adresse http://10.0.2.2/ pour se connecter au localhost : http://localhost/
-    private static String loginURL = "http://10.0.3.2/Moveo_webservice/index.php";
-    private static String registerURL = "http://10.0.3.2/Moveo_webservice/index.php";
+    private static String loginURL = "http://10.0.3.2/Moveo_webservice/user.php";
+    private static String registerURL = "http://10.0.3.2/Moveo_webservice/user.php";
 
     // constructor
     public UserFunctions(){
@@ -26,7 +25,6 @@ public class UserFunctions {
 
     /**
      * Envoie les informations saisies du formulaire d'inscription sous la forme d'un objet json vers le webservice
-     * @author Sylvain VINCENT
      * @param email une adresse mail saisie par l'utilisateur dans le formulaire d'inscription
      * @param password un mot de passe saisi par l'utilisateur dans le formulaire d'inscription
      * @param name un nom saisi par l'utilisateur
@@ -48,7 +46,6 @@ public class UserFunctions {
 
    /**
     * Envoie les informations saisies du formulaire de connexion sous la forme d'un objet json vers le webservice
-    * @author Sylvain VINCENT
     * @param email une adresse mail saisie par l'utilisateur dans le formulaire de connexion
     * @param password un mot de passe saisi par l'utilisateur dans le formulaire de connexion
     * @see JSONParser

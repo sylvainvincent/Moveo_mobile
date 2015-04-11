@@ -1,9 +1,7 @@
 package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,14 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import fr.moveoteam.moveomobile.webservice.JSONParser;
-import fr.moveoteam.moveomobile.webservice.UserFunctions;
 
 /**
  * Created by Sylvain on 06/04/15.
@@ -31,15 +23,26 @@ public class LoginActivity extends Activity {
     Button buttonLogin;
     Pattern patternMail = Pattern.compile(".+@.+\\.[a-z]+");
     Matcher m;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        initialization();
+        eventButton();
+    }
 
-        linkRegistration = (TextView) findViewById(R.id.link_registration);
+    // Procedure qui permet d'affecter les elements de l'interface graphique aux objets de la classe
+    public void initialization(){
         editMail = (EditText) findViewById(R.id.edit_email_login);
         editPassword = (EditText) findViewById(R.id.edit_password_login);
+        linkRegistration = (TextView) findViewById(R.id.link_registration);
         buttonLogin = (Button) findViewById(R.id.button_login);
+    }
 
+    // Procedure qui permet déclencher un évenement lorsque l'on clique sur un bouton
+    public void eventButton(){
+
+        // Lien vers la page d'inscription
         linkRegistration.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
@@ -49,26 +52,33 @@ public class LoginActivity extends Activity {
                 }
         );
 
+        // Bouton de connexion
         buttonLogin.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
                         m = patternMail.matcher(editMail.getText().toString());
                         if(!m.matches()){
                             Toast.makeText(LoginActivity.this, "Adresse mail non conforme",
-                            Toast.LENGTH_LONG).show();
+                                    Toast.LENGTH_LONG).show();
+                        }else{
+                            // new ExecuteThread().execute();
                         }
                     }
                 }
         );
+
     }
+
+    /*
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            registerErrorMsg = (TextView) findViewById(R.id.registerErrorMsg);
-            pDialog = new ProgressDialog(RegisterActivity.this);
-            pDialog.setMessage("Envoi des données ...");
+            editMail = (EditText) findViewById(R.id.edit_email_login);
+            editPassword = (EditText) findViewById(R.id.edit_password_login);
+            pDialog = new ProgressDialog(LoginActivity.this);
+            pDialog.setMessage("Connexion en cours ...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -78,14 +88,12 @@ public class LoginActivity extends Activity {
 
             String email = editMail.getText().toString();
             String password = editPassword.getText().toString();
-            String name = editName.getText().toString();
-            String firstName = editFirstName.getText().toString();
 
             UserFunctions userFunction = new UserFunctions();
 
             JSONParser jParser = new JSONParser();
             UserFunctions userFunctions = new UserFunctions();
-            return userFunctions.addUser(email,password,name,firstName);
+            return userFunctions.addUser(email,password);
         }
         @Override
         protected void onPostExecute(JSONObject json) {
@@ -107,7 +115,7 @@ public class LoginActivity extends Activity {
             }
         }
     }
-
+    */
 
 }
 

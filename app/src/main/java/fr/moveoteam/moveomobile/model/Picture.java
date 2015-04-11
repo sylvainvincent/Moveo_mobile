@@ -1,6 +1,5 @@
 package fr.moveoteam.moveomobile.model;
 
-import java.net.URL;
 import java.util.Date;
 
 /**
