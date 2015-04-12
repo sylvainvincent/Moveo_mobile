@@ -16,10 +16,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".RegisterActivity"></activity>
-        <activity android:name=".AddPlaceActivity"></activity>
-        <activity android:name=".ExploreActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".RegisterActivity"/>
+        <activity android:name=".AddPlaceActivity"/>
+        <activity android:name=".ExploreActivity"/>
+        <activity android:name=".MainActivity"/>
 
 
     </application>

@@ -15,12 +15,12 @@ public class UserFunctions {
     private JSONParser jsonParser;
 
     // Il faut utiliser l'adresse http://10.0.2.2/ pour se connecter au localhost : http://localhost/
-    private static String loginURL = "http://10.0.3.2/Moveo_webservice/user.php";
-    private static String registerURL = "http://10.0.3.2/Moveo_webservice/user.php";
+    // 10.0.3.2 pour genymotion
+    private static String userURL = "http://192.168.1.33/Moveo_webservice/user.php";
 
     // constructor
     public UserFunctions(){
-        jsonParser = new JSONParser();
+        this.jsonParser = new JSONParser();
     }
 
     /**
@@ -41,7 +41,7 @@ public class UserFunctions {
         registerForm.add(new BasicNameValuePair("name", name));
         registerForm.add(new BasicNameValuePair("firstName", firstName));
 
-        return jsonParser.getJSONFromUrl(registerURL, registerForm);
+        return jsonParser.getJSONFromUrl(userURL, registerForm);
     }
 
    /**
@@ -59,7 +59,7 @@ public class UserFunctions {
         loginForm.add(new BasicNameValuePair("email",email));
         loginForm.add(new BasicNameValuePair("password",password));
 
-        return jsonParser.getJSONFromUrl(loginURL,loginForm);
+        return jsonParser.getJSONFromUrl(userURL,loginForm);
     }
 
 

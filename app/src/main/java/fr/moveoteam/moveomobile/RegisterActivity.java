@@ -26,7 +26,6 @@ public class RegisterActivity extends ActionBarActivity {
     EditText editPassword;
     EditText editName;
     EditText editFirstName;
-    TextView registerErrorMsg;
     JSONArray user = null;
 
     @Override
