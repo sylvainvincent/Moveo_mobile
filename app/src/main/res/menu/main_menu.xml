@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="fr.moveoteam.moveomobile.LoginActivity">
+
+    <item
+        android:id="@+id/menu_logo"
+        android:icon="@drawable/ic_action_logo"
+        android:title="@string/menu_logo"/>
+    <item
+        android:id="@+id/menu_refresh"
+        android:icon="@drawable/ic_action_search"
+        android:title="@string/menu_search"/>
+    <item
+        android:id="@+id/menu_help"
+        android:icon="@drawable/ic_action_menu"
+        android:title="@string/menu_slide"/>
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_option"
+        android:orderInCategory="100"
+        android:icon="@drawable/activities_icon"
+        android:title="@string/name_settings"
+        app:showAsAction="ifRoom"/>
+
+</menu>

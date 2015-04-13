@@ -32,7 +32,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="15dp"
-                    android:src="@drawable/small_logo"
+                    android:src="@drawable/ic_action_logo"
                     android:id="@+id/logo" />
 
                 <ImageView

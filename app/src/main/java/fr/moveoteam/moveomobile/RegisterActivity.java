@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,7 +74,8 @@ public class RegisterActivity extends ActionBarActivity {
             pDialog.setCancelable(true);
             pDialog.show();
         }
-        @Override //Méthode appelée pendant le traitement (obligatoire)
+        @Override
+        //Méthode appelée pendant le traitement (obligatoire)
         protected JSONObject doInBackground(String... args) {
 
             String email = editMail.getText().toString();
@@ -87,13 +89,14 @@ public class RegisterActivity extends ActionBarActivity {
             UserFunctions userFunctions = new UserFunctions();
             return userFunctions.addUser(email,password,name,firstName);
         }
-        @Override //Procedure appelée après le traitement (optionnelle)
+        @Override
+        //Procedure appelée après le traitement (optionnelle)
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
 
-                user = json.getJSONArray("error_msg");
-                JSONObject a = user.getJSONObject(0);
+                String access = json.getString("success");
+                Log.e("access : ", access);
                 // Storing  JSON item in a Variable
                 // String msg = (String) c.getString(msg);
 

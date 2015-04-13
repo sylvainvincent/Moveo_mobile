@@ -2,6 +2,8 @@ package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -24,11 +26,20 @@ public class ExploreActivity extends Activity {
         ArrayList<Trip>tripStory = getListData();
     }
 
-    // méthode qui mettre les données dans un arrayList
+    //On charge le menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    // Méthode qui met les données dans une arrayList
     private ArrayList<Trip> getListData() {
 
         ArrayList<Trip> resultats = new ArrayList<Trip>();
-// instancier un nouvel item de type Trip ==> il a 3 valeurs :Nom, Logo,Site
+        // Instancie un nouvel item de type Trip
+        // ==> Il a 3 valeurs : Nom, Logo et Site
         Trip newsData = new Trip();
         newsData.setName("LAC DE COME");
         newsData.setCountry("ITALIE");

@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Email"
+                android:text="@string/email_login"
                 android:textColor="#fff"
                 android:textAllCaps="true"
                 android:id="@+id/text_email_login" />
@@ -46,10 +46,9 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="50px"
-                android:inputType="textPersonName"
+                android:inputType="textEmailAddress"
                 android:id="@+id/edit_email_login"
-                android:background="#fff"
-                android:layout_below="@+id/firstName" />
+                android:background="#fff"/>
 
        </LinearLayout>
 
@@ -70,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Mot de passe"
+            android:text="@string/password_login"
             android:textColor="#fff"
             android:textAllCaps="true"
             android:id="@+id/text_password_login" />
@@ -153,7 +152,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Pas encore inscrit ?"
             android:id="@+id/link_registration"

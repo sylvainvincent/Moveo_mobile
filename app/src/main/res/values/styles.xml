@@ -1,11 +1,15 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- Base Application Theme -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     </style>
 
-    <!-- theme sans barre de titre -->
+    <!-- Theme with no ActionBar -->
     <style name="AppThemeWithoutTitleBar" parent="android:Theme.Light.NoTitleBar">
+    </style>
+
+    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">#000</item>
     </style>
 
 </resources>
