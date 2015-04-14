@@ -74,7 +74,7 @@ public class JSONParser {
         }
         // essayer de parser un string en un objet Json
         try {
-            Log.e("Test",json);
+            Log.e("Test : ",json);
             jObj = new JSONObject(json);
         } catch (JSONException e) {
             Log.e("JSON Parser", "Erreur de parse " + e.toString());
