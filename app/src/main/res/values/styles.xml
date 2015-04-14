@@ -5,11 +5,11 @@
     </style>
 
     <!-- Theme with no ActionBar -->
-    <style name="AppThemeWithoutTitleBar" parent="android:Theme.Light.NoTitleBar">
+    <style name="AppThemeWithNoTitleBar" parent="android:Theme.Light.NoTitleBar">
     </style>
 
-    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">#000</item>
+    <style name="MainTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
+        <item name="android:icon">@drawable/ic_action_logo</item>
     </style>
 
 </resources>
