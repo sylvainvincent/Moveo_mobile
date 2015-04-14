@@ -7,7 +7,9 @@ import android.view.MenuInflater;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import fr.moveoteam.moveomobile.model.CustomListAdapter;
 import fr.moveoteam.moveomobile.model.Trip;
 
 
@@ -16,14 +18,48 @@ import fr.moveoteam.moveomobile.model.Trip;
  */
 public class ExploreActivity extends Activity {
 
-    ListView listView;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.explore);
+
         listView = (ListView) findViewById(R.id.listViewExploreTrip);
-        ArrayList<Trip>tripStory = getListData();
+        ArrayList<Trip> tripStory = getListData();
+        /*
+        ArrayList<HashMap<String, String>> tripStory = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> map;
+
+        map = new HashMap<String, String>();
+        map.put("explore_trip_name", "voyage1");
+        map.put("explore_country", "country1");
+        map.put("explore_username", "jeanjacques");
+        map.put("imageViewMainPictureTrip",String.valueOf(R.drawable.journey));
+        tripStory.add(map);
+
+        map = new HashMap<String, String>();
+        map.put("explore_trip_name", "voyage2");
+        map.put("explore_country", "country2");
+        map.put("explore_username", "thierry");
+        map.put("imageViewMainPictureTrip",String.valueOf(R.drawable.journey));
+        tripStory.add(map);
+
+        map = new HashMap<String, String>();
+        map.put("explore_trip_name", "voyage3");
+        map.put("explore_country", "country3");
+        map.put("explore_username", "paul");
+        map.put("imageViewMainPictureTrip",String.valueOf(R.drawable.journey));
+        tripStory.add(map);
+
+        map = new HashMap<String, String>();
+        map.put("explore_trip_name", "voyage4");
+        map.put("explore_country", "country4");
+        map.put("explore_username", "pierre");
+        map.put("imageViewMainPictureTrip",String.valueOf(R.drawable.journey));
+        tripStory.add(map);
+*/
+        listView.setAdapter(new CustomListAdapter(this, tripStory));
     }
 
     //On charge le menu

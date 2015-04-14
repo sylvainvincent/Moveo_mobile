@@ -22,6 +22,7 @@
     <string name="explore_username">Username</string>
     <string name="bulle_discussion">discussion</string>
     <string name="nb_picture">photos</string>
+    <string name="trip_picture">TripPicture</string>
 
     <!-- LOGIN -->
     <string name="email_login">Email</string>

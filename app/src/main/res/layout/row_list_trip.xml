@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:baselineAligned="false"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:weightSum="1"
-        android:layout_weight="1">
+    android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="157dp"
-            android:layout_height="107dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:contentDescription="@string/trip_picture"
             android:id="@+id/imageViewMainPictureTrip"
             android:src="@drawable/journey"/>
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="10dp">
 
             <TextView
                 android:layout_width="130dp"
@@ -32,15 +30,15 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/explore_country"
                 android:id="@+id/explore_country" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/explore_username"
                 android:id="@+id/explore_username" />
@@ -49,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="59dp"
                 android:weightSum="1"
+                android:orientation="horizontal"
                 android:baselineAligned="false">
 
                 <ImageButton
@@ -66,6 +65,4 @@
                     android:contentDescription="@string/nb_picture" />
             </LinearLayout>
         </LinearLayout>
-
-    </LinearLayout>
 </LinearLayout>
