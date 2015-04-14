@@ -27,38 +27,6 @@ public class ExploreActivity extends Activity {
 
         listView = (ListView) findViewById(R.id.listViewExploreTrip);
         ArrayList<Trip> tripStory = getListData();
-        /*
-        ArrayList<HashMap<String, String>> tripStory = new ArrayList<HashMap<String, String>>();
-        HashMap<String, String> map;
-
-        map = new HashMap<String, String>();
-        map.put("explore_trip_name", "voyage1");
-        map.put("explore_country", "country1");
-        map.put("explore_username", "jeanjacques");
-        map.put("imageViewMainPictureTrip",String.valueOf(R.drawable.journey));
-        tripStory.add(map);
-
-        map = new HashMap<String, String>();
-        map.put("explore_trip_name", "voyage2");
-        map.put("explore_country", "country2");
-        map.put("explore_username", "thierry");
-        map.put("imageViewMainPictureTrip",String.valueOf(R.drawable.journey));
-        tripStory.add(map);
-
-        map = new HashMap<String, String>();
-        map.put("explore_trip_name", "voyage3");
-        map.put("explore_country", "country3");
-        map.put("explore_username", "paul");
-        map.put("imageViewMainPictureTrip",String.valueOf(R.drawable.journey));
-        tripStory.add(map);
-
-        map = new HashMap<String, String>();
-        map.put("explore_trip_name", "voyage4");
-        map.put("explore_country", "country4");
-        map.put("explore_username", "pierre");
-        map.put("imageViewMainPictureTrip",String.valueOf(R.drawable.journey));
-        tripStory.add(map);
-*/
         listView.setAdapter(new CustomListAdapter(this, tripStory));
     }
 
@@ -82,26 +50,31 @@ public class ExploreActivity extends Activity {
         newsData.setMainPicture(getResources().getDrawable(R.drawable.journey));
         resultats.add(newsData);
 
+        newsData = new Trip();
         newsData.setName("RIO DE JANEIRO");
         newsData.setCountry("BRESIL");
         newsData.setMainPicture(getResources().getDrawable(R.drawable.journey));
         resultats.add(newsData);
 
+        newsData = new Trip();
         newsData.setName("BERNE");
         newsData.setCountry("SUISSE");
         newsData.setMainPicture(getResources().getDrawable(R.drawable.journey));
         resultats.add(newsData);
 
+        newsData = new Trip();
         newsData.setName("NEW YORK");
         newsData.setCountry("USA");
         newsData.setMainPicture(getResources().getDrawable(R.drawable.journey));
         resultats.add(newsData);
 
+        newsData = new Trip();
         newsData.setName("TOKYO");
         newsData.setCountry("JAPON");
         newsData.setMainPicture(getResources().getDrawable(R.drawable.journey));
         resultats.add(newsData);
 
+        newsData = new Trip();
         newsData.setName("BANGKOK");
         newsData.setCountry("THAILANDE");
         newsData.setMainPicture(getResources().getDrawable(R.drawable.journey));
