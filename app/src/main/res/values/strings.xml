@@ -12,7 +12,7 @@
 	<string name="description_du_lieu_shopping_string">Description du Lieu\rShopping</string>
     <string name="action_settings">Settings</string>
     <string name="prenom">Prénom</string>
-    <string name="button_register">Créer un compte</string>
+
     <string name="text_mail">Email</string>
     <string name="text_password">Mot de passe</string>
     <string name="logo_description">logo</string>
@@ -23,6 +23,10 @@
     <string name="bulle_discussion">discussion</string>
     <string name="nb_picture">photos</string>
     <string name="trip_picture">TripPicture</string>
+
+    <!-- REGISTER -->
+
+    <string name="button_register">Créer un compte</string>
 
     <!-- LOGIN -->
     <string name="email_login">Email</string>
