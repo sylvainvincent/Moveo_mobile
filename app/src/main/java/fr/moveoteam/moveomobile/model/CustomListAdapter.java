@@ -59,7 +59,7 @@ public class CustomListAdapter extends BaseAdapter {
         }
         viewHolderTrip.explore_trip_name.setText(tripList.get(position).getName());
         viewHolderTrip.explore_country.setText(tripList.get(position).getCountry());
-        viewHolderTrip.explore_username.setText(tripList.get(position).getUser().firstname);
+        viewHolderTrip.explore_username.setText(tripList.get(position).getUser().getFirstname());
         return convertView;
     }
 
