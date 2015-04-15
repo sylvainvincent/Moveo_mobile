@@ -19,7 +19,6 @@
             android:textAllCaps="true"
             android:textStyle="bold"
             android:id="@+id/explore_title"
-            android:layout_below="@+id/menu"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="40dp" />

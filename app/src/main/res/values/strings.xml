@@ -5,13 +5,15 @@
 	<string name="app_name">Moveo</string>
     <string name="action_settings">Settings</string>
 
-    <!-- Explore -->
-    <string name="explore_trip_name">Nom du voyage</string>
-    <string name="explore_country">Pays</string>
-    <string name="explore_username">Username</string>
+    <!-- TRIP -->
+    <string name="trip_name">Nom du voyage</string>
+    <string name="country">Pays</string>
+    <string name="username">Username</string>
+    <string name="picture">TripPicture</string>
+
+    <!-- EXPLORER -->
     <string name="bulle_discussion">discussion</string>
     <string name="nb_picture">photos</string>
-    <string name="trip_picture">TripPicture</string>
 
     <!-- REGISTER -->
     <string name="button_register">Créer un compte</string>

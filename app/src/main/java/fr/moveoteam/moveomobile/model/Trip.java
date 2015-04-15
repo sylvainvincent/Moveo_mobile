@@ -15,11 +15,6 @@ public class Trip {
     User user;
 
     public Trip() {
-        this.country = country;
-        this.name = name;
-        this.insert = insert;
-        this.mainPicture = mainPicture;
-        this.user = user;
     }
 
     public Trip(String country, String name, String description, Date insert, Drawable mainPicture, User user) {

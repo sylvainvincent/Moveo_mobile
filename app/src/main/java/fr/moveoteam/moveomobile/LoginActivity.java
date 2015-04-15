@@ -55,13 +55,17 @@ public class LoginActivity extends Activity {
         buttonLogin.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
+                        Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
+                        startActivity(intent);
+                        /*
                         m = patternMail.matcher(editMail.getText().toString());
                         if(!m.matches()){
                             Toast.makeText(LoginActivity.this, "Adresse email invalide",
-                                    Toast.LENGTH_LONG).show();
+                            Toast.LENGTH_LONG).show();
                         } else {
                             new ExecuteThread().execute();
                         }
+                        */
                     }
                 }
         );
