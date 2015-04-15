@@ -80,7 +80,7 @@ public class UserFunctions {
      * Efface la base de données
      * */
     public boolean logoutUser(Context context){
-        DatabaseHandler db = new DatabaseHandler(context);
+        DataBaseHandler db = new DataBaseHandler(context);
         db.resetTables();
         return true;
     }

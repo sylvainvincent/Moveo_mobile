@@ -1,7 +1,9 @@
 package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +21,8 @@ import org.json.JSONObject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import fr.moveoteam.moveomobile.model.DataBaseHandler;
+import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.webservice.JSONParser;
 import fr.moveoteam.moveomobile.webservice.UserFunctions;
 
@@ -33,7 +37,9 @@ public class LoginActivity extends Activity {
     Button buttonLogin;
     Pattern patternMail = Pattern.compile(".+@.+\\.[a-z]+");
     JSONArray access = null;
-    Matcher m;
+
+    AlertDialog.Builder alertDialog;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,9 +113,30 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                if(json.getString("success") == "1") {
+                if(json.getString("success").equals("0")) {
                     Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
                     startActivity(intent);
+                }
+                if(json.getString("success").equals("1")) {
+                    if(json.getJSONObject("user").getString("access_id").equals("1")) {
+                        DataBaseHandler db = new DataBaseHandler(LoginActivity.this);
+                        db.addUser(
+                                json.getJSONObject("user").getString("user_name"),
+                                json.getJSONObject("user").getString("user_firstname"),
+                                json.getJSONObject("user").getString("user_birthday"),
+                                json.getJSONObject("user").getString("user_email"),
+                                json.getJSONObject("user").getString("user_country"),
+                                json.getJSONObject("user").getString("user_city")
+                        );
+                        Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
+                        startActivity(intent);
+                    }else{
+                        alertDialog = new AlertDialog.Builder(
+                                LoginActivity.this);
+                        alertDialog.setCancelable(true);
+                        alertDialog.setMessage("Vous n'avez pas valider votre compte.");
+                        alertDialog.show();
+                    }
                 } else {
                     Toast.makeText(LoginActivity.this, "La connexion a échoué",
                             Toast.LENGTH_LONG).show();

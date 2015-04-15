@@ -124,4 +124,15 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // return row count
         return rowCount > 0;
     }
+
+    /**
+     * Re crate database
+     * Delete all tables and create them again
+     * */
+    public void resetTables(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Supprimer toutes les lignes
+        db.delete(TABLE_LOGIN, null, null);
+        db.close();
+    }
 }
