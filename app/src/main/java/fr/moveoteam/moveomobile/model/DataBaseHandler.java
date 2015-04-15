@@ -2,10 +2,12 @@ package fr.moveoteam.moveomobile.model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.sql.SQLDataException;
+import java.util.HashMap;
 
 /**
  * Created by Sylvain on 14/04/15.
@@ -77,5 +79,49 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // Inserting Row
         db.insert(TABLE_LOGIN, null, values);
         db.close(); // Fermer la connexion vers la base de données
+    }
+
+    public HashMap<String, String> getUserDetails(){
+        HashMap<String,String> user = new HashMap<String,String>();
+        String selectQuery = "SELECT  * FROM " + TABLE_LOGIN;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Se déplacer à la premiere ligne
+        cursor.moveToFirst();
+        if(cursor.getCount() > 0){
+            user.put("id", cursor.getString(0));
+            user.put("civilite", cursor.getString(1));
+            user.put("nom", cursor.getString(2));
+            user.put("prenom", cursor.getString(3));
+            user.put("ddn", cursor.getString(4));
+            user.put("telephone", cursor.getString(5));
+            user.put("email", cursor.getString(6));
+            user.put("adresse", cursor.getString(7));
+            user.put("codePostal", cursor.getString(8));
+            user.put("ville", cursor.getString(9));
+            user.put("dateInscription", cursor.getString(10));
+
+        }
+        cursor.close();
+        db.close();
+        // return user
+        return user;
+    }
+
+    /**
+     * Récupérer le statut de l'utilisateur
+     * @return vrai si
+     * */
+    public boolean getRowCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_LOGIN;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int rowCount = cursor.getCount();
+        db.close();
+        cursor.close();
+
+        // return row count
+        return rowCount > 0;
     }
 }

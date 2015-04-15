@@ -1,11 +1,15 @@
 package fr.moveoteam.moveomobile.webservice;
 
+import android.content.Context;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fr.moveoteam.moveomobile.model.DataBaseHandler;
 
 /**
  * Created by Sylvain on 01/04/15.
@@ -62,5 +66,23 @@ public class UserFunctions {
         return jsonParser.getJSONFromUrl(userURL,loginForm);
     }
 
+
+    /**
+     * Function get Login status
+     * */
+    public boolean isUserLoggedIn(Context context){
+        DataBaseHandler db = new DataBaseHandler(context);
+        return db.getRowCount();
+    }
+
+    /**
+     * Fonction qui deconnecte l'utilisateur
+     * Efface la base de données
+     * */
+    public boolean logoutUser(Context context){
+        DatabaseHandler db = new DatabaseHandler(context);
+        db.resetTables();
+        return true;
+    }
 
 }
