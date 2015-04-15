@@ -51,12 +51,19 @@ public class CustomListAdapter extends BaseAdapter {
             viewHolderTrip.explore_country = (TextView) convertView.findViewById(R.id.explore_country);
             viewHolderTrip.explore_username = (TextView) convertView.findViewById(R.id.explore_username);
             viewHolderTrip.imageViewMainPictureTrip = (ImageView) convertView.findViewById(R.id.imageViewMainPictureTrip);
-            viewHolderTrip.imageButtonComments = (ImageView) convertView.findViewById(R.id.imageButtonComments);
-            viewHolderTrip.imageButtonPictures = (ImageView) convertView.findViewById(R.id.imageButtonPictures);
+            viewHolderTrip.imageButtonComments = (ImageView) convertView.findViewById(R.id.image_button_comments);
+            viewHolderTrip.imageButtonPictures = (ImageView) convertView.findViewById(R.id.image_button_pictures);
             convertView.setTag(viewHolderTrip);
         }else {
             viewHolderTrip = (ViewHolderTrip) convertView.getTag();
         }
+        convertView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
         viewHolderTrip.explore_trip_name.setText(tripList.get(position).getName());
         viewHolderTrip.explore_country.setText(tripList.get(position).getCountry());
         viewHolderTrip.explore_username.setText("usermoi"/*tripList.get(position).getUser().getFirstname()*/);

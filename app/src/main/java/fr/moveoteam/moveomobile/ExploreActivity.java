@@ -3,11 +3,9 @@ package fr.moveoteam.moveomobile;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import fr.moveoteam.moveomobile.model.CustomListAdapter;
 import fr.moveoteam.moveomobile.model.Trip;
