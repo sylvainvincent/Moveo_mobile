@@ -18,7 +18,8 @@
         android:src="@drawable/logo"
         android:layout_marginTop="60dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/logo_description" />
 
     <!-- EMAIL -->
     <LinearLayout
@@ -37,28 +38,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/email_login"
+                android:text="@string/login_text_email"
                 android:textColor="#fff"
                 android:textAllCaps="true"
                 android:id="@+id/text_email_login" />
 
             <!-- EditText Email -->
             <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="50px"
-                android:inputType="textEmailAddress"
                 android:id="@+id/edit_email_login"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/field_height"
+                android:inputType="textEmailAddress"
                 android:background="#fff"/>
 
        </LinearLayout>
 
     <!-- PASSWORD -->
     <LinearLayout
+        android:id="@+id/linear_password_login"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@id/linear_email_login"
-        android:id="@+id/linear_password_login"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginTop="30dp"
@@ -66,24 +67,24 @@
 
         <!-- TextView Password -->
         <TextView
+            android:id="@+id/text_password_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/password_login"
+            android:text="@string/login_text_password"
             android:textColor="#fff"
-            android:textAllCaps="true"
-            android:id="@+id/text_password_login" />
+            android:textAllCaps="true"/>
 
         <!-- EditText Password -->
         <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:textSize="12dp"
-            android:padding="10dp"
-            android:inputType="textPersonName"
             android:id="@+id/edit_password_login"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/field_height"
+            android:textSize="@dimen/input_text_size"
+            android:padding="10dp"
+            android:inputType="textPassword"
             android:background="#fff"
-            android:layout_below="@+id/password" />
+            android:layout_gravity="bottom" />
 
     </LinearLayout>
 
@@ -102,7 +103,7 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:text="Se connecter"
+            android:text="@string/login_text_button"
             android:id="@+id/button_login"
             android:textColor="#fff"
             android:textSize="13dp"
@@ -134,9 +135,7 @@
             android:layout_gravity="center"
             android:textSize="12dp"
             android:textStyle="bold"
-            android:textColor="#056b83"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:textColor="#056b83" />
     </LinearLayout>
 
     <LinearLayout
@@ -154,15 +153,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Pas encore inscrit ?"
+            android:text="@string/link_registration_message"
             android:id="@+id/link_registration"
             android:textAllCaps="true"
             android:layout_gravity="center"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold"
-            android:textColor="#056b83"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:textColor="#056b83" />
     </LinearLayout>
 
 </RelativeLayout>

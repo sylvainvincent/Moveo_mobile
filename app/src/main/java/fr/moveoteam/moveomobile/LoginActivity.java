@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.webservice.JSONParser;
 import fr.moveoteam.moveomobile.webservice.UserFunctions;
 
@@ -33,7 +34,6 @@ public class LoginActivity extends Activity {
     Button buttonLogin;
     Pattern patternMail = Pattern.compile(".+@.+\\.[a-z]+");
     JSONArray access = null;
-    Matcher m;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,17 +55,16 @@ public class LoginActivity extends Activity {
         buttonLogin.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
-                        startActivity(intent);
-                        /*
-                        m = patternMail.matcher(editMail.getText().toString());
-                        if(!m.matches()){
+                        /* Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
+                        startActivity(intent); */
+
+                        if(!Function.isEmailAdress(editMail.getText().toString())){
                             Toast.makeText(LoginActivity.this, "Adresse email invalide",
                             Toast.LENGTH_LONG).show();
                         } else {
                             new ExecuteThread().execute();
                         }
-                        */
+
                     }
                 }
         );
@@ -100,9 +99,14 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                if(json.getString("success") == "1") {
-                    Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
-                    startActivity(intent);
+                if(json.getString("success").equals("1")) {
+                    if(json.getJSONObject("user").getString("access").equals("1")) {
+                        Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(LoginActivity.this, "Vous n'avez pas valider votre compte.",
+                        Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     Toast.makeText(LoginActivity.this, "La connexion a échoué",
                     Toast.LENGTH_LONG).show();
@@ -110,7 +114,7 @@ public class LoginActivity extends Activity {
 
                 // Storing  JSON item in a Variable
                 // String msg = (String) c.getString(msg);
-                //Set JSON Data in TextView
+                // Set JSON Data in TextView
 
             } catch (JSONException e) {
                 e.printStackTrace();

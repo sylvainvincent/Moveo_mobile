@@ -55,7 +55,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // SUPPRIMER l'ANCIENNE TABLE s'il en existe
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN);
 
-        // RECREER LES TABLE
+        // RECRÉER LES TABLE
         onCreate(db);
         db.execSQL(CREATE_LOGIN_TABLE);
     }

@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<!-- ajout_lieu strings -->
 
+    <!-- Système -->
 	<string name="app_name">Moveo</string>
-	<string name="ek_img_content">PSD Image</string>
-	<string name="ou_annuler_string">Ou Annuler</string>
-	<string name="ajouter_string">Ajouter</string>
-	<string name="description_string">Description</string>
-	<string name="adresse_string">Adresse</string>
-	<string name="lieu_string">Lieu</string>
-	<string name="description_du_lieu_shopping_string">Description du Lieu\rShopping</string>
     <string name="action_settings">Settings</string>
-    <string name="prenom">Prénom</string>
 
-    <string name="text_mail">Email</string>
-    <string name="text_password">Mot de passe</string>
-    <string name="logo_description">logo</string>
-    <string name="text_name">Nom</string>
+    <!-- Explore -->
     <string name="explore_trip_name">Nom du voyage</string>
     <string name="explore_country">Pays</string>
     <string name="explore_username">Username</string>
@@ -25,12 +14,17 @@
     <string name="trip_picture">TripPicture</string>
 
     <!-- REGISTER -->
-
     <string name="button_register">Créer un compte</string>
+    <string name="register_text_mail">Email</string>
+    <string name="register_text_password">Mot de passe</string>
+    <string name="register_text_name">Nom</string>
 
     <!-- LOGIN -->
-    <string name="email_login">Email</string>
-    <string name="password_login">Mot de passe</string>
+    <string name="login_text_email">Email</string>
+    <string name="login_text_password">Mot de passe</string>
+    <string name="link_registration_message">Pas encore inscrit ?</string>
+    <string name="logo_description">Logo</string>
+
 
     <!-- MY ACCOUNT -->
     <string name="settings">Paramètres</string>
@@ -43,5 +37,7 @@
     <string name="action_logo"></string>
     <string name="action_search">Rechercher</string>
     <string name="action_slide">Menu</string>
+    <string name="login_text_button">Se connecter</string>
+
 
 </resources>
