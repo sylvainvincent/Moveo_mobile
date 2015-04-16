@@ -15,10 +15,10 @@ import java.util.HashMap;
 public class DataBaseHandler extends SQLiteOpenHelper {
 
     // TOUT LES VARIABLES STATIC
-    // VERSION DE LA BASE DE DONNEES
+    // VERSION DE LA BASE DE DONNÉES
     private static final int DATABASE_VERSION = 1;
 
-    // NOM DE LA BASE DE DONNEE
+    // NOM DE LA BASE DE DONNÉES
     private static final String DATABASE_NAME = "moveoMobileDataBase";
 
     // NOMS DES TABLES
@@ -26,22 +26,33 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
     // NOM DES COLONNES DE LA TABLE LOGIN
     private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_FIRSTNAME = "firstname";
+    private static final String KEY_LASTNAME = "lastName";
+    private static final String KEY_FIRSTNAME = "firstName";
     private static final String KEY_BIRTHDAY = "birthday";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_COUNTRY = "country";
     private static final String KEY_CITY = "city";
 
+    // NUMÉRO DES COLONNES
+
+    private static final int POSITION_ID = 1;
+    private static final int POSITION_LASTNAME = 2;
+    private static final int POSITION_FIRSTNAME = 3;
+    private static final int POSITION_BIRTHDAY = 4;
+    private static final int POSITION_EMAIL = 5;
+    private static final int POSITION_COUNTRY = 6;
+    private static final int POSITION_CITY = 7;
+
+
     // -----------------TABLE LOGIN --------------------- //
     private static final String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
-            + KEY_ID + " INTEGER PRIMARY KEY,"
-            + KEY_NAME + " TEXT,"
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+            + KEY_LASTNAME + " TEXT,"
             + KEY_FIRSTNAME + " TEXT,"
-            + KEY_BIRTHDAY + " DATE,"
+            + KEY_BIRTHDAY + " TEXT,"
             + KEY_EMAIL + " TEXT,"
             + KEY_COUNTRY + " TEXT,"
-            + KEY_CITY + " TEXT,"+ ")";
+            + KEY_CITY + " TEXT"+ ")";
 
     public DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -57,7 +68,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // SUPPRIMER l'ANCIENNE TABLE s'il en existe
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN);
 
-        // RECRÉER LES TABLE
+        // RECRÉER LA TABLE
         onCreate(db);
         db.execSQL(CREATE_LOGIN_TABLE);
     }
@@ -65,24 +76,24 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     /**
      * Stocker les informations du client dans la base de données
      * */
-    public void addUser(String name, String firstname, String birthday, String email, String country, String city) {
+    public void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, name);             // NOM
-        values.put(KEY_FIRSTNAME, firstname);   // PRÉNOM
-        values.put(KEY_BIRTHDAY, birthday);     // DATE DE NAISSANCE
-        values.put(KEY_EMAIL, email);           // ADRESSE MAIL
-        values.put(KEY_COUNTRY, country);       // PAYS
-        values.put(KEY_CITY, city);             // VILLE
+        values.put(KEY_LASTNAME, user.getLastName());             // NOM
+        values.put(KEY_FIRSTNAME, user.getFirstName());   // PRÉNOM
+        values.put(KEY_BIRTHDAY, user.getBirthday());     // DATE DE NAISSANCE
+        values.put(KEY_EMAIL, user.getEmail());           // ADRESSE MAIL
+        values.put(KEY_COUNTRY, user.getCountry());       // PAYS
+        values.put(KEY_CITY, user.getCity());             // VILLE
 
-        // Inserting Row
+        // Insérer la ligne
         db.insert(TABLE_LOGIN, null, values);
         db.close(); // Fermer la connexion vers la base de données
     }
 
-    public HashMap<String, String> getUserDetails(){
-        HashMap<String,String> user = new HashMap<String,String>();
+    public User getUserDetails(){
+        User user = new User();
         String selectQuery = "SELECT  * FROM " + TABLE_LOGIN;
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -90,22 +101,16 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // Se déplacer à la premiere ligne
         cursor.moveToFirst();
         if(cursor.getCount() > 0){
-            user.put("id", cursor.getString(0));
-            user.put("civilite", cursor.getString(1));
-            user.put("nom", cursor.getString(2));
-            user.put("prenom", cursor.getString(3));
-            user.put("ddn", cursor.getString(4));
-            user.put("telephone", cursor.getString(5));
-            user.put("email", cursor.getString(6));
-            user.put("adresse", cursor.getString(7));
-            user.put("codePostal", cursor.getString(8));
-            user.put("ville", cursor.getString(9));
-            user.put("dateInscription", cursor.getString(10));
-
+            user.setFirstName(cursor.getString(POSITION_FIRSTNAME));
+            user.setLastName(cursor.getString(POSITION_LASTNAME));
+            user.setBirthday(cursor.getString(POSITION_BIRTHDAY));
+            user.setEmail(cursor.getString(POSITION_EMAIL));
+            user.setCountry(cursor.getString(POSITION_COUNTRY));
+            user.setCity(cursor.getString(POSITION_CITY));
         }
         cursor.close();
         db.close();
-        // return user
+
         return user;
     }
 
@@ -126,8 +131,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Re crate database
-     * Delete all tables and create them again
+     * Réinitialisé la base de données
+     * Supprimer toutes les tables
      * */
     public void resetTables(){
         SQLiteDatabase db = this.getWritableDatabase();

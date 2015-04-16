@@ -70,13 +70,13 @@ public class UserFunctions {
     /**
      * Function get Login status
      * */
-    public boolean isUserLoggedIn(Context context){
+    public static boolean isUserLoggedIn(Context context){
         DataBaseHandler db = new DataBaseHandler(context);
         return db.getRowCount();
     }
 
     /**
-     * Fonction qui deconnecte l'utilisateur
+     * Fonction qui déconnecte l'utilisateur
      * Efface la base de données
      * */
     public boolean logoutUser(Context context){

@@ -40,6 +40,7 @@
     <string name="action_search">Rechercher</string>
     <string name="action_slide">Menu</string>
     <string name="login_text_button">Se connecter</string>
+    <string name="action_logout">Déconnexion</string>
 
 
 </resources>

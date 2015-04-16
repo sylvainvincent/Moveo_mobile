@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import java.util.regex.Pattern;
 
 import fr.moveoteam.moveomobile.model.DataBaseHandler;
 import fr.moveoteam.moveomobile.model.Function;
+import fr.moveoteam.moveomobile.model.User;
 import fr.moveoteam.moveomobile.webservice.JSONParser;
 import fr.moveoteam.moveomobile.webservice.UserFunctions;
 
@@ -61,17 +63,17 @@ public class LoginActivity extends Activity {
         buttonLogin.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
+                        /*Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
                         startActivity(intent);
-                        /*
-                        m = patternMail.matcher(editMail.getText().toString());
-                        if(!m.matches()){
+                        **/
+
+                        if(!Function.isEmailAdress(editMail.getText().toString())){
                             Toast.makeText(LoginActivity.this, "Adresse email invalide",
                             Toast.LENGTH_LONG).show();
                         } else {
                             new ExecuteThread().execute();
                         }
-                        */
+
                     }
                 }
         );
@@ -120,16 +122,19 @@ public class LoginActivity extends Activity {
                 if(json.getString("success").equals("1")) {
                     if(json.getJSONObject("user").getString("access_id").equals("1")) {
                         DataBaseHandler db = new DataBaseHandler(LoginActivity.this);
-                        db.addUser(
-                                json.getJSONObject("user").getString("user_name"),
-                                json.getJSONObject("user").getString("user_firstname"),
+                        User user = new User(
+                                json.getJSONObject("user").getString("user_last_name"),
+                                json.getJSONObject("user").getString("user_first_name"),
                                 json.getJSONObject("user").getString("user_birthday"),
                                 json.getJSONObject("user").getString("user_email"),
                                 json.getJSONObject("user").getString("user_country"),
                                 json.getJSONObject("user").getString("user_city")
                         );
-                        Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
+                        db.addUser(user);
+
+                        Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                         startActivity(intent);
+                        Log.e("Passage", "reussi");
                     }else{
                         alertDialog = new AlertDialog.Builder(
                                 LoginActivity.this);
