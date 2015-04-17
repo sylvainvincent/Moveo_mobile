@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#fff"
         android:id="@+id/add_place">
 
@@ -15,24 +15,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Description du lieu"
-            android:textColor="#3cb2cc"
+            android:text="@string/place_description"
+            android:textColor="@color/title"
             android:textAllCaps="true"
             android:textStyle="bold"
+            android:textSize="@dimen/title_size"
             android:id="@+id/explore_title"
-            android:layout_below="@+id/menu"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginTop="50dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Shopping"
+            android:text="@string/shopping"
             android:textAllCaps="true"
             android:textColor="#666"
-            android:textStyle="bold"
+            android:textSize="17sp"
             android:id="@+id/category"
             android:layout_below="@+id/explore_title"
             android:layout_centerHorizontal="true" />
@@ -52,8 +51,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Lieu"
+                    android:text="@string/place"
                     android:textColor="#666"
+
                     android:textAllCaps="true"
                     android:id="@+id/place" />
 
@@ -63,12 +63,12 @@
                     android:background="#ccc"
                     android:id="@+id/editPlace" />
 
-            <!-- ADRESS -->
+            <!-- ADRESSE -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Adresse"
+                android:text="@string/adress"
                 android:layout_marginTop="20dp"
                 android:textColor="#666"
                 android:textAllCaps="true"
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Description"
+                android:text="@string/description"
                 android:layout_marginTop="20dp"
                 android:textColor="#666"
                 android:textAllCaps="true"
@@ -100,27 +100,24 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="Ajouter un lieu"
+                android:text="@string/add_place"
                 android:id="@+id/buttonAddPlace"
                 android:textColor="#fff"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
+                android:textAllCaps="true"
                 android:layout_marginTop="30dp"
                 android:textSize="@dimen/text_size_button_form"
-                android:background="@drawable/style_button"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:background="@drawable/submit_login_button"
                 android:layout_gravity="center_horizontal" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Ou annuler"
-                android:textAllCaps="true"
-                android:textStyle="bold"
+                android:text="@string/cancel"
                 android:layout_marginTop="12dp"
-                android:textSize="13dp"
+                android:textSize="13sp"
                 android:id="@+id/cancelAddPlace"
                 android:layout_gravity="center_horizontal" />
 

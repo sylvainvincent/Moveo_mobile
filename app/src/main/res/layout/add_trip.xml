@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#fff"
         android:id="@+id/add_place">
 
@@ -15,14 +15,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Ajouter un voyage"
-            android:textColor="#3cb2cc"
+            android:text="@string/add_trip"
+            android:textColor="@color/title"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:id="@+id/add_trip_title"
-            android:layout_below="@+id/menu"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
+            android:textSize="@dimen/title_size"
             android:layout_marginBottom="5dp" />
 
         <LinearLayout
@@ -40,8 +40,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Ville"
+                android:text="@string/city"
                 android:textColor="#666"
+                android:layout_marginBottom="5dp"
                 android:textAllCaps="true"
                 android:id="@+id/city" />
 
@@ -56,8 +57,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Pays"
+                android:text="@string/country"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
                 android:textColor="#666"
                 android:textAllCaps="true"
                 android:id="@+id/country" />
@@ -73,8 +75,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Description"
+                android:text="@string/description"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
                 android:textColor="#666"
                 android:textAllCaps="true"
                 android:id="@+id/descriptionTrip" />
@@ -90,8 +93,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Photo principale"
+                android:text="@string/cover"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
                 android:textColor="#666"
                 android:textAllCaps="true"
                 android:id="@+id/add_cover" />
@@ -99,40 +103,36 @@
             <Button
                 android:layout_width="103dp"
                 android:layout_height="29dp"
-                android:text="Parcourir"
-                android:background="#3cb2cc"
+                android:text="@string/browse"
+                android:background="@drawable/submit_button"
                 android:textColor="#fff"
-                android:layout_marginTop="5dp"
                 android:id="@+id/add_file"
-                android:textSize="13dp"
-                android:layout_alignParentRight="true"
+                android:textSize="13sp"
                 android:onClick="getfile" >
             </Button>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="Ajouter un lieu"
+                android:text="@string/add_place"
                 android:id="@+id/buttonAddPlace"
                 android:textColor="#fff"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:layout_marginTop="50dp"
+                android:textAllCaps="true"
                 android:textSize="@dimen/text_size_button_form"
-                android:background="@drawable/style_button"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:background="@drawable/submit_button"
                 android:layout_gravity="center_horizontal" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Ou annuler"
-                android:textAllCaps="true"
-                android:textStyle="bold"
+                android:text="@string/cancel"
                 android:layout_marginTop="13dp"
-                android:textSize="13dp"
+                android:layout_marginBottom="50dp"
+                android:textSize="13sp"
                 android:id="@+id/cancelAddPlace"
                 android:layout_gravity="center_horizontal" />
 
