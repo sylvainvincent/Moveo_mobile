@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.model.CustomListAdapter;
 import fr.moveoteam.moveomobile.model.Trip;
+import fr.moveoteam.moveomobile.model.UserDataSource;
 
 
 /**
@@ -17,11 +19,16 @@ import fr.moveoteam.moveomobile.model.Trip;
 public class ExploreActivity extends Activity {
 
     private ListView listView;
+    private TextView exploreTitle;
+    private UserDataSource userDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.explore);
+        userDataSource = new UserDataSource(ExploreActivity.this);
+        exploreTitle = (TextView) findViewById(R.id.explore_title);
+        exploreTitle.setText("Bonjour"+userDataSource.getUserDetails().getFirstName());
 
         listView = (ListView) findViewById(R.id.listViewExploreTrip);
         ArrayList<Trip> tripStory = getListData();
@@ -79,4 +86,6 @@ public class ExploreActivity extends Activity {
         resultats.add(newsData);
         return resultats;
     }
+
+
 }

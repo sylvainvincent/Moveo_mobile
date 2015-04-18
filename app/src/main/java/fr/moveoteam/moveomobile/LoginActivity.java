@@ -3,7 +3,6 @@ package fr.moveoteam.moveomobile;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,14 +18,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fr.moveoteam.moveomobile.model.DataBaseHandler;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.User;
+import fr.moveoteam.moveomobile.model.UserDataSource;
 import fr.moveoteam.moveomobile.webservice.JSONParser;
-import fr.moveoteam.moveomobile.webservice.UserFunctions;
+import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
  * Created by Sylvain on 06/04/15.
@@ -104,11 +103,11 @@ public class LoginActivity extends Activity {
             String email = editMail.getText().toString();
             String password = editPassword.getText().toString();
 
-            UserFunctions userFunction = new UserFunctions();
+            JSONUser userFunction = new JSONUser();
 
             JSONParser jParser = new JSONParser();
-            UserFunctions userFunctions = new UserFunctions();
-            return userFunctions.loginUser(email, password);
+            JSONUser JSONUser = new JSONUser();
+            return JSONUser.loginUser(email, password);
         }
 
         @Override
@@ -121,7 +120,7 @@ public class LoginActivity extends Activity {
                 }
                 if(json.getString("success").equals("1")) {
                     if(json.getJSONObject("user").getString("access_id").equals("1")) {
-                        DataBaseHandler db = new DataBaseHandler(LoginActivity.this);
+                        UserDataSource userDataSource = new UserDataSource(LoginActivity.this);
                         User user = new User(
                                 json.getJSONObject("user").getString("user_last_name"),
                                 json.getJSONObject("user").getString("user_first_name"),
@@ -130,7 +129,7 @@ public class LoginActivity extends Activity {
                                 json.getJSONObject("user").getString("user_country"),
                                 json.getJSONObject("user").getString("user_city")
                         );
-                        db.addUser(user);
+                        userDataSource.addUser(user);
 
                         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                         startActivity(intent);

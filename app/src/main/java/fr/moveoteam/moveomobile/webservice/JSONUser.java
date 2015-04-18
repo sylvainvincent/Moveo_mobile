@@ -14,7 +14,7 @@ import fr.moveoteam.moveomobile.model.DataBaseHandler;
 /**
  * Created by Sylvain on 01/04/15.
  */
-public class UserFunctions {
+public class JSONUser {
 
     private JSONParser jsonParser;
 
@@ -23,7 +23,7 @@ public class UserFunctions {
     private static String userURL = "http://10.0.3.2/Moveo_webservice/user.php";
 
     // constructor
-    public UserFunctions(){
+    public JSONUser(){
         this.jsonParser = new JSONParser();
     }
 

@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 /**
  * Created by Sylvain on 01/04/15.
@@ -17,7 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.moveoteam.moveomobile.webservice.JSONParser;
-import fr.moveoteam.moveomobile.webservice.UserFunctions;
+import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 public class RegisterActivity extends ActionBarActivity {
 
@@ -83,11 +82,11 @@ public class RegisterActivity extends ActionBarActivity {
             String name = editName.getText().toString();
             String firstName = editFirstName.getText().toString();
 
-            UserFunctions userFunction = new UserFunctions();
+            JSONUser userFunction = new JSONUser();
 
             JSONParser jParser = new JSONParser();
-            UserFunctions userFunctions = new UserFunctions();
-            return userFunctions.addUser(email,password,name,firstName);
+            JSONUser JSONUser = new JSONUser();
+            return JSONUser.addUser(email,password,name,firstName);
         }
         @Override
         //Procedure appelée après le traitement (optionnelle)

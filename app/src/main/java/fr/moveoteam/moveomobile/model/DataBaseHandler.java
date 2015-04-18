@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.sql.SQLDataException;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
@@ -23,97 +24,83 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
     // NOMS DES TABLES
     private static final String TABLE_LOGIN = "login";
+    private static final String TABLE_TRIP = "trip";
 
-    // NOM DES COLONNES DE LA TABLE LOGIN
-    private static final String KEY_ID = "id";
-    private static final String KEY_LASTNAME = "lastName";
-    private static final String KEY_FIRSTNAME = "firstName";
-    private static final String KEY_BIRTHDAY = "birthday";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_COUNTRY = "country";
-    private static final String KEY_CITY = "city";
+    // NOM DES COLONNES :
 
-    // NUMÉRO DES COLONNES
+        // Login
+        private static final String KEY_USER_ID = "user_id";
+        private static final String KEY_USER_LASTNAME = "user_lastName";
+        private static final String KEY_USER_FIRSTNAME = "user_firstName";
+        private static final String KEY_USER_BIRTHDAY = "user_birthday";
+        private static final String KEY_USER_EMAIL = "user_email";
+        private static final String KEY_USER_COUNTRY = "user_country";
+        private static final String KEY_USER_CITY = "user_city";
 
-    private static final int POSITION_ID = 1;
-    private static final int POSITION_LASTNAME = 2;
-    private static final int POSITION_FIRSTNAME = 3;
-    private static final int POSITION_BIRTHDAY = 4;
-    private static final int POSITION_EMAIL = 5;
-    private static final int POSITION_COUNTRY = 6;
-    private static final int POSITION_CITY = 7;
+        // Trip
+        private static final String KEY_TRIP_ID = "trip_id";
+        private static final String KEY_TRIP_NAME = "trip_name";
+        private static final String KEY_TRIP_COUNTRY = "trip_country";
+        private static final String KEY_TRIP_DESCRIPTION = "trip_description";
+        private static final String KEY_TRIP_CREATED_AT = "trip_created_at";
 
+    // CREATION DES TABLES
+        private static final String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
+                + KEY_USER_ID + " INTEGER PRIMARY KEY ,"
+                + KEY_USER_LASTNAME + " TEXT,"
+                + KEY_USER_FIRSTNAME + " TEXT,"
+                + KEY_USER_BIRTHDAY + " TEXT,"
+                + KEY_USER_EMAIL + " TEXT,"
+                + KEY_USER_COUNTRY + " TEXT,"
+                + KEY_USER_CITY + " TEXT"+ ")";
 
-    // -----------------TABLE LOGIN --------------------- //
-    private static final String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
-            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
-            + KEY_LASTNAME + " TEXT,"
-            + KEY_FIRSTNAME + " TEXT,"
-            + KEY_BIRTHDAY + " TEXT,"
-            + KEY_EMAIL + " TEXT,"
-            + KEY_COUNTRY + " TEXT,"
-            + KEY_CITY + " TEXT"+ ")";
+        private static final String CREATE_TRIP_TABLE = "CREATE TABLE "+ TABLE_TRIP + "("
+                + KEY_TRIP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+                + KEY_TRIP_NAME + " TEXT,"
+                + KEY_TRIP_COUNTRY + " TEXT,"
+                + KEY_TRIP_DESCRIPTION + " TEXT,"
+                + KEY_TRIP_CREATED_AT + " TEXT"+ ")";
 
-    public DataBaseHandler(Context context) {
+  public DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_LOGIN_TABLE);
+        db.execSQL(CREATE_TRIP_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // SUPPRIMER l'ANCIENNE TABLE s'il en existe
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRIP);
 
         // RECRÉER LA TABLE
         onCreate(db);
-        db.execSQL(CREATE_LOGIN_TABLE);
+    }
+
+
+    /**
+     * Cette fonction renvoie une base de données dans lequel on peut faire des ajouts
+     *
+     * @return SQLiteDatabase modifiable
+     * @throws SQLException
+     */
+    public SQLiteDatabase write() throws SQLException {
+        return this.getWritableDatabase();
     }
 
     /**
-     * Stocker les informations du client dans la base de données
-     * */
-    public void addUser(User user) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(KEY_LASTNAME, user.getLastName());             // NOM
-        values.put(KEY_FIRSTNAME, user.getFirstName());   // PRÉNOM
-        values.put(KEY_BIRTHDAY, user.getBirthday());     // DATE DE NAISSANCE
-        values.put(KEY_EMAIL, user.getEmail());           // ADRESSE MAIL
-        values.put(KEY_COUNTRY, user.getCountry());       // PAYS
-        values.put(KEY_CITY, user.getCity());             // VILLE
-
-        // Insérer la ligne
-        db.insert(TABLE_LOGIN, null, values);
-        db.close(); // Fermer la connexion vers la base de données
+     * Cette fonction renvoie une base de données dans lequel on peut seulement lire
+     *
+     * @return SQLiteDatabase lisible
+     * @throws SQLException
+     */
+    public SQLiteDatabase read() throws SQLException {
+        return this.getWritableDatabase();
     }
-
-    public User getUserDetails(){
-        User user = new User();
-        String selectQuery = "SELECT  * FROM " + TABLE_LOGIN;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        // Se déplacer à la premiere ligne
-        cursor.moveToFirst();
-        if(cursor.getCount() > 0){
-            user.setFirstName(cursor.getString(POSITION_FIRSTNAME));
-            user.setLastName(cursor.getString(POSITION_LASTNAME));
-            user.setBirthday(cursor.getString(POSITION_BIRTHDAY));
-            user.setEmail(cursor.getString(POSITION_EMAIL));
-            user.setCountry(cursor.getString(POSITION_COUNTRY));
-            user.setCity(cursor.getString(POSITION_CITY));
-        }
-        cursor.close();
-        db.close();
-
-        return user;
-    }
-
     /**
      * Récupérer le statut de l'utilisateur
      * @return vrai si
@@ -138,6 +125,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         // Supprimer toutes les lignes
         db.delete(TABLE_LOGIN, null, null);
+        db.delete(TABLE_TRIP, null, null);
         db.close();
     }
 }

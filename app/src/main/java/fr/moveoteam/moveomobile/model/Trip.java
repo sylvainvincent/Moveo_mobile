@@ -10,16 +10,23 @@ import java.util.Date;
 public class Trip {
     int id;
     String country, name, description;
-    Date insert;
+    String insert;
     Drawable mainPicture;
     User user;
 
     public Trip() {
     }
 
-    public Trip(String country, String name, String description, Date insert, Drawable mainPicture, User user) {
+    public Trip(String name, String country, String description, String insert) {
         this.country = country;
         this.name = name;
+        this.description = description;
+        this.insert = insert;
+    }
+
+    public Trip(String name, String country, String description, String insert, Drawable mainPicture, User user) {
+        this.name = name;
+        this.country = country;
         this.description = description;
         this.insert = insert;
         this.mainPicture = mainPicture;
@@ -54,11 +61,11 @@ public class Trip {
         this.description = description;
     }
 
-    public Date getInsert() {
+    public String getInsert() {
         return insert;
     }
 
-    public void setInsert(Date insert) {
+    public void setInsert(String insert) {
         this.insert = insert;
     }
 
