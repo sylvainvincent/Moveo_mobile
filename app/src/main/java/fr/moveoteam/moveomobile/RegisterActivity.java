@@ -11,7 +11,8 @@ import android.widget.EditText;
 
 /**
  * Created by Sylvain on 01/04/15.
- */import org.json.JSONArray;
+ */
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -82,11 +83,8 @@ public class RegisterActivity extends ActionBarActivity {
             String name = editName.getText().toString();
             String firstName = editFirstName.getText().toString();
 
-            JSONUser userFunction = new JSONUser();
-
-            JSONParser jParser = new JSONParser();
-            JSONUser JSONUser = new JSONUser();
-            return JSONUser.addUser(email,password,name,firstName);
+            JSONUser jsonUser = new JSONUser();
+            return jsonUser.addUser(email,password,name,firstName);
         }
         @Override
         //Procedure appelée après le traitement (optionnelle)

@@ -38,7 +38,7 @@ public class JSONUser {
     public JSONObject addUser(String email, String password, String name, String firstName){
 
         //ArrayList sous la forme <clé,valeur> contenant les informations du formulaire d'inscription
-        List<NameValuePair> registerForm = new ArrayList<NameValuePair>();
+        List<NameValuePair> registerForm = new ArrayList<>();
         registerForm.add(new BasicNameValuePair("tag", "register"));
         registerForm.add(new BasicNameValuePair("email", email));
         registerForm.add(new BasicNameValuePair("password", password));
@@ -58,7 +58,7 @@ public class JSONUser {
     public JSONObject loginUser(String email, String password){
 
         //ArrayList sous la forme <clé,valeur> contenant les informations du formulaire de connexion
-        List<NameValuePair> loginForm = new ArrayList<NameValuePair>();
+        List<NameValuePair> loginForm = new ArrayList<>();
         loginForm.add(new BasicNameValuePair("tag","login"));
         loginForm.add(new BasicNameValuePair("email",email));
         loginForm.add(new BasicNameValuePair("password",password));

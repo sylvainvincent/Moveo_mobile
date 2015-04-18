@@ -34,6 +34,13 @@
 
         <activity
             android:name=".MainActivity" />
+
+        <activity
+            android:name=".PlaceActivity" />
+
+        <activity
+            android:name="RegisterActivity"/>
+
     </application>
 
     <!-- Permission pour accéder à internet -->

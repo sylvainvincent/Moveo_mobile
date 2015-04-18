@@ -7,8 +7,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import fr.moveoteam.moveomobile.model.UserDataSource;
+import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
@@ -22,18 +23,23 @@ public class DashboardActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if(Function.beConnectedToTheInternet(DashboardActivity.this)) {
+            Toast.makeText(DashboardActivity.this,"Vous n'êtes pas connecté sur internet",Toast.LENGTH_LONG).show();
+        }
+
         // VERIFIER LE STATUT DU LOGIN DANS LA BASE DE DONNÉES
-        if(JSONUser.isUserLoggedIn(getApplicationContext())) {
+        if (JSONUser.isUserLoggedIn(getApplicationContext())) {
             Intent explore = new Intent(getApplicationContext(), ExploreActivity.class);
             explore.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(explore);
-        }else {// L'utilisateur n'est pas connecté
+        } else {// L'utilisateur n'est pas connecté
             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(login);
             // FERMER L'ÉCRAN DASHBOARD
             finish();
         }
+
     }
 
     @Override

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.model.CustomListAdapter;
 import fr.moveoteam.moveomobile.model.Trip;
+import fr.moveoteam.moveomobile.model.TripDataSource;
 import fr.moveoteam.moveomobile.model.UserDataSource;
 
 
@@ -18,9 +19,9 @@ import fr.moveoteam.moveomobile.model.UserDataSource;
  */
 public class ExploreActivity extends Activity {
 
-    private ListView listView;
     private TextView exploreTitle;
     private UserDataSource userDataSource;
+    private TripDataSource tripDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +29,9 @@ public class ExploreActivity extends Activity {
         setContentView(R.layout.explore);
         userDataSource = new UserDataSource(ExploreActivity.this);
         exploreTitle = (TextView) findViewById(R.id.explore_title);
-        exploreTitle.setText("Bonjour"+userDataSource.getUserDetails().getFirstName());
+        exploreTitle.setText("Test Bonjour Mr "+userDataSource.getUserDetails().getFirstName());
 
-        listView = (ListView) findViewById(R.id.listViewExploreTrip);
+        ListView listView = (ListView) findViewById(R.id.listViewExploreTrip);
         ArrayList<Trip> tripStory = getListData();
         listView.setAdapter(new CustomListAdapter(this, tripStory));
     }
@@ -46,7 +47,7 @@ public class ExploreActivity extends Activity {
     // Méthode qui met les données dans une arrayList
     private ArrayList<Trip> getListData() {
 
-        ArrayList<Trip> resultats = new ArrayList<Trip>();
+        ArrayList<Trip> resultats = new ArrayList<>();
         // Instancie un nouvel item de type Trip
         // ==> Il a 3 valeurs : Nom, Logo et Site
         Trip newsData = new Trip();

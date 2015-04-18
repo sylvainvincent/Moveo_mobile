@@ -20,7 +20,6 @@ import org.json.JSONObject;
 
 import java.util.regex.Pattern;
 
-import fr.moveoteam.moveomobile.model.DataBaseHandler;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.User;
 import fr.moveoteam.moveomobile.model.UserDataSource;
@@ -103,11 +102,8 @@ public class LoginActivity extends Activity {
             String email = editMail.getText().toString();
             String password = editPassword.getText().toString();
 
-            JSONUser userFunction = new JSONUser();
-
-            JSONParser jParser = new JSONParser();
-            JSONUser JSONUser = new JSONUser();
-            return JSONUser.loginUser(email, password);
+            JSONUser jsonUser = new JSONUser();
+            return jsonUser.loginUser(email, password);
         }
 
         @Override
@@ -133,7 +129,7 @@ public class LoginActivity extends Activity {
 
                         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                         startActivity(intent);
-                        Log.e("Passage", "reussi");
+                        Log.e("Passage", "réussi");
                     }else{
                         alertDialog = new AlertDialog.Builder(
                                 LoginActivity.this);

@@ -1,14 +1,11 @@
 package fr.moveoteam.moveomobile.model;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.sql.SQLDataException;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 /**
  * Created by Sylvain on 14/04/15.

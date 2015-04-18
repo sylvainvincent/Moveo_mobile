@@ -7,8 +7,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.moveoteam.moveomobile.model.Trip;
-
 /**
  * Created by Sylvain on 18/04/15.
  */
@@ -27,7 +25,7 @@ public class JSONTrip {
 
     public JSONObject getExploreTrips(){
 
-        List<NameValuePair> loginForm = new ArrayList<NameValuePair>();
+        List<NameValuePair> loginForm = new ArrayList<>();
         loginForm.add(new BasicNameValuePair("tag","getTenTrips"));
         return jsonParser.getJSONFromUrl(userURL,loginForm);
 
