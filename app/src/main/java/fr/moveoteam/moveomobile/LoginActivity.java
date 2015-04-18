@@ -22,8 +22,7 @@ import java.util.regex.Pattern;
 
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.User;
-import fr.moveoteam.moveomobile.model.UserDataSource;
-import fr.moveoteam.moveomobile.webservice.JSONParser;
+import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
@@ -35,11 +34,8 @@ public class LoginActivity extends Activity {
     EditText editPassword;
     TextView linkRegistration;
     Button buttonLogin;
-    Pattern patternMail = Pattern.compile(".+@.+\\.[a-z]+");
-    JSONArray access = null;
 
     AlertDialog.Builder alertDialog;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +61,7 @@ public class LoginActivity extends Activity {
                         startActivity(intent);
                         **/
 
-                        if(!Function.isEmailAdress(editMail.getText().toString())){
+                        if(!Function.isEmailAddress(editMail.getText().toString())){
                             Toast.makeText(LoginActivity.this, "Adresse email invalide",
                             Toast.LENGTH_LONG).show();
                         } else {
@@ -116,7 +112,7 @@ public class LoginActivity extends Activity {
                 }
                 if(json.getString("success").equals("1")) {
                     if(json.getJSONObject("user").getString("access_id").equals("1")) {
-                        UserDataSource userDataSource = new UserDataSource(LoginActivity.this);
+                        UserDAO userDAO = new UserDAO(LoginActivity.this);
                         User user = new User(
                                 json.getJSONObject("user").getString("user_last_name"),
                                 json.getJSONObject("user").getString("user_first_name"),
@@ -125,7 +121,7 @@ public class LoginActivity extends Activity {
                                 json.getJSONObject("user").getString("user_country"),
                                 json.getJSONObject("user").getString("user_city")
                         );
-                        userDataSource.addUser(user);
+                        userDAO.addUser(user);
 
                         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                         startActivity(intent);

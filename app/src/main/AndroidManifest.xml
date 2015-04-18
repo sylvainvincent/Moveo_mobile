@@ -39,7 +39,7 @@
             android:name=".PlaceActivity" />
 
         <activity
-            android:name="RegisterActivity"/>
+            android:name=".RegisterActivity"/>
 
     </application>
 

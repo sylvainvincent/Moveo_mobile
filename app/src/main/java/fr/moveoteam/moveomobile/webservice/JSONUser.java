@@ -9,7 +9,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.moveoteam.moveomobile.model.DataBaseHandler;
+import fr.moveoteam.moveomobile.dao.DataBaseHandler;
+import fr.moveoteam.moveomobile.dao.UserDAO;
 
 /**
  * Created by Sylvain on 01/04/15.
@@ -67,13 +68,7 @@ public class JSONUser {
     }
 
 
-    /**
-     * Function get Login status
-     * */
-    public static boolean isUserLoggedIn(Context context){
-        DataBaseHandler db = new DataBaseHandler(context);
-        return db.getRowCount();
-    }
+
 
     /**
      * Fonction qui déconnecte l'utilisateur

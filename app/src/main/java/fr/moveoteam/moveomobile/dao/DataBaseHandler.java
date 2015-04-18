@@ -1,4 +1,4 @@
-package fr.moveoteam.moveomobile.model;
+package fr.moveoteam.moveomobile.dao;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -26,20 +26,29 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     // NOM DES COLONNES :
 
         // Login
-        private static final String KEY_USER_ID = "user_id";
-        private static final String KEY_USER_LASTNAME = "user_lastName";
-        private static final String KEY_USER_FIRSTNAME = "user_firstName";
-        private static final String KEY_USER_BIRTHDAY = "user_birthday";
-        private static final String KEY_USER_EMAIL = "user_email";
-        private static final String KEY_USER_COUNTRY = "user_country";
-        private static final String KEY_USER_CITY = "user_city";
+        public static final String KEY_USER_ID = "user_id";
+        public static final String KEY_USER_LASTNAME = "user_lastName";
+        public static final String KEY_USER_FIRSTNAME = "user_firstName";
+        public static final String KEY_USER_BIRTHDAY = "user_birthday";
+        public static final String KEY_USER_EMAIL = "user_email";
+        public static final String KEY_USER_COUNTRY = "user_country";
+        public static final String KEY_USER_CITY = "user_city";
 
         // Trip
-        private static final String KEY_TRIP_ID = "trip_id";
-        private static final String KEY_TRIP_NAME = "trip_name";
-        private static final String KEY_TRIP_COUNTRY = "trip_country";
-        private static final String KEY_TRIP_DESCRIPTION = "trip_description";
-        private static final String KEY_TRIP_CREATED_AT = "trip_created_at";
+        public static final String KEY_TRIP_ID = "trip_id";
+        public static final String KEY_TRIP_NAME = "trip_name";
+        public static final String KEY_TRIP_COUNTRY = "trip_country";
+        public static final String KEY_TRIP_DESCRIPTION = "trip_description";
+        public static final String KEY_TRIP_CREATED_AT = "trip_created_at";
+
+    // POSITION DES COLONNES
+
+        // Trip
+        public static final int POSITION_TRIP_ID = 0;
+        public static final int POSITION_TRIP_NAME = 1;
+        public static final int POSITION_TRIP_COUNTRY = 2;
+        public static final int POSITION_TRIP_DESCRIPTION = 3;
+        public static final int POSITION_TRIP_CREATED_AT = 4;
 
     // CREATION DES TABLES
         private static final String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
@@ -78,44 +87,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-
     /**
-     * Cette fonction renvoie une base de données dans lequel on peut faire des ajouts
-     *
-     * @return SQLiteDatabase modifiable
-     * @throws SQLException
-     */
-    public SQLiteDatabase write() throws SQLException {
-        return this.getWritableDatabase();
-    }
-
-    /**
-     * Cette fonction renvoie une base de données dans lequel on peut seulement lire
-     *
-     * @return SQLiteDatabase lisible
-     * @throws SQLException
-     */
-    public SQLiteDatabase read() throws SQLException {
-        return this.getWritableDatabase();
-    }
-    /**
-     * Récupérer le statut de l'utilisateur
-     * @return vrai si
-     * */
-    public boolean getRowCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_LOGIN;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        int rowCount = cursor.getCount();
-        db.close();
-        cursor.close();
-
-        // return row count
-        return rowCount > 0;
-    }
-
-    /**
-     * Réinitialisé la base de données
+     * Réinitialiser la base de données
      * Supprimer toutes les tables
      * */
     public void resetTables(){

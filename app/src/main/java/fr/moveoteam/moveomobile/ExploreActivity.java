@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.model.CustomListAdapter;
 import fr.moveoteam.moveomobile.model.Trip;
-import fr.moveoteam.moveomobile.model.TripDataSource;
-import fr.moveoteam.moveomobile.model.UserDataSource;
+import fr.moveoteam.moveomobile.dao.TripDAO;
+import fr.moveoteam.moveomobile.dao.UserDAO;
 
 
 /**
@@ -20,16 +20,16 @@ import fr.moveoteam.moveomobile.model.UserDataSource;
 public class ExploreActivity extends Activity {
 
     private TextView exploreTitle;
-    private UserDataSource userDataSource;
-    private TripDataSource tripDataSource;
+    private UserDAO userDAO;
+    private TripDAO tripDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.explore);
-        userDataSource = new UserDataSource(ExploreActivity.this);
+        userDAO = new UserDAO(ExploreActivity.this);
         exploreTitle = (TextView) findViewById(R.id.explore_title);
-        exploreTitle.setText("Test Bonjour Mr "+userDataSource.getUserDetails().getFirstName());
+        exploreTitle.setText("Test Bonjour Mr "+ userDAO.getUserDetails().getFirstName());
 
         ListView listView = (ListView) findViewById(R.id.listViewExploreTrip);
         ArrayList<Trip> tripStory = getListData();

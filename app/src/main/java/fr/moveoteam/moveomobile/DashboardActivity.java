@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
@@ -23,12 +24,14 @@ public class DashboardActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(Function.beConnectedToTheInternet(DashboardActivity.this)) {
+        if(!Function.beConnectedToTheInternet(DashboardActivity.this)) {
             Toast.makeText(DashboardActivity.this,"Vous n'êtes pas connecté sur internet",Toast.LENGTH_LONG).show();
         }
 
+        UserDAO userDAO = new UserDAO(DashboardActivity.this);
+        userDAO.open();
         // VERIFIER LE STATUT DU LOGIN DANS LA BASE DE DONNÉES
-        if (JSONUser.isUserLoggedIn(getApplicationContext())) {
+        if (userDAO.getRowCount()) {
             Intent explore = new Intent(getApplicationContext(), ExploreActivity.class);
             explore.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(explore);

@@ -1,4 +1,4 @@
-package fr.moveoteam.moveomobile.model;
+package fr.moveoteam.moveomobile.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,10 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.SQLException;
 
+import fr.moveoteam.moveomobile.model.User;
+
 /**
  * Created by Sylvain on 18/04/15.
  */
-public class UserDataSource {
+public class UserDAO {
 
     // Base de données utilisable
     private SQLiteDatabase database;
@@ -39,10 +41,14 @@ public class UserDataSource {
     private static final int POSITION_USER_COUNTRY = 5;
     private static final int POSITION_USER_CITY = 6;
 
-    public UserDataSource(Context context){
+    public UserDAO(Context context){
         dbHandler = new DataBaseHandler(context);
     }
 
+    public SQLiteDatabase open() {
+        database = dbHandler.getWritableDatabase();
+        return database;
+    }
 
     public void close() {
         dbHandler.close();
@@ -52,11 +58,7 @@ public class UserDataSource {
      * Stocker les informations du client dans la base de données
      * */
     public void addUser(User user) {
-        try {
-            database = dbHandler.write();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
         ContentValues values = new ContentValues();
         values.put(KEY_USER_LASTNAME, user.getLastName());     // NOM
         values.put(KEY_USER_FIRSTNAME, user.getFirstName());   // PRÉNOM
@@ -72,11 +74,7 @@ public class UserDataSource {
 
 
     public User getUserDetails(){
-        try {
-            database = dbHandler.read();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
         User user = new User();
         String selectQuery = "SELECT  * FROM " + TABLE_LOGIN;
 
@@ -96,4 +94,26 @@ public class UserDataSource {
 
         return user;
     }
+
+    /**
+     * Récupérer le statut de l'utilisateur en comptant le nombre d'utilisateur dans la base de données
+     * @return vrai s'il y a au moins une ligne, faux si ce n'est pas le cas
+     * */
+    public boolean getRowCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_LOGIN;
+        Cursor cursor = database.rawQuery(countQuery, null);
+        int rowCount = cursor.getCount();
+        database.close();
+        cursor.close();
+
+        return rowCount > 0;
+    }
+
+    /**
+     * Function get Login status
+     *
+    public static boolean isUserLoggedIn(Context context){
+        DataBaseHandler db = new DataBaseHandler(context);
+        return this.getRowCount();
+    }*/
 }

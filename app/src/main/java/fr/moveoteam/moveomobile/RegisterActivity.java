@@ -1,5 +1,6 @@
 package fr.moveoteam.moveomobile;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import org.json.JSONObject;
 import fr.moveoteam.moveomobile.webservice.JSONParser;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
-public class RegisterActivity extends ActionBarActivity {
+public class RegisterActivity extends Activity {
 
     // DECLARATION DES VARIABLES
     Button buttonRegister;
