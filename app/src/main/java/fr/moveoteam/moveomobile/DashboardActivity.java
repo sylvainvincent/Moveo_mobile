@@ -46,8 +46,7 @@ public class DashboardActivity extends Activity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         this.m = menu;
@@ -55,8 +54,7 @@ public class DashboardActivity extends Activity {
     }
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item)
-    {
+    public boolean onOptionsItemSelected (MenuItem item){
         switch(item.getItemId())
         {
             case R.id.action_logout:

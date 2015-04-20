@@ -11,6 +11,8 @@ public class Trip {
     String insert;
     Drawable mainPicture;
     User user;
+    String author_last_name;
+    String author_first_name;
 
     public Trip() {
     }
@@ -20,6 +22,36 @@ public class Trip {
         this.name = name;
         this.description = description;
         this.insert = insert;
+    }
+
+    public String getAuthor_last_name() {
+        return author_last_name;
+    }
+
+    public void setAuthor_last_name(String author_last_name) {
+        this.author_last_name = author_last_name;
+    }
+
+    public String getAuthor_first_name() {
+        return author_first_name;
+    }
+
+    public void setAuthor_first_name(String author_first_name) {
+        this.author_first_name = author_first_name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Trip(int id, String name, String country, String description, /*String insert,*/ String author_last_name, String author_first_name) {
+        this.id = id;
+        this.country = country;
+        this.name = name;
+        this.description = description;
+        // this.insert = insert;
+        this.author_first_name = author_first_name;
+        this.author_last_name =  author_last_name;
     }
 
     public Trip(String name, String country, String description, String insert, Drawable mainPicture, User user) {

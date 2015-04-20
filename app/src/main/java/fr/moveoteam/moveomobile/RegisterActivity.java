@@ -93,8 +93,7 @@ public class RegisterActivity extends Activity {
             pDialog.dismiss();
             try {
 
-                String access = json.getString("success");
-                Log.e("access : ", access);
+                Log.e("access : ", json.getString("success"));
                 // Storing  JSON item in a Variable
                 // String msg = (String) c.getString(msg);
 

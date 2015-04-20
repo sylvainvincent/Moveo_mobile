@@ -60,6 +60,7 @@ public class UserDAO {
     public void addUser(User user) {
 
         ContentValues values = new ContentValues();
+        values.put(KEY_USER_ID, user.getId());
         values.put(KEY_USER_LASTNAME, user.getLastName());     // NOM
         values.put(KEY_USER_FIRSTNAME, user.getFirstName());   // PRÉNOM
         values.put(KEY_USER_BIRTHDAY, user.getBirthday());     // DATE DE NAISSANCE

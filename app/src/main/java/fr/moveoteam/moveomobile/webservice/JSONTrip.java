@@ -16,7 +16,7 @@ public class JSONTrip {
 
     // Il faut utiliser l'adresse http://10.0.2.2/ pour se connecter au localhost : http://localhost/
     // 10.0.3.2 pour genymotion
-    private static String userURL = "http://10.0.3.2/Moveo_webservice/trip.php";
+    private static String tripURL = "http://10.0.3.2/Moveo_webservice/trip.php";
 
     // constructor
     public JSONTrip(){
@@ -27,7 +27,7 @@ public class JSONTrip {
 
         List<NameValuePair> loginForm = new ArrayList<>();
         loginForm.add(new BasicNameValuePair("tag","getTenTrips"));
-        return jsonParser.getJSONFromUrl(userURL,loginForm);
+        return jsonParser.getJSONFromUrl(tripURL,loginForm);
 
     }
 }

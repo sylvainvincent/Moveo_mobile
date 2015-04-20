@@ -41,9 +41,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        linkRegistration = (TextView) findViewById(R.id.link_registration);
-        buttonLogin = (Button) findViewById(R.id.button_login);
-        editMail = (EditText) findViewById(R.id.edit_email_login);
+        this.initialization();
 
         linkRegistration.setOnClickListener(
                 new View.OnClickListener() {
@@ -73,6 +71,15 @@ public class LoginActivity extends Activity {
         );
     }
 
+    public void initialization(){
+
+        linkRegistration = (TextView) findViewById(R.id.link_registration);
+        buttonLogin = (Button) findViewById(R.id.button_login);
+        editMail = (EditText) findViewById(R.id.edit_email_login);
+        editPassword = (EditText) findViewById(R.id.edit_password_login);
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -85,7 +92,6 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            editPassword = (EditText) findViewById(R.id.edit_password_login);
             pDialog = new ProgressDialog(LoginActivity.this);
             pDialog.setMessage("Connexion en cours...");
             pDialog.setIndeterminate(false);
@@ -113,14 +119,15 @@ public class LoginActivity extends Activity {
                 if(json.getString("success").equals("1")) {
                     if(json.getJSONObject("user").getString("access_id").equals("1")) {
                         UserDAO userDAO = new UserDAO(LoginActivity.this);
-                        User user = new User(
-                                json.getJSONObject("user").getString("user_last_name"),
-                                json.getJSONObject("user").getString("user_first_name"),
-                                json.getJSONObject("user").getString("user_birthday"),
-                                json.getJSONObject("user").getString("user_email"),
-                                json.getJSONObject("user").getString("user_country"),
-                                json.getJSONObject("user").getString("user_city")
-                        );
+                        User user = new User();
+                        user.setLastName(json.getJSONObject("user").getString("user_last_name"));
+                        user.setFirstName(json.getJSONObject("user").getString("user_first_name"));
+                        user.setBirthday(json.getJSONObject("user").getString("user_birthday"));
+                        user.setEmail(json.getJSONObject("user").getString("user_email"));
+                        user.setCountry(json.getJSONObject("user").getString("user_country"));
+                        user.setCity(json.getJSONObject("user").getString("user_city"));
+
+                        userDAO.open();
                         userDAO.addUser(user);
 
                         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
