@@ -177,10 +177,10 @@
                 android:layout_height="30dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:text="@string/button_register"
+                android:text="@string/register_button"
                 android:textColor="#fff"
                 android:textSize="@dimen/text_size_button_form"
-                android:background="@drawable/style_button"/>
+                android:background="@drawable/submit_login_button" />
         </LinearLayout>
 
     </RelativeLayout>

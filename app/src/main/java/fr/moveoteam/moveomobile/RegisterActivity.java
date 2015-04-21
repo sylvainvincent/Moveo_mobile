@@ -1,5 +1,6 @@
 package fr.moveoteam.moveomobile;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,18 +9,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 /**
  * Created by Sylvain on 01/04/15.
- */import org.json.JSONArray;
+ */
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.moveoteam.moveomobile.webservice.JSONParser;
-import fr.moveoteam.moveomobile.webservice.UserFunctions;
+import fr.moveoteam.moveomobile.webservice.JSONUser;
 
-public class RegisterActivity extends ActionBarActivity {
+public class RegisterActivity extends Activity {
 
     // DECLARATION DES VARIABLES
     Button buttonRegister;
@@ -83,11 +84,8 @@ public class RegisterActivity extends ActionBarActivity {
             String name = editName.getText().toString();
             String firstName = editFirstName.getText().toString();
 
-            UserFunctions userFunction = new UserFunctions();
-
-            JSONParser jParser = new JSONParser();
-            UserFunctions userFunctions = new UserFunctions();
-            return userFunctions.addUser(email,password,name,firstName);
+            JSONUser jsonUser = new JSONUser();
+            return jsonUser.addUser(email,password,name,firstName);
         }
         @Override
         //Procedure appelée après le traitement (optionnelle)
@@ -95,8 +93,7 @@ public class RegisterActivity extends ActionBarActivity {
             pDialog.dismiss();
             try {
 
-                String access = json.getString("success");
-                Log.e("access : ", access);
+                Log.e("access : ", json.getString("success"));
                 // Storing  JSON item in a Variable
                 // String msg = (String) c.getString(msg);
 

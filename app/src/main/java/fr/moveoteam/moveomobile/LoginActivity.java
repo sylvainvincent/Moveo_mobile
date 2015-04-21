@@ -1,10 +1,12 @@
 package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -16,11 +18,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import fr.moveoteam.moveomobile.webservice.JSONParser;
-import fr.moveoteam.moveomobile.webservice.UserFunctions;
+import fr.moveoteam.moveomobile.model.Function;
+import fr.moveoteam.moveomobile.model.User;
+import fr.moveoteam.moveomobile.dao.UserDAO;
+import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
  * Created by Sylvain on 06/04/15.
@@ -31,17 +34,14 @@ public class LoginActivity extends Activity {
     EditText editPassword;
     TextView linkRegistration;
     Button buttonLogin;
-    Pattern patternMail = Pattern.compile(".+@.+\\.[a-z]+");
-    JSONArray access = null;
-    Matcher m;
+
+    AlertDialog.Builder alertDialog;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        linkRegistration = (TextView) findViewById(R.id.link_registration);
-        buttonLogin = (Button) findViewById(R.id.button_login);
-        editMail = (EditText) findViewById(R.id.edit_email_login);
+        this.initialization();
 
         linkRegistration.setOnClickListener(
                 new View.OnClickListener() {
@@ -55,20 +55,29 @@ public class LoginActivity extends Activity {
         buttonLogin.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
+                        /*Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
                         startActivity(intent);
-                        /*
-                        m = patternMail.matcher(editMail.getText().toString());
-                        if(!m.matches()){
+                        **/
+
+                        if(!Function.isEmailAddress(editMail.getText().toString())){
                             Toast.makeText(LoginActivity.this, "Adresse email invalide",
                             Toast.LENGTH_LONG).show();
                         } else {
                             new ExecuteThread().execute();
                         }
-                        */
+
                     }
                 }
         );
+    }
+
+    public void initialization(){
+
+        linkRegistration = (TextView) findViewById(R.id.link_registration);
+        buttonLogin = (Button) findViewById(R.id.button_login);
+        editMail = (EditText) findViewById(R.id.edit_email_login);
+        editPassword = (EditText) findViewById(R.id.edit_password_login);
+
     }
 
     @Override
@@ -83,7 +92,6 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            editPassword = (EditText) findViewById(R.id.edit_password_login);
             pDialog = new ProgressDialog(LoginActivity.this);
             pDialog.setMessage("Connexion en cours...");
             pDialog.setIndeterminate(false);
@@ -96,20 +104,42 @@ public class LoginActivity extends Activity {
             String email = editMail.getText().toString();
             String password = editPassword.getText().toString();
 
-            UserFunctions userFunction = new UserFunctions();
-
-            JSONParser jParser = new JSONParser();
-            UserFunctions userFunctions = new UserFunctions();
-            return userFunctions.loginUser(email, password);
+            JSONUser jsonUser = new JSONUser();
+            return jsonUser.loginUser(email, password);
         }
 
         @Override
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                if(json.getString("success") == "1") {
+                if(json.getString("success").equals("0")) {
                     Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
                     startActivity(intent);
+                }
+                if(json.getString("success").equals("1")) {
+                    if(json.getJSONObject("user").getString("access_id").equals("1")) {
+                        UserDAO userDAO = new UserDAO(LoginActivity.this);
+                        User user = new User();
+                        user.setLastName(json.getJSONObject("user").getString("user_last_name"));
+                        user.setFirstName(json.getJSONObject("user").getString("user_first_name"));
+                        user.setBirthday(json.getJSONObject("user").getString("user_birthday"));
+                        user.setEmail(json.getJSONObject("user").getString("user_email"));
+                        user.setCountry(json.getJSONObject("user").getString("user_country"));
+                        user.setCity(json.getJSONObject("user").getString("user_city"));
+
+                        userDAO.open();
+                        userDAO.addUser(user);
+
+                        Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                        startActivity(intent);
+                        Log.e("Passage", "réussi");
+                    }else{
+                        alertDialog = new AlertDialog.Builder(
+                                LoginActivity.this);
+                        alertDialog.setCancelable(true);
+                        alertDialog.setMessage("Vous n'avez pas valider votre compte.");
+                        alertDialog.show();
+                    }
                 } else {
                     Toast.makeText(LoginActivity.this, "La connexion a échoué",
                             Toast.LENGTH_LONG).show();

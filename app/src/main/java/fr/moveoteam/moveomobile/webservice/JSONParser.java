@@ -32,9 +32,9 @@ public class JSONParser {
     }
 
    /**
-    * Fonction qui récupere les informations d'un formulaire,les traite puis les envoie à l'adresse indiqué en parametre(url).
-    * Ensuite elle recupére et parse une réponse (un message d'erreur ou de succes par exemple)
-    * Pour finir elle renvoie la reponse sous la forme d'un objet JSON
+    * Fonction qui récupère les informations d'un formulaire,les traite puis les envoie à l'adresse indiqué en paramètre(url).
+    * Ensuite elle récupère et parse une réponse (un message d'erreur ou de succès par exemple)
+    * Pour finir elle renvoie la réponse sous la forme d'un objet JSON
     *
     *
     *
@@ -44,11 +44,11 @@ public class JSONParser {
         try {
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            // Pour créer une requête POST nous allons créer un objet HttpPost avec comme parametre l'url du web service
+            // Pour créer une requête POST nous allons créer un objet HttpPost avec comme paramètre l'url du web service
             HttpPost httpPost = new HttpPost(url);
-            // on affecte le resultat du formulaire sur l'objet
+            // on affecte le résultat du formulaire sur l'objet
             httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
-            //La requête est envoyée !!! on recupere la reponse
+            //La requête est envoyée !!! on recupere la réponse
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
@@ -59,7 +59,7 @@ public class JSONParser {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try { // Nous lisons le resultat qui nous a été envoyé
+        try { // Nous lisons le résultat qui nous a été envoyé
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     is, "iso-8859-1"), 8);
             StringBuilder sb = new StringBuilder();
@@ -70,7 +70,7 @@ public class JSONParser {
             is.close();
             json = sb.toString();
         } catch (Exception e) {
-            Log.e("Erreur du Buffer", "Erreur dans la conversion du resultat " + e.toString());
+            Log.e("Erreur du Buffer", "Erreur dans la conversion du résultat " + e.toString());
         }
         // essayer de parser un string en un objet Json
         try {

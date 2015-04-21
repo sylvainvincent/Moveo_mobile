@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/logo_login"
         android:src="@drawable/logo"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/logo_description" />
@@ -40,14 +40,18 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/login_text_email"
                 android:textColor="#fff"
+                android:layout_marginBottom="5dp"
                 android:textAllCaps="true"
                 android:id="@+id/text_email_login" />
 
             <!-- EditText Email -->
             <EditText
-                android:id="@+id/edit_email_login"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/field_height"
+                android:id="@+id/edit_email_login"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="5dp"
                 android:inputType="textEmailAddress"
                 android:background="#fff"/>
 
@@ -62,7 +66,7 @@
         android:layout_below="@id/linear_email_login"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true">
 
         <!-- TextView Password -->
@@ -72,6 +76,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/login_text_password"
+            android:layout_marginBottom="5dp"
             android:textColor="#fff"
             android:textAllCaps="true"/>
 
@@ -81,7 +86,8 @@
             android:layout_width="fill_parent"
             android:layout_height="@dimen/field_height"
             android:textSize="@dimen/input_text_size"
-            android:padding="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:inputType="textPassword"
             android:background="#fff"
             android:layout_gravity="bottom" />
@@ -102,14 +108,13 @@
 
         <Button
             android:layout_width="fill_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/field_height"
             android:text="@string/login_text_button"
             android:id="@+id/button_login"
             android:textColor="#fff"
-            android:textSize="13dp"
-            android:background="@drawable/style_button"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:textAllCaps="true"
+            android:textSize="@dimen/input_text_size"
+            android:background="@drawable/submit_login_button" />
 
     </LinearLayout>
 
@@ -122,18 +127,17 @@
         android:id="@+id/linear_link_lost_password"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Mot de passe oublié ?"
+            android:text="@string/forgot_password"
             android:id="@+id/link_lost_password"
-            android:textAllCaps="true"
             android:layout_gravity="center"
-            android:textSize="12dp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:textColor="#056b83" />
     </LinearLayout>
@@ -153,9 +157,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/link_registration_message"
+            android:text="@string/not_register"
             android:id="@+id/link_registration"
-            android:textAllCaps="true"
             android:layout_gravity="center"
             android:textSize="12sp"
             android:textStyle="bold"

@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Système -->
+    <!-- SYSTEM -->
 	<string name="app_name">Moveo</string>
     <string name="action_settings">Settings</string>
 
-    <!-- TRIP -->
-    <string name="trip_name">Nom du voyage</string>
+    <!-- GENERAL -->
+    <string name="cancel">Annuler</string>
+    <string name="description">Description</string>
     <string name="country">Pays</string>
-    <string name="username">Username</string>
-    <string name="picture">TripPicture</string>
-
-    <!-- EXPLORER -->
-    <string name="bulle_discussion">discussion</string>
-    <string name="nb_picture">photos</string>
+    <string name="city">Ville</string>
+    <string name="add_trip">Ajouter un voyage</string>
 
     <!-- REGISTER -->
-    <string name="button_register">Créer un compte</string>
+    <string name="register_button">Créer un compte</string>
     <string name="register_text_mail">Email</string>
     <string name="register_text_password">Mot de passe</string>
     <string name="register_text_name">Nom</string>
@@ -24,9 +21,25 @@
     <!-- LOGIN -->
     <string name="login_text_email">Email</string>
     <string name="login_text_password">Mot de passe</string>
-    <string name="link_registration_message">Pas encore inscrit ?</string>
+    <string name="not_register">Pas encore inscrit ?</string>
+    <string name="forgot_password">Mot de passe oublié ?</string>
     <string name="logo_description">Logo</string>
+    <string name="submit_login">Se connecter</string>
 
+    <!-- TRIP -->
+    <string name="trip_name">Nom du voyage</string>
+    <string name="username">Username</string>
+    <string name="picture">TripPicture</string>
+
+    <!-- ADD PLACE -->
+    <string name="place_description">Description du lieu</string>
+    <string name="shopping">Shopping</string>
+    <string name="place">Lieu</string>
+    <string name="adress">Adresse</string>
+
+    <!-- EXPLORER -->
+    <string name="bulle_discussion">Discussion</string>
+    <string name="nb_picture">Photos</string>
 
     <!-- MY ACCOUNT -->
     <string name="settings">Paramètres</string>
@@ -34,12 +47,19 @@
     <string name="modify_thumbnail">Modifier</string>
     <string name="name_settings">Nom</string>
     <string name="firstname_settings">Prénom</string>
+    <string name="add_link">Ajouter un lien</string>
 
     <!-- ACTIONBAR -->
     <string name="action_logo"></string>
     <string name="action_search">Rechercher</string>
     <string name="action_slide">Menu</string>
     <string name="login_text_button">Se connecter</string>
+    <string name="action_logout">Déconnexion</string>
 
+    <!-- ADD TRIP -->
+    <string name="add_place_title">Explorer</string>
+    <string name="add_place">Ajouter un lieu</string>
+    <string name="browse">Parcourir</string>
+    <string name="cover">Photo principale</string>
 
 </resources>

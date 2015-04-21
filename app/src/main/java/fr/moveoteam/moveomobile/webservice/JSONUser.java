@@ -1,5 +1,7 @@
 package fr.moveoteam.moveomobile.webservice;
 
+import android.content.Context;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
@@ -7,10 +9,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.moveoteam.moveomobile.dao.DataBaseHandler;
+import fr.moveoteam.moveomobile.dao.UserDAO;
+
 /**
  * Created by Sylvain on 01/04/15.
  */
-public class UserFunctions {
+public class JSONUser {
 
     private JSONParser jsonParser;
 
@@ -19,7 +24,7 @@ public class UserFunctions {
     private static String userURL = "http://10.0.3.2/Moveo_webservice/user.php";
 
     // constructor
-    public UserFunctions(){
+    public JSONUser(){
         this.jsonParser = new JSONParser();
     }
 
@@ -34,7 +39,7 @@ public class UserFunctions {
     public JSONObject addUser(String email, String password, String name, String firstName){
 
         //ArrayList sous la forme <clé,valeur> contenant les informations du formulaire d'inscription
-        List<NameValuePair> registerForm = new ArrayList<NameValuePair>();
+        List<NameValuePair> registerForm = new ArrayList<>();
         registerForm.add(new BasicNameValuePair("tag", "register"));
         registerForm.add(new BasicNameValuePair("email", email));
         registerForm.add(new BasicNameValuePair("password", password));
@@ -54,7 +59,7 @@ public class UserFunctions {
     public JSONObject loginUser(String email, String password){
 
         //ArrayList sous la forme <clé,valeur> contenant les informations du formulaire de connexion
-        List<NameValuePair> loginForm = new ArrayList<NameValuePair>();
+        List<NameValuePair> loginForm = new ArrayList<>();
         loginForm.add(new BasicNameValuePair("tag","login"));
         loginForm.add(new BasicNameValuePair("email",email));
         loginForm.add(new BasicNameValuePair("password",password));
@@ -62,5 +67,17 @@ public class UserFunctions {
         return jsonParser.getJSONFromUrl(userURL,loginForm);
     }
 
+
+
+
+    /**
+     * Fonction qui déconnecte l'utilisateur
+     * Efface la base de données
+     * */
+    public boolean logoutUser(Context context){
+        DataBaseHandler db = new DataBaseHandler(context);
+        db.resetTables();
+        return true;
+    }
 
 }

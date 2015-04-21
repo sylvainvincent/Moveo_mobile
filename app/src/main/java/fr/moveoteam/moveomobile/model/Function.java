@@ -17,7 +17,7 @@ public class Function {
     /**
      * VERIFIER LA CONNECTION SUR INTERNET (VIA 3G,WIFI,...)
      */
-    public static boolean etreConnecterAInternet(Context c){
+    public static boolean beConnectedToTheInternet(Context c){
 
         boolean bool = false;
         ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -37,27 +37,32 @@ public class Function {
 
     /**
      * VERIFIER LA CONFORMITÉ DE L'EMAIL
+     * @param email l'adresse mail à vérifier
+     * @return vrai si l'email est conforme sinon faux
      */
-    public static boolean isEmailAdress(String email){
+    public static boolean isEmailAddress(String email){
         Pattern p = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$");
         Matcher m = p.matcher(email.toUpperCase());
         return m.matches();
 
     }
 
-    public static boolean testDate(int annee,int mois,int jour){
+    public static boolean testDate(int year, int month, int day){
+        Boolean validation = false;
+
         GregorianCalendar calendrier = new GregorianCalendar();
-        calendrier.set(annee,mois,jour);
-        int anneeOk = calendrier.get(Calendar.YEAR);
-        int moisOk = calendrier.get(Calendar.MONTH);
-        int jourOk = calendrier.get(Calendar.DAY_OF_MONTH);
-        System.out.println("MA DATE : "+annee+" "+mois+" "+jour);
-        System.out.println("MA DATE FORMATER : "+anneeOk+" "+moisOk+" "+jourOk);
+        calendrier.set(year, month, day);
+        int yearOk = calendrier.get(Calendar.YEAR);
+        int monthOk = calendrier.get(Calendar.MONTH);
+        int dayOk = calendrier.get(Calendar.DAY_OF_MONTH);
+        System.out.println("MA DATE : "+ year +" "+ month +" "+ day );
+        System.out.println("MA NOUVELLE DATE : "+yearOk+" "+ monthOk +" "+dayOk);
 
-        if(anneeOk==annee & moisOk==mois & jourOk==jour){
+        if(yearOk == year & monthOk == month & dayOk == day){
             System.out.println("ok");
-            return true;
-        }else return false;
+            validation = true;
+        }
 
+        return false;
     }
 }

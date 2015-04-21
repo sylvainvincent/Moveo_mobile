@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="#fff"
         android:id="@+id/add_place">
 
@@ -16,11 +16,11 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/settings"
-            android:textColor="#3cb2cc"
+            android:textColor="@color/title"
+            android:textSize="@dimen/title_size"
             android:textAllCaps="true"
             android:textStyle="bold"
             android:id="@+id/settings"
-            android:layout_below="@+id/menu"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="5dp" />
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="12dp"
+                android:textSize="12sp"
                 android:layout_marginTop="5dp"
                 android:text="@string/modify_thumbnail"
                 android:id="@+id/modify_thumbnail" />
@@ -75,8 +75,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="#ccc"
-                android:hint="Name"
-                android:textSize="12dp"
+                android:textSize="@dimen/input_text_size"
                 android:padding="10dp"
                 android:layout_marginTop="5dp"
                 android:id="@+id/editNameSettings" />
@@ -96,7 +95,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="#ccc"
-                android:hint="Firstname"
                 android:textSize="12dp"
                 android:padding="10dp"
                 android:layout_marginTop="5dp"
@@ -105,27 +103,25 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="Ajouter un lieu"
+                android:text="@string/add_link"
                 android:id="@+id/buttonAddPlace"
                 android:textColor="#fff"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:layout_marginTop="30dp"
                 android:textSize="@dimen/text_size_button_form"
-                android:background="@drawable/style_button"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:background="@drawable/submit_login_button"
                 android:layout_gravity="center_horizontal" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Ou annuler"
+                android:text="@string/cancel"
                 android:textAllCaps="true"
                 android:textStyle="bold"
                 android:layout_marginTop="12dp"
-                android:textSize="13dp"
+                android:textSize="13sp"
                 android:id="@+id/cancelAddPlace"
                 android:layout_gravity="center_horizontal" />
 

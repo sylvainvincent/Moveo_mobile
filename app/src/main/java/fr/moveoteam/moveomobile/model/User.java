@@ -6,27 +6,40 @@ import java.util.Date;
  * Created by alexMac on 07/04/15.
  */
 public class User {
-    int id, accesAccount;
-    String firstname, lastName, email, password, country, city, favoriteCountry, favoriteCity;
-    Date birthday, register, lastConnexion;
+    int id = 1;
+    String firstName, lastName, birthday, email, password, country, city;
+    Date register, lastConnexion;
 
-    public User(String firstname, String lastName, String email, String password) {
-        this.firstname = firstname;
+    public User() {
+
+    }
+
+    public User(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
     }
 
-    public User(int accesAccount, String firstname, String lastName, String email, String password, String country, String city, String favoriteCountry, String favoriteCity, Date birthday, Date register, Date lastConnexion) {
-        this.accesAccount = accesAccount;
-        this.firstname = firstname;
+    public User(String firstName, String lastName, String birthday, String email, String country, String city) {
+
+        this.id = 1;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.email = email;
+        this.country = country;
+        this.city = city;
+
+    }
+
+    public User(String firstName, String lastName, String email, String password, String country, String city, String birthday, Date register, Date lastConnexion) {
+        this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.country = country;
         this.city = city;
-        this.favoriteCountry = favoriteCountry;
-        this.favoriteCity = favoriteCity;
         this.birthday = birthday;
         this.register = register;
         this.lastConnexion = lastConnexion;
@@ -39,18 +52,13 @@ public class User {
 
         User user = (User) o;
 
-        if (accesAccount != user.accesAccount) return false;
         if (id != user.id) return false;
         if (birthday != null ? !birthday.equals(user.birthday) : user.birthday != null)
             return false;
         if (city != null ? !city.equals(user.city) : user.city != null) return false;
         if (country != null ? !country.equals(user.country) : user.country != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (favoriteCity != null ? !favoriteCity.equals(user.favoriteCity) : user.favoriteCity != null)
-            return false;
-        if (favoriteCountry != null ? !favoriteCountry.equals(user.favoriteCountry) : user.favoriteCountry != null)
-            return false;
-        if (firstname != null ? !firstname.equals(user.firstname) : user.firstname != null)
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null)
             return false;
         if (lastConnexion != null ? !lastConnexion.equals(user.lastConnexion) : user.lastConnexion != null)
             return false;
@@ -67,15 +75,12 @@ public class User {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + accesAccount;
-        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);
-        result = 31 * result + (favoriteCountry != null ? favoriteCountry.hashCode() : 0);
-        result = 31 * result + (favoriteCity != null ? favoriteCity.hashCode() : 0);
         result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
         result = 31 * result + (register != null ? register.hashCode() : 0);
         result = 31 * result + (lastConnexion != null ? lastConnexion.hashCode() : 0);
@@ -86,15 +91,12 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", accesAccount=" + accesAccount +
-                ", firstname='" + firstname + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
-                ", favoriteCountry='" + favoriteCountry + '\'' +
-                ", favoriteCity='" + favoriteCity + '\'' +
                 ", birthday=" + birthday +
                 ", register=" + register +
                 ", lastConnexion=" + lastConnexion +
@@ -105,20 +107,12 @@ public class User {
         return id;
     }
 
-    public int getAccesAccount() {
-        return accesAccount;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setAccesAccount(int accesAccount) {
-        this.accesAccount = accesAccount;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -161,27 +155,11 @@ public class User {
         this.city = city;
     }
 
-    public String getFavoriteCountry() {
-        return favoriteCountry;
-    }
-
-    public void setFavoriteCountry(String favoriteCountry) {
-        this.favoriteCountry = favoriteCountry;
-    }
-
-    public String getFavoriteCity() {
-        return favoriteCity;
-    }
-
-    public void setFavoriteCity(String favoriteCity) {
-        this.favoriteCity = favoriteCity;
-    }
-
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

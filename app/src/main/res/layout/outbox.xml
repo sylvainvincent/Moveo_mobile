@@ -18,10 +18,10 @@
             android:text="Envoyer un message"
             android:textColor="#3cb2cc"
             android:textAllCaps="true"
+            android:textSize="@dimen/title_size"
             android:textStyle="bold"
             android:id="@+id/sendMessageTitle"
             android:layout_marginTop="59dp"
-            android:layout_below="@+id/menu"
             android:layout_centerHorizontal="true" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:text="Vous allez envoyer un message à Username"
             android:id="@+id/sendToUser"
             android:textColor="#000"
-            android:textSize="15dp"
+            android:textSize="13dp"
             android:layout_marginTop="43dp"
             android:layout_below="@+id/sendMessageTitle"
             android:layout_alignLeft="@+id/sendMessageTitle"
@@ -61,7 +61,7 @@
             android:paddingRight="15dp"
             android:layout_marginTop="25dp"
             android:textSize="@dimen/text_size_button_form"
-            android:background="@drawable/style_button"
+            android:background="@drawable/submit_login_button"
             android:layout_gravity="center_horizontal"
             android:layout_below="@+id/sendMessage"
             android:layout_centerHorizontal="true" />
