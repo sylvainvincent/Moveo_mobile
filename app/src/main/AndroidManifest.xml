@@ -23,6 +23,7 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppThemeWithNoTitleBar"
+            android:noHistory="true"
             android:windowSoftInputMode="stateHidden">
         </activity>
 
@@ -39,7 +40,8 @@
             android:name=".PlaceActivity" />
 
         <activity
-            android:name=".RegisterActivity"/>
+            android:name=".RegisterActivity"
+            android:noHistory="true"/>
 
     </application>
 

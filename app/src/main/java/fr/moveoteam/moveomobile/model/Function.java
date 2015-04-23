@@ -47,6 +47,16 @@ public class Function {
 
     }
 
+    public static boolean isString(String text){
+        Pattern p = Pattern.compile("[a-zA-Z]+");
+        Matcher matcher = p.matcher(text);
+        if(matcher.matches()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public static boolean testDate(int year, int month, int day){
         Boolean validation = false;
 
