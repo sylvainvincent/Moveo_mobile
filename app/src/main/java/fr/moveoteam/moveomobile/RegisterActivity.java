@@ -101,7 +101,6 @@ public class RegisterActivity extends Activity {
 
                 //registerErrorMsg.setText("b"); // A changer
 
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }

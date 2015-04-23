@@ -49,7 +49,6 @@ public class ExploreActivity extends Activity {
 
         new ExecuteThread().execute();
 
-
         ArrayList<Trip> tripStory = getListData();
 
 
@@ -135,7 +134,7 @@ public class ExploreActivity extends Activity {
                 if(json.getString("success").equals("1")) {
                         UserDAO userDAO = new UserDAO(ExploreActivity.this);
 
-                        for(int i=0;i<5;i++) {
+                        for(int i=0;i<2;i++) {
                             tripArrayList.add(new Trip(
                                     tripList.getJSONObject(i).getInt("trip_id"),
                                     tripList.getJSONObject(i).getString("trip_name"),
@@ -143,7 +142,9 @@ public class ExploreActivity extends Activity {
                                     tripList.getJSONObject(i).getString("trip_description"),
                                  // tripList.getJSONObject(i).getString("trip_created_at"),
                                     tripList.getJSONObject(i).getString("user_last_name"),
-                                    tripList.getJSONObject(i).getString("user_first_name")
+                                    tripList.getJSONObject(i).getString("user_first_name"),
+                                    tripList.getJSONObject(i).getInt("comment_count"),
+                                    tripList.getJSONObject(i).getInt("photo_count")
                             ));
                         }
                         listView.setAdapter(new CustomListAdapter(ExploreActivity.this, tripArrayList));
