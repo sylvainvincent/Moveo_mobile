@@ -53,6 +53,8 @@ public class CustomListAdapter extends BaseAdapter {
             viewHolderTrip.imageViewMainPictureTrip = (ImageView) convertView.findViewById(R.id.imageViewMainPictureTrip);
             viewHolderTrip.imageButtonComments = (ImageView) convertView.findViewById(R.id.image_button_comments);
             viewHolderTrip.imageButtonPictures = (ImageView) convertView.findViewById(R.id.image_button_pictures);
+            viewHolderTrip.number_of_comments = (TextView) convertView.findViewById(R.id.number_of_comments);
+            viewHolderTrip.number_of_pictures = (TextView) convertView.findViewById(R.id.number_of_picture);
             convertView.setTag(viewHolderTrip);
         }else {
             viewHolderTrip = (ViewHolderTrip) convertView.getTag();
@@ -67,11 +69,13 @@ public class CustomListAdapter extends BaseAdapter {
         viewHolderTrip.explore_trip_name.setText(tripList.get(position).getName());
         viewHolderTrip.explore_country.setText(tripList.get(position).getCountry());
         viewHolderTrip.explore_username.setText(tripList.get(position).getAuthor_first_name()+" "+tripList.get(position).getAuthor_last_name());
+        viewHolderTrip.number_of_comments.setText((Integer.toString(tripList.get(position).getCommentCount())));
+        viewHolderTrip.number_of_pictures.setText(Integer.toString(tripList.get(position).getPhotoCount()));
         return convertView;
     }
 
     static class ViewHolderTrip {
-        TextView explore_trip_name, explore_country, explore_username;
+        TextView explore_trip_name, explore_country, explore_username,number_of_comments,number_of_pictures;
         ImageView imageViewMainPictureTrip, imageButtonComments, imageButtonPictures;
     }
 }

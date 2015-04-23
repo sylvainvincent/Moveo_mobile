@@ -112,12 +112,8 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                if(json.getString("success").equals("0")) {
-                    Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
-                    startActivity(intent);
-                }
                 if(json.getString("success").equals("1")) {
-                    if(json.getJSONObject("user").getString("access_id").equals("1")) {
+                    if(json.getJSONObject("user").getString("access_id").equals("2")) {
                         UserDAO userDAO = new UserDAO(LoginActivity.this);
                         User user = new User();
                         user.setLastName(json.getJSONObject("user").getString("user_last_name"));
@@ -145,9 +141,7 @@ public class LoginActivity extends Activity {
                             Toast.LENGTH_LONG).show();
                 }
 
-                // Storing  JSON item in a Variable
-                // String msg = (String) c.getString(msg);
-                //Set JSON Data in TextView
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
