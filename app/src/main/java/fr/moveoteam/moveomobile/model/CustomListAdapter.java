@@ -62,13 +62,6 @@ public class CustomListAdapter extends BaseAdapter {
         }else {
             viewHolderTrip = (ViewHolderTrip) convertView.getTag();
         }
-        convertView.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ExploreActivity.this, PlaceActivity.this);
-            }
-        });
         viewHolderTrip.explore_trip_name.setText(tripList.get(position).getName());
         viewHolderTrip.explore_country.setText(tripList.get(position).getCountry());
         viewHolderTrip.explore_username.setText(tripList.get(position).getAuthor_first_name()+" "+tripList.get(position).getAuthor_last_name());
