@@ -1,14 +1,18 @@
 package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View.OnClickListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by Sylvain on 01/04/15.
@@ -29,6 +33,8 @@ public class RegisterActivity extends Activity {
     EditText editName;
     EditText editFirstName;
     JSONArray user = null;
+    final Context context = this;
+    private Button dialogButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +106,23 @@ public class RegisterActivity extends Activity {
                 //Set JSON Data in TextView
 
                 //registerErrorMsg.setText("b"); // A changer
+
+                //Custom dialog
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.custom_dialog);
+
+                //Set the custom dialog : text and button
+                TextView dialogText = (TextView) dialog.findViewById(R.id.dialogBoxText);
+                dialogText.setText("Votre inscription a bien été prise en compte. Veuillez regarder vos mails pour la confirmation de l'inscription.");
+
+                Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+                //If button is clicked, close the custom dialog
+                dialogButton.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
 
             } catch (JSONException e) {
                 e.printStackTrace();
