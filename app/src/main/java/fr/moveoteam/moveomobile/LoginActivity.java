@@ -133,11 +133,11 @@ public class LoginActivity extends Activity {
                         alertDialog = new AlertDialog.Builder(
                                 LoginActivity.this);
                         alertDialog.setCancelable(true);
-                        alertDialog.setMessage("Vous n'avez pas valider votre compte.");
+                        alertDialog.setMessage("Vous n'avez pas validé votre compte. Veuillez verifier votre boite mail.");
                         alertDialog.show();
                     }
                 } else {
-                    Toast.makeText(LoginActivity.this, "La connexion a échoué",
+                    Toast.makeText(LoginActivity.this, "Votre mot de passe ou votre adresse mail est incorrect",
                             Toast.LENGTH_LONG).show();
                 }
 
