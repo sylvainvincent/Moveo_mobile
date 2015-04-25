@@ -2,6 +2,11 @@ package fr.moveoteam.moveomobile.model;
 
 import android.graphics.drawable.Drawable;
 
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * Created by alexMac on 07/04/15.
  */
@@ -15,6 +20,7 @@ public class Trip {
     String author_first_name;
     int commentCount;
     int photoCount;
+    Date dateInsert;
 
     public Trip() {
     }
@@ -26,12 +32,14 @@ public class Trip {
         this.insert = insert;
     }
 
-    public Trip(int id, String name, String country, String description, /*String insert,*/ String author_last_name, String author_first_name,int commentCount, int photoCount) {
+    public Trip(int id, String name, String country, String description, String dateInsert, String author_last_name, String author_first_name,int commentCount, int photoCount) throws ParseException {
+       DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
         this.id = id;
         this.country = country;
         this.name = name;
         this.description = description;
-        // this.insert = insert;
+        this.dateInsert = (Date) df.parse(dateInsert);
+       // Date a = new Date(dateInsert);
         this.author_first_name = author_first_name;
         this.author_last_name =  author_last_name;
         this.commentCount = commentCount;
@@ -133,5 +141,13 @@ public class Trip {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Date getDateInsert() {
+        return dateInsert;
+    }
+
+    public void setDateInsert(Date dateInsert) {
+        this.dateInsert = dateInsert;
     }
 }

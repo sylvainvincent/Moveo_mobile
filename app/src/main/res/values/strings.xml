@@ -63,4 +63,26 @@
     <string name="cover">Photo principale</string>
     <string name="text_link_login">Déjà un compte ?</string>
 
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item >Explorer</item>
+        <item >Mes voyages</item>
+        <item >Mon profil</item>
+        <item >Mes amis</item>
+        <item >Mes messageries</item>
+        <item >Paramètres</item>
+        <item >A propos</item>
+        <item >Déconnexion</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/home</item>
+
+    </array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+
 </resources>

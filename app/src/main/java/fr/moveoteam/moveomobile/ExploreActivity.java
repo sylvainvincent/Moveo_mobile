@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.model.CustomListAdapter;
@@ -46,7 +47,7 @@ public class ExploreActivity extends Activity {
         listView = (ListView) findViewById(R.id.listViewExploreTrip);
         UserDAO userDAO = new UserDAO(ExploreActivity.this);
         userDAO.open();
-        exploreTitle.setText("Test Bonjour Mr "+ userDAO.getUserDetails().getFirstName());
+        exploreTitle.setText(userDAO.getUserDetails().getFirstName()+" "+userDAO.getUserDetails().getLastName());
 
         new ExecuteThread().execute();
 
@@ -139,13 +140,13 @@ public class ExploreActivity extends Activity {
                 if(json.getString("success").equals("1")) {
                         UserDAO userDAO = new UserDAO(ExploreActivity.this);
 
-                        for(int i=0;i<2;i++) {
+                        for(int i=0;i<6;i++) {
                             tripArrayList.add(new Trip(
                                     tripList.getJSONObject(i).getInt("trip_id"),
                                     tripList.getJSONObject(i).getString("trip_name"),
                                     tripList.getJSONObject(i).getString("trip_country"),
                                     tripList.getJSONObject(i).getString("trip_description"),
-                                 // tripList.getJSONObject(i).getString("trip_created_at"),
+                                    tripList.getJSONObject(i).getString("trip_created_at"),
                                     tripList.getJSONObject(i).getString("user_last_name"),
                                     tripList.getJSONObject(i).getString("user_first_name"),
                                     tripList.getJSONObject(i).getInt("comment_count"),
@@ -154,19 +155,21 @@ public class ExploreActivity extends Activity {
                         }
                         listView.setAdapter(new CustomListAdapter(ExploreActivity.this, tripArrayList));
                         Log.e("Message ",""+tripArrayList.get(0).getName()+""+tripArrayList.get(0).getName());
+                    Log.e("Date ",""+tripList.getJSONObject(0).getString("trip_created_at")+" java : "+tripArrayList.get(0).getDateInsert());
 
-                } else {
+                } else
                     Toast.makeText(ExploreActivity.this, "La connexion a échoué",
                             Toast.LENGTH_LONG).show();
-                }
+                } catch (ParseException e1) {
+                e1.printStackTrace();
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
 
-                // Storing  JSON item in a Variable
+            // Storing  JSON item in a Variable
                 // String msg = (String) c.getString(msg);
                 //Set JSON Data in TextView
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
         }
     }
 

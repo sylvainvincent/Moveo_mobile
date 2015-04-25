@@ -43,15 +43,6 @@ public class LoginActivity extends Activity {
 
         this.initialization();
 
-        linkRegistration.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View v) {
-                        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                        startActivity(intent);
-                    }
-                }
-        );
-
         buttonLogin.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
@@ -149,6 +140,15 @@ public class LoginActivity extends Activity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        System.exit(0);
+        super.onBackPressed();
+    }
 
+    public void linkToRegistration(View view){
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+    }
 }
 

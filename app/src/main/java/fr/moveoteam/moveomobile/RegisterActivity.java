@@ -2,6 +2,7 @@ package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -58,6 +59,11 @@ public class RegisterActivity extends Activity {
                     }
                 }
         );
+    }
+
+    public void linkToLogin(View view) {
+        Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+        startActivity(intent);
     }
 
     // Classe qui permet de réaliser des tâches de manière asynchrone

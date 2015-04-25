@@ -203,7 +203,9 @@
                 android:layout_gravity="center"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:textColor="#056b83" />
+                android:textColor="#056b83"
+                android:clickable="true"
+                android:onClick="linkToLogin"/>
         </LinearLayout>
 
     </RelativeLayout>

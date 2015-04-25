@@ -67,6 +67,7 @@ public class CustomListAdapter extends BaseAdapter {
         viewHolderTrip.explore_username.setText(tripList.get(position).getAuthor_first_name()+" "+tripList.get(position).getAuthor_last_name());
         viewHolderTrip.number_of_comments.setText((Integer.toString(tripList.get(position).getCommentCount())));
         viewHolderTrip.number_of_pictures.setText(Integer.toString(tripList.get(position).getPhotoCount()));
+        // viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(GetImageBitmapFromUrl("http://xamarin.com/resources/design/home/devices.png"));
         return convertView;
     }
 
