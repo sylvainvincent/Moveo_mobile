@@ -21,6 +21,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.model.CustomListAdapter;
+import fr.moveoteam.moveomobile.model.Place;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
@@ -56,6 +57,8 @@ public class ExploreActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ExploreActivity.this, Place.class);
+                startActivity(intent);
             }
         });
     }
@@ -70,7 +73,7 @@ public class ExploreActivity extends Activity {
 
     // Méthode qui met les données dans une arrayList
     private ArrayList<Trip> getListData() {
-
+        //TODO récuperer les information via le webService
         ArrayList<Trip> resultats = new ArrayList<>();
         // Instancie un nouvel item de type Trip
         // ==> Il a 3 valeurs : Nom, Logo et Site

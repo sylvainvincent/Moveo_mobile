@@ -8,46 +8,34 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/MainTheme">
-
+        android:theme="@style/MainTheme" >
         <activity
             android:name=".DashboardActivity"
-            android:theme="@style/AppThemeWithNoTitleBar"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/AppThemeWithNoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/AppThemeWithNoTitleBar"
             android:noHistory="true"
-            android:windowSoftInputMode="stateHidden">
+            android:theme="@style/AppThemeWithNoTitleBar"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
-
-        <activity
-            android:name=".AddPlaceActivity" />
-
-        <activity
-            android:name=".ExploreActivity" />
-
-        <activity
-            android:name=".MainActivity" />
-
-        <activity
-            android:name=".PlaceActivity" />
-
+        <activity android:name=".AddPlaceActivity" />
+        <activity android:name=".ExploreActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".PlaceActivity" />
         <activity
             android:name=".RegisterActivity"
-            android:noHistory="true"/>
-
+            android:noHistory="true" />
+        <activity
+            android:name=".SendMessage"
+            android:label="@string/title_activity_send_message" >
+        </activity>
     </application>
-
-    <!-- Permission pour accéder à internet -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
 </manifest>
