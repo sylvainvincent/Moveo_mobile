@@ -73,6 +73,7 @@ public class JSONUser {
      */
     public JSONObject lostPassword (String email){
         List<NameValuePair> lostPasswordForm = new ArrayList<>();
+        lostPasswordForm.add(new BasicNameValuePair("tag","forgetPassword"));
         lostPasswordForm.add(new BasicNameValuePair("email", email));
 
         return jsonParser.getJSONFromUrl(userURL,lostPasswordForm);
