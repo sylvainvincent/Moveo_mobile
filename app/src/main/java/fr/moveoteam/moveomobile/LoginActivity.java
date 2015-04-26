@@ -2,6 +2,7 @@ package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -37,9 +38,21 @@ public class LoginActivity extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.login);
 
         this.initialization();
+        int access = getIntent().getIntExtra("access", 0);
+        Log.e("access : ", "access" + access);
+        if(access == 1) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+            alertDialogBuilder.setMessage("Votre inscription a bien été prise en compte. Veuillez vérifier vos mails pour la confirmation de l'inscription.");
+            // Create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            // Show it
+            alertDialog.show();
+        }
 
         buttonLogin.setOnClickListener(
                 new View.OnClickListener() {

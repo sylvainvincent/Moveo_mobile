@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -116,28 +117,14 @@ public class RegisterActivity extends Activity {
             pDialog.dismiss();
 
             try {
-                if (json.getString("Success").equals("1")) {
-                    final Dialog dialog = new Dialog(RegisterActivity.this);
-                    dialog.setContentView(R.layout.custom_dialog);
-
-                    //Set the custom dialog : text and button
-                    TextView dialogText = (TextView) dialog.findViewById(R.id.dialogBoxText);
-                    dialogText.setText("Votre inscription a bien été prise en compte. Veuillez regarder vos mails pour la confirmation de l'inscription.");
-
-                    Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
-                    //If button is clicked, close the custom dialog
-                    dialogButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-
-                } else if (json.getString("Error").equals("1")) {
-                    alertDialog = new AlertDialog.Builder(
-                            RegisterActivity.this);
+                if (json.getString("success").equals("1")) {
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    intent.putExtra("access", 1);
+                    startActivity(intent);
+                } else if (json.getString("error").equals("1")) {
+                    alertDialog = new AlertDialog.Builder(RegisterActivity.this);
                     alertDialog.setCancelable(true);
-                    alertDialog.setMessage("Cette adresse mail est déjà prise.");
+                    alertDialog.setMessage("Cette adresse email est déjà prise.");
                     alertDialog.show();
                 }
             } catch (JSONException e) {
