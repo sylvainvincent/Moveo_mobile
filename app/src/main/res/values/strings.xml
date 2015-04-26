@@ -89,7 +89,22 @@
 
     </array>
 
+    <!-- POPUP LOST PASSWORD -->
+    <string name="lost_password_label">MOT DE PASSE OUBLIÉ ?</string>
+    <string name="lost_password_description">Entrez votre addresse mail lié à votre compte afin de récuperer votre mot de passe</string>
+    <string name="lost_password_hint_message">Entrez votre adresse mail</string>
+    <string name="lost_password_send_email">ENVOYER</string>
+    <string name="lost_password_cancel">ANNULER</string>
+
+    <!-- SEND MESSAGE -->
+    <string name="label_send_message">Vous allez envoyer un message à </string>
+    <string name="send_message_button">ENVOYER</string>
+    <string name="hint_message_editView">Votre message&#8230;</string>
+
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
+    <string name="title_activity_send_message">SendMessage</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>
