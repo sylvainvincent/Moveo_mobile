@@ -138,7 +138,7 @@ public class LoginActivity extends Activity {
         }
     }
 
-    public void open(View view){
+    public void lostPasswordSender(View view){
         AlertDialog.Builder lostPassword = new AlertDialog.Builder(this);
         lostPassword.setTitle(R.string.lost_password_label);
         lostPassword.setMessage(R.string.lost_password_description);

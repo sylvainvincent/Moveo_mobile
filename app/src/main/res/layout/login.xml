@@ -138,6 +138,7 @@
             android:text="@string/forgot_password"
             android:id="@+id/link_lost_password"
             android:layout_gravity="center"
+            android:onClick="lostPasswordSender"
             android:textSize="12sp"
             android:textStyle="bold"
             android:textColor="#056b83" />
