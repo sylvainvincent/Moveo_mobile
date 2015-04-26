@@ -33,6 +33,7 @@ public class LoginActivity extends Activity {
     EditText editPassword;
     TextView linkRegistration;
     Button buttonLogin;
+    EditText editMailForgetPassword;
 
     AlertDialog.Builder alertDialog;
 
@@ -155,14 +156,13 @@ public class LoginActivity extends Activity {
         AlertDialog.Builder lostPassword = new AlertDialog.Builder(this);
         lostPassword.setTitle(R.string.lost_password_label);
         lostPassword.setMessage(R.string.lost_password_description);
-        final EditText editText = new EditText(this);
-        lostPassword.setView(editText);
+        editMailForgetPassword = new EditText(this);
+        lostPassword.setView(editMailForgetPassword);
         lostPassword.setPositiveButton(R.string.lost_password_send_email,new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String email = editText.getText().toString();
-                JSONUser emailSender = new JSONUser();
-                emailSender.lostPassword(email);
+                new ExecuteThread2().execute();
+
             }
         });
         lostPassword.setNegativeButton(R.string.lost_password_cancel, new DialogInterface.OnClickListener(){
@@ -174,6 +174,47 @@ public class LoginActivity extends Activity {
         AlertDialog alertDialog = lostPassword.create();
         alertDialog.show();
     }
+
+
+    private class ExecuteThread2 extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(LoginActivity.this);
+            pDialog.setMessage("Envoi en cours...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+        @Override
+        protected JSONObject doInBackground(String... args) {
+            String email = editMailForgetPassword.getText().toString();
+
+            JSONUser emailSender = new JSONUser();
+            return emailSender.lostPassword(email);
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+            try {
+                if(json.getString("success").equals("1")) {
+                    Toast.makeText(LoginActivity.this, "Un email vous a été envoyer",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "blabla",
+                            Toast.LENGTH_LONG).show();
+                }
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public void onBackPressed() {
         System.exit(0);
