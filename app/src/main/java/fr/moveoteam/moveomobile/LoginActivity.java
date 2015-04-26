@@ -15,11 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.DialogInterface;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.regex.Pattern;
 
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.User;
