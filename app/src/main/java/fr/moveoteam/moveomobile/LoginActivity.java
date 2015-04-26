@@ -161,6 +161,8 @@ public class LoginActivity extends Activity {
                 dialog.cancel();
             }
         });
+        AlertDialog alertDialog = lostPassword.create();
+        alertDialog.show();
     }
     @Override
     public void onBackPressed() {
