@@ -70,7 +70,7 @@ public class UserDAO {
 
         // Insérer la ligne
         database.insert(TABLE_LOGIN, null, values);
-        database.close(); // Fermer la connexion vers la base de données
+       // database.close(); // Fermer la connexion vers la base de données
     }
 
 
@@ -91,7 +91,7 @@ public class UserDAO {
             user.setCity(cursor.getString(POSITION_USER_CITY));
         }
         cursor.close();
-        database.close();
+        // database.close();
 
         return user;
     }

@@ -79,6 +79,13 @@
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/home</item>
+        <item>@drawable/home</item>
+        <item>@drawable/home</item>
+        <item>@drawable/home</item>
+        <item>@drawable/home</item>
+        <item>@drawable/home</item>
+        <item>@drawable/home</item>
+        <item>@drawable/home</item>
 
     </array>
 

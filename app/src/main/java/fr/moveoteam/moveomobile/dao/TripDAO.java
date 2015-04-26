@@ -59,7 +59,7 @@ public class TripDAO {
             tripList.add(this.cursorToTrip(cursor));
         }
         cursor.close();
-        database.close();
+        // database.close();
 
         return tripList;
     }
