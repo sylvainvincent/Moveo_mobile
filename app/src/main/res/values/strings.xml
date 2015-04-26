@@ -89,6 +89,13 @@
 
     </array>
     
+    <!-- POPUP LOST PASSWORD -->
+    <string name="lost_password_label">MOT DE PASSE OUBLIÉ ?</string>
+    <string name="lost_password_description">Entrez votre addresse mail lié à votre compte afin de récuperer votre mot de passe</string>
+    <string name="lost_password_hint_message">Entrez votre adresse mail</string>
+    <string name="lost_password_send_email">ENVOYER</string>
+    <string name="lost_password_cancel">ANNULER</string>
+    
     <!-- SEND MESSAGE -->
     <string name="label_send_message">Vous allez envoyer un message à </string>
     <string name="send_message_button">ENVOYER</string>

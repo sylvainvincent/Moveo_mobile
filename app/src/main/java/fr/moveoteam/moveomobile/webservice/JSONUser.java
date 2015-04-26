@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.moveoteam.moveomobile.dao.DataBaseHandler;
-import fr.moveoteam.moveomobile.dao.UserDAO;
 
 /**
  * Created by Sylvain on 01/04/15.
@@ -65,6 +64,18 @@ public class JSONUser {
         loginForm.add(new BasicNameValuePair("password",password));
 
         return jsonParser.getJSONFromUrl(userURL,loginForm);
+    }
+
+    /**
+     * Methode qui envoie l'adresse mail saisie dans la popup Lost_password sous la forme d'un objet json vers le webservice
+     * @param email l'adresse mail saisie par l'utilisateur en question
+     * @return un objet json contenant l'adresse mail de l'utilisateur
+     */
+    public JSONObject lostPassword (String email){
+        List<NameValuePair> lostPasswordForm = new ArrayList<>();
+        lostPasswordForm.add(new BasicNameValuePair("email", email));
+
+        return jsonParser.getJSONFromUrl(userURL,lostPasswordForm);
     }
 
 

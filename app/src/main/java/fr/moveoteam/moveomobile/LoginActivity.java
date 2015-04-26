@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.DialogInterface;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -140,6 +141,27 @@ public class LoginActivity extends Activity {
         }
     }
 
+    public void open(View view){
+        AlertDialog.Builder lostPassword = new AlertDialog.Builder(this);
+        lostPassword.setTitle(R.string.lost_password_label);
+        lostPassword.setMessage(R.string.lost_password_description);
+        final EditText editText = new EditText(this);
+        lostPassword.setView(editText);
+        lostPassword.setPositiveButton(R.string.lost_password_send_email,new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String email = editText.getText().toString();
+                JSONUser emailSender = new JSONUser();
+                emailSender.lostPassword(email);
+            }
+        });
+        lostPassword.setNegativeButton(R.string.lost_password_cancel, new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+    }
     @Override
     public void onBackPressed() {
         System.exit(0);
