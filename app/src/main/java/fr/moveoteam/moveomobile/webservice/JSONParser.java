@@ -32,23 +32,22 @@ public class JSONParser {
     }
 
    /**
-    * Fonction qui récupère les informations d'un formulaire,les traite puis les envoie à l'adresse indiqué en paramètre(url).
+    * Fonction qui récupère les informations d'un tableau associatif,les traite puis les envoie à l'adresse indiqué en paramètre(url).
     * Ensuite elle récupère et parse une réponse (un message d'erreur ou de succès par exemple)
     * Pour finir elle renvoie la réponse sous la forme d'un objet JSON
-    *
-    *
-    *
+	* @param  url l'adresse du fichier du Webservice à utilisé
+	* @param postParameters le tableau associatif avec un tag
     */
     public JSONObject getJSONFromUrl(String url, List<NameValuePair> postParameters) {
         // Making HTTP request
         try {
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            // Pour créer une requête POST nous allons créer un objet HttpPost avec comme paramètre l'url du web service
+            // Pour créer une requête POST nous allons créer un objet HttpPost avec comme paramètre l'URL du web service
             HttpPost httpPost = new HttpPost(url);
             // on affecte le résultat du formulaire sur l'objet
             httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
-            //La requête est envoyée !!! on recupere la réponse
+            //La requête est envoyée !!! on récupère la réponse
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
@@ -74,7 +73,7 @@ public class JSONParser {
         }
         // essayer de parser un string en un objet Json
         try {
-            Log.e("Test : ",json);
+            Log.e("Réponse du JSON : ",json);
             jObj = new JSONObject(json);
         } catch (JSONException e) {
             Log.e("JSON Parser", "Erreur de parse " + e.toString());

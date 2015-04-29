@@ -104,7 +104,7 @@ public class UserDAO {
         String countQuery = "SELECT  * FROM " + TABLE_LOGIN;
         Cursor cursor = database.rawQuery(countQuery, null);
         int rowCount = cursor.getCount();
-        database.close();
+        // database.close();
         cursor.close();
 
         return rowCount > 0;
@@ -118,4 +118,14 @@ public class UserDAO {
         DataBaseHandler db = new DataBaseHandler(context);
         return this.getRowCount();
     }*/
+	
+    /**
+     * Fonction qui déconnecte l'utilisateur
+     * Efface la base de données
+     * */
+    public boolean logoutUser(Context context){
+        DataBaseHandler db = new DataBaseHandler(context);
+        db.resetTables();
+        return true;
+    }
 }

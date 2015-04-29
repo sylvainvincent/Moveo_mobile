@@ -67,7 +67,7 @@ public class JSONUser {
     }
 
     /**
-     * Methode qui envoie l'adresse mail saisie dans la popup Lost_password sous la forme d'un objet json vers le webservice
+     * Méthode qui envoie l'adresse mail saisie dans la popup Lost_password sous la forme d'un objet json vers le Webservice
      * @param email l'adresse mail saisie par l'utilisateur en question
      * @return un objet json contenant l'adresse mail de l'utilisateur
      */
@@ -77,19 +77,6 @@ public class JSONUser {
         lostPasswordForm.add(new BasicNameValuePair("user_email", email));
 
         return jsonParser.getJSONFromUrl(userURL,lostPasswordForm);
-    }
-
-
-
-
-    /**
-     * Fonction qui déconnecte l'utilisateur
-     * Efface la base de données
-     * */
-    public boolean logoutUser(Context context){
-        DataBaseHandler db = new DataBaseHandler(context);
-        db.resetTables();
-        return true;
     }
 
 }

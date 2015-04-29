@@ -15,10 +15,12 @@ import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
  * Created by Sylvain on 16/04/15.
+ * Le Dashboard est la classe principal, elle va redirigé l'utilisateur selon son statut de connection 
  */
 public class DashboardActivity extends Activity {
 
     private Menu m = null;
+	UserDAO userDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +37,11 @@ public class DashboardActivity extends Activity {
             Intent explore = new Intent(getApplicationContext(), ExploreActivity.class);
             explore.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(explore);
-        } else {// L'utilisateur n'est pas connecté
+        } else {// Si l'utilisateur n'est pas connecté on le renvoi sur la page Login
             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(login);
-            // FERMER L'ÉCRAN DASHBOARD
+            // Fermer le dashboard
             finish();
         }
 
@@ -67,5 +69,11 @@ public class DashboardActivity extends Activity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+	
+	@Override // Fermer l'application lorsque l'on appuie sur le bouton "back"
+    public void onBackPressed() {
+        System.exit(0);
+        super.onBackPressed();
     }
 }

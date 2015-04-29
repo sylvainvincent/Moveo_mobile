@@ -43,9 +43,9 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.login);
 
         this.initialization();
-        int access = getIntent().getIntExtra("access", 0);
-        Log.e("access : ", "access" + access);
-        if(access == 1) {
+        int register = getIntent().getIntExtra("register", 0);
+        Log.e("register : ", "register" + register);
+        if(register == 1) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
             alertDialogBuilder.setMessage("Votre inscription a bien été prise en compte. Veuillez vérifier vos mails pour la confirmation de l'inscription.");
             // Create alert dialog
@@ -73,7 +73,8 @@ public class LoginActivity extends Activity {
                 }
         );
     }
-
+	
+	// Permet d'initialiser tous les elements du layout 
     public void initialization(){
 
         linkRegistration = (TextView) findViewById(R.id.link_registration);
@@ -89,7 +90,8 @@ public class LoginActivity extends Activity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-
+	
+	// Thread secondaire pour la connexion
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
         @Override
@@ -175,7 +177,7 @@ public class LoginActivity extends Activity {
         alertDialog.show();
     }
 
-
+	// Thread secondaire pour le mot de passe oublié
     private class ExecuteThread2 extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
         @Override
@@ -200,14 +202,21 @@ public class LoginActivity extends Activity {
             pDialog.dismiss();
             try {
                 if(json.getString("success").equals("1")) {
-                    Toast.makeText(LoginActivity.this, "Un email vous a été envoyer",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(LoginActivity.this, "blabla",
-                            Toast.LENGTH_LONG).show();
+                    alertDialog = new AlertDialog.Builder(LoginActivity.this);
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("Un mail avec votre nouveau mot de passe vous a été envoyé");
+                    alertDialog.show();
+                } else if(json.getString("error").equals("2")){
+                    alertDialog = new AlertDialog.Builder(LoginActivity.this);
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("Cette adresse email n'existe pas");
+                    alertDialog.show();
+                }else {
+                    alertDialog = new AlertDialog.Builder(LoginActivity.this);
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("Erreur lors de l'envoi du mail");
+                    alertDialog.show();
                 }
-
-
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -215,12 +224,13 @@ public class LoginActivity extends Activity {
         }
     }
 
-    @Override
+    @Override // Fermer l'application lorsque l'on appuie sur le bouton "back"
     public void onBackPressed() {
         System.exit(0);
         super.onBackPressed();
     }
-
+	
+	// Permet d'accéder à l'inscription en sélectionnant le bouton "créer un compte"
     public void linkToRegistration(View view){
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);

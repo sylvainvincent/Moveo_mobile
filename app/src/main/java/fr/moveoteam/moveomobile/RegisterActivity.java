@@ -119,7 +119,7 @@ public class RegisterActivity extends Activity {
             try {
                 if (json.getString("success").equals("1")) {
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    intent.putExtra("access", 1);
+                    intent.putExtra("register", 1);
                     startActivity(intent);
                 } else if (json.getString("error").equals("1")) {
                     alertDialog = new AlertDialog.Builder(RegisterActivity.this);

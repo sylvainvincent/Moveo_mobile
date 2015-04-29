@@ -16,7 +16,8 @@
     <string name="register_button">Créer un compte</string>
     <string name="register_text_mail">Email</string>
     <string name="register_text_password">Mot de passe</string>
-    <string name="register_text_name">Nom</string>
+    <string name="register_text_last_name">Nom</string>
+    <string name="register_text_first_name">Prénom</string>
 
     <!-- LOGIN -->
     <string name="login_text_email">Email</string>
@@ -63,7 +64,7 @@
     <string name="cover">Photo principale</string>
     <string name="text_link_login">Déjà un compte ?</string>
 
-    <!-- Nav Drawer Menu Items -->
+    <!-- Les elements du menu -->
     <string-array name="nav_drawer_items">
         <item >Explorer</item>
         <item >Mes voyages</item>
@@ -107,7 +108,8 @@
 
     <string name="hello_world">Hello world!</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="drawer_open">Open menu</string>
+    <string name="drawer_close">Close menu</string>
+    <string name="hello_blank_fragment" />
 
 </resources>
