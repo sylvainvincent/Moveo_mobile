@@ -7,4 +7,8 @@
 	<color name="add_button_color">#3CB2CC</color>
 	<color name="description_color">#000</color>
 
+    <!-- TABS-->
+    <color name="ColorPrimary">#e62117</color>
+    <color name="ColorPrimaryDark">#c31c13</color>
+    <color name="tabsScrollColor">#8a140e</color>
 </resources>
