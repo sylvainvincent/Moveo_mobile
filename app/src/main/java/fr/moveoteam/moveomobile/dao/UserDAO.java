@@ -124,8 +124,7 @@ public class UserDAO {
      * Efface la base de données
      * */
     public boolean logoutUser(Context context){
-        DataBaseHandler db = new DataBaseHandler(context);
-        db.resetTables();
+        dbHandler.resetTables();
         return true;
     }
 }

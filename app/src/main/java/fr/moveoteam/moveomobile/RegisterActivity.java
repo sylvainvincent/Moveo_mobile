@@ -121,7 +121,7 @@ public class RegisterActivity extends Activity {
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     intent.putExtra("register", 1);
                     startActivity(intent);
-                } else if (json.getString("error").equals("1")) {
+                } else if (json.getString("error").equals("2")) {
                     alertDialog = new AlertDialog.Builder(RegisterActivity.this);
                     alertDialog.setCancelable(true);
                     alertDialog.setMessage("Cette adresse email est déjà prise.");

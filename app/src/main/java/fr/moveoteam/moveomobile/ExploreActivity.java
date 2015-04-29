@@ -60,6 +60,8 @@ public class ExploreActivity extends Activity {
     private ArrayList<MenuItems> listMenuItems;
     private MenuAdapter menuAdapter;
 
+    UserDAO userDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,6 +211,16 @@ public class ExploreActivity extends Activity {
                 break;
             case 5:
                 fragment = new ExploreFragment();
+                break;
+            case 6:
+                fragment = new ExploreFragment();
+                break;
+            case 7:
+                UserDAO userDAO = new UserDAO(ExploreActivity.this);
+                userDAO.logoutUser(ExploreActivity.this);
+                finish();
+                Intent intent = new Intent(ExploreActivity.this,LoginActivity.class);
+                startActivity(intent);
                 break;
 
             default:
