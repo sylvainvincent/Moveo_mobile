@@ -9,29 +9,36 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/MainTheme" >
+
         <activity
             android:name=".DashboardActivity"
             android:label="@string/app_name"
             android:theme="@style/AppThemeWithNoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
         <activity
             android:name=".LoginActivity"
             android:noHistory="true"
             android:theme="@style/AppThemeWithNoTitleBar"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        <activity android:name=".AddPlaceActivity" />
-        <activity android:name=".ExploreActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".PlaceActivity" />
+
         <activity
             android:name=".RegisterActivity"
+            android:theme="@style/AppThemeWithNoTitleBar"
+            android:windowSoftInputMode="stateHidden"
             android:noHistory="true" />
+        <activity android:name=".AddPlaceActivity" />
+        <activity android:name=".ExploreActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+         </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".PlaceActivity" />
+        <activity android:name=".UserProfile" />
+
         <activity
             android:name=".SendMessage"
             android:label="@string/title_activity_send_message" >

@@ -11,6 +11,7 @@
         android:background="#fff"
         android:id="@+id/add_place">
 
+        <!-- TITLE -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,7 +23,7 @@
             android:textSize="@dimen/title_size"
             android:id="@+id/explore_title"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="80dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,44 +33,49 @@
             android:textAllCaps="true"
             android:textColor="#666"
             android:textSize="17sp"
-            android:id="@+id/category"
+            android:id="@+id/add_place_category"
             android:layout_below="@+id/explore_title"
             android:layout_centerHorizontal="true" />
 
+        <!-- FORM -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@+id/category"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="80dp"
             android:layout_marginRight="80dp"
+            android:layout_below="@id/add_place_category"
             android:layout_centerHorizontal="true">
 
-                <!-- PLACE -->
+                <!-- Place -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="@string/place"
+                    android:layout_marginBottom="5dp"
                     android:textColor="#666"
-
                     android:textAllCaps="true"
                     android:id="@+id/place" />
 
                 <EditText
                     android:layout_width="fill_parent"
                     android:layout_height="30dp"
-                    android:background="#ccc"
+                    android:padding="5dp"
+                    android:textColor="@color/input_color"
+                    android:textSize="@dimen/input_text_size"
+                    android:background="@color/input_background"
                     android:id="@+id/editPlace" />
 
-            <!-- ADRESSE -->
+            <!-- Adress -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/adress"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
                 android:textColor="#666"
                 android:textAllCaps="true"
                 android:id="@+id/adress" />
@@ -77,26 +83,37 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
-                android:background="#ccc"
-                android:id="@+id/editAdress" />
+                android:padding="5dp"
+                android:textColor="@color/input_color"
+                android:textSize="@dimen/input_text_size"
+                android:background="@color/input_background"
+                android:id="@+id/edit_address" />
 
-            <!-- ADRESS -->
+            <!-- Description -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/description"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
                 android:textColor="#666"
                 android:textAllCaps="true"
                 android:id="@+id/descriptionPlace" />
 
             <EditText
                 android:layout_width="fill_parent"
-                android:layout_height="70dp"
-                android:background="#ccc"
+                android:layout_height="wrap_content"
+                android:background="@color/input_background"
+                android:padding="10dp"
+                android:gravity="top|left"
+                android:lines="5"
+                android:inputType="textMultiLine"
+                android:scrollHorizontally="true"
+                android:textSize="@dimen/input_text_size"
                 android:id="@+id/editDescriptionPlace" />
 
+            <!-- Submit Button -->
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
@@ -111,6 +128,7 @@
                 android:background="@drawable/submit_login_button"
                 android:layout_gravity="center_horizontal" />
 
+            <!-- Cancel Link -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

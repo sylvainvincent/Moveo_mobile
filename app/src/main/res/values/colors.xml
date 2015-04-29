@@ -6,6 +6,10 @@
 	<color name="cancel_color">#080706</color>
 	<color name="add_button_color">#3CB2CC</color>
 	<color name="description_color">#000</color>
+    <color name="input_background">#dddede</color>
+    <color name="input_color">#777</color>
+    <color name="label_color">#666</color>
+    <color name="link">#3cb2cc</color>
 
     <!-- TABS-->
     <color name="ColorPrimary">#e62117</color>

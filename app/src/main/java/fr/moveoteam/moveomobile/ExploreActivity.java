@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
@@ -94,6 +93,10 @@ public class ExploreActivity extends Activity {
         // What's hot, We  will add a counter here
         listMenuItems.add(new MenuItems(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));
 
+        listMenuItems.add(new MenuItems(navMenuTitles[6], navMenuIcons.getResourceId(6, -1), true, "50+"));
+
+        listMenuItems.add(new MenuItems(navMenuTitles[7], navMenuIcons.getResourceId(7, -1), true, "50+"));
+
         navMenuIcons.recycle();
         Log.e("ListMenuItem "," "+listMenuItems.size());
         Log.e("ListMenuItem 1 "," "+listMenuItems.get(0).getTitle());
@@ -129,7 +132,7 @@ public class ExploreActivity extends Activity {
 
         if (savedInstanceState == null) {
             // on first time display view for first nav item
-           // displayView(0);
+            // displayView(0);
         }
         /*
         UserDAO userDAO = new UserDAO(ExploreActivity.this);
@@ -340,37 +343,37 @@ public class ExploreActivity extends Activity {
                 JSONArray tripList = json.getJSONArray("trip");
                 ArrayList<Trip> tripArrayList = new ArrayList<>(10);
                 if(json.getString("success").equals("1")) {
-                        UserDAO userDAO = new UserDAO(ExploreActivity.this);
+                    UserDAO userDAO = new UserDAO(ExploreActivity.this);
 
-                        for(int i=0;i<6;i++) {
-                            tripArrayList.add(new Trip(
-                                    tripList.getJSONObject(i).getInt("trip_id"),
-                                    tripList.getJSONObject(i).getString("trip_name"),
-                                    tripList.getJSONObject(i).getString("trip_country"),
-                                    tripList.getJSONObject(i).getString("trip_description"),
-                                    tripList.getJSONObject(i).getString("trip_created_at"),
-                                    tripList.getJSONObject(i).getString("user_last_name"),
-                                    tripList.getJSONObject(i).getString("user_first_name"),
-                                    tripList.getJSONObject(i).getInt("comment_count"),
-                                    tripList.getJSONObject(i).getInt("photo_count")
-                            ));
-                        }
-                        listView.setAdapter(new CustomListAdapter(ExploreActivity.this, tripArrayList));
-                        Log.e("Message ",""+tripArrayList.get(0).getName()+""+tripArrayList.get(0).getName());
+                    for(int i=0;i<6;i++) {
+                        tripArrayList.add(new Trip(
+                                tripList.getJSONObject(i).getInt("trip_id"),
+                                tripList.getJSONObject(i).getString("trip_name"),
+                                tripList.getJSONObject(i).getString("trip_country"),
+                                tripList.getJSONObject(i).getString("trip_description"),
+                                tripList.getJSONObject(i).getString("trip_created_at"),
+                                tripList.getJSONObject(i).getString("user_last_name"),
+                                tripList.getJSONObject(i).getString("user_first_name"),
+                                tripList.getJSONObject(i).getInt("comment_count"),
+                                tripList.getJSONObject(i).getInt("photo_count")
+                        ));
+                    }
+                    listView.setAdapter(new CustomListAdapter(ExploreActivity.this, tripArrayList));
+                    Log.e("Message ",""+tripArrayList.get(0).getName()+""+tripArrayList.get(0).getName());
                     Log.e("Date ",""+tripList.getJSONObject(0).getString("trip_created_at")+" java : "+tripArrayList.get(0).getDateInsert());
 
                 } else
                     Toast.makeText(ExploreActivity.this, "La récupération des voyages a échoué",
                             Toast.LENGTH_LONG).show();
-                } catch (ParseException e1) {
+            } catch (ParseException e1) {
                 e1.printStackTrace();
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
 
             // Storing  JSON item in a Variable
-                // String msg = (String) c.getString(msg);
-                //Set JSON Data in TextView
+            // String msg = (String) c.getString(msg);
+            //Set JSON Data in TextView
 
         }
     }
@@ -379,7 +382,5 @@ public class ExploreActivity extends Activity {
      * When using the ActionBarDrawerToggle, you must call it during
      * onPostCreate() and onConfigurationChanged()...
      */
-
-
 
 }

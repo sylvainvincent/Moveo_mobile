@@ -11,6 +11,7 @@
         android:background="#fff"
         android:id="@+id/add_place">
 
+        <!-- TITLE -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,10 +22,11 @@
             android:textStyle="bold"
             android:id="@+id/add_trip_title"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="80dp"
             android:textSize="@dimen/title_size"
             android:layout_marginBottom="5dp" />
 
+        <!-- FORM -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
@@ -35,7 +37,7 @@
             android:layout_marginRight="80dp"
             android:layout_centerHorizontal="true">
 
-            <!-- CITY -->
+            <!-- City -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,10 +51,14 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
-                android:background="#ccc"
+                android:textColor="@color/input_color"
+                android:padding="5dp"
+                android:textSize="@dimen/input_text_size"
+                android:hint="Test"
+                android:background="@color/input_background"
                 android:id="@+id/editCity" />
 
-            <!-- COUNTRY -->
+            <!-- Country -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,10 +73,13 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
-                android:background="#ccc"
+                android:textColor="@color/input_color"
+                android:padding="5dp"
+                android:textSize="@dimen/input_text_size"
+                android:background="@color/input_background"
                 android:id="@+id/editCountry" />
 
-            <!-- DESCRIPTION -->
+            <!-- Description -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,11 +93,17 @@
 
             <EditText
                 android:layout_width="fill_parent"
-                android:layout_height="70dp"
-                android:background="#ccc"
-                android:id="@+id/editDescriptionTrip" />
+                android:layout_height="wrap_content"
+                android:background="@color/input_background"
+                android:padding="10dp"
+                android:gravity="top|left"
+                android:lines="5"
+                android:inputType="textMultiLine"
+                android:scrollHorizontally="true"
+                android:textSize="@dimen/input_text_size"
+                android:id="@+id/edit_description_trip" />
 
-            <!-- ADD A COVER -->
+            <!-- Add a cover -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -100,15 +115,15 @@
                 android:textAllCaps="true"
                 android:id="@+id/add_cover" />
 
+            <!-- Submit Button -->
             <Button
-                android:layout_width="103dp"
+                android:layout_width="80dp"
                 android:layout_height="29dp"
                 android:text="@string/browse"
                 android:background="@drawable/submit_button"
                 android:textColor="#fff"
                 android:id="@+id/add_file"
-                android:textSize="13sp"
-                android:onClick="getfile" >
+                android:textSize="13sp" >
             </Button>
 
             <Button

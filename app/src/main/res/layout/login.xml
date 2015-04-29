@@ -11,163 +11,167 @@
     android:id="@+id/login"
     android:clickable="false">
 
-    <!-- LOGO -->
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/logo_login"
-        android:src="@drawable/logo"
-        android:layout_marginTop="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/logo_description" />
-
-    <!-- EMAIL -->
     <LinearLayout
-        android:id="@+id/linear_email_login"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/logo_login"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:layout_alignParentStart="true">
 
-            <!-- TextView Email -->
+        <!-- LOGO -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logo_login"
+            android:src="@drawable/logo"
+            android:contentDescription="@string/logo_description"
+            android:layout_gravity="center_horizontal" />
+
+        <!-- EMAIL -->
+        <LinearLayout
+            android:id="@+id/linear_email_login"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="40dp">
+
+                <!-- TextView Email -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/login_text_email"
+                    android:textColor="#fff"
+                    android:layout_marginBottom="5dp"
+                    android:textAllCaps="true"
+                    android:id="@+id/text_email_login" />
+
+                <!-- EditText Email -->
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/field_height"
+                    android:id="@+id/edit_email_login"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/input_color"
+                    android:textSize="@dimen/input_text_size"
+                    android:layout_marginBottom="5dp"
+                    android:inputType="textEmailAddress"
+                    android:background="#fff"/>
+
+           </LinearLayout>
+
+        <!-- PASSWORD -->
+        <LinearLayout
+            android:id="@+id/linear_password_login"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="20dp">
+
+            <!-- TextView Password -->
             <TextView
+                android:id="@+id/text_password_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/login_text_email"
-                android:textColor="#fff"
+                android:text="@string/login_text_password"
                 android:layout_marginBottom="5dp"
-                android:textAllCaps="true"
-                android:id="@+id/text_email_login" />
+                android:textColor="#fff"
+                android:textAllCaps="true"/>
 
-            <!-- EditText Email -->
+            <!-- EditText Password -->
             <EditText
+                android:id="@+id/edit_password_login"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/field_height"
-                android:id="@+id/edit_email_login"
-                android:paddingRight="10dp"
+                android:textSize="@dimen/input_text_size"
                 android:paddingLeft="10dp"
-                android:layout_marginBottom="5dp"
-                android:inputType="textEmailAddress"
-                android:background="#fff"/>
+                android:paddingRight="10dp"
+                android:textColor="@color/input_color"
+                android:inputType="textPassword"
+                android:background="#fff"
+                android:layout_gravity="bottom" />
+        </LinearLayout>
 
-       </LinearLayout>
-
-    <!-- PASSWORD -->
-    <LinearLayout
-        android:id="@+id/linear_password_login"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/linear_email_login"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true">
-
-        <!-- TextView Password -->
-        <TextView
-            android:id="@+id/text_password_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/login_text_password"
-            android:layout_marginBottom="5dp"
-            android:textColor="#fff"
-            android:textAllCaps="true"/>
-
-        <!-- EditText Password -->
-        <EditText
-            android:id="@+id/edit_password_login"
+        <!-- LOGIN BUTTON -->
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/field_height"
-            android:textSize="@dimen/input_text_size"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:inputType="textPassword"
-            android:background="#fff"
-            android:layout_gravity="bottom" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/linear_button_login"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="30dp">
 
-    </LinearLayout>
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/field_height"
+                android:text="@string/login_text_button"
+                android:id="@+id/button_login"
+                android:textColor="#fff"
+                android:textAllCaps="true"
+                android:textSize="@dimen/input_text_size"
+                android:background="@drawable/submit_login_button" />
 
-    <!-- LOGIN BUTTON -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/linear_password_login"
-        android:id="@+id/linear_button_login"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true">
+        </LinearLayout>
 
-        <Button
+        <!-- Lost Password -->
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/field_height"
-            android:text="@string/login_text_button"
-            android:id="@+id/button_login"
-            android:textColor="#fff"
-            android:textAllCaps="true"
-            android:textSize="@dimen/input_text_size"
-            android:background="@drawable/submit_login_button" />
-
-    </LinearLayout>
-
-    <!-- Mot de passe oublié -->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/linear_button_login"
-        android:id="@+id/linear_link_lost_password"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true">
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/forgot_password"
-            android:id="@+id/link_lost_password"
-            android:layout_gravity="center"
-            android:onClick="lostPasswordSender"
-            android:clickable="true"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:textColor="#056b83" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:id="@+id/linear_link_lost_password"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="30dp">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/linear_link_lost_password"
-        android:id="@+id/linear_link_registration"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/forgot_password"
+                android:id="@+id/link_lost_password"
+                android:layout_gravity="center"
+                android:onClick="lostPasswordSender"
+                android:clickable="true"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#056b83" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- Registration Link -->
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/not_register"
-            android:id="@+id/link_registration"
-            android:layout_gravity="center"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:textColor="#056b83"
-            android:onClick="linkToRegistration"
-            android:clickable="true" />
+            android:orientation="vertical"
+            android:id="@+id/linear_link_registration"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/not_register"
+                android:id="@+id/link_registration"
+                android:textAllCaps="true"
+                android:layout_gravity="center"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#056b83"
+                android:onClick="linkToRegistration"
+                android:clickable="true" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

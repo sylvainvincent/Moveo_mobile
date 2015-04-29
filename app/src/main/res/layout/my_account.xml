@@ -11,121 +11,209 @@
         android:background="#fff"
         android:id="@+id/add_place">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/settings"
-            android:textColor="@color/title"
-            android:textSize="@dimen/title_size"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:id="@+id/settings"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="5dp" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/settings"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-            android:layout_centerHorizontal="true">
-
-            <!-- THUMBNAIL -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/thumbnail"
-                android:textColor="#666"
-                android:textAllCaps="true"
-                android:id="@+id/place" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/thumbnail"
-                android:id="@+id/thumbnail" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="12sp"
-                android:layout_marginTop="5dp"
-                android:text="@string/modify_thumbnail"
-                android:id="@+id/modify_thumbnail" />
-
-            <!-- NAME -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/name_settings"
-                android:layout_marginTop="20dp"
-                android:textColor="#666"
-                android:textAllCaps="true"
-                android:id="@+id/modifyName" />
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#ccc"
-                android:textSize="@dimen/input_text_size"
-                android:padding="10dp"
-                android:layout_marginTop="5dp"
-                android:id="@+id/editNameSettings" />
-
-            <!-- FIRSTNAME -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/firstname_settings"
-                android:layout_marginTop="20dp"
-                android:textColor="#666"
-                android:textAllCaps="true"
-                android:id="@+id/modify_firstname" />
-
-            <EditText
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#ccc"
-                android:textSize="12dp"
-                android:padding="10dp"
-                android:layout_marginTop="5dp"
-                android:id="@+id/edit_modify_firstname" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="@string/add_link"
-                android:id="@+id/buttonAddPlace"
-                android:textColor="#fff"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:layout_marginTop="30dp"
-                android:textSize="@dimen/text_size_button_form"
-                android:background="@drawable/submit_login_button"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/cancel"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/settings"
+                android:textColor="@color/title"
+                android:textSize="@dimen/title_size"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:layout_marginTop="12dp"
-                android:textSize="13sp"
-                android:id="@+id/cancelAddPlace"
-                android:layout_gravity="center_horizontal" />
+                android:layout_marginTop="60dp"
+                android:id="@+id/settings_title"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
-        </LinearLayout>
+            <!-- FORM -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:layout_below="@id/settings_title"
+                android:id="@+id/linearLayout">
+
+                <!-- THUMBNAIL -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/thumbnail"
+                    android:textColor="#666"
+                    android:textAllCaps="true"
+                    android:id="@+id/place" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/thumbnail"
+                    android:id="@+id/thumbnail" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="@dimen/input_text_size"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/modify_thumbnail"
+                    android:id="@+id/modify_thumbnail" />
+
+                <!-- NAME -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/name_settings"
+                    android:layout_marginTop="20dp"
+                    android:textSize="@dimen/input_text_size"
+                    android:textColor="@color/label_color"
+                    android:textAllCaps="true"
+                    android:id="@+id/modifyName" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/input_background"
+                    android:padding="10dp"
+                    android:textSize="@dimen/input_text_size"
+                    android:textColor="@color/input_color"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/editNameSettings" />
+
+                <!-- FIRSTNAME -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/firstname_settings"
+                    android:layout_marginTop="20dp"
+                    android:textColor="#666"
+                    android:textAllCaps="true"
+                    android:id="@+id/modify_firstname" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/input_background"
+                    android:textColor="@color/input_color"
+                    android:padding="10dp"
+                    android:textSize="@dimen/input_text_size"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/edit_modify_firstname" />
+
+                <!-- EMAIL -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/email_settings"
+                    android:layout_marginTop="20dp"
+                    android:textColor="#666"
+                    android:textAllCaps="true"
+                    android:id="@+id/modify_email" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/input_background"
+                    android:textColor="@color/input_color"
+                    android:padding="10dp"
+                    android:textSize="@dimen/input_text_size"
+                    android:layout_marginTop="5dp" />
+
+                <!-- BIRTHDATE -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/birthdate_settings"
+                    android:layout_marginTop="20dp"
+                    android:textColor="#666"
+                    android:textAllCaps="true"
+                    android:id="@+id/modify_birthdate" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/input_background"
+                    android:textColor="@color/input_color"
+                    android:padding="10dp"
+                    android:textSize="@dimen/input_text_size"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/edit_modify_birthdate" />
+
+                <!-- CURRENT CITY -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/city_settings"
+                    android:layout_marginTop="20dp"
+                    android:textColor="#666"
+                    android:textAllCaps="true"
+                    android:id="@+id/modify_city" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/input_background"
+                    android:textColor="@color/input_color"
+                    android:padding="10dp"
+                    android:textSize="@dimen/input_text_size"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/edit_modify_city" />
+
+                <!-- BIRTHPLACE -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/birthplace_settings"
+                    android:layout_marginTop="20dp"
+                    android:textColor="#666"
+                    android:textAllCaps="true"
+                    android:id="@+id/modify_birthplace" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/input_background"
+                    android:textColor="@color/input_color"
+                    android:padding="10dp"
+                    android:textSize="@dimen/input_text_size"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/edit_modify_birthplace" />
+
+                <!-- Submit Button -->
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="@string/modify_settings"
+                    android:id="@+id/button_add_place"
+                    android:textColor="#fff"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:layout_marginTop="30dp"
+                    android:textSize="@dimen/text_size_button_form"
+                    android:background="@drawable/submit_login_button"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/cancel"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="50dp"
+                    android:textSize="13sp"
+                    android:id="@+id/cancel_add_place"
+                    android:layout_gravity="center_horizontal" />
+
+            </LinearLayout>
 
     </RelativeLayout>
 

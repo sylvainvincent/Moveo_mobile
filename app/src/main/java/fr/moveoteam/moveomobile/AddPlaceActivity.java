@@ -35,12 +35,12 @@ public class AddPlaceActivity extends Activity{
     private void initialization() {
 
         exploretitle = (TextView) findViewById(R.id.explore_title);
-        category = (TextView) findViewById(R.id.category);
+        category = (TextView) findViewById(R.id.add_place_category);
         place = (TextView) findViewById(R.id.place);
         addplace = (RelativeLayout) findViewById(R.id.add_place);
         editPlace = (EditText) findViewById(R.id.editPlace);
         adress = (TextView) findViewById(R.id.adress);
-        editAdress = (EditText) findViewById(R.id.editAdress);
+        editAdress = (EditText) findViewById(R.id.edit_address);
         descriptionPlace = (TextView) findViewById(R.id.descriptionPlace);
         editDescriptionPlace = (EditText) findViewById(R.id.editDescriptionPlace);
         buttonAddPlace = (Button) findViewById(R.id.buttonAddPlace);

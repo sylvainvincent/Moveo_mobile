@@ -92,7 +92,7 @@ public class RegisterActivity extends Activity {
             super.onPreExecute();
 
             pDialog = new ProgressDialog(RegisterActivity.this);
-            pDialog.setMessage("Envoi des données ...");
+            pDialog.setMessage("Envoi des données...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
