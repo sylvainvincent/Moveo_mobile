@@ -13,7 +13,7 @@ import fr.moveoteam.moveomobile.ShoppingViewTab;
 /**
  * Created by hp1 on 21-01-2015.
  */
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     CharSequence Titles[]; // This will Store the Titles of the Tabs which are Going to be passed when ViewPagerAdapter is created
     int NumbOfTabs; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created

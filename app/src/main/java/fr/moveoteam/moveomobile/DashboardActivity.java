@@ -15,7 +15,7 @@ import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
  * Created by Sylvain on 16/04/15.
- * Le Dashboard est la classe principal, elle va redirigé l'utilisateur selon son statut de connection 
+ * Le Dashboard est la classe principal, elle va re-diriger l'utilisateur selon son statut de connection
  */
 public class DashboardActivity extends Activity {
 
@@ -37,7 +37,7 @@ public class DashboardActivity extends Activity {
             Intent explore = new Intent(getApplicationContext(), ExploreActivity.class);
             explore.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(explore);
-        } else {// Si l'utilisateur n'est pas connecté on le renvoi sur la page Login
+        } else {// Si l'utilisateur n'a pas de session d'ouverte il est renvoyé sur la page Login
             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(login);

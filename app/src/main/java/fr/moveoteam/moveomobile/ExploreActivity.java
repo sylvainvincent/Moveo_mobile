@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
@@ -196,6 +197,15 @@ public class ExploreActivity extends Activity {
         switch (position) {
             case 0:
                 fragment = new ExploreFragment();
+
+                this.userDAO = new UserDAO(ExploreActivity.this);
+                userDAO.open();
+                exploreTitle = (TextView) findViewById(R.id.explore_title);
+                exploreTitle.setText(userDAO.getUserDetails().getFirstName()+" "+userDAO.getUserDetails().getLastName());
+
+                new ExecuteThread().execute();
+
+                ArrayList<Trip> tripStory = getListData();
                 break;
             case 1:
                 fragment = new ExploreFragment();
@@ -216,7 +226,7 @@ public class ExploreActivity extends Activity {
                 fragment = new ExploreFragment();
                 break;
             case 7:
-                UserDAO userDAO = new UserDAO(ExploreActivity.this);
+                userDAO = new UserDAO(ExploreActivity.this);
                 userDAO.logoutUser(ExploreActivity.this);
                 finish();
                 Intent intent = new Intent(ExploreActivity.this,LoginActivity.class);
