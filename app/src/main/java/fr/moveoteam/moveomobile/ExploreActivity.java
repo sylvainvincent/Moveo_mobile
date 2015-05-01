@@ -198,10 +198,10 @@ public class ExploreActivity extends Activity {
             case 0:
                 fragment = new ExploreFragment();
 
-                this.userDAO = new UserDAO(ExploreActivity.this);
-                userDAO.open();
-                exploreTitle = (TextView) findViewById(R.id.explore_title);
-                exploreTitle.setText(userDAO.getUserDetails().getFirstName()+" "+userDAO.getUserDetails().getLastName());
+                // this.userDAO = new UserDAO(ExploreActivity.this);
+                // userDAO.open();
+               // exploreTitle = (TextView) findViewById(R.id.explore_title);
+               // exploreTitle.setText(userDAO.getUserDetails().getFirstName()+" "+userDAO.getUserDetails().getLastName());
 
                 new ExecuteThread().execute();
 

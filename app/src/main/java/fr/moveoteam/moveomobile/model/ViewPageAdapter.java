@@ -42,8 +42,6 @@ class ViewPagerAdapter extends FragmentStatePagerAdapter {
             ShoppingViewTab tab2 = new ShoppingViewTab();
             return tab2;
         }
-
-
     }
 
     // This method return the titles for the Tabs in the Tab Strip
