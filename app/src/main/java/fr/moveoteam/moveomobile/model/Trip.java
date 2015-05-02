@@ -46,6 +46,18 @@ public class Trip {
         this.photoCount = photoCount;
     }
 
+    public Trip(int id, String name, String country, String description, String dateInsert,int commentCount, int photoCount) throws ParseException {
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        this.id = id;
+        this.country = country;
+        this.name = name;
+        this.description = description;
+        this.dateInsert = (Date) df.parse(dateInsert);
+        // Date a = new Date(dateInsert);
+        this.commentCount = commentCount;
+        this.photoCount = photoCount;
+    }
+
     public Trip(String name, String country, String description, String insert, Drawable mainPicture, User user) {
         this.name = name;
         this.country = country;
@@ -147,7 +159,8 @@ public class Trip {
         return dateInsert;
     }
 
-    public void setDateInsert(Date dateInsert) {
-        this.dateInsert = dateInsert;
+    public void setDateInsert(String dateInsert) throws ParseException {
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        this.dateInsert = (Date) df.parse(dateInsert);
     }
 }

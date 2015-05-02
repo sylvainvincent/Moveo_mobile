@@ -47,6 +47,11 @@ public class Function {
 
     }
 
+    /**
+     * Verification d'un champ contenant seulement des lettres
+     * @param text
+     * @return
+     */
     public static boolean isString(String text){
         Pattern p = Pattern.compile("[a-zA-Z]+");
         Matcher matcher = p.matcher(text);
@@ -57,6 +62,13 @@ public class Function {
         }
     }
 
+    /**
+     * Verification de la date de naissance
+     * @param year
+     * @param month
+     * @param day
+     * @return
+     */
     public static boolean testDate(int year, int month, int day){
         Boolean validation = false;
 

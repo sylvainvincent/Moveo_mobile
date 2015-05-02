@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <!-- Framelayout to display Fragments -->
     <FrameLayout
         android:id="@+id/frame_container"
@@ -21,5 +23,5 @@
         android:divider="#999"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/list_selector"
-        android:background="#222"/>
+        android:background="#2c3240"/>
 </android.support.v4.widget.DrawerLayout>

@@ -1,5 +1,6 @@
 package fr.moveoteam.moveomobile.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,6 +22,13 @@ public class TripDAO {
 
     // NOM DE LA TABLE
     private static final String TABLE_TRIP = "trip";
+
+    // LES CHAMPS
+    public static final String KEY_TRIP_ID = "trip_id";
+    public static final String KEY_TRIP_NAME = "trip_name";
+    public static final String KEY_TRIP_COUNTRY = "trip_country";
+    public static final String KEY_TRIP_DESCRIPTION = "trip_description";
+    public static final String KEY_TRIP_CREATED_AT = "trip_created_at";
 
     public TripDAO(Context context){
         dbHandler = new DataBaseHandler(context);
@@ -62,6 +70,37 @@ public class TripDAO {
         // database.close();
 
         return tripList;
+    }
+
+    public ArrayList<Trip> getTripList(){
+
+        String selectQuery = "SELECT  * FROM " + TABLE_TRIP;
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        ArrayList<Trip> tripList = new ArrayList<>(cursor.getCount());
+        // Se déplacer à la première ligne
+        cursor.moveToFirst();
+        while(cursor.moveToNext()){
+            tripList.add(this.cursorToTrip(cursor));
+        }
+        cursor.close();
+        // database.close();
+
+        return tripList;
+    }
+
+    public void addTripListUser(ArrayList<Trip> tripList) {
+        ContentValues values;
+        for(Trip trip : tripList) {
+            values = new ContentValues();
+            values.put(KEY_TRIP_ID, trip.getId());
+            values.put(KEY_TRIP_NAME, trip.getName());     // NOM
+            values.put(KEY_TRIP_COUNTRY, trip.getCountry());   // PRÉNOM
+            values.put(KEY_TRIP_DESCRIPTION, trip.getDescription());     // DATE DE NAISSANCE
+            values.put(KEY_TRIP_CREATED_AT, String.valueOf(trip.getDateInsert()));
+            // Insérer la ligne
+            database.insert(TABLE_TRIP, null, values);
+        }
     }
 
     /**

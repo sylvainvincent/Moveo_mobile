@@ -110,21 +110,11 @@ public class UserDAO {
         return rowCount > 0;
     }
 
-
-    /**
-     * Function get Login status
-     *
-    public static boolean isUserLoggedIn(Context context){
-        DataBaseHandler db = new DataBaseHandler(context);
-        return this.getRowCount();
-    }*/
-	
     /**
      * Fonction qui déconnecte l'utilisateur
      * Efface la base de données
      * */
-    public boolean logoutUser(Context context){
+    public void logoutUser(Context context){
         dbHandler.resetTables();
-        return true;
     }
 }

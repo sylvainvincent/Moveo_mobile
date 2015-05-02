@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
@@ -29,14 +30,21 @@ public class DashboardActivity extends Activity {
         if(!Function.beConnectedToTheInternet(DashboardActivity.this)) {
             Toast.makeText(DashboardActivity.this,"Vous n'êtes pas connecté sur internet",Toast.LENGTH_LONG).show();
         }
+        TripDAO tripDAO = new TripDAO(DashboardActivity.this);
+        tripDAO.open();
+        Log.e("Test du trip :",tripDAO.getTripList().get(0).getName());
+        Log.e("Test du trip :",tripDAO.getTripList().get(0).getCountry());
+        Log.e("Test du trip :",tripDAO.getTripList().get(1).getName());
+        Log.e("Test du trip :",tripDAO.getTripList().get(1).getCountry());
 
-        UserDAO userDAO = new UserDAO(DashboardActivity.this);
+        userDAO = new UserDAO(DashboardActivity.this);
         userDAO.open();
         // VERIFIER LE STATUT DU LOGIN DANS LA BASE DE DONNÉES
         if (userDAO.getRowCount()) {
             Intent explore = new Intent(getApplicationContext(), ExploreActivity.class);
             explore.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(explore);
+            finish();
         } else {// Si l'utilisateur n'a pas de session d'ouverte il est renvoyé sur la page Login
             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -57,23 +65,7 @@ public class DashboardActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected (MenuItem item){
-        switch(item.getItemId())
-        {
-            case R.id.action_logout:
-                Log.e("Test", "a");
-                Intent login = new Intent(getApplicationContext(), LoginActivity.class);
-                login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(login);
-                // FERMER L'ÉCRAN DASHBOARD
-                finish();
-                return true;
-        }
         return super.onOptionsItemSelected(item);
     }
-	
-	@Override // Fermer l'application lorsque l'on appuie sur le bouton "back"
-    public void onBackPressed() {
-        System.exit(0);
-        super.onBackPressed();
-    }
+
 }

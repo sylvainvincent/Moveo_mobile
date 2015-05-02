@@ -43,6 +43,10 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
         initialization();
+        if(!Function.beConnectedToTheInternet(RegisterActivity.this)) {
+            Toast.makeText(RegisterActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
+                    Toast.LENGTH_LONG).show();
+        }
         eventButton();
     }
 
@@ -62,12 +66,18 @@ public class RegisterActivity extends Activity {
                 new View.OnClickListener() {
                     public void onClick(View v) {
                         //On vérifie la conformité des informations du formulaire
-                        if (!Function.isEmailAddress(editMail.getText().toString())) {
-                            Toast.makeText(RegisterActivity.this, "Votre adresse mail n'est pas valide.", Toast.LENGTH_LONG).show();
+                        if(!Function.beConnectedToTheInternet(RegisterActivity.this)) {
+                            Toast.makeText(RegisterActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
+                            Toast.LENGTH_LONG).show();
+                        } else if (!Function.isEmailAddress(editMail.getText().toString())) {
+                            Toast.makeText(RegisterActivity.this, "Votre adresse mail n'est pas valide.",
+                            Toast.LENGTH_LONG).show();
                         } else if (editPassword.getText().toString().length() <= 7) {
-                            Toast.makeText(RegisterActivity.this, "Votre mot de passe doit contenir 8 caractères ou plus.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, "Votre mot de passe doit contenir 8 caractères ou plus.",
+                            Toast.LENGTH_LONG).show();
                         } else if (!(Function.isString(editName.getText().toString()) && Function.isString(editFirstName.getText().toString()))) {
-                            Toast.makeText(RegisterActivity.this, "Votre nom ou prénom ne doit contenir que des lettres.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterActivity.this, "Votre nom ou prénom ne doit contenir que des lettres.",
+                            Toast.LENGTH_LONG).show();
                         } else {
                             // on execute la méthode "execute" de la classe JSONParse si les informations sont conformes
                             new ExecuteThread().execute();

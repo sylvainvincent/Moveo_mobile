@@ -16,10 +16,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.DialogInterface;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+
+import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.model.Function;
+import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.model.User;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
@@ -48,6 +54,12 @@ public class LoginActivity extends Activity {
         if(register == 1) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
             alertDialogBuilder.setMessage("Votre inscription a bien été prise en compte. Veuillez vérifier vos mails pour la confirmation de l'inscription.");
+            alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
             // Create alert dialog
             AlertDialog alertDialog = alertDialogBuilder.create();
 
@@ -58,23 +70,21 @@ public class LoginActivity extends Activity {
         buttonLogin.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        /*Intent intent = new Intent(LoginActivity.this, ExploreActivity.class);
-                        startActivity(intent);
-                        **/
-
-                        if(!Function.isEmailAddress(editMail.getText().toString())){
-                            Toast.makeText(LoginActivity.this, "Adresse email invalide",
+                        if(!Function.beConnectedToTheInternet(LoginActivity.this)) {
+                            Toast.makeText(LoginActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
+                            Toast.LENGTH_LONG).show();
+                        }else if(!Function.isEmailAddress(editMail.getText().toString())){
+                            Toast.makeText(LoginActivity.this, "Votre Adresse email est invalide",
                             Toast.LENGTH_LONG).show();
                         } else {
                             new ExecuteThread().execute();
                         }
-
                     }
                 }
         );
     }
 	
-	// Permet d'initialiser tous les elements du layout 
+	// Permet d'initialiser tous les elements du layout
     public void initialization(){
 
         linkRegistration = (TextView) findViewById(R.id.link_registration);
@@ -90,7 +100,37 @@ public class LoginActivity extends Activity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-	
+
+    public void lostPasswordSender(View view){
+        AlertDialog.Builder lostPassword = new AlertDialog.Builder(this);
+        lostPassword.setTitle(R.string.lost_password_label);
+        lostPassword.setMessage(R.string.lost_password_description);
+        editMailForgetPassword = new EditText(this);
+        lostPassword.setView(editMailForgetPassword);
+        lostPassword.setPositiveButton(R.string.lost_password_send_email,new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(!Function.beConnectedToTheInternet(LoginActivity.this)) {
+                    Toast.makeText(LoginActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
+                            Toast.LENGTH_LONG).show();
+                }else if(!Function.isEmailAddress(editMailForgetPassword.getText().toString())){
+                    Toast.makeText(LoginActivity.this,"Votre adresse email est invalide",
+                            Toast.LENGTH_LONG).show();
+                }else{
+                    new ExecuteThread2().execute();
+                }
+            }
+        });
+        lostPassword.setNegativeButton(R.string.lost_password_cancel, new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = lostPassword.create();
+        alertDialog.show();
+    }
+
 	// Thread secondaire pour la connexion
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
@@ -117,9 +157,10 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                if(json.getString("success").equals("1")) {
-                    if(json.getJSONObject("user").getString("access_id").equals("2")) {
-                        UserDAO userDAO = new UserDAO(LoginActivity.this);
+                if (json.getString("success").equals("1") || json.getString("success").equals("2")) {
+                    if (json.getJSONObject("user").getString("access_id").equals("2")) {
+
+                        // Création de l'objet User
                         User user = new User();
                         user.setLastName(json.getJSONObject("user").getString("user_last_name"));
                         user.setFirstName(json.getJSONObject("user").getString("user_first_name"));
@@ -128,21 +169,48 @@ public class LoginActivity extends Activity {
                         user.setCountry(json.getJSONObject("user").getString("user_country"));
                         user.setCity(json.getJSONObject("user").getString("user_city"));
 
+                        // Création de l'objet DAO(utilisateur) pour ajouter un utilisateur
+                        UserDAO userDAO = new UserDAO(LoginActivity.this);
                         userDAO.open();
                         userDAO.addUser(user);
 
+                        if(json.getString("success").equals("1")){
+                            JSONArray tripList = json.getJSONArray("trip");
+                            Trip trip;
+                            ArrayList<Trip> tripArrayList = new ArrayList<>(tripList.length());
+                            for(int i=0; i<tripList.length();i++){
+                                tripArrayList.add(new Trip(
+                                        tripList.getJSONObject(i).getInt("trip_id"),
+                                        tripList.getJSONObject(i).getString("trip_name"),
+                                        tripList.getJSONObject(i).getString("trip_country"),
+                                        tripList.getJSONObject(i).getString("trip_description"),
+                                        tripList.getJSONObject(i).getString("trip_created_at"),
+                                        tripList.getJSONObject(i).getInt("comment_count"),
+                                        tripList.getJSONObject(i).getInt("photo_count")
+                                ));
+                            }
+                            TripDAO tripDAO = new TripDAO(LoginActivity.this);
+                            tripDAO.open();
+                            tripDAO.addTripListUser(tripArrayList);
+                        }
+
+                        // L'utilisateur est envoyer vers le DASHBOARDACTIVITY
                         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                         startActivity(intent);
                         Log.e("Passage", "réussi");
-                    }else{
+                    } else {
                         alertDialog = new AlertDialog.Builder(
                                 LoginActivity.this);
                         alertDialog.setCancelable(true);
-                        alertDialog.setMessage("Vous n'avez pas validé votre compte. Veuillez verifier votre boite mail.");
+                        alertDialog.setMessage("Votre compte n'est pas validé. " +
+                                "Veuillez verifier votre boite de réception ou les courriers indésirables de votre boite email.");
                         alertDialog.show();
                     }
-                } else {
+                }else if(json.getString("error").equals("1")) {
                     Toast.makeText(LoginActivity.this, "Votre mot de passe ou votre adresse mail est incorrect",
+                            Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(LoginActivity.this, "Un erreur s'est produite lors de la recuperation de vos informations",
                             Toast.LENGTH_LONG).show();
                 }
 
@@ -150,32 +218,13 @@ public class LoginActivity extends Activity {
 
             } catch (JSONException e) {
                 e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
         }
     }
 
-    public void lostPasswordSender(View view){
-        AlertDialog.Builder lostPassword = new AlertDialog.Builder(this);
-        lostPassword.setTitle(R.string.lost_password_label);
-        lostPassword.setMessage(R.string.lost_password_description);
-        editMailForgetPassword = new EditText(this);
-        lostPassword.setView(editMailForgetPassword);
-        lostPassword.setPositiveButton(R.string.lost_password_send_email,new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                new ExecuteThread2().execute();
 
-            }
-        });
-        lostPassword.setNegativeButton(R.string.lost_password_cancel, new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        AlertDialog alertDialog = lostPassword.create();
-        alertDialog.show();
-    }
 
 	// Thread secondaire pour le mot de passe oublié
     private class ExecuteThread2 extends AsyncTask<String, String, JSONObject> {

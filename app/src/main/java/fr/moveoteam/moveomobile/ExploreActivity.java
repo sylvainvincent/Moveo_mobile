@@ -28,10 +28,10 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import fr.moveoteam.moveomobile.fragment.ExploreFragment;
 import fr.moveoteam.moveomobile.menu.MenuAdapter;
 import fr.moveoteam.moveomobile.menu.MenuItems;
 import fr.moveoteam.moveomobile.model.CustomListAdapter;
-import fr.moveoteam.moveomobile.model.Place;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
@@ -198,6 +198,7 @@ public class ExploreActivity extends Activity {
             case 0:
                 fragment = new ExploreFragment();
 
+
                 // this.userDAO = new UserDAO(ExploreActivity.this);
                 // userDAO.open();
                // exploreTitle = (TextView) findViewById(R.id.explore_title);
@@ -228,9 +229,9 @@ public class ExploreActivity extends Activity {
             case 7:
                 userDAO = new UserDAO(ExploreActivity.this);
                 userDAO.logoutUser(ExploreActivity.this);
-                finish();
                 Intent intent = new Intent(ExploreActivity.this,LoginActivity.class);
                 startActivity(intent);
+                finish();
                 break;
 
             default:
@@ -367,7 +368,7 @@ public class ExploreActivity extends Activity {
                 if(json.getString("success").equals("1")) {
                     UserDAO userDAO = new UserDAO(ExploreActivity.this);
 
-                    for(int i=0;i<6;i++) {
+                    for(int i=0;i<3;i++) {
                         tripArrayList.add(new Trip(
                                 tripList.getJSONObject(i).getInt("trip_id"),
                                 tripList.getJSONObject(i).getString("trip_name"),

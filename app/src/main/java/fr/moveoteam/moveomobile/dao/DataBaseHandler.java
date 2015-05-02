@@ -40,6 +40,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final String KEY_TRIP_COUNTRY = "trip_country";
         public static final String KEY_TRIP_DESCRIPTION = "trip_description";
         public static final String KEY_TRIP_CREATED_AT = "trip_created_at";
+        public static final String KEY_TRIP_USER = "trip_user";
 
     // POSITION DES COLONNES
 
@@ -49,6 +50,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final int POSITION_TRIP_COUNTRY = 2;
         public static final int POSITION_TRIP_DESCRIPTION = 3;
         public static final int POSITION_TRIP_CREATED_AT = 4;
+        public static final int POSITION_TRIP_USER= 5;
 
     // CREATION DES TABLES
         private static final String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
@@ -65,7 +67,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_TRIP_NAME + " TEXT,"
                 + KEY_TRIP_COUNTRY + " TEXT,"
                 + KEY_TRIP_DESCRIPTION + " TEXT,"
-                + KEY_TRIP_CREATED_AT + " TEXT"+ ")";
+                + KEY_TRIP_CREATED_AT + " TEXT,"
+                + KEY_TRIP_USER + " INTEGER"+ ")";
 
   public DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
