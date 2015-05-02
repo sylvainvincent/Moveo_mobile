@@ -67,6 +67,7 @@ public class LoginActivity extends Activity {
             alertDialog.show();
         }
 
+
         buttonLogin.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {

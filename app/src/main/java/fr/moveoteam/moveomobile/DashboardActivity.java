@@ -9,10 +9,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import fr.moveoteam.moveomobile.dao.DataBaseHandler;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Function;
-import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
  * Created by Sylvain on 16/04/15.
@@ -30,22 +30,28 @@ public class DashboardActivity extends Activity {
         if(!Function.beConnectedToTheInternet(DashboardActivity.this)) {
             Toast.makeText(DashboardActivity.this,"Vous n'êtes pas connecté sur internet",Toast.LENGTH_LONG).show();
         }
-        TripDAO tripDAO = new TripDAO(DashboardActivity.this);
-        tripDAO.open();
-        Log.e("Test du trip :",tripDAO.getTripList().get(0).getName());
-        Log.e("Test du trip :",tripDAO.getTripList().get(0).getCountry());
-        Log.e("Test du trip :",tripDAO.getTripList().get(1).getName());
-        Log.e("Test du trip :",tripDAO.getTripList().get(1).getCountry());
+
 
         userDAO = new UserDAO(DashboardActivity.this);
         userDAO.open();
         // VERIFIER LE STATUT DU LOGIN DANS LA BASE DE DONNÉES
         if (userDAO.getRowCount()) {
-            Intent explore = new Intent(getApplicationContext(), ExploreActivity.class);
+            /** ---------------- TEST
+            TripDAO tripDAO = new TripDAO(DashboardActivity.this);
+            tripDAO.open();
+            Log.e("Test du trip 1:",tripDAO.getTripList().get(0).getName());
+            Log.e("Test du trip 1:",tripDAO.getTripList().get(0).getCountry());
+            Log.e("Test du trip 2:",tripDAO.getTripList().get(1).getName());
+            Log.e("Test du trip 2:",tripDAO.getTripList().get(1).getCountry());
+             */
+            Intent explore = new Intent(getApplicationContext(), HomeActivity.class);
+
             explore.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(explore);
             finish();
         } else {// Si l'utilisateur n'a pas de session d'ouverte il est renvoyé sur la page Login
+            DataBaseHandler db = new DataBaseHandler(DashboardActivity.this);
+            db.resetTables();
             Intent login = new Intent(getApplicationContext(), LoginActivity.class);
             login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(login);

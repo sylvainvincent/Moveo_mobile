@@ -13,11 +13,9 @@
         <!-- Les activity -->
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".DashboardActivity"
             android:noHistory="true"
             android:theme="@style/AppThemeWithNoTitleBar" >
-            <meta-data android:name="android.app.searchable"
-                android:resource="@layout/searchable" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,10 +23,12 @@
         </activity>
 
         <activity
-            android:name=".DashboardActivity"
+            android:name=".LoginActivity"
             android:noHistory="true"
             android:theme="@style/AppThemeWithNoTitleBar"
             android:windowSoftInputMode="stateHidden" >
+            <meta-data android:name="android.app.searchable"
+                android:resource="@layout/searchable" />
         </activity>
 
         <activity
@@ -37,8 +37,7 @@
             android:windowSoftInputMode="stateHidden"
             android:noHistory="true" />
         <activity android:name=".AddPlaceActivity" />
-        <activity android:name=".ExploreActivity"
-                  android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        <activity android:name=".HomeActivity">
          </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".PlaceActivity" />

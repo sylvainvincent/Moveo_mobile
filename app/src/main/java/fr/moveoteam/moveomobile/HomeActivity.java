@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.fragment.ExploreFragment;
 import fr.moveoteam.moveomobile.menu.MenuAdapter;
 import fr.moveoteam.moveomobile.menu.MenuItems;
@@ -40,7 +41,7 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
 /**
  * Created by alexMac on 07/04/15.
  */
-public class ExploreActivity extends Activity {
+public class HomeActivity extends Activity {
 
     private TextView exploreTitle;
     private ListView listView;
@@ -84,21 +85,25 @@ public class ExploreActivity extends Activity {
 
         listMenuItems = new ArrayList<>();
 
+        TripDAO tripDAO = new TripDAO(HomeActivity.this);
+        tripDAO.open();
+
+        // EXPLORER
         listMenuItems.add(new MenuItems(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-        // Find People
-        listMenuItems.add(new MenuItems(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-        // Photos
+        // MES VOYAGES
+        listMenuItems.add(new MenuItems(navMenuTitles[1], navMenuIcons.getResourceId(1, -1),true,Integer.toString(tripDAO.getTripList().size())));
+        // MON PROFIL
         listMenuItems.add(new MenuItems(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-        // Communities, Will add a counter here
-        listMenuItems.add(new MenuItems(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "22"));
-        // Pages
-        listMenuItems.add(new MenuItems(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-        // What's hot, We  will add a counter here
-        listMenuItems.add(new MenuItems(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));
-
-        listMenuItems.add(new MenuItems(navMenuTitles[6], navMenuIcons.getResourceId(6, -1), true, "50+"));
-
-        listMenuItems.add(new MenuItems(navMenuTitles[7], navMenuIcons.getResourceId(7, -1), true, "50+"));
+        // MES AMIS
+        listMenuItems.add(new MenuItems(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "50+"));
+        // MESSAGERIE
+        listMenuItems.add(new MenuItems(navMenuTitles[4], navMenuIcons.getResourceId(4, -1), true, "3"));
+        // PARAMÈTRE
+        listMenuItems.add(new MenuItems(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
+        // A PROPOS
+        listMenuItems.add(new MenuItems(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
+        // DÉCONNEXION
+        listMenuItems.add(new MenuItems(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
 
         navMenuIcons.recycle();
         Log.e("ListMenuItem "," "+listMenuItems.size());
@@ -106,7 +111,7 @@ public class ExploreActivity extends Activity {
 
         mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
-        menuAdapter = new MenuAdapter(ExploreActivity.this,
+        menuAdapter = new MenuAdapter(HomeActivity.this,
                 listMenuItems);
         mDrawerList.setAdapter(menuAdapter);
 
@@ -196,7 +201,7 @@ public class ExploreActivity extends Activity {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new ExploreFragment();
+
 
 
                 // this.userDAO = new UserDAO(ExploreActivity.this);
@@ -227,9 +232,9 @@ public class ExploreActivity extends Activity {
                 fragment = new ExploreFragment();
                 break;
             case 7:
-                userDAO = new UserDAO(ExploreActivity.this);
-                userDAO.logoutUser(ExploreActivity.this);
-                Intent intent = new Intent(ExploreActivity.this,LoginActivity.class);
+                userDAO = new UserDAO(HomeActivity.this);
+                userDAO.logoutUser(HomeActivity.this);
+                Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -345,7 +350,7 @@ public class ExploreActivity extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(ExploreActivity.this);
+            pDialog = new ProgressDialog(HomeActivity.this);
             pDialog.setMessage("Récupération des voyages...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -366,7 +371,7 @@ public class ExploreActivity extends Activity {
                 JSONArray tripList = json.getJSONArray("trip");
                 ArrayList<Trip> tripArrayList = new ArrayList<>(10);
                 if(json.getString("success").equals("1")) {
-                    UserDAO userDAO = new UserDAO(ExploreActivity.this);
+                    UserDAO userDAO = new UserDAO(HomeActivity.this);
 
                     for(int i=0;i<3;i++) {
                         tripArrayList.add(new Trip(
@@ -381,12 +386,13 @@ public class ExploreActivity extends Activity {
                                 tripList.getJSONObject(i).getInt("photo_count")
                         ));
                     }
-                    listView.setAdapter(new CustomListAdapter(ExploreActivity.this, tripArrayList));
+
+                    listView.setAdapter(new CustomListAdapter(HomeActivity.this, tripArrayList));
                     Log.e("Message ",""+tripArrayList.get(0).getName()+""+tripArrayList.get(0).getName());
                     Log.e("Date ",""+tripList.getJSONObject(0).getString("trip_created_at")+" java : "+tripArrayList.get(0).getDateInsert());
 
                 } else
-                    Toast.makeText(ExploreActivity.this, "La récupération des voyages a échoué",
+                    Toast.makeText(HomeActivity.this, "La récupération des voyages a échoué",
                             Toast.LENGTH_LONG).show();
             } catch (ParseException e1) {
                 e1.printStackTrace();
@@ -400,10 +406,5 @@ public class ExploreActivity extends Activity {
 
         }
     }
-
-    /**
-     * When using the ActionBarDrawerToggle, you must call it during
-     * onPostCreate() and onConfigurationChanged()...
-     */
 
 }

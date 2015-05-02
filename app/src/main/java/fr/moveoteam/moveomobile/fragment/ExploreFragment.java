@@ -22,7 +22,7 @@ public class ExploreFragment extends Fragment {
 
     private AdapterView.OnItemSelectedListener listener;
 
-    public ExploreFragment(){}
+    public  ExploreFragment(){}
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

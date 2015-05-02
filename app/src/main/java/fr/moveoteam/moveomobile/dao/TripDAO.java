@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -80,12 +81,15 @@ public class TripDAO {
         ArrayList<Trip> tripList = new ArrayList<>(cursor.getCount());
         // Se déplacer à la première ligne
         cursor.moveToFirst();
-        while(cursor.moveToNext()){
+        while(!cursor.isAfterLast()){
             tripList.add(this.cursorToTrip(cursor));
+            cursor.moveToNext();
         }
         cursor.close();
         // database.close();
-
+        Log.i("Verification taille ",""+tripList.size());
+        Log.i("Verification nom ",""+tripList.get(0).getName());
+        Log.i("Verification nom ",""+tripList.get(1).getName());
         return tripList;
     }
 
