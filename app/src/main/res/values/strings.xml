@@ -108,6 +108,8 @@
     <string name="lost_password_hint_message">Entrez votre adresse mail</string>
     <string name="lost_password_send_email">ENVOYER</string>
     <string name="lost_password_cancel">ANNULER</string>
+    <string name="lost_password_text">Entrez votre adresse mail lié à votre compte afin de récupérer votre mot de passe.</string>
+    <string name="send_lost_password">Envoyer</string>
 
     <!-- SEND MESSAGE -->
     <string name="label_send_message">Vous allez envoyer un message à </string>

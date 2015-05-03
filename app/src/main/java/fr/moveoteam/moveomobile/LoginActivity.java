@@ -41,7 +41,7 @@ public class LoginActivity extends Activity {
     TextView linkRegistration;
     Button buttonLogin;
     EditText editMailForgetPassword;
-
+    EditText editLostPassword;
     Toast toast;
 
     AlertDialog.Builder alertDialog;
@@ -126,32 +126,28 @@ public class LoginActivity extends Activity {
 
         adb.setView(alertDialogView);
 
-        adb.setTitle("Titre de notre boite de dialogue");
+        Button lostPasswordButton = (Button)alertDialogView.findViewById(R.id.send_lost_password);
+        editLostPassword = (EditText)alertDialogView.findViewById(R.id.edit_lost_password);
 
         //lostPassword.setPositiveButton(R.string.lost_password_send_email,new DialogInterface.OnClickListener(){
-        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        lostPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
                 if(!Function.beConnectedToInternet(LoginActivity.this)) {
                     toast = Toast.makeText(LoginActivity.this,"Un accès Internet est requis. Veuillez vérifier votre connexion Internet et réessayez", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM,0,15);
                     toast.show();
-                } else if(!Function.isEmailAddress(editMailForgetPassword.getText().toString())) {
+                } else if(!Function.isEmailAddress(editLostPassword.getText().toString())) {
                     toast = Toast.makeText(LoginActivity.this,"Votre adresse email est invalide", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM,0,15);
                     toast.show();
                 } else {
+                    Log.e("test", editLostPassword.getText().toString());
                     new ExecuteThread2().execute();
                 }
             }
         });
-        //lostPassword.setNegativeButton(R.string.lost_password_cancel, new DialogInterface.OnClickListener(){
-        adb.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+
         AlertDialog alertDialog = adb.create();
         alertDialog.show();
     }
@@ -251,8 +247,6 @@ public class LoginActivity extends Activity {
         }
     }
 
-
-
 	// Thread secondaire pour le mot de passe oublié
     private class ExecuteThread2 extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
@@ -267,7 +261,7 @@ public class LoginActivity extends Activity {
         }
         @Override
         protected JSONObject doInBackground(String... args) {
-            String email = editMailForgetPassword.getText().toString();
+            String email = editLostPassword.getText().toString();
 
             JSONUser emailSender = new JSONUser();
             return emailSender.lostPassword(email);
@@ -287,13 +281,12 @@ public class LoginActivity extends Activity {
                     alertDialog.setCancelable(true);
                     alertDialog.setMessage("Cette adresse email n'existe pas");
                     alertDialog.show();
-                }else {
+                } else {
                     alertDialog = new AlertDialog.Builder(LoginActivity.this);
                     alertDialog.setCancelable(true);
                     alertDialog.setMessage("Erreur lors de l'envoi du mail");
                     alertDialog.show();
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
