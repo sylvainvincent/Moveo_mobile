@@ -26,7 +26,7 @@ public class ExploreFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        // L'inflater permet de deserializer un fichier XML
         View view = inflater.inflate(R.layout.explore, container, false);
         ListView listView = (ListView) view.findViewById(R.id.listViewExploreTrip);
         return view;

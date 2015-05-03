@@ -7,13 +7,13 @@
 
 
 
-    <!-- Framelayout to display Fragments -->
+    <!-- Le Framelayout affiche les fragments -->
     <FrameLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Listview to display slider menu -->
+    <!-- La Listview affiche le menu déroulant -->
     <ListView
         android:id="@+id/list_slidermenu"
         android:layout_width="240dp"

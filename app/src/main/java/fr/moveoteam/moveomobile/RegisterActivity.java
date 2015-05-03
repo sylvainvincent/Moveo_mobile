@@ -2,18 +2,14 @@ package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -24,7 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.moveoteam.moveomobile.model.Function;
-import fr.moveoteam.moveomobile.webservice.JSONParser;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 public class RegisterActivity extends Activity {
@@ -35,19 +30,23 @@ public class RegisterActivity extends Activity {
     EditText editPassword;
     EditText editName;
     EditText editFirstName;
-    JSONArray user = null;
+
     AlertDialog.Builder alertDialog;
+
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register);
-        initialization();
-        if(!Function.beConnectedToTheInternet(RegisterActivity.this)) {
-            Toast.makeText(RegisterActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
-                    Toast.LENGTH_LONG).show();
+        this.initialization();
+        if(!Function.beConnectedToInternet(RegisterActivity.this)) {
+            toast = Toast.makeText(RegisterActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.BOTTOM,0,15);
+            toast.show();
         }
-        eventButton();
+        this.eventButton();
     }
 
     // Procedure qui permet d'affecter les elements de l'interface graphique aux objets de la classe
@@ -66,20 +65,28 @@ public class RegisterActivity extends Activity {
                 new View.OnClickListener() {
                     public void onClick(View v) {
                         //On vérifie la conformité des informations du formulaire
-                        if(!Function.beConnectedToTheInternet(RegisterActivity.this)) {
-                            Toast.makeText(RegisterActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
-                            Toast.LENGTH_LONG).show();
+                        if(!Function.beConnectedToInternet(RegisterActivity.this)) {
+                            toast = Toast.makeText(RegisterActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
+                            Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.BOTTOM,0,15);
+                            toast.show();
                         } else if (!Function.isEmailAddress(editMail.getText().toString())) {
-                            Toast.makeText(RegisterActivity.this, "Votre adresse mail n'est pas valide.",
-                            Toast.LENGTH_LONG).show();
+                            toast = Toast.makeText(RegisterActivity.this, "Votre adresse mail n'est pas valide.",
+                            Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.BOTTOM,0,15);
+                            toast.show();
                         } else if (editPassword.getText().toString().length() <= 7) {
-                            Toast.makeText(RegisterActivity.this, "Votre mot de passe doit contenir 8 caractères ou plus.",
-                            Toast.LENGTH_LONG).show();
+                            toast = Toast.makeText(RegisterActivity.this, "Votre mot de passe doit contenir 8 caractères ou plus.",
+                            Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.BOTTOM,0,15);
+                            toast.show();
                         } else if (!(Function.isString(editName.getText().toString()) && Function.isString(editFirstName.getText().toString()))) {
-                            Toast.makeText(RegisterActivity.this, "Votre nom ou prénom ne doit contenir que des lettres.",
-                            Toast.LENGTH_LONG).show();
+                            toast = Toast.makeText(RegisterActivity.this, "Votre nom ou prénom ne doit contenir que des lettres.",
+                            Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.BOTTOM,0,15);
+                            toast.show();
                         } else {
-                            // on execute la méthode "execute" de la classe JSONParse si les informations sont conformes
+                            // Executer la classe ExecuteThread
                             new ExecuteThread().execute();
                         }
                     }

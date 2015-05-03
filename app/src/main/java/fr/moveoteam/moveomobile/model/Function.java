@@ -17,7 +17,7 @@ public class Function {
     /**
      * VERIFIER LA CONNECTION SUR INTERNET (VIA 3G,WIFI,...)
      */
-    public static boolean beConnectedToTheInternet(Context c){
+    public static boolean beConnectedToInternet(Context c){
 
         boolean bool = false;
         ConnectivityManager cm = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);

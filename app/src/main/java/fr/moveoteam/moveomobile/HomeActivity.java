@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,8 +46,8 @@ public class HomeActivity extends Activity {
 
     private TextView exploreTitle;
     private ListView listView;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
+    private DrawerLayout drawerLayout;
+    private ListView listSliderMenu;
     private ActionBarDrawerToggle mDrawerToggle;
 
     // nav drawer title
@@ -55,14 +56,16 @@ public class HomeActivity extends Activity {
     // used to store app title
     private CharSequence mTitle;
 
-    // slide menu items
-    private String[] navMenuTitles;
-    private TypedArray navMenuIcons;
+    // Les elements du menu
+    private String[] listMenuTitles; // NOMS DES ELEMENTS
+    private TypedArray listMenuIcons; // ICÔNES DES ELEMENTS
 
     private ArrayList<MenuItems> listMenuItems;
     private MenuAdapter menuAdapter;
 
     UserDAO userDAO;
+
+    Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,14 +77,14 @@ public class HomeActivity extends Activity {
         mTitle = mDrawerTitle = getTitle();
 
         // Récupérer le nom des éléments de la liste
-        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+        listMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 
         // nav drawer icons from resources
-        navMenuIcons = getResources()
+       listMenuIcons = getResources()
                 .obtainTypedArray(R.array.nav_drawer_icons);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        listSliderMenu = (ListView) findViewById(R.id.list_slidermenu);
 
         listMenuItems = new ArrayList<>();
 
@@ -89,37 +92,37 @@ public class HomeActivity extends Activity {
         tripDAO.open();
 
         // EXPLORER
-        listMenuItems.add(new MenuItems(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
+        listMenuItems.add(new MenuItems(listMenuTitles[0], listMenuIcons.getResourceId(0, -1)));
         // MES VOYAGES
-        listMenuItems.add(new MenuItems(navMenuTitles[1], navMenuIcons.getResourceId(1, -1),true,Integer.toString(tripDAO.getTripList().size())));
+        listMenuItems.add(new MenuItems(listMenuTitles[1], listMenuIcons.getResourceId(1, -1),true,Integer.toString(tripDAO.getTripList().size())));
         // MON PROFIL
-        listMenuItems.add(new MenuItems(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
+        listMenuItems.add(new MenuItems(listMenuTitles[2], listMenuIcons.getResourceId(2, -1)));
         // MES AMIS
-        listMenuItems.add(new MenuItems(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "50+"));
+        listMenuItems.add(new MenuItems(listMenuTitles[3], listMenuIcons.getResourceId(3, -1), true, "50+"));
         // MESSAGERIE
-        listMenuItems.add(new MenuItems(navMenuTitles[4], navMenuIcons.getResourceId(4, -1), true, "3"));
+        listMenuItems.add(new MenuItems(listMenuTitles[4], listMenuIcons.getResourceId(4, -1), true, "3"));
         // PARAMÈTRE
-        listMenuItems.add(new MenuItems(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
+        listMenuItems.add(new MenuItems(listMenuTitles[5], listMenuIcons.getResourceId(5, -1)));
         // A PROPOS
-        listMenuItems.add(new MenuItems(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
+        listMenuItems.add(new MenuItems(listMenuTitles[6], listMenuIcons.getResourceId(6, -1)));
         // DÉCONNEXION
-        listMenuItems.add(new MenuItems(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
+        listMenuItems.add(new MenuItems(listMenuTitles[7], listMenuIcons.getResourceId(7, -1)));
 
-        navMenuIcons.recycle();
+        listMenuIcons.recycle();
         Log.e("ListMenuItem "," "+listMenuItems.size());
-        Log.e("ListMenuItem 1 "," "+listMenuItems.get(0).getTitle());
+        Log.e("ListMenuItem 1 ", " " + listMenuItems.get(0).getTitle());
 
-        mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+        listSliderMenu.setOnItemClickListener(new SlideMenuClickListener());
 
         menuAdapter = new MenuAdapter(HomeActivity.this,
                 listMenuItems);
-        mDrawerList.setAdapter(menuAdapter);
+        listSliderMenu.setAdapter(menuAdapter);
 
         // enabling action bar app icon and behaving it as toggle button
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
                 null, //nav menu toggle icon
                 R.string.app_name, // nav drawer open - description for accessibility
                 R.string.app_name // nav drawer close - description for accessibility
@@ -136,7 +139,7 @@ public class HomeActivity extends Activity {
                 invalidateOptionsMenu();
             }
         };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        drawerLayout.setDrawerListener(mDrawerToggle);
 
         if (savedInstanceState == null) {
             // on first time display view for first nav item
@@ -181,7 +184,7 @@ public class HomeActivity extends Activity {
         return true;
     }
 
-    @Override
+    @Override // Gestion des évènements associés au menu
     public boolean onOptionsItemSelected(MenuItem item) {
         // toggle nav drawer on selecting action bar app icon/title
         if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -202,8 +205,6 @@ public class HomeActivity extends Activity {
         switch (position) {
             case 0:
 
-
-
                 // this.userDAO = new UserDAO(ExploreActivity.this);
                 // userDAO.open();
                // exploreTitle = (TextView) findViewById(R.id.explore_title);
@@ -211,7 +212,6 @@ public class HomeActivity extends Activity {
 
                 new ExecuteThread().execute();
 
-                ArrayList<Trip> tripStory = getListData();
                 break;
             case 1:
                 fragment = new ExploreFragment();
@@ -249,12 +249,12 @@ public class HomeActivity extends Activity {
                     .replace(R.id.frame_container, fragment).commit();
 
             // update selected item and title, then close the drawer
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            setTitle(navMenuTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerList);
+            listSliderMenu.setItemChecked(position, true);
+            listSliderMenu.setSelection(position);
+            this.setTitle(listMenuTitles[position]);
+            drawerLayout.closeDrawer(listSliderMenu);
         } else {
-            // error in creating fragment
+            // Erreur lors de la création du fragment
             Log.e("MainActivity", "Error in creating fragment");
         }
     }
@@ -265,12 +265,12 @@ public class HomeActivity extends Activity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // if nav drawer is opened, hide the action items
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        boolean drawerOpen = drawerLayout.isDrawerOpen(listSliderMenu);
         menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
-    @Override
+    @Override // Change le titre de l'actionBar
     public void setTitle(CharSequence title) {
         mTitle = title;
         getActionBar().setTitle(mTitle);
@@ -288,10 +288,10 @@ public class HomeActivity extends Activity {
         mDrawerToggle.syncState();
     }
 
-    @Override
+    @Override // Appelé lorsque l'appareil change de configuration
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // Pass any configuration change to the drawer toggls
+        // Passer une configuration change le drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
@@ -299,50 +299,6 @@ public class HomeActivity extends Activity {
     public void initialization() {
         exploreTitle = (TextView) findViewById(R.id.explore_title);
         listView = (ListView) findViewById(R.id.listViewExploreTrip);
-    }
-
-    // Méthode qui met les données dans une arrayList
-    private ArrayList<Trip> getListData() {
-        //TODO récuperer les information via le webService
-        ArrayList<Trip> resultats = new ArrayList<>();
-        // Instancie un nouvel item de type Trip
-        // ==> Il a 3 valeurs : Nom, Logo et Site
-        Trip newsData = new Trip();
-        newsData.setName("LAC DE COME");
-        newsData.setCountry("ITALIE");
-        newsData.setMainPicture(getResources().getDrawable(R.drawable.journey));
-        resultats.add(newsData);
-
-        newsData = new Trip();
-        newsData.setName("RIO DE JANEIRO");
-        newsData.setCountry("BRESIL");
-        newsData.setMainPicture(getResources().getDrawable(R.drawable.journey));
-        resultats.add(newsData);
-
-        newsData = new Trip();
-        newsData.setName("BERNE");
-        newsData.setCountry("SUISSE");
-        newsData.setMainPicture(getResources().getDrawable(R.drawable.journey));
-        resultats.add(newsData);
-
-        newsData = new Trip();
-        newsData.setName("NEW YORK");
-        newsData.setCountry("USA");
-        newsData.setMainPicture(getResources().getDrawable(R.drawable.journey));
-        resultats.add(newsData);
-
-        newsData = new Trip();
-        newsData.setName("TOKYO");
-        newsData.setCountry("JAPON");
-        newsData.setMainPicture(getResources().getDrawable(R.drawable.journey));
-        resultats.add(newsData);
-
-        newsData = new Trip();
-        newsData.setName("BANGKOK");
-        newsData.setCountry("THAILANDE");
-        newsData.setMainPicture(getResources().getDrawable(R.drawable.journey));
-        resultats.add(newsData);
-        return resultats;
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
@@ -367,13 +323,14 @@ public class HomeActivity extends Activity {
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-
-                JSONArray tripList = json.getJSONArray("trip");
-                ArrayList<Trip> tripArrayList = new ArrayList<>(10);
+                // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
                 if(json.getString("success").equals("1")) {
-                    UserDAO userDAO = new UserDAO(HomeActivity.this);
+                    // Recuperation des voyages sous la forme d'un JSONArray
+                    JSONArray tripList = json.getJSONArray("trip");
 
-                    for(int i=0;i<3;i++) {
+                    ArrayList<Trip> tripArrayList = new ArrayList<>(tripList.length());
+
+                    for(int i=0;i<tripList.length();i++) {
                         tripArrayList.add(new Trip(
                                 tripList.getJSONObject(i).getInt("trip_id"),
                                 tripList.getJSONObject(i).getString("trip_name"),
@@ -392,17 +349,17 @@ public class HomeActivity extends Activity {
                     Log.e("Date ",""+tripList.getJSONObject(0).getString("trip_created_at")+" java : "+tripArrayList.get(0).getDateInsert());
 
                 } else
-                    Toast.makeText(HomeActivity.this, "La récupération des voyages a échoué",
-                            Toast.LENGTH_LONG).show();
+                    toast = Toast.makeText(HomeActivity.this, "La récupération des voyages a échoué",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM,0,15);
+                    toast.show();
             } catch (ParseException e1) {
                 e1.printStackTrace();
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
 
-            // Storing  JSON item in a Variable
-            // String msg = (String) c.getString(msg);
-            //Set JSON Data in TextView
+
 
         }
     }

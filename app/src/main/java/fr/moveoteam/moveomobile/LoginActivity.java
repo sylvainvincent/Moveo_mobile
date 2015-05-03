@@ -2,12 +2,12 @@ package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +41,8 @@ public class LoginActivity extends Activity {
     Button buttonLogin;
     EditText editMailForgetPassword;
 
+    Toast toast;
+
     AlertDialog.Builder alertDialog;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +73,16 @@ public class LoginActivity extends Activity {
         buttonLogin.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        if(!Function.beConnectedToTheInternet(LoginActivity.this)) {
-                            Toast.makeText(LoginActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
-                            Toast.LENGTH_LONG).show();
+                        if(!Function.beConnectedToInternet(LoginActivity.this)) {
+                            toast = Toast.makeText(LoginActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet puis réessayez",
+                            Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.BOTTOM, 0, 15);
+                            toast.show();
                         }else if(!Function.isEmailAddress(editMail.getText().toString())){
-                            Toast.makeText(LoginActivity.this, "Votre Adresse email est invalide",
-                            Toast.LENGTH_LONG).show();
+                            toast = Toast.makeText(LoginActivity.this, "Votre Adresse email est invalide",
+                            Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.BOTTOM,0,15);
+                            toast.show();
                         } else {
                             new ExecuteThread().execute();
                         }
@@ -111,12 +117,16 @@ public class LoginActivity extends Activity {
         lostPassword.setPositiveButton(R.string.lost_password_send_email,new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(!Function.beConnectedToTheInternet(LoginActivity.this)) {
-                    Toast.makeText(LoginActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
-                            Toast.LENGTH_LONG).show();
+                if(!Function.beConnectedToInternet(LoginActivity.this)) {
+                    toast = Toast.makeText(LoginActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM,0,15);
+                    toast.show();
                 }else if(!Function.isEmailAddress(editMailForgetPassword.getText().toString())){
-                    Toast.makeText(LoginActivity.this,"Votre adresse email est invalide",
-                            Toast.LENGTH_LONG).show();
+                    toast = Toast.makeText(LoginActivity.this,"Votre adresse email est invalide",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM,0,15);
+                    toast.show();
                 }else{
                     new ExecuteThread2().execute();
                 }
@@ -208,14 +218,16 @@ public class LoginActivity extends Activity {
                         alertDialog.show();
                     }
                 }else if(json.getString("error").equals("1")) {
-                    Toast.makeText(LoginActivity.this, "Votre mot de passe ou votre adresse mail est incorrect",
-                            Toast.LENGTH_LONG).show();
+                    toast = Toast.makeText(LoginActivity.this, "Votre mot de passe ou votre adresse mail est incorrect",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM,0,15);
+                    toast.show();
                 }else{
-                    Toast.makeText(LoginActivity.this, "Un erreur s'est produite lors de la recuperation de vos informations",
-                            Toast.LENGTH_LONG).show();
+                    toast = Toast.makeText(LoginActivity.this, "Un erreur s'est produite lors de la recuperation de vos informations",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM,0,15);
+                    toast.show();
                 }
-
-
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -279,7 +291,8 @@ public class LoginActivity extends Activity {
         System.exit(0);
         super.onBackPressed();
     }
-	
+
+    // LES ONCLICK
 	// Permet d'accéder à l'inscription en sélectionnant le bouton "créer un compte"
     public void linkToRegistration(View view){
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
