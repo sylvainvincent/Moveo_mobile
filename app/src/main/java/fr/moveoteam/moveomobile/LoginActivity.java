@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -109,36 +110,49 @@ public class LoginActivity extends Activity {
     }
 
     public void lostPasswordSender(View view){
+
+        /*
         AlertDialog.Builder lostPassword = new AlertDialog.Builder(this);
         lostPassword.setTitle(R.string.lost_password_label);
         lostPassword.setMessage(R.string.lost_password_description);
         editMailForgetPassword = new EditText(this);
         lostPassword.setView(editMailForgetPassword);
-        lostPassword.setPositiveButton(R.string.lost_password_send_email,new DialogInterface.OnClickListener(){
+        */
+
+        LayoutInflater lostPassword = LayoutInflater.from(this);
+        final View alertDialogView = lostPassword.inflate(R.layout.lost_password, null);
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+
+        adb.setView(alertDialogView);
+
+        adb.setTitle("Titre de notre boite de dialogue");
+
+        //lostPassword.setPositiveButton(R.string.lost_password_send_email,new DialogInterface.OnClickListener(){
+        adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(!Function.beConnectedToInternet(LoginActivity.this)) {
-                    toast = Toast.makeText(LoginActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
-                            Toast.LENGTH_LONG);
+                    toast = Toast.makeText(LoginActivity.this,"Un accès Internet est requis. Veuillez vérifier votre connexion Internet et réessayez", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM,0,15);
                     toast.show();
-                }else if(!Function.isEmailAddress(editMailForgetPassword.getText().toString())){
-                    toast = Toast.makeText(LoginActivity.this,"Votre adresse email est invalide",
-                            Toast.LENGTH_LONG);
+                } else if(!Function.isEmailAddress(editMailForgetPassword.getText().toString())) {
+                    toast = Toast.makeText(LoginActivity.this,"Votre adresse email est invalide", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM,0,15);
                     toast.show();
-                }else{
+                } else {
                     new ExecuteThread2().execute();
                 }
             }
         });
-        lostPassword.setNegativeButton(R.string.lost_password_cancel, new DialogInterface.OnClickListener(){
+        //lostPassword.setNegativeButton(R.string.lost_password_cancel, new DialogInterface.OnClickListener(){
+        adb.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
         });
-        AlertDialog alertDialog = lostPassword.create();
+        AlertDialog alertDialog = adb.create();
         alertDialog.show();
     }
 
