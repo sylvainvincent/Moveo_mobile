@@ -77,7 +77,7 @@ public class UserDAO {
     public User getUserDetails(){
 
         User user = new User();
-        String selectQuery = "SELECT  * FROM " + TABLE_LOGIN;
+        String selectQuery = "SELECT * FROM " + TABLE_LOGIN;
 
         Cursor cursor = database.rawQuery(selectQuery, null);
         // Se déplacer à la premiere ligne

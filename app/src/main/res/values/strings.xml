@@ -93,13 +93,13 @@
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/home</item>
-        <item>@drawable/ic_launcher</item>
-        <item>@drawable/user_avatar</item>
-        <item>@drawable/home</item>
-        <item>@drawable/home</item>
-        <item>@drawable/home</item>
-        <item>@drawable/home</item>
-        <item>@drawable/home</item>
+        <item>@drawable/mes_voyages</item>
+        <item>@drawable/mon_profil</item>
+        <item>@drawable/mes_amis</item>
+        <item>@drawable/messagerie</item>
+        <item>@drawable/parametres</item>
+        <item>@drawable/informations</item>
+        <item>@drawable/deconnexion</item>
 
     </array>
 

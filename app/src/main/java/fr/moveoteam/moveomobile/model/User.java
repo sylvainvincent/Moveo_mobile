@@ -22,7 +22,6 @@ public class User {
     }
 
     public User(String firstName, String lastName, String birthday, String email, String country, String city) {
-
         this.id = 1;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,7 +29,6 @@ public class User {
         this.email = email;
         this.country = country;
         this.city = city;
-
     }
 
     public User(String firstName, String lastName, String email, String password, String country, String city, String birthday, Date register, Date lastConnexion) {
