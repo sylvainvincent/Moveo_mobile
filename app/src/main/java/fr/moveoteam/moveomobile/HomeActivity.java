@@ -359,8 +359,6 @@ public class HomeActivity extends Activity {
                 e1.printStackTrace();
             }
 
-
-
         }
     }
 
