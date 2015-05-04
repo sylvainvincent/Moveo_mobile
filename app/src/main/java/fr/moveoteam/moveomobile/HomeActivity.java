@@ -31,6 +31,7 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.fragment.ExploreFragment;
+import fr.moveoteam.moveomobile.fragment.TripFragment;
 import fr.moveoteam.moveomobile.menu.MenuAdapter;
 import fr.moveoteam.moveomobile.menu.MenuItems;
 import fr.moveoteam.moveomobile.model.CustomListAdapter;
@@ -204,17 +205,10 @@ public class HomeActivity extends Activity {
         Fragment fragment = null;
         switch (position) {
             case 0:
-
-                // this.userDAO = new UserDAO(ExploreActivity.this);
-                // userDAO.open();
-               // exploreTitle = (TextView) findViewById(R.id.explore_title);
-               // exploreTitle.setText(userDAO.getUserDetails().getFirstName()+" "+userDAO.getUserDetails().getLastName());
-
-                new ExecuteThread().execute();
-
+                fragment = new ExploreFragment();
                 break;
             case 1:
-                fragment = new ExploreFragment();
+                fragment = new TripFragment();
                 break;
             case 2:
                 fragment = new ExploreFragment();
@@ -299,67 +293,6 @@ public class HomeActivity extends Activity {
     public void initialization() {
         exploreTitle = (TextView) findViewById(R.id.explore_title);
         listView = (ListView) findViewById(R.id.listViewExploreTrip);
-    }
-
-    private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(HomeActivity.this);
-            pDialog.setMessage("Récupération des voyages...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-        @Override
-        protected JSONObject doInBackground(String... args) {
-
-            JSONTrip jsonTrip = new JSONTrip();
-            return jsonTrip.getExploreTrips();
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject json) {
-            pDialog.dismiss();
-            try {
-                // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
-                if(json.getString("success").equals("1")) {
-                    // Recuperation des voyages sous la forme d'un JSONArray
-                    JSONArray tripList = json.getJSONArray("trip");
-
-                    ArrayList<Trip> tripArrayList = new ArrayList<>(tripList.length());
-
-                    for(int i=0;i<tripList.length();i++) {
-                        tripArrayList.add(new Trip(
-                                tripList.getJSONObject(i).getInt("trip_id"),
-                                tripList.getJSONObject(i).getString("trip_name"),
-                                tripList.getJSONObject(i).getString("trip_country"),
-                                tripList.getJSONObject(i).getString("trip_description"),
-                                tripList.getJSONObject(i).getString("trip_created_at"),
-                                tripList.getJSONObject(i).getString("user_last_name"),
-                                tripList.getJSONObject(i).getString("user_first_name"),
-                                tripList.getJSONObject(i).getInt("comment_count"),
-                                tripList.getJSONObject(i).getInt("photo_count")
-                        ));
-                    }
-
-                    listView.setAdapter(new CustomListAdapter(HomeActivity.this, tripArrayList));
-                    Log.e("Message ",""+tripArrayList.get(0).getName()+""+tripArrayList.get(0).getName());
-                    Log.e("Date ",""+tripList.getJSONObject(0).getString("trip_created_at")+" java : "+tripArrayList.get(0).getDateInsert());
-
-                } else
-                    toast = Toast.makeText(HomeActivity.this, "La récupération des voyages a échoué",
-                            Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.BOTTOM,0,15);
-                    toast.show();
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-            }
-
-        }
     }
 
 }

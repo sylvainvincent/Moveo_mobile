@@ -1,20 +1,13 @@
 package fr.moveoteam.moveomobile.fragment;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,8 +16,8 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import fr.moveoteam.moveomobile.HomeActivity;
-import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.dao.TripDAO;
+import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.CustomListAdapter;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
@@ -36,6 +29,7 @@ public class ExploreFragment extends ListFragment {
 
     private AdapterView.OnItemSelectedListener listener;
     ArrayList<Trip> tripArrayList;
+    UserDAO userDAO;
 
     public  ExploreFragment(){}
 
@@ -48,12 +42,6 @@ public class ExploreFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         new ExecuteThread().execute();
-        String[] values = new String[]{"Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2"};
-
-
-        //setListAdapter(new CustomListAdapter(getActivity(),tripArrayList));
     }
 
     /*
@@ -101,6 +89,7 @@ public class ExploreFragment extends ListFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            userDAO = new UserDAO(getActivity());
             pDialog = new ProgressDialog(getActivity());
             pDialog.setMessage("Récupération des voyages...");
             pDialog.setIndeterminate(false);
@@ -109,9 +98,10 @@ public class ExploreFragment extends ListFragment {
         }
         @Override
         protected JSONObject doInBackground(String... args) {
-
+            userDAO.open();
             JSONTrip jsonTrip = new JSONTrip();
-            return jsonTrip.getExploreTrips();
+            Log.e("ID",Integer.toString(userDAO.getUserDetails().getId()));
+            return jsonTrip.getExploreTrips(Integer.toString(userDAO.getUserDetails().getId()));
         }
 
         @Override
@@ -142,7 +132,7 @@ public class ExploreFragment extends ListFragment {
                     //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                       //      R.layout.element_menu,R.id.title,values);
                     Log.e("afficher list",tripArrayList.get(1).getName());
-                    setListAdapter(new CustomListAdapter(getActivity(),tripArrayList));
+                    setListAdapter(new CustomListAdapter(getActivity(),tripArrayList,true));
                     Log.e("Message ", "" + tripArrayList.get(0).getName() + "" + tripArrayList.get(0).getName());
                     Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDateInsert());
                 }

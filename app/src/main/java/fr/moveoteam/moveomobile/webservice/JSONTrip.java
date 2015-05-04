@@ -23,11 +23,13 @@ public class JSONTrip {
         this.jsonParser = new JSONParser();
     }
 
-    public JSONObject getExploreTrips(){
+    public JSONObject getExploreTrips(String userId){
 
         List<NameValuePair> loginForm = new ArrayList<>();
         loginForm.add(new BasicNameValuePair("tag","getTenTrips"));
+        loginForm.add(new BasicNameValuePair("user_id",userId));
         return jsonParser.getJSONFromUrl(tripURL,loginForm);
 
     }
+
 }

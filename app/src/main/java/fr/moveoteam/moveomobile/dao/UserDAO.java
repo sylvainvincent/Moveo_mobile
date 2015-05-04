@@ -83,6 +83,7 @@ public class UserDAO {
         // Se déplacer à la premiere ligne
         cursor.moveToFirst();
         if(cursor.getCount() > 0){
+            user.setId(cursor.getInt(POSITION_USER_ID));
             user.setFirstName(cursor.getString(POSITION_USER_FIRSTNAME));
             user.setLastName(cursor.getString(POSITION_USER_LASTNAME));
             user.setBirthday(cursor.getString(POSITION_USER_BIRTHDAY));

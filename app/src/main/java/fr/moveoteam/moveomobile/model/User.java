@@ -6,7 +6,7 @@ import java.util.Date;
  * Created by alexMac on 07/04/15.
  */
 public class User {
-    int id = 1;
+    int id;
     String firstName, lastName, birthday, email, password, country, city;
     Date register, lastConnexion;
 
@@ -104,7 +104,7 @@ public class User {
     public int getId() {
         return id;
     }
-
+    public void setId(int id) { this.id = id;}
     public String getFirstName() {
         return firstName;
     }

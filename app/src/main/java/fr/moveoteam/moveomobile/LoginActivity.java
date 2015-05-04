@@ -137,17 +137,22 @@ public class LoginActivity extends Activity {
                     toast = Toast.makeText(LoginActivity.this,"Un accès Internet est requis. Veuillez vérifier votre connexion Internet et réessayez", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM,0,15);
                     toast.show();
-                } else if(!Function.isEmailAddress(editLostPassword.getText().toString())) {
+                } else if(!Function.isEmailAddress(editMailForgetPassword.getText().toString())) {
                     toast = Toast.makeText(LoginActivity.this,"Votre adresse email est invalide", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM,0,15);
                     toast.show();
                 } else {
-                    Log.e("test", editLostPassword.getText().toString());
                     new ExecuteThread2().execute();
                 }
             }
         });
-
+        //lostPassword.setNegativeButton(R.string.lost_password_cancel, new DialogInterface.OnClickListener(){
+        adb.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
         AlertDialog alertDialog = adb.create();
         alertDialog.show();
     }
@@ -183,12 +188,15 @@ public class LoginActivity extends Activity {
 
                         // Création de l'objet User
                         User user = new User();
+                        user.setId(Integer.parseInt(json.getJSONObject("user").getString("user_id")));
                         user.setLastName(json.getJSONObject("user").getString("user_last_name"));
                         user.setFirstName(json.getJSONObject("user").getString("user_first_name"));
                         user.setBirthday(json.getJSONObject("user").getString("user_birthday"));
                         user.setEmail(json.getJSONObject("user").getString("user_email"));
                         user.setCountry(json.getJSONObject("user").getString("user_country"));
                         user.setCity(json.getJSONObject("user").getString("user_city"));
+
+                        Log.i("L'id",""+user.getId());
 
                         // Création de l'objet DAO(utilisateur) pour ajouter un utilisateur
                         UserDAO userDAO = new UserDAO(LoginActivity.this);
