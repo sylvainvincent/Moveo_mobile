@@ -66,8 +66,16 @@ public class RegisterActivity extends Activity {
                     public void onClick(View v) {
                         //On vérifie la conformité des informations du formulaire
                         if(!Function.beConnectedToInternet(RegisterActivity.this)) {
-                            toast = Toast.makeText(RegisterActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
-                            Toast.LENGTH_LONG);
+                            toast = Toast.makeText(RegisterActivity.this, "un accès Internet est requis, Vérifier votre connexion Internet et réessayez",
+                                    Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.BOTTOM, 0, 15);
+                            toast.show();
+                        } else if(editMail.getText().toString().equals("") ||
+                                  editPassword.getText().toString().equals("") ||
+                                  editName.getText().toString().equals("") ||
+                                  editFirstName.getText().toString().equals("")){
+                            toast = Toast.makeText(RegisterActivity.this, "Tous les champs sont obligatoire.",
+                                    Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.BOTTOM,0,15);
                             toast.show();
                         } else if (!Function.isEmailAddress(editMail.getText().toString())) {

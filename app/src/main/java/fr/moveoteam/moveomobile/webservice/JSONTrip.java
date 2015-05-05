@@ -16,7 +16,7 @@ public class JSONTrip {
 
     // Il faut utiliser l'adresse http://10.0.2.2/ pour se connecter au localhost : http://localhost/
     // 10.0.3.2 pour genymotion
-    private static String tripURL = "http://192.168.1.33/Moveo_webservice/trip.php";
+    private static String tripURL = "http://10.0.3.2/Moveo_webservice/trip.php";
 
     // constructor
     public JSONTrip(){

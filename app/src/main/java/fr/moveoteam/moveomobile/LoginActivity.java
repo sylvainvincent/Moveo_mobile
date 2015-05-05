@@ -133,11 +133,15 @@ public class LoginActivity extends Activity {
         lostPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!Function.beConnectedToInternet(LoginActivity.this)) {
-                    toast = Toast.makeText(LoginActivity.this,"Un accès Internet est requis. Veuillez vérifier votre connexion Internet et réessayez", Toast.LENGTH_LONG);
+                if (!Function.beConnectedToInternet(LoginActivity.this)) {
+                    toast = Toast.makeText(LoginActivity.this, "Un accès Internet est requis. Veuillez vérifier votre connexion Internet et réessayez", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM, 0, 15);
+                    toast.show();
+                } else if (editLostPassword.getText().toString().equals("")){
+                    toast = Toast.makeText(LoginActivity.this,"Tous les champs sont obligatoires", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM,0,15);
                     toast.show();
-                } else if(!Function.isEmailAddress(editMailForgetPassword.getText().toString())) {
+                } else if(!Function.isEmailAddress(editLostPassword.getText().toString())) {
                     toast = Toast.makeText(LoginActivity.this,"Votre adresse email est invalide", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM,0,15);
                     toast.show();
@@ -147,12 +151,7 @@ public class LoginActivity extends Activity {
             }
         });
         //lostPassword.setNegativeButton(R.string.lost_password_cancel, new DialogInterface.OnClickListener(){
-        adb.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+
         AlertDialog alertDialog = adb.create();
         alertDialog.show();
     }

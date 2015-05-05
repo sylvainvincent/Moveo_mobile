@@ -20,7 +20,7 @@ public class JSONUser {
 
     // Il faut utiliser l'adresse http://10.0.2.2/ pour se connecter au localhost : http://localhost/
     // 10.0.3.2 pour genymotion
-    private static String userURL = "http://192.168.1.33/Moveo_webservice/user.php";
+    private static String userURL = "http://10.0.3.2/Moveo_webservice/user.php";
 
     // constructor
     public JSONUser(){
