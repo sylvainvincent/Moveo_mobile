@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.DialogInterface;
@@ -43,6 +44,7 @@ public class LoginActivity extends Activity {
     EditText editMailForgetPassword;
     EditText editLostPassword;
     Toast toast;
+    RelativeLayout layout;
 
     AlertDialog.Builder alertDialog;
 
@@ -55,12 +57,14 @@ public class LoginActivity extends Activity {
         int register = getIntent().getIntExtra("register", 0);
         Log.e("register : ", "register" + register);
         if(register == 1) {
+            layout.setAlpha((float) 0.8);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
             alertDialogBuilder.setMessage("Votre inscription a bien été prise en compte. Veuillez vérifier vos mails pour la confirmation de l'inscription.");
             alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
+                    layout.setAlpha(1);
                 }
             });
             // Create alert dialog
@@ -78,6 +82,11 @@ public class LoginActivity extends Activity {
                             toast = Toast.makeText(LoginActivity.this,"un accès Internet est requis, Vérifier votre connexion Internet puis réessayez",
                             Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.BOTTOM, 0, 15);
+                            toast.show();
+                        }else if(editMail.getText().toString().equals("") && editPassword.getText().toString().equals("")){
+                            toast = Toast.makeText(LoginActivity.this, "Tous les champs doivent être remplis",
+                                    Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.BOTTOM,0,15);
                             toast.show();
                         }else if(!Function.isEmailAddress(editMail.getText().toString())){
                             toast = Toast.makeText(LoginActivity.this, "Votre Adresse email est invalide",
@@ -99,6 +108,7 @@ public class LoginActivity extends Activity {
         buttonLogin = (Button) findViewById(R.id.button_login);
         editMail = (EditText) findViewById(R.id.edit_email_login);
         editPassword = (EditText) findViewById(R.id.edit_password_login);
+        layout = (RelativeLayout) findViewById(R.id.login);
 
     }
 
@@ -227,11 +237,19 @@ public class LoginActivity extends Activity {
                         startActivity(intent);
                         Log.e("Passage", "réussi");
                     } else {
+                        layout.setAlpha((float) 0.8);
                         alertDialog = new AlertDialog.Builder(
                                 LoginActivity.this);
                         alertDialog.setCancelable(true);
                         alertDialog.setMessage("Votre compte n'est pas validé. " +
                                 "Veuillez verifier votre boite de réception ou les courriers indésirables de votre boite email.");
+                        alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                                layout.setAlpha(1);
+                            }
+                        });
                         alertDialog.show();
                     }
                 }else if(json.getString("error").equals("1")) {

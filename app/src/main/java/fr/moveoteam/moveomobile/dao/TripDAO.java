@@ -74,22 +74,27 @@ public class TripDAO {
     }
 
     public ArrayList<Trip> getTripList(){
-
+        ArrayList<Trip> tripList = null;
         String selectQuery = "SELECT  * FROM " + TABLE_TRIP;
 
         Cursor cursor = database.rawQuery(selectQuery, null);
-        ArrayList<Trip> tripList = new ArrayList<>(cursor.getCount());
+        if(cursor.getCount()>0) {
+            tripList = new ArrayList<>(cursor.getCount());
+        }
         // Se déplacer à la première ligne
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
+            assert tripList != null;
             tripList.add(this.cursorToTrip(cursor));
             cursor.moveToNext();
         }
         cursor.close();
         // database.close();
-        Log.i("Verification taille ",""+tripList.size());
-        Log.i("Verification nom ",""+tripList.get(0).getName());
-        Log.i("Verification nom ",""+tripList.get(1).getName());
+        if(tripList != null) {
+            Log.i("Verification taille ", "" + tripList.size());
+            Log.i("Verification nom ", "" + tripList.get(0).getName());
+            Log.i("Verification nom ", "" + tripList.get(1).getName());
+        }
         return tripList;
     }
 

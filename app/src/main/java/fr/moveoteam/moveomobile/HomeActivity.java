@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Gravity;
@@ -30,6 +31,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.dao.TripDAO;
+import fr.moveoteam.moveomobile.fragment.AddButtonTripFragment;
 import fr.moveoteam.moveomobile.fragment.ExploreFragment;
 import fr.moveoteam.moveomobile.fragment.TripFragment;
 import fr.moveoteam.moveomobile.menu.MenuAdapter;
@@ -51,10 +53,10 @@ public class HomeActivity extends Activity {
     private ListView listSliderMenu;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    // nav drawer title
+    // Titre dans l'action bar
     private CharSequence mDrawerTitle;
 
-    // used to store app title
+    // Utiliser pour stocker le titre actuel
     private CharSequence mTitle;
 
     // Les elements du menu
@@ -68,9 +70,11 @@ public class HomeActivity extends Activity {
 
     Toast toast;
 
+    String nombre = "0";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // La vue par défaut contient un menu caché sur la gauche ainsi qu'un FrameLayout qui affiche les fragments
         setContentView(R.layout.menu);
         this.initialization();
 
@@ -80,7 +84,7 @@ public class HomeActivity extends Activity {
         // Récupérer le nom des éléments de la liste
         listMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 
-        // nav drawer icons from resources
+        // Récupérer les icônes du menu
        listMenuIcons = getResources()
                 .obtainTypedArray(R.array.nav_drawer_icons);
 
@@ -91,11 +95,14 @@ public class HomeActivity extends Activity {
 
         TripDAO tripDAO = new TripDAO(HomeActivity.this);
         tripDAO.open();
+        if(tripDAO.getTripList()!= null){
+            nombre = Integer.toString(tripDAO.getTripList().size());
+        }
 
         // EXPLORER
         listMenuItems.add(new MenuItems(listMenuTitles[0], listMenuIcons.getResourceId(0, -1)));
         // MES VOYAGES
-        listMenuItems.add(new MenuItems(listMenuTitles[1], listMenuIcons.getResourceId(1, -1),true,Integer.toString(tripDAO.getTripList().size())));
+        listMenuItems.add(new MenuItems(listMenuTitles[1], listMenuIcons.getResourceId(1, -1),true,nombre));
         // MON PROFIL
         listMenuItems.add(new MenuItems(listMenuTitles[2], listMenuIcons.getResourceId(2, -1)));
         // MES AMIS
@@ -234,13 +241,16 @@ public class HomeActivity extends Activity {
                 break;
 
             default:
+               // fragment = new ExploreFragment();
                 break;
         }
 
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().add(R.id.frame_container, new AddButtonTripFragment()).commit();
             fragmentManager.beginTransaction()
-                    .replace(R.id.frame_container, fragment).commit();
+                    .add(R.id.frame_container, fragment).commit();
+
 
             // update selected item and title, then close the drawer
             listSliderMenu.setItemChecked(position, true);

@@ -129,12 +129,14 @@ public class ExploreFragment extends ListFragment {
                                 tripList.getJSONObject(i).getInt("photo_count")
                         ));
                     }
-                    //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                      //      R.layout.element_menu,R.id.title,values);
-                    Log.e("afficher list",tripArrayList.get(1).getName());
-                    setListAdapter(new CustomListAdapter(getActivity(),tripArrayList,true));
-                    Log.e("Message ", "" + tripArrayList.get(0).getName() + "" + tripArrayList.get(0).getName());
-                    Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDateInsert());
+                    if(tripArrayList != null) {
+                        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                        //      R.layout.element_menu,R.id.title,values);
+                        Log.e("afficher list", tripArrayList.get(1).getName());
+                        setListAdapter(new CustomListAdapter(getActivity(), tripArrayList, true));
+                        Log.e("Message ", "" + tripArrayList.get(0).getName() + "" + tripArrayList.get(0).getName());
+                        Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDateInsert());
+                    }
                 }
 
             } catch (ParseException e1) {

@@ -76,7 +76,7 @@
     <string name="cover">Photo principale</string>
     <string name="text_link_login">Déjà un compte ?</string>
 
-    <!-- Nav Drawer Menu Items -->
+    <!-- Les elements du menu -->
     <string-array name="nav_drawer_items">
         <item>EXPLORER</item>
         <item>MES VOYAGES</item>
@@ -88,8 +88,8 @@
         <item>DÉCONNEXION</item>
     </string-array>
 
-    <!-- Nav Drawer List Item Icons -->
-    <!-- Keep them in order as the titles are in -->
+    <!-- Les icônes des elements du menu -->
+    <!-- Dans le même ordre que les elements du menu -->
     <array name="nav_drawer_icons">
         <item>@drawable/home</item>
         <item>@drawable/mes_voyages</item>
@@ -99,7 +99,6 @@
         <item>@drawable/parametres</item>
         <item>@drawable/informations</item>
         <item>@drawable/deconnexion</item>
-
     </array>
 
     <!-- POPUP LOST PASSWORD -->

@@ -46,8 +46,10 @@ public class DashboardActivity extends Activity {
              Log.e("Test du trip 2:",tripDAO.getTripList().get(1).getCountry());
              */
             // VERIFICATION DE LA CONNEXION INTERNET
-            if(!Function.beConnectedToInternet(DashboardActivity.this))
+            if(!Function.beConnectedToInternet(DashboardActivity.this)){
+
                 buildDialog(DashboardActivity.this).show();
+            }
             else {
                 Intent explore = new Intent(getApplicationContext(), HomeActivity.class);
                 explore.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -9,6 +9,7 @@
     tools:context=".LoginActivity"
     android:background="#43b1cb"
     android:id="@+id/login"
+    android:alpha="1"
     android:clickable="false">
 
     <LinearLayout
