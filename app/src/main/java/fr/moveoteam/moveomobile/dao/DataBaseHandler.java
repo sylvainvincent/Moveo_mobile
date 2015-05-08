@@ -22,6 +22,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     // NOMS DES TABLES
     private static final String TABLE_LOGIN = "login";
     private static final String TABLE_TRIP = "trip";
+    private static final String TABLE_FRIEND = "friend";
 
     // NOM DES COLONNES :
 
@@ -42,6 +43,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final String KEY_TRIP_CREATED_AT = "trip_created_at";
         public static final String KEY_TRIP_USER = "trip_user";
 
+        // Friend
+        public static final String KEY_FRIEND_ID = "friend_id";
+        public static final String KEY_FRIEND_LASTNAME = "friend_lastname";
+        public static final String KEY_FRIEND_FIRSTNAME = "friend_firstname";
+        public static final String KEY_FRIEND_IS_ACCEPTED = "friend_is_accepted";
+
     // POSITION DES COLONNES
 
         // Trip
@@ -52,7 +59,15 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final int POSITION_TRIP_CREATED_AT = 4;
         public static final int POSITION_TRIP_USER= 5;
 
+        // Friend
+        public static final String POSITION_FRIEND_ID = "friend_id";
+        public static final String POSITION_FRIEND_LASTNAME = "friend_lastname";
+        public static final String POSITION_FRIEND_FIRSTNAME = "friend_firstname";
+        public static final String POSITION_FRIEND_IS_ACCEPTED = "friend_is_accepted";
+
     // CREATION DES TABLES
+
+        //USER
         private static final String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_LOGIN + "("
                 + KEY_USER_ID + " INTEGER PRIMARY KEY ,"
                 + KEY_USER_LASTNAME + " TEXT,"
@@ -62,13 +77,21 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_USER_COUNTRY + " TEXT,"
                 + KEY_USER_CITY + " TEXT"+ ")";
 
+        // TRIP
         private static final String CREATE_TRIP_TABLE = "CREATE TABLE "+ TABLE_TRIP + "("
-                + KEY_TRIP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+                + KEY_TRIP_ID + " INTEGER PRIMARY KEY,"
                 + KEY_TRIP_NAME + " TEXT,"
                 + KEY_TRIP_COUNTRY + " TEXT,"
                 + KEY_TRIP_DESCRIPTION + " TEXT,"
                 + KEY_TRIP_CREATED_AT + " TEXT,"
                 + KEY_TRIP_USER + " INTEGER"+ ")";
+
+        // FRIEND
+        private static final String CREATE_FRIEND_TABLE = "CREATE FRIEND "+ TABLE_FRIEND + "("
+                + KEY_FRIEND_ID + " INTEGER PRIMARY KEY,"
+                + KEY_FRIEND_LASTNAME + " TEXT,"
+                + KEY_FRIEND_FIRSTNAME + " TEXT,"
+                + KEY_FRIEND_IS_ACCEPTED + " BOOL" + ")";
 
   public DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

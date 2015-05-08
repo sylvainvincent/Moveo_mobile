@@ -26,6 +26,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.dao.TripDAO;
+import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.model.User;
@@ -192,8 +193,7 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                if (json.getString("success").equals("1") || json.getString("success").equals("2")) {
-                    if (json.getJSONObject("user").getString("access_id").equals("2")) {
+                if (json.getString("error").equals("1")) {
 
                         // Création de l'objet User
                         User user = new User();
@@ -212,51 +212,91 @@ public class LoginActivity extends Activity {
                         userDAO.open();
                         userDAO.addUser(user);
 
-                        if(json.getString("success").equals("1")){
-                            JSONArray tripList = json.getJSONArray("trip");
-                            Trip trip;
-                            ArrayList<Trip> tripArrayList = new ArrayList<>(tripList.length());
-                            for(int i=0; i<tripList.length();i++){
-                                tripArrayList.add(new Trip(
-                                        tripList.getJSONObject(i).getInt("trip_id"),
-                                        tripList.getJSONObject(i).getString("trip_name"),
-                                        tripList.getJSONObject(i).getString("trip_country"),
-                                        tripList.getJSONObject(i).getString("trip_description"),
-                                        tripList.getJSONObject(i).getString("trip_created_at"),
-                                        tripList.getJSONObject(i).getInt("comment_count"),
-                                        tripList.getJSONObject(i).getInt("photo_count")
-                                ));
-                            }
-                            TripDAO tripDAO = new TripDAO(LoginActivity.this);
-                            tripDAO.open();
-                            tripDAO.addTripListUser(tripArrayList);
+                        switch (json.getString("success")) {
+                            case "1":
+                                JSONArray tripList = json.getJSONArray("trip");
+                                ArrayList<Trip> tripArrayList = new ArrayList<>(tripList.length());
+                                for (int i = 0; i < tripList.length(); i++) {
+                                    tripArrayList.add(new Trip(
+                                            tripList.getJSONObject(i).getInt("trip_id"),
+                                            tripList.getJSONObject(i).getString("trip_name"),
+                                            tripList.getJSONObject(i).getString("trip_country"),
+                                            tripList.getJSONObject(i).getString("trip_description"),
+                                            tripList.getJSONObject(i).getString("trip_created_at"),
+                                            tripList.getJSONObject(i).getInt("comment_count"),
+                                            tripList.getJSONObject(i).getInt("photo_count")
+                                    ));
+                                }
+                                TripDAO tripDAO = new TripDAO(LoginActivity.this);
+                                tripDAO.open();
+                                tripDAO.addTripListUser(tripArrayList);
+                            case "2":
+                                JSONArray friendList = json.getJSONArray("friend");
+                                ArrayList<Friend> friendArrayList = new ArrayList<>(friendList.length());
+                                for (int i = 0; i < friendList.length(); i++) {
+                                    friendArrayList.add(new Friend(
+                                            friendList.getJSONObject(i).getString("friend_last_name"),
+                                            friendList.getJSONObject(i).getString("friend_first_name"),
+                                            friendList.getJSONObject(i).getBoolean("is_accepted")
+                                    ));
+                                }
+
+                            default:break;
                         }
 
                         // L'utilisateur est envoyer vers le DASHBOARDACTIVITY
                         Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                         startActivity(intent);
                         Log.e("Passage", "réussi");
-                    } else {
-                        layout.setAlpha((float) 0.8);
-                        alertDialog = new AlertDialog.Builder(
-                                LoginActivity.this);
-                        alertDialog.setCancelable(true);
-                        alertDialog.setMessage("Votre compte n'est pas validé. " +
-                                "Veuillez verifier votre boite de réception ou les courriers indésirables de votre boite email.");
-                        alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener(){
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                                layout.setAlpha(1);
-                            }
-                        });
-                        alertDialog.show();
-                    }
+
                 }else if(json.getString("error").equals("1")) {
                     toast = Toast.makeText(LoginActivity.this, "Votre mot de passe ou votre adresse mail est incorrect",
                             Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.BOTTOM,0,15);
                     toast.show();
+                }else if(json.getString("error").equals("3")){
+                    layout.setAlpha((float) 0.8);
+                    alertDialog = new AlertDialog.Builder(
+                            LoginActivity.this);
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("Votre compte n'est pas validé. " +
+                            "Veuillez verifier votre boite de réception ou les courriers indésirables de votre boite email.");
+                    alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            layout.setAlpha(1);
+                        }
+                    });
+                    alertDialog.show();
+                }else if(json.getString("error").equals("4")){
+                    layout.setAlpha((float) 0.8);
+                    alertDialog = new AlertDialog.Builder(
+                            LoginActivity.this);
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("L'application est actuellement en maintenance, Réessayer plus tard.");
+                    alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            layout.setAlpha(1);
+                        }
+                    });
+                    alertDialog.show();
+                }else if(json.getString("error").equals("5")){
+                    layout.setAlpha((float) 0.8);
+                    alertDialog = new AlertDialog.Builder(
+                            LoginActivity.this);
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("Votre compte est bloqué pour non respect de certaines règles");
+                    alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            layout.setAlpha(1);
+                        }
+                    });
+                    alertDialog.show();
                 }else{
                     toast = Toast.makeText(LoginActivity.this, "Un erreur s'est produite lors de la recuperation de vos informations",
                             Toast.LENGTH_LONG);
