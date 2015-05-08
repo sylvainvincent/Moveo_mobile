@@ -28,7 +28,7 @@ public class PlaceActivity extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.place);
+        setContentView(R.layout.fragment_trip_places_list);
         this.initialization();
     }
 
