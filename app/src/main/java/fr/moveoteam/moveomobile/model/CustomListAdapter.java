@@ -65,12 +65,11 @@ public class CustomListAdapter extends BaseAdapter {
             }
             viewHolderTrip.explore_trip_name.setText(tripList.get(position).getName());
             viewHolderTrip.explore_country.setText(tripList.get(position).getCountry());
-            String a = "<u>Par</u> ";
             if (this.otherUser) {
                 String authorHTML = "<font color=#000>par</font> <i>" + tripList.get(position).getAuthor_first_name() + " " + tripList.get(position).getAuthor_last_name() + "</i>";
                 viewHolderTrip.explore_username.setText(Html.fromHtml(authorHTML));
             } else {
-                viewHolderTrip.explore_username.setText(Html.fromHtml("par <i>moi</i>"));
+                viewHolderTrip.explore_username.setText(Html.fromHtml("<font color=#000>par</font> <i>moi</i>"));
             }
             viewHolderTrip.number_of_comments.setText((Integer.toString(tripList.get(position).getCommentCount())));
             viewHolderTrip.number_of_pictures.setText(Integer.toString(tripList.get(position).getPhotoCount()));

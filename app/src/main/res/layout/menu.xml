@@ -6,10 +6,11 @@
     android:layout_height="match_parent">
 
     <!-- Le Framelayout affiche les fragments -->
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
 
     <!-- La Listview affiche le menu déroulant -->
     <ListView

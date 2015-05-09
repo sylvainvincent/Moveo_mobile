@@ -3,6 +3,7 @@ package fr.moveoteam.moveomobile;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -218,12 +219,17 @@ public class HomeActivity extends Activity {
     private void displayView(int position) {
         // Mettre à jour le contenu principal par un nouveau fragment
         Fragment fragment = null;
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
         switch (position) {
             case 0:
                 fragment = new ExploreFragment();
+                ft.replace(R.id.frame_container,fragment);
                 break;
             case 1:
                 fragment = new TripFragment();
+                ft.replace(R.id.frame_container,new AddButtonTripFragment());
+                ft.add(R.id.frame_container, fragment);
                 break;
             case 2:
                 fragment = new ExploreFragment();
@@ -249,16 +255,15 @@ public class HomeActivity extends Activity {
                 break;
 
             default:
-               // fragment = new ExploreFragment();
+                fragment = new ExploreFragment();
                 break;
         }
 
         if (fragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().add(R.id.frame_container, new AddButtonTripFragment()).commit();
-            fragmentManager.beginTransaction()
-                    .add(R.id.frame_container, fragment).commit();
+         //   ft.remove(fragment);
+         //   ft.add(R.id.frame_container, fragment);
 
+            ft.commit();
 
             // update selected item and title, then close the drawer
             listSliderMenu.setItemChecked(position, true);
