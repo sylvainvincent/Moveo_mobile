@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -62,6 +63,31 @@ public class FriendDAO {
         }
     }
 
+    public ArrayList<Friend> getFriendList(){
+        ArrayList<Friend> friendList = null;
+        String selectQuery = "SELECT  * FROM " + TABLE_FRIEND;
+
+        Cursor cursor = database.rawQuery(selectQuery, null);
+        if(cursor.getCount()>0) {
+            friendList = new ArrayList<>(cursor.getCount());
+        }
+        // Se déplacer à la première ligne
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            assert friendList != null;
+            friendList.add(this.cursorToFriend(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        // database.close();
+        if(friendList != null) {
+            Log.i("Verification taille ", "" + friendList.size());
+            Log.i("Verification nom ", "" + friendList.get(0).getLastName());
+            Log.i("Verification nom ", "" + friendList.get(1).getLastName());
+        }
+        return friendList;
+    }
+
     /**
      * Récupere les informations du curseur pour les mettre dans la classe Trip
      * @param cursor un curseur
@@ -69,11 +95,11 @@ public class FriendDAO {
      */
     protected Friend cursorToFriend(Cursor cursor){
         Friend friend = new Friend() ;
-        /*friend.setId(cursor.getInt(DataBaseHandler.POSITION_FRIEND_ID));
+        friend.setId(cursor.getInt(DataBaseHandler.POSITION_FRIEND_ID));
         friend.setLastName(cursor.getString(DataBaseHandler.POSITION_FRIEND_LASTNAME));
         friend.setFirstName(cursor.getString(DataBaseHandler.POSITION_FRIEND_FIRSTNAME));
         friend.setFriend((cursor.getInt(DataBaseHandler.POSITION_FRIEND_IS_ACCEPTED))!=0);
-        */
+
         return friend;
     }
 

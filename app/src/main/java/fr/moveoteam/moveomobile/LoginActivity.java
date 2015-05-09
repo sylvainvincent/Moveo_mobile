@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
@@ -46,6 +47,9 @@ public class LoginActivity extends Activity {
     EditText editLostPassword;
     Toast toast;
     RelativeLayout layout;
+
+    String email;
+    String password;
 
     AlertDialog.Builder alertDialog;
 
@@ -182,8 +186,8 @@ public class LoginActivity extends Activity {
         @Override
         protected JSONObject doInBackground(String... args) {
 
-            String email = editMail.getText().toString();
-            String password = editPassword.getText().toString();
+            email = editMail.getText().toString();
+            password = editPassword.getText().toString();
 
             JSONUser jsonUser = new JSONUser();
             return jsonUser.loginUser(email, password);
@@ -193,7 +197,7 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                if (json.getString("error").equals("1")) {
+                if (json.getString("error").equals("0")) {
 
                         // Création de l'objet User
                         User user = new User();
@@ -202,6 +206,7 @@ public class LoginActivity extends Activity {
                         user.setFirstName(json.getJSONObject("user").getString("user_first_name"));
                         user.setBirthday(json.getJSONObject("user").getString("user_birthday"));
                         user.setEmail(json.getJSONObject("user").getString("user_email"));
+                        user.setPassword(password);
                         user.setCountry(json.getJSONObject("user").getString("user_country"));
                         user.setCity(json.getJSONObject("user").getString("user_city"));
 
@@ -212,40 +217,44 @@ public class LoginActivity extends Activity {
                         userDAO.open();
                         userDAO.addUser(user);
 
-                        switch (json.getString("success")) {
-                            case "1":
-                                JSONArray tripList = json.getJSONArray("trip");
-                                ArrayList<Trip> tripArrayList = new ArrayList<>(tripList.length());
-                                for (int i = 0; i < tripList.length(); i++) {
-                                    tripArrayList.add(new Trip(
-                                            tripList.getJSONObject(i).getInt("trip_id"),
-                                            tripList.getJSONObject(i).getString("trip_name"),
-                                            tripList.getJSONObject(i).getString("trip_country"),
-                                            tripList.getJSONObject(i).getString("trip_description"),
-                                            tripList.getJSONObject(i).getString("trip_created_at"),
-                                            tripList.getJSONObject(i).getInt("comment_count"),
-                                            tripList.getJSONObject(i).getInt("photo_count")
-                                    ));
-                                }
-                                TripDAO tripDAO = new TripDAO(LoginActivity.this);
-                                tripDAO.open();
-                                tripDAO.addTripListUser(tripArrayList);
-                            case "2":
-                                JSONArray friendList = json.getJSONArray("friend");
-                                ArrayList<Friend> friendArrayList = new ArrayList<>(friendList.length());
-                                for (int i = 0; i < friendList.length(); i++) {
-                                    friendArrayList.add(new Friend(
-                                            friendList.getJSONObject(i).getString("friend_last_name"),
-                                            friendList.getJSONObject(i).getString("friend_first_name"),
-                                            friendList.getJSONObject(i).getBoolean("is_accepted")
-                                    ));
-                                }
-
-                            default:break;
+                        if((json.getString("success").equals("1")) || (json.getString("success").equals("3"))) {
+                            JSONArray friendList = json.getJSONArray("friend");
+                            ArrayList<Friend> friendArrayList = new ArrayList<>(friendList.length());
+                            for (int i = 0; i < friendList.length(); i++) {
+                                friendArrayList.add(new Friend(
+                                        friendList.getJSONObject(i).getInt("friend_id"),
+                                        friendList.getJSONObject(i).getString("friend_last_name"),
+                                        friendList.getJSONObject(i).getString("friend_first_name"),
+                                        friendList.getJSONObject(i).getInt("is_accepted")!=0
+                                ));
+                            }
+                            FriendDAO friendDAO = new FriendDAO(LoginActivity.this);
+                            friendDAO.open();
+                            friendDAO.addFriendList(friendArrayList);
                         }
 
-                        // L'utilisateur est envoyer vers le DASHBOARDACTIVITY
-                        Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                        if((json.getString("success").equals("1")) || (json.getString("success").equals("2"))){
+                            JSONArray tripList = json.getJSONArray("trip");
+                            ArrayList<Trip> tripArrayList = new ArrayList<>(tripList.length());
+                            for (int i = 0; i < tripList.length(); i++) {
+                                tripArrayList.add(new Trip(
+                                        tripList.getJSONObject(i).getInt("trip_id"),
+                                        tripList.getJSONObject(i).getString("trip_name"),
+                                        tripList.getJSONObject(i).getString("trip_country"),
+                                        tripList.getJSONObject(i).getString("trip_description"),
+                                        tripList.getJSONObject(i).getString("trip_created_at"),
+                                        tripList.getJSONObject(i).getInt("comment_count"),
+                                        tripList.getJSONObject(i).getInt("photo_count")
+                                ));
+                            }
+                            TripDAO tripDAO = new TripDAO(LoginActivity.this);
+                            tripDAO.open();
+                            tripDAO.addTripListUser(tripArrayList);
+                        }
+
+                        // L'utilisateur est envoyé vers le DASHBOARDACTIVITY
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        Log.e("intent", "ok");
                         startActivity(intent);
                         Log.e("Passage", "réussi");
 

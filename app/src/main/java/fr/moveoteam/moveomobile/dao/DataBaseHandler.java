@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.sql.SQLException;
 
+import fr.moveoteam.moveomobile.model.Friend;
+
 /**
  * Created by Sylvain on 14/04/15.
  */
@@ -32,6 +34,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final String KEY_USER_FIRSTNAME = "user_firstName";
         public static final String KEY_USER_BIRTHDAY = "user_birthday";
         public static final String KEY_USER_EMAIL = "user_email";
+        public static final String KEY_USER_PASSWORD = "user_password";
         public static final String KEY_USER_COUNTRY = "user_country";
         public static final String KEY_USER_CITY = "user_city";
 
@@ -60,10 +63,10 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final int POSITION_TRIP_USER= 5;
 
         // Friend
-        public static final String POSITION_FRIEND_ID = "friend_id";
-        public static final String POSITION_FRIEND_LASTNAME = "friend_lastname";
-        public static final String POSITION_FRIEND_FIRSTNAME = "friend_firstname";
-        public static final String POSITION_FRIEND_IS_ACCEPTED = "friend_is_accepted";
+        public static final int POSITION_FRIEND_ID = 0;
+        public static final int POSITION_FRIEND_LASTNAME = 1;
+        public static final int POSITION_FRIEND_FIRSTNAME = 2;
+        public static final int POSITION_FRIEND_IS_ACCEPTED = 3;
 
     // CREATION DES TABLES
 
@@ -74,6 +77,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_USER_FIRSTNAME + " TEXT,"
                 + KEY_USER_BIRTHDAY + " TEXT,"
                 + KEY_USER_EMAIL + " TEXT,"
+                + KEY_USER_PASSWORD + " TEXT,"
                 + KEY_USER_COUNTRY + " TEXT,"
                 + KEY_USER_CITY + " TEXT"+ ")";
 
@@ -87,11 +91,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_TRIP_USER + " INTEGER"+ ")";
 
         // FRIEND
-        private static final String CREATE_FRIEND_TABLE = "CREATE FRIEND "+ TABLE_FRIEND + "("
+        private static final String CREATE_FRIEND_TABLE = "CREATE TABLE "+ TABLE_FRIEND + "("
                 + KEY_FRIEND_ID + " INTEGER PRIMARY KEY,"
                 + KEY_FRIEND_LASTNAME + " TEXT,"
                 + KEY_FRIEND_FIRSTNAME + " TEXT,"
-                + KEY_FRIEND_IS_ACCEPTED + " BOOL" + ")";
+                + KEY_FRIEND_IS_ACCEPTED + " INTEGER"+ ")";
 
   public DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -101,6 +105,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_LOGIN_TABLE);
         db.execSQL(CREATE_TRIP_TABLE);
+        db.execSQL(CREATE_FRIEND_TABLE);
     }
 
     @Override
@@ -108,7 +113,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // SUPPRIMER l'ANCIENNE TABLE s'il en existe
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRIP);
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FRIEND);
         // RECRÉER LA TABLE
         onCreate(db);
     }
@@ -122,6 +127,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // Supprimer toutes les lignes
         db.delete(TABLE_LOGIN, null, null);
         db.delete(TABLE_TRIP, null, null);
+        db.delete(TABLE_FRIEND, null, null);
         db.close();
     }
 }

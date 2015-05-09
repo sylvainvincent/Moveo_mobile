@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.fragment.AddButtonTripFragment;
 import fr.moveoteam.moveomobile.fragment.ExploreFragment;
@@ -70,7 +71,8 @@ public class HomeActivity extends Activity {
 
     Toast toast;
 
-    String nombre = "0";
+    String tripCounter = "0";
+    String friendCounter = "0";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,17 +98,23 @@ public class HomeActivity extends Activity {
         TripDAO tripDAO = new TripDAO(HomeActivity.this);
         tripDAO.open();
         if(tripDAO.getTripList()!= null){
-            nombre = Integer.toString(tripDAO.getTripList().size());
+            tripCounter = Integer.toString(tripDAO.getTripList().size());
+        }
+
+        FriendDAO friendDAO = new FriendDAO(HomeActivity.this);
+        friendDAO.open();
+        if(friendDAO.getFriendList()!= null){
+            friendCounter = Integer.toString(friendDAO.getFriendList().size());
         }
 
         // EXPLORER
         listMenuItems.add(new MenuItems(listMenuTitles[0], listMenuIcons.getResourceId(0, -1)));
         // MES VOYAGES
-        listMenuItems.add(new MenuItems(listMenuTitles[1], listMenuIcons.getResourceId(1, -1),true,nombre));
+        listMenuItems.add(new MenuItems(listMenuTitles[1], listMenuIcons.getResourceId(1, -1),true,tripCounter));
         // MON PROFIL
         listMenuItems.add(new MenuItems(listMenuTitles[2], listMenuIcons.getResourceId(2, -1)));
         // MES AMIS
-        listMenuItems.add(new MenuItems(listMenuTitles[3], listMenuIcons.getResourceId(3, -1), true, "50+"));
+        listMenuItems.add(new MenuItems(listMenuTitles[3], listMenuIcons.getResourceId(3, -1), true, friendCounter));
         // MESSAGERIE
         listMenuItems.add(new MenuItems(listMenuTitles[4], listMenuIcons.getResourceId(4, -1), true, "3"));
         // PARAMÈTRE
@@ -181,7 +189,7 @@ public class HomeActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,
                                 long id) {
-            // display view for selected nav drawer item
+            // Afficher la vue correspondant à la position
             displayView(position);
         }
     }
@@ -208,7 +216,7 @@ public class HomeActivity extends Activity {
     }
 
     private void displayView(int position) {
-        // update the main content by replacing fragments
+        // Mettre à jour le contenu principal par un nouveau fragment
         Fragment fragment = null;
         switch (position) {
             case 0:

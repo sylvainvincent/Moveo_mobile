@@ -29,6 +29,7 @@ public class UserDAO {
     private static final String KEY_USER_FIRSTNAME = "user_firstName";
     private static final String KEY_USER_BIRTHDAY = "user_birthday";
     private static final String KEY_USER_EMAIL = "user_email";
+    private static final String KEY_USER_PASSWORD = "user_password";
     private static final String KEY_USER_COUNTRY = "user_country";
     private static final String KEY_USER_CITY = "user_city";
 
@@ -38,8 +39,9 @@ public class UserDAO {
     private static final int POSITION_USER_FIRSTNAME = 2;
     private static final int POSITION_USER_BIRTHDAY = 3;
     private static final int POSITION_USER_EMAIL = 4;
-    private static final int POSITION_USER_COUNTRY = 5;
-    private static final int POSITION_USER_CITY = 6;
+    private static final int POSITION_USER_PASSWORD = 5;
+    private static final int POSITION_USER_COUNTRY = 6;
+    private static final int POSITION_USER_CITY = 7;
 
     public UserDAO(Context context){
         dbHandler = new DataBaseHandler(context);
@@ -65,6 +67,7 @@ public class UserDAO {
         values.put(KEY_USER_FIRSTNAME, user.getFirstName());   // PRÉNOM
         values.put(KEY_USER_BIRTHDAY, user.getBirthday());     // DATE DE NAISSANCE
         values.put(KEY_USER_EMAIL, user.getEmail());           // ADRESSE MAIL
+        values.put(KEY_USER_PASSWORD, user.getPassword());           // ADRESSE MAIL
         values.put(KEY_USER_COUNTRY, user.getCountry());       // PAYS
         values.put(KEY_USER_CITY, user.getCity());             // VILLE
 
@@ -88,6 +91,7 @@ public class UserDAO {
             user.setLastName(cursor.getString(POSITION_USER_LASTNAME));
             user.setBirthday(cursor.getString(POSITION_USER_BIRTHDAY));
             user.setEmail(cursor.getString(POSITION_USER_EMAIL));
+            user.setPassword(cursor.getString(POSITION_USER_PASSWORD));
             user.setCountry(cursor.getString(POSITION_USER_COUNTRY));
             user.setCity(cursor.getString(POSITION_USER_CITY));
         }

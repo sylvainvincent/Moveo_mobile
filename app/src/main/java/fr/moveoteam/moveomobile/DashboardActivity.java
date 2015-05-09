@@ -2,18 +2,36 @@ package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+
 import fr.moveoteam.moveomobile.dao.DataBaseHandler;
+import fr.moveoteam.moveomobile.dao.FriendDAO;
+import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
+import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
+import fr.moveoteam.moveomobile.model.Trip;
+import fr.moveoteam.moveomobile.model.User;
+import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
  * Created by Sylvain on 16/04/15.
@@ -24,6 +42,11 @@ public class DashboardActivity extends Activity {
     private Menu m = null;
 	UserDAO userDAO;
     Boolean internet = false;
+    Toast toast;
+    RelativeLayout layout;
+    AlertDialog.Builder alertDialog;
+
+    String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +70,10 @@ public class DashboardActivity extends Activity {
              */
             // VERIFICATION DE LA CONNEXION INTERNET
             if(!Function.beConnectedToInternet(DashboardActivity.this)){
-
                 buildDialog(DashboardActivity.this).show();
+            }else {
+                new ExecuteThread().execute();
             }
-            else {
-                Intent explore = new Intent(getApplicationContext(), HomeActivity.class);
-                explore.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(explore);
-                finish();
-            }
-
             userDAO.close();
 
         } else {// Si l'utilisateur n'a pas de session d'ouverte il est renvoyé sur la page Login
@@ -113,4 +130,155 @@ public class DashboardActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(DashboardActivity.this);
+            pDialog.setMessage("Veuillez patienter...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... args) {
+            JSONUser jsonUser = new JSONUser();
+            userDAO = new UserDAO(DashboardActivity.this);
+            userDAO.open();
+            password = userDAO.getUserDetails().getPassword();
+            Log.d("test",""+userDAO.getUserDetails().getEmail()+" "+password);
+            return jsonUser.loginUser(userDAO.getUserDetails().getEmail(), password);
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+            try {
+                if (json.getString("error").equals("0")) {
+                    DataBaseHandler db = new DataBaseHandler(DashboardActivity.this);
+                    db.resetTables();
+                    // Création de l'objet User
+                    User user = new User();
+                    user.setId(Integer.parseInt(json.getJSONObject("user").getString("user_id")));
+                    user.setLastName(json.getJSONObject("user").getString("user_last_name"));
+                    user.setFirstName(json.getJSONObject("user").getString("user_first_name"));
+                    user.setBirthday(json.getJSONObject("user").getString("user_birthday"));
+                    user.setEmail(json.getJSONObject("user").getString("user_email"));
+                    user.setPassword(password);
+                    user.setCountry(json.getJSONObject("user").getString("user_country"));
+                    user.setCity(json.getJSONObject("user").getString("user_city"));
+
+                    Log.i("L'id", "" + user.getId());
+
+                    // Création de l'objet DAO(utilisateur) pour ajouter un utilisateur
+                    userDAO = new UserDAO(DashboardActivity.this);
+                    userDAO.open();
+                    userDAO.addUser(user);
+
+                    if ((json.getString("success").equals("1")) || (json.getString("success").equals("3"))) {
+                        JSONArray friendList = json.getJSONArray("friend");
+                        ArrayList<Friend> friendArrayList = new ArrayList<>(friendList.length());
+                        for (int i = 0; i < friendList.length(); i++) {
+                            friendArrayList.add(new Friend(
+                                    friendList.getJSONObject(i).getInt("friend_id"),
+                                    friendList.getJSONObject(i).getString("friend_last_name"),
+                                    friendList.getJSONObject(i).getString("friend_first_name"),
+                                    friendList.getJSONObject(i).getInt("is_accepted") != 0
+                            ));
+                        }
+                        FriendDAO friendDAO = new FriendDAO(DashboardActivity.this);
+                        friendDAO.open();
+                        friendDAO.addFriendList(friendArrayList);
+                    }
+
+                    if ((json.getString("success").equals("1")) || (json.getString("success").equals("2"))) {
+                        JSONArray tripList = json.getJSONArray("trip");
+                        ArrayList<Trip> tripArrayList = new ArrayList<>(tripList.length());
+                        for (int i = 0; i < tripList.length(); i++) {
+                            tripArrayList.add(new Trip(
+                                    tripList.getJSONObject(i).getInt("trip_id"),
+                                    tripList.getJSONObject(i).getString("trip_name"),
+                                    tripList.getJSONObject(i).getString("trip_country"),
+                                    tripList.getJSONObject(i).getString("trip_description"),
+                                    tripList.getJSONObject(i).getString("trip_created_at"),
+                                    tripList.getJSONObject(i).getInt("comment_count"),
+                                    tripList.getJSONObject(i).getInt("photo_count")
+                            ));
+                        }
+                        TripDAO tripDAO = new TripDAO(DashboardActivity.this);
+                        tripDAO.open();
+                        tripDAO.addTripListUser(tripArrayList);
+                    }
+
+                    // L'utilisateur est envoyé vers le DASHBOARDACTIVITY
+                    Intent explore = new Intent(getApplicationContext(), HomeActivity.class);
+                    explore.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(explore);
+                    finish();
+
+                } else if (json.getString("error").equals("1")) {
+                    toast = Toast.makeText(DashboardActivity.this, "Votre mot de passe ou votre adresse mail est incorrect",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM, 0, 15);
+                    toast.show();
+                } else if (json.getString("error").equals("3")) {
+                    layout.setAlpha((float) 0.8);
+                    alertDialog = new AlertDialog.Builder(
+                            DashboardActivity.this);
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("Votre compte n'est pas validé. " +
+                            "Veuillez verifier votre boite de réception ou les courriers indésirables de votre boite email.");
+                    alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            layout.setAlpha(1);
+                        }
+                    });
+                    alertDialog.show();
+                } else if (json.getString("error").equals("4")) {
+                    layout.setAlpha((float) 0.8);
+                    alertDialog = new AlertDialog.Builder(
+                            DashboardActivity.this);
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("L'application est actuellement en maintenance, Réessayer plus tard.");
+                    alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            layout.setAlpha(1);
+                        }
+                    });
+                    alertDialog.show();
+                } else if (json.getString("error").equals("5")) {
+                    layout.setAlpha((float) 0.8);
+                    alertDialog = new AlertDialog.Builder(
+                            DashboardActivity.this);
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("Votre compte est bloqué pour non respect de certaines règles");
+                    alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            layout.setAlpha(1);
+                        }
+                    });
+                    alertDialog.show();
+                } else {
+                    toast = Toast.makeText(DashboardActivity.this, "Un erreur s'est produite lors de la recuperation de vos informations",
+                            Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.BOTTOM, 0, 15);
+                    toast.show();
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
