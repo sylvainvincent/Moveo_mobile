@@ -106,7 +106,7 @@ public class TripDAO {
             values.put(KEY_TRIP_NAME, trip.getName());     // NOM
             values.put(KEY_TRIP_COUNTRY, trip.getCountry());   // PRÉNOM
             values.put(KEY_TRIP_DESCRIPTION, trip.getDescription());     // DATE DE NAISSANCE
-            values.put(KEY_TRIP_CREATED_AT, String.valueOf(trip.getDateInsert()));
+            values.put(KEY_TRIP_CREATED_AT, String.valueOf(trip.getDate()));
             // Insérer la ligne
             database.insert(TABLE_TRIP, null, values);
         }

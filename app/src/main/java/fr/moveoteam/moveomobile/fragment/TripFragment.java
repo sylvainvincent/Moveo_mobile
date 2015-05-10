@@ -29,13 +29,10 @@ public class TripFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
         TripDAO tripDAO = new TripDAO(getActivity());
         tripDAO.open();
-        String mot[] = new String[5];
-        mot[0]= "bonjour";
         ArrayList<Trip> tripArrayList = tripDAO.getTripList();
-
+        if(tripArrayList != null)
             setListAdapter(new CustomListAdapter(getActivity(), tripArrayList, false));
-
-
+        else setListAdapter(null);
     }
 
 

@@ -9,7 +9,8 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/trip_description"
+        android:id="@+id/trip_home"
+        android:visibility="invisible"
         android:layout_marginTop="39dp">
 
         <TextView
@@ -18,7 +19,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/city_name"
             android:layout_marginBottom="5dp"
-            android:id="@+id/trip_description_city"
+            android:id="@+id/trip_name"
             android:textStyle="bold"
             android:textAllCaps="true"
             android:layout_gravity="center_horizontal" />
@@ -31,7 +32,7 @@
             android:layout_marginBottom="20dp"
             android:textAllCaps="true"
             android:textSize="19sp"
-            android:id="@+id/trip_description_country"
+            android:id="@+id/trip_country"
             android:layout_gravity="center_horizontal" />
 
         <TextView
@@ -41,9 +42,8 @@
             android:text="@string/username"
             android:textSize="19sp"
             android:textColor="#3cb2cc"
-            android:textStyle="bold"
             android:layout_marginBottom="20dp"
-            android:id="@+id/trip_description_username"
+            android:id="@+id/trip_author"
             android:layout_gravity="center_horizontal" />
 
         <TextView
@@ -53,14 +53,14 @@
             android:text="@string/trip_created_at"
             android:textSize="15sp"
             android:layout_marginBottom="20dp"
-            android:id="@+id/trip_description_date"
+            android:id="@+id/trip_date"
             android:layout_gravity="center_horizontal" />
 
         <TextView
             android:layout_width="266dp"
             android:layout_height="wrap_content"
             android:text="@string/text_place"
-            android:id="@+id/trip_description_place_description"
+            android:id="@+id/trip_description"
             android:textColor="#212121"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"

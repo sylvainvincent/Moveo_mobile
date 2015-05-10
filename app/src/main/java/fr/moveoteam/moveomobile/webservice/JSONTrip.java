@@ -32,4 +32,12 @@ public class JSONTrip {
 
     }
 
+    public JSONObject getTrip(String id){
+
+        List<NameValuePair> tripRequest = new ArrayList<>();
+        tripRequest.add(new BasicNameValuePair("tag","getTrip"));
+        tripRequest.add(new BasicNameValuePair("trip_id",id));
+        return jsonParser.getJSONFromUrl(tripURL,tripRequest);
+    }
+
 }

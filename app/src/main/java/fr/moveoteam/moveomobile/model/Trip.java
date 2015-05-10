@@ -20,7 +20,7 @@ public class Trip {
     String author_first_name;
     int commentCount;
     int photoCount;
-    Date dateInsert;
+    String date;
 
     public Trip() {
     }
@@ -32,28 +32,25 @@ public class Trip {
         this.insert = insert;
     }
 
-    public Trip(int id, String name, String country, String description, String dateInsert, String author_last_name, String author_first_name,int commentCount, int photoCount) throws ParseException {
-       DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+    public Trip(int id, String name, String country, String description, String date, String author_last_name, String author_first_name,int commentCount, int photoCount) throws ParseException {
+
         this.id = id;
         this.country = country;
         this.name = name;
         this.description = description;
-        this.dateInsert = (Date) df.parse(dateInsert);
-       // Date a = new Date(dateInsert);
+        this.date = date;
         this.author_first_name = author_first_name;
         this.author_last_name =  author_last_name;
         this.commentCount = commentCount;
         this.photoCount = photoCount;
     }
 
-    public Trip(int id, String name, String country, String description, String dateInsert,int commentCount, int photoCount) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+    public Trip(int id, String name, String country, String description, String date,int commentCount, int photoCount) throws ParseException {
         this.id = id;
         this.country = country;
         this.name = name;
         this.description = description;
-        this.dateInsert = (Date) df.parse(dateInsert);
-        // Date a = new Date(dateInsert);
+        this.date = date;
         this.commentCount = commentCount;
         this.photoCount = photoCount;
     }
@@ -155,12 +152,11 @@ public class Trip {
         this.id = id;
     }
 
-    public Date getDateInsert() {
-        return dateInsert;
+    public String getDate() {
+        return date;
     }
 
-    public void setDateInsert(String dateInsert) throws ParseException {
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-        this.dateInsert = (Date) df.parse(dateInsert);
+    public void setDate(String date) {
+        this.date = date;
     }
 }

@@ -3,10 +3,13 @@ package fr.moveoteam.moveomobile.fragment;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
 
 
 import org.json.JSONArray;
@@ -16,6 +19,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import fr.moveoteam.moveomobile.TripActivity;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.CustomListAdapter;
@@ -74,14 +78,14 @@ public class ExploreFragment extends ListFragment {
         listener = null;
     }
 
-    // May also be triggered from the Activity
-    public void updateDetail() {
-        // create a string, just for testing
-        String newTime = String.valueOf(System.currentTimeMillis());
-
-        // Inform the Activity about the change based
-        // interface defintion
-       // listener.onRssItemSelected(newTime);
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Trip trip = tripArrayList.get(position);
+        Log.e("Recuperation",trip.getName());
+        Intent intent = new Intent(getActivity(), TripActivity.class);
+        intent.putExtra("id",trip.getId());
+        startActivity(intent);
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
@@ -135,7 +139,7 @@ public class ExploreFragment extends ListFragment {
                         Log.e("afficher list", tripArrayList.get(1).getName());
                         setListAdapter(new CustomListAdapter(getActivity(), tripArrayList, true));
                         Log.e("Message ", "" + tripArrayList.get(0).getName() + "" + tripArrayList.get(0).getName());
-                        Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDateInsert());
+                        Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDate());
                     }
                 }
 

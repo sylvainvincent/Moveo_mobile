@@ -137,9 +137,9 @@ public class DashboardActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(DashboardActivity.this);
-            pDialog.setMessage("Veuillez patienter...");
+            pDialog.setMessage("Synchronisation en cours...");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
+            pDialog.setCancelable(false);
             pDialog.show();
         }
 
@@ -220,63 +220,53 @@ public class DashboardActivity extends Activity {
                     finish();
 
                 } else if (json.getString("error").equals("1")) {
-                    toast = Toast.makeText(DashboardActivity.this, "Votre mot de passe ou votre adresse mail est incorrect",
-                            Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.BOTTOM, 0, 15);
-                    toast.show();
+                    Log.d("Erreur dashboard","mot de passe ou adresse email incorrect");
+                    DataBaseHandler db = new DataBaseHandler(DashboardActivity.this);
+                    db.resetTables();
+                    Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+                    login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(login);
+                    // Fermer le dashboard
+                    finish();
                 } else if (json.getString("error").equals("3")) {
-                    layout.setAlpha((float) 0.8);
-                    alertDialog = new AlertDialog.Builder(
-                            DashboardActivity.this);
-                    alertDialog.setCancelable(true);
-                    alertDialog.setMessage("Votre compte n'est pas validé. " +
-                            "Veuillez verifier votre boite de réception ou les courriers indésirables de votre boite email.");
-                    alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                            layout.setAlpha(1);
-                        }
-                    });
-                    alertDialog.show();
+                    Log.d("Erreur dashboard", "compte non validé");
+                    DataBaseHandler db = new DataBaseHandler(DashboardActivity.this);
+                    db.resetTables();
+                    Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+                    login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(login);
+                    // Fermer le dashboard
+                    finish();
                 } else if (json.getString("error").equals("4")) {
-                    layout.setAlpha((float) 0.8);
-                    alertDialog = new AlertDialog.Builder(
-                            DashboardActivity.this);
-                    alertDialog.setCancelable(true);
-                    alertDialog.setMessage("L'application est actuellement en maintenance, Réessayer plus tard.");
-                    alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                            layout.setAlpha(1);
-                        }
-                    });
-                    alertDialog.show();
+                    Log.d("Erreur dashboard", "application en maintenance");
+                    DataBaseHandler db = new DataBaseHandler(DashboardActivity.this);
+                    db.resetTables();
+                    Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+                    login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(login);
+                    // Fermer le dashboard
+                    finish();
                 } else if (json.getString("error").equals("5")) {
-                    layout.setAlpha((float) 0.8);
-                    alertDialog = new AlertDialog.Builder(
-                            DashboardActivity.this);
-                    alertDialog.setCancelable(true);
-                    alertDialog.setMessage("Votre compte est bloqué pour non respect de certaines règles");
-                    alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                            layout.setAlpha(1);
-                        }
-                    });
-                    alertDialog.show();
+                    Log.d("Erreur dashboard", "compte est bloqué pour non respect de certaines règles");
+                    DataBaseHandler db = new DataBaseHandler(DashboardActivity.this);
+                    db.resetTables();
+                    Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+                    login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(login);
+                    // Fermer le dashboard
+                    finish();
                 } else {
-                    toast = Toast.makeText(DashboardActivity.this, "Un erreur s'est produite lors de la recuperation de vos informations",
-                            Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.BOTTOM, 0, 15);
-                    toast.show();
+                    Log.d("Erreur dashboard","erreur lors de la recuperation des informations");
+                    DataBaseHandler db = new DataBaseHandler(DashboardActivity.this);
+                    db.resetTables();
+                    Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+                    login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(login);
+                    // Fermer le dashboard
+                    finish();
                 }
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
+            } catch (JSONException | ParseException e) {
                 e.printStackTrace();
             }
         }

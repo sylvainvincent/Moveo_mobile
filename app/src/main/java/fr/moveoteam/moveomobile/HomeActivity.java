@@ -55,6 +55,9 @@ public class HomeActivity extends Activity {
     private ListView listSliderMenu;
     private ActionBarDrawerToggle mDrawerToggle;
 
+    Fragment fragment = null;
+    Fragment fragment2 = null;
+
     // Titre dans l'action bar
     private CharSequence mDrawerTitle;
 
@@ -80,7 +83,6 @@ public class HomeActivity extends Activity {
         // La vue par défaut contient un menu caché sur la gauche ainsi qu'un FrameLayout qui affiche les fragments
         setContentView(R.layout.menu);
         this.initialization();
-
 
         mTitle = mDrawerTitle = getTitle();
 
@@ -162,24 +164,10 @@ public class HomeActivity extends Activity {
             // on first time display view for first nav item
             // displayView(0);
         }
-        /*
-        UserDAO userDAO = new UserDAO(ExploreActivity.this);
-        userDAO.open();
-        exploreTitle = (TextView) findViewById(R.id.)
-        exploreTitle.setText(userDAO.getUserDetails().getFirstName()+" "+userDAO.getUserDetails().getLastName());
 
-        new ExecuteThread().execute();
+        // La page par defaut est "Explorer"
+        displayView(0);
 
-        ArrayList<Trip> tripStory = getListData();
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ExploreActivity.this, Place.class);
-                startActivity(intent);
-            }
-        });
-        */
     }
 
     /**
@@ -218,17 +206,19 @@ public class HomeActivity extends Activity {
 
     private void displayView(int position) {
         // Mettre à jour le contenu principal par un nouveau fragment
-        Fragment fragment = null;
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
+        if(fragment2 != null)ft.remove(fragment2);
+        if(fragment != null)ft.remove(fragment);
         switch (position) {
             case 0:
                 fragment = new ExploreFragment();
-                ft.replace(R.id.frame_container,fragment);
+                ft.add(R.id.frame_container, fragment);
                 break;
             case 1:
                 fragment = new TripFragment();
-                ft.replace(R.id.frame_container,new AddButtonTripFragment());
+                fragment2 = new AddButtonTripFragment();
+                ft.add(R.id.frame_container, fragment2);
                 ft.add(R.id.frame_container, fragment);
                 break;
             case 2:
@@ -262,7 +252,8 @@ public class HomeActivity extends Activity {
         if (fragment != null) {
          //   ft.remove(fragment);
          //   ft.add(R.id.frame_container, fragment);
-
+            ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
+            ft.addToBackStack(null);
             ft.commit();
 
             // update selected item and title, then close the drawer
