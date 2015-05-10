@@ -1,36 +1,32 @@
 package fr.moveoteam.moveomobile.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import fr.moveoteam.moveomobile.R;
 
 /**
- * Created by Sylvain on 07/05/15.
+ * Created by Sylvain on 10/05/15.
  */
-public class AddButtonTripFragment extends Fragment{
+public class TripHomeFragment extends Fragment {
 
-    TextView text;
+    OnHeadlineSelectedListener mCallback;
 
+    // Container Activity must implement this interface
+    public interface OnHeadlineSelectedListener {
+        public void onArticleSelected(int position);
+    }
 
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_button_add_trip, container,false);
+        return inflater.inflate(R.layout.fragment_trip_description, container,false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        text = (TextView) getActivity().findViewById(R.id.add_trip_text);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+       // ArrayList<Trip> tripArrayList = tripDAO.getTripList();
     }
 }

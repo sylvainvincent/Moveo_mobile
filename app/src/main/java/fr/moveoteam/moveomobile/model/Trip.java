@@ -21,6 +21,7 @@ public class Trip {
     int commentCount;
     int photoCount;
     String date;
+    int userId;
 
     public Trip() {
     }
@@ -158,5 +159,13 @@ public class Trip {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

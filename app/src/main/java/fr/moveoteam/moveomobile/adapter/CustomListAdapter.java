@@ -1,4 +1,4 @@
-package fr.moveoteam.moveomobile.model;
+package fr.moveoteam.moveomobile.adapter;
 
 import android.content.Context;
 import android.text.Html;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.model.Trip;
 
 /**
  * Created by alexMac on 08/04/15.

@@ -9,6 +9,7 @@ public class Place {
     int id;
     String name, address, description;
     ImageView picture;
+    int category;
 
     public Place() {
     }
@@ -18,10 +19,12 @@ public class Place {
         this.address = address;
     }
 
-    public Place(String name, String address, String description) {
+    public Place(int id, String name, String address, String description, int category) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.description = description;
+        this.category = category;
     }
 
     public Place(String name, String address, String description, ImageView picture) {
@@ -29,6 +32,18 @@ public class Place {
         this.address = address;
         this.description = description;
         this.picture = picture;
+    }
+
+    @Override
+    public String toString() {
+        return "Place{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", description='" + description + '\'' +
+                ", picture=" + picture +
+                ", category=" + category +
+                '}';
     }
 
     public int getId() {
@@ -65,5 +80,17 @@ public class Place {
 
     public void setPicture(ImageView picture) {
         this.picture = picture;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
     }
 }

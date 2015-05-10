@@ -1,21 +1,19 @@
 package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,24 +22,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.fragment.AddButtonTripFragment;
 import fr.moveoteam.moveomobile.fragment.ExploreFragment;
-import fr.moveoteam.moveomobile.fragment.TripFragment;
+import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
 import fr.moveoteam.moveomobile.menu.MenuAdapter;
 import fr.moveoteam.moveomobile.menu.MenuItems;
-import fr.moveoteam.moveomobile.model.CustomListAdapter;
-import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.dao.UserDAO;
-import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 
 /**
@@ -74,6 +64,8 @@ public class HomeActivity extends Activity {
     UserDAO userDAO;
 
     Toast toast;
+
+    AlertDialog.Builder alertDialog;
 
     String tripCounter = "0";
     String friendCounter = "0";
@@ -216,7 +208,7 @@ public class HomeActivity extends Activity {
                 ft.add(R.id.frame_container, fragment);
                 break;
             case 1:
-                fragment = new TripFragment();
+                fragment = new MyTripListFragment();
                 fragment2 = new AddButtonTripFragment();
                 ft.add(R.id.frame_container, fragment2);
                 ft.add(R.id.frame_container, fragment);
@@ -301,6 +293,27 @@ public class HomeActivity extends Activity {
         super.onConfigurationChanged(newConfig);
         // Passer une configuration change le drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override // Fermer l'application lorsque l'on appuie sur le bouton "back"
+    public void onBackPressed() {
+        alertDialog = new AlertDialog.Builder(
+                HomeActivity.this);
+        alertDialog.setCancelable(true);
+        alertDialog.setMessage("Êtes vous sûr de vouloir l'application ?");
+        alertDialog.setPositiveButton("oui",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);
+            }
+        });
+        alertDialog.setNegativeButton("non", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
 
     // Procedure qui permet d'affecter les elements de l'interface graphique aux objets de la classe

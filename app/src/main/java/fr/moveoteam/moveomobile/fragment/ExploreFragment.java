@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,9 +19,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.TripActivity;
-import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
-import fr.moveoteam.moveomobile.model.CustomListAdapter;
+import fr.moveoteam.moveomobile.adapter.CustomListAdapter;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
@@ -112,7 +110,7 @@ public class ExploreFragment extends ListFragment {
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                Log.e("ExploreFragment",json.getString("message"));
+                // Log.e("ExploreFragment",json.getString("message"));
                 // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
                 if(json.getString("success").equals("1")) {
                     // Recuperation des voyages sous la forme d'un JSONArray
@@ -145,6 +143,7 @@ public class ExploreFragment extends ListFragment {
 
             } catch (ParseException e1) {
                 e1.printStackTrace();
+
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
