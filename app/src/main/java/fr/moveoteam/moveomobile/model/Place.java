@@ -13,6 +13,11 @@ public class Place {
     public Place() {
     }
 
+    public Place(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
+
     public Place(String name, String address, String description) {
         this.name = name;
         this.address = address;

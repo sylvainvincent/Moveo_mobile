@@ -39,12 +39,21 @@
     <string name="place_name">Place Name</string>
     <string name="adress_place">Adresse</string>
     <string name="text_place">Texte</string>
-
-    <!-- ADD PLACE -->
     <string name="place_description">Description du lieu</string>
     <string name="shopping">Shopping</string>
     <string name="place">Lieu</string>
     <string name="adress">Adresse</string>
+
+    <!-- PLACES LIST -->
+    <string name="place_adress">Address</string>
+
+    <!-- FRIENDS LIST -->
+    <string name="friends_title">Mes amis</string>
+    <string name="contact_number">5 contacts</string>
+    <string name="friend_name">Username</string>
+    <string name="accept_friend">Accept</string>
+    <string name="refuse_friend">Refuse</string>
+    <string name="delete_friend">Delete</string>
 
     <!-- EXPLORER -->
     <string name="bulle_discussion">Discussion</string>

@@ -50,7 +50,6 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/username"
                 android:textColor="@color/link"
-                android:onClick="clickToUserProfile"
                 android:id="@+id/explore_username" />
 
             <!-- Comments and pictures -->
