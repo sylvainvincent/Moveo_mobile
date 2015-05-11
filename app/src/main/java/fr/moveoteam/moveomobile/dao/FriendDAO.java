@@ -30,6 +30,11 @@ public class FriendDAO {
     public static final String KEY_FRIEND_FIRSTNAME = "friend_firstname";
     public static final String KEY_FRIEND_IS_ACCEPTED = "friend_is_accepted";
 
+    private String[] allColumns = { DataBaseHandler.KEY_FRIEND_ID,
+                                    DataBaseHandler.KEY_FRIEND_LASTNAME,
+                                    DataBaseHandler.KEY_FRIEND_FIRSTNAME,
+                                    DataBaseHandler.KEY_FRIEND_IS_ACCEPTED};
+
     public FriendDAO(Context context){
         dbHandler = new DataBaseHandler(context);
     }
@@ -67,7 +72,32 @@ public class FriendDAO {
         ArrayList<Friend> friendList = null;
         String selectQuery = "SELECT  * FROM " + TABLE_FRIEND;
 
-        Cursor cursor = database.rawQuery(selectQuery, null);
+        Cursor cursor = database.query(TABLE_FRIEND,allColumns,KEY_FRIEND_IS_ACCEPTED+" = 1",null,null,null,null);
+        if(cursor.getCount()>0) {
+            friendList = new ArrayList<>(cursor.getCount());
+        }
+        // Se déplacer à la première ligne
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            assert friendList != null;
+            friendList.add(this.cursorToFriend(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        // database.close();
+        if(friendList != null) {
+            Log.i("Verification taille ", "" + friendList.size());
+            Log.i("Verification nom ", "" + friendList.get(0).getLastName());
+            Log.i("Verification nom ", "" + friendList.get(1).getLastName());
+        }
+        return friendList;
+    }
+
+    public ArrayList<Friend> getFriendRequestList(){
+        ArrayList<Friend> friendList = null;
+        // String selectQuery = "SELECT  * FROM " + TABLE_FRIEND+ "WHERE "+ KEY_FRIEND_IS_ACCEPTED+" = 1";
+
+        Cursor cursor = database.query(TABLE_FRIEND,allColumns,KEY_FRIEND_IS_ACCEPTED+" = 0",null,null,null,null);
         if(cursor.getCount()>0) {
             friendList = new ArrayList<>(cursor.getCount());
         }

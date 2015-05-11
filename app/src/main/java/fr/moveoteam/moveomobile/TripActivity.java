@@ -33,7 +33,7 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
 /**
  * Created by Sylvain on 10/05/15.
  */
-public class TripActivity extends Activity {
+public class TripActivity extends Activity implements TripHomeFragment.OnInformationListener{
 
     int id;
 
@@ -63,6 +63,8 @@ public class TripActivity extends Activity {
 
         ft.add(R.id.trip_content,new TripHomeFragment());
         ft.commit();
+        getInformation(trip);
+
 
     }
 
@@ -74,6 +76,20 @@ public class TripActivity extends Activity {
         tripDate = (TextView) findViewById(R.id.trip_date);
         tripDescription = (TextView) findViewById(R.id.trip_description);
         tripHome = (LinearLayout) findViewById(R.id.trip_home);
+    }
+
+    @Override
+    public void getInformation(Trip trip) {
+        //if(trip != null) {
+            tripName.setText("Bonjour");
+          /*  tripCountry.setText(trip.getCountry());
+            tripDescription.setText(trip.getDescription());
+            tripAuthor.setText(Html.fromHtml("<font color=#000>par</font> <b>" + trip.getAuthor_last_name() + " " + trip.getAuthor_first_name() + " </b>"));
+            tripDate.setText(tripDate.getText() + " " + trip.getDate());
+            tripHome.setVisibility(View.VISIBLE);
+        /*}else{
+           Log.e("Trip","est a nul");
+        }*/
     }
 
 
@@ -102,7 +118,7 @@ public class TripActivity extends Activity {
             try {
                 if (json.getString("error").equals("0")) {
 
-                    Trip trip = new Trip();
+                    trip = new Trip();
                     trip.setId(Integer.parseInt(json.getJSONObject("trip").getString("trip_id")));
                     trip.setName(json.getJSONObject("trip").getString("trip_name"));
                     trip.setCountry(json.getJSONObject("trip").getString("trip_country"));
@@ -111,7 +127,7 @@ public class TripActivity extends Activity {
                     trip.setAuthor_last_name(json.getJSONObject("trip").getString("user_last_name"));
                     trip.setAuthor_first_name(json.getJSONObject("trip").getString("user_first_name"));
                     trip.setUserId(Integer.parseInt(json.getJSONObject("trip").getString("user_id")));
-
+                    Log.e("Trip", trip.toString());
                     if((json.getString("success").equals("1")) || (json.getString("success").equals("2"))){
                         JSONArray placeList = json.getJSONArray("place");
                         placeArrayList = new ArrayList<>(placeList.length());
@@ -141,6 +157,8 @@ public class TripActivity extends Activity {
                         }
                     }
 
+
+
                     /*tripName.setText(trip.getName());
                     tripCountry.setText(trip.getCountry());
                     tripDescription.setText(trip.getDescription());
@@ -166,5 +184,29 @@ public class TripActivity extends Activity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void linkToHomeFragment(View view){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+
+        ft.add(R.id.trip_content,new TripHomeFragment());
+        ft.commit();
+    }
+
+    public void linkToGastronomyFragment(View view){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+
+        ft.add(R.id.trip_content,new TripHomeFragment());
+        ft.commit();
+    }
+
+    public void linkToLeisureFragment(View view){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+
+        ft.add(R.id.trip_content,new TripHomeFragment());
+        ft.commit();
     }
 }

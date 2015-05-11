@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/friends_request_title"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@color/title"
+        android:id="@+id/friends_request_title"
+        android:layout_centerHorizontal="true"
+
+        android:layout_gravity="center_horizontal" />
+
+  <fragment
+      android:layout_width="fill_parent"
+      android:layout_height="match_parent"
+      android:layout_weight="2"
+      android:id="@+id/fragment_friend_list_request"
+      android:name="fr.moveoteam.moveomobile.fragment.FriendRequestFragment"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/friends_title"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@color/title"
+        android:id="@+id/friends_title"
+        android:layout_centerHorizontal="true"
+
+        android:layout_gravity="center_horizontal" />
+
+    <fragment
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/fragment_friend_list"
+        android:name="fr.moveoteam.moveomobile.fragment.FriendsFragment"/>
+
+
+
+
+</LinearLayout>

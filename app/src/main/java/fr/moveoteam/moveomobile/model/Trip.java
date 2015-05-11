@@ -168,4 +168,23 @@ public class Trip {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "id=" + id +
+                ", country='" + country + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", insert='" + insert + '\'' +
+                ", mainPicture=" + mainPicture +
+                ", user=" + user +
+                ", author_last_name='" + author_last_name + '\'' +
+                ", author_first_name='" + author_first_name + '\'' +
+                ", commentCount=" + commentCount +
+                ", photoCount=" + photoCount +
+                ", date='" + date + '\'' +
+                ", userId=" + userId +
+                '}';
+    }
 }

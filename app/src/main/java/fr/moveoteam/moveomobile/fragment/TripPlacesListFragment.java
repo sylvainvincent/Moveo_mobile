@@ -3,8 +3,9 @@ package fr.moveoteam.moveomobile.fragment;
 import android.app.ListFragment;
 import android.os.Bundle;
 import java.util.ArrayList;
+
+import fr.moveoteam.moveomobile.adapter.PlacesListAdapter;
 import fr.moveoteam.moveomobile.model.Place;
-import fr.moveoteam.moveomobile.model.PlacesListAdapter;
 
 /**
  * Created by Amélie on 08/05/2015.

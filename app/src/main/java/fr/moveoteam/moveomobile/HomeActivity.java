@@ -28,6 +28,9 @@ import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.fragment.AddButtonTripFragment;
 import fr.moveoteam.moveomobile.fragment.ExploreFragment;
+import fr.moveoteam.moveomobile.fragment.FriendListFragment;
+import fr.moveoteam.moveomobile.fragment.FriendRequestFragment;
+import fr.moveoteam.moveomobile.fragment.FriendsFragment;
 import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
 import fr.moveoteam.moveomobile.menu.MenuAdapter;
 import fr.moveoteam.moveomobile.menu.MenuItems;
@@ -217,7 +220,9 @@ public class HomeActivity extends Activity {
                 fragment = new ExploreFragment();
                 break;
             case 3:
-                fragment = new ExploreFragment();
+                fragment = new FriendListFragment();
+
+                ft.add(R.id.frame_container, fragment);
                 break;
             case 4:
                 fragment = new ExploreFragment();

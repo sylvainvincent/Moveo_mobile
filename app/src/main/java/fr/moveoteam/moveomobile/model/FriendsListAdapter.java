@@ -47,17 +47,26 @@ public class FriendsListAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.row_list_friends, null);
             viewHolderFriend = new ViewHolderFriend();
             viewHolderFriend.friend_name = (TextView) convertView.findViewById(R.id.friend_name);
+            viewHolderFriend.accept_friend = (ImageView) convertView.findViewById(R.id.accept_friend);
+            viewHolderFriend.refuse_friend = (ImageView) convertView.findViewById(R.id.refuse_friend);
+            viewHolderFriend.delete_friend = (ImageView) convertView.findViewById(R.id.delete_friend);
             viewHolderFriend.avatar = (ImageView) convertView.findViewById(R.id.friend_avatar);
             convertView.setTag(viewHolderFriend);
         } else {
             viewHolderFriend = (ViewHolderFriend) convertView.getTag();
         }
-        viewHolderFriend.friend_name.setText(friendsList.get(position).getFirstName());
+        viewHolderFriend.friend_name.setText(friendsList.get(position).getFirstName()+" "+friendsList.get(position).getLastName());
+        if(friendsList.get(position).isFriend){
+            viewHolderFriend.refuse_friend.setVisibility(View.INVISIBLE);
+            viewHolderFriend.accept_friend.setVisibility(View.INVISIBLE);
+        }else{
+            viewHolderFriend.delete_friend.setVisibility(View.INVISIBLE);
+        }
         return convertView;
     }
 
     static class ViewHolderFriend {
         TextView friend_name;
-        ImageView avatar;
+        ImageView avatar,accept_friend,refuse_friend, delete_friend;
     }
 }
