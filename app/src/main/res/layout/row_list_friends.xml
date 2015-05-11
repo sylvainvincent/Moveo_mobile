@@ -33,17 +33,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/trash"
-                android:contentDescription="@string/delete_friend"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="120dp"
-                android:id="@+id/delete_friend" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:src="@drawable/accept_friend"
                 android:contentDescription="@string/accept_friend"
+                android:layout_marginLeft="120dp"
                 android:layout_marginTop="20dp"
                 android:id="@+id/accept_friend" />
 
@@ -54,6 +46,14 @@
                 android:contentDescription="@string/refuse_friend"
                 android:layout_marginTop="20dp"
                 android:id="@+id/refuse_friend" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/trash"
+                android:contentDescription="@string/delete_friend"
+                android:layout_marginTop="20dp"
+                android:id="@+id/delete_friend" />
 
         </LinearLayout>
 
