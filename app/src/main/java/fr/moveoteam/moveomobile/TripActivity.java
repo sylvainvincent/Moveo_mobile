@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,9 +22,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.fragment.TripHomeFragment;
+import fr.moveoteam.moveomobile.fragment.TripPlacesListFragment;
 import fr.moveoteam.moveomobile.model.Comment;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Place;
@@ -55,15 +58,13 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cover);
+
         initialize();
         id = getIntent().getExtras().getInt("id",0);
-        new ExecuteThread().execute();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
 
-        ft.add(R.id.trip_content,new TripHomeFragment());
-        ft.commit();
-        getInformation(trip);
+        new ExecuteThread().execute();
+
+        //getInformation(trip);
 
 
     }
@@ -157,7 +158,14 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
                         }
                     }
 
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    TripHomeFragment fragment = new TripHomeFragment();
+                    fragment.setList(trip);
+                    ft.add(R.id.trip_content,fragment);
+                    ft.commit();
 
+                    getInformation(trip);
 
                     /*tripName.setText(trip.getName());
                     tripCountry.setText(trip.getCountry());
@@ -209,4 +217,6 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
         ft.add(R.id.trip_content,new TripHomeFragment());
         ft.commit();
     }
+
+
 }
