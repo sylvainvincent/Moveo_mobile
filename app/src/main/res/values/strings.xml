@@ -86,6 +86,17 @@
     <string name="cover">Photo principale</string>
     <string name="text_link_login">Déjà un compte ?</string>
 
+    <!-- MY TRIP -->
+    <string name="my_trip_title">Mon voyage</string>
+    <string name="delete_trip">Supprimer</string>
+    <string name="my_trip_city_title">City And Country</string>
+    <string name="add_trip_date">Voyage ajouté le</string>
+    <string name="cover_title">Image de couverture</string>
+    <string name="modify_cover">Modifier l'image de couverture</string>
+    <string name="description_title">Description</string>
+    <string name="trip_description">Description du voyage</string>
+    <string name="modify_description">Modifier la description</string>
+
     <!-- Les elements du menu -->
     <string-array name="nav_drawer_items">
         <item>EXPLORER</item>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:id="@+id/my_trip">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/my_trip_title"
+            android:textAllCaps="true"
+            android:textSize="@dimen/title_size"
+            android:textColor="@color/title"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/my_trip_title"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/delete_app_icon"
+            android:src="@drawable/delete_app"
+            android:layout_marginRight="5dp"
+            android:layout_alignBottom="@+id/delete_app"
+            android:layout_toLeftOf="@+id/delete_app"
+            android:layout_toStartOf="@+id/delete_app" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/delete_trip"
+            android:layout_gravity="right"
+            android:id="@+id/delete_app"
+            android:layout_alignBottom="@id/my_trip_title"
+            android:layout_marginRight="20dp"
+            android:textColor="#6f6f6f"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/my_trip_city_title"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textAllCaps="true"
+            android:layout_below="@+id/my_trip_title"
+            android:text="@string/my_trip_city_title"
+            android:layout_alignLeft="@+id/my_trip_title"
+            android:layout_alignStart="@+id/my_trip_title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/add_trip_date"
+            android:id="@+id/add_trip_date"
+            android:textSize="15sp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_below="@+id/my_trip_city_title"
+            android:layout_alignLeft="@+id/my_trip_city_title"
+            android:layout_alignStart="@+id/my_trip_city_title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/cover_title"
+            android:id="@+id/cover_title"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:layout_below="@+id/add_trip_date"
+            android:layout_alignLeft="@+id/add_trip_date"
+            android:layout_alignStart="@+id/add_trip_date" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/cover"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cover"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/cover_title"
+            android:layout_alignLeft="@+id/cover_title"
+            android:layout_alignStart="@+id/cover_title"
+            android:layout_alignRight="@+id/delete_app"
+            android:layout_alignEnd="@+id/delete_app"
+            android:id="@+id/cover_profile" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/modify_cover_icon"
+            android:layout_centerVertical="true"
+            android:src="@drawable/modify_element"
+            android:layout_alignLeft="@+id/cover_profile"
+            android:layout_alignStart="@+id/cover_profile" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/modify_cover"
+            android:id="@+id/modify_cover"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/modify_cover_icon"
+            android:layout_toEndOf="@+id/modify_cover_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/description_title"
+            android:id="@+id/description_title"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:layout_below="@+id/modify_cover_icon"
+            android:layout_alignLeft="@+id/modify_cover_icon"
+            android:layout_alignStart="@+id/modify_cover_icon"
+            android:layout_marginTop="30dp" />
+
+        <TextView
+            android:layout_width="266dp"
+            android:layout_height="wrap_content"
+            android:text="@string/trip_description"
+            android:id="@+id/trip_description"
+            android:textColor="#212121"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/description_title"
+            android:layout_alignLeft="@+id/description_title"
+            android:layout_alignStart="@+id/description_title" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/modify_description_icon"
+            android:src="@drawable/modify_element"
+            android:layout_below="@+id/trip_description"
+            android:layout_alignLeft="@+id/trip_description"
+            android:layout_alignStart="@+id/trip_description" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/modify_description"
+            android:id="@+id/modify_description"
+            android:layout_alignTop="@+id/modify_description_icon"
+            android:layout_alignLeft="@+id/modify_cover"
+            android:layout_alignStart="@+id/modify_cover" />
+
+    </RelativeLayout>
+
+</ScrollView>

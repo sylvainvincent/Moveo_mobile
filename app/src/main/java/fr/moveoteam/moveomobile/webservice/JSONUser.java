@@ -63,7 +63,7 @@ public class JSONUser {
         loginForm.add(new BasicNameValuePair("email",email));
         loginForm.add(new BasicNameValuePair("password",password));
 
-        return jsonParser.getJSONFromUrl(userURL,loginForm);
+        return jsonParser.getJSONFromUrl(userURL, loginForm);
     }
 
     /**
@@ -76,7 +76,20 @@ public class JSONUser {
         lostPasswordForm.add(new BasicNameValuePair("tag", "forgetPassword"));
         lostPasswordForm.add(new BasicNameValuePair("user_email", email));
 
-        return jsonParser.getJSONFromUrl(userURL,lostPasswordForm);
+        return jsonParser.getJSONFromUrl(userURL, lostPasswordForm);
+    }
+
+    public JSONObject modifyUser(String name, String firstname, String email, String birthdate, String city, String birthplace) {
+        List<NameValuePair> modifyUserForm = new ArrayList<>();
+        modifyUserForm.add(new BasicNameValuePair("tag", "forgetPassword"));
+        modifyUserForm.add(new BasicNameValuePair("name", name));
+        modifyUserForm.add(new BasicNameValuePair("firstname", firstname));
+        modifyUserForm.add(new BasicNameValuePair("email", email));
+        modifyUserForm.add(new BasicNameValuePair("birthdate", birthdate));
+        modifyUserForm.add(new BasicNameValuePair("city", city));
+        modifyUserForm.add(new BasicNameValuePair("birthplace", birthplace));
+
+        return jsonParser.getJSONFromUrl(userURL, modifyUserForm);
     }
 
 }

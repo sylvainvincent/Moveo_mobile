@@ -71,8 +71,7 @@
                     android:layout_marginTop="20dp"
                     android:textSize="@dimen/input_text_size"
                     android:textColor="@color/label_color"
-                    android:textAllCaps="true"
-                    android:id="@+id/modifyName" />
+                    android:textAllCaps="true" />
 
                 <EditText
                     android:layout_width="fill_parent"
@@ -82,7 +81,7 @@
                     android:textSize="@dimen/input_text_size"
                     android:textColor="@color/input_color"
                     android:layout_marginTop="5dp"
-                    android:id="@+id/editNameSettings" />
+                    android:id="@+id/edit_name" />
 
                 <!-- FIRSTNAME -->
                 <TextView
@@ -92,8 +91,7 @@
                     android:text="@string/firstname_settings"
                     android:layout_marginTop="20dp"
                     android:textColor="#666"
-                    android:textAllCaps="true"
-                    android:id="@+id/modify_firstname" />
+                    android:textAllCaps="true" />
 
                 <EditText
                     android:layout_width="fill_parent"
@@ -103,7 +101,7 @@
                     android:padding="10dp"
                     android:textSize="@dimen/input_text_size"
                     android:layout_marginTop="5dp"
-                    android:id="@+id/edit_modify_firstname" />
+                    android:id="@+id/edit_firstname" />
 
                 <!-- EMAIL -->
                 <TextView
@@ -113,8 +111,7 @@
                     android:text="@string/email_settings"
                     android:layout_marginTop="20dp"
                     android:textColor="#666"
-                    android:textAllCaps="true"
-                    android:id="@+id/modify_email" />
+                    android:textAllCaps="true" />
 
                 <EditText
                     android:layout_width="fill_parent"
@@ -123,7 +120,8 @@
                     android:textColor="@color/input_color"
                     android:padding="10dp"
                     android:textSize="@dimen/input_text_size"
-                    android:layout_marginTop="5dp" />
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/edit_email"/>
 
                 <!-- BIRTHDATE -->
                 <TextView
@@ -133,8 +131,7 @@
                     android:text="@string/birthdate_settings"
                     android:layout_marginTop="20dp"
                     android:textColor="#666"
-                    android:textAllCaps="true"
-                    android:id="@+id/modify_birthdate" />
+                    android:textAllCaps="true" />
 
                 <EditText
                     android:layout_width="fill_parent"
@@ -144,7 +141,7 @@
                     android:padding="10dp"
                     android:textSize="@dimen/input_text_size"
                     android:layout_marginTop="5dp"
-                    android:id="@+id/edit_modify_birthdate" />
+                    android:id="@+id/edit_birthdate" />
 
                 <!-- CURRENT CITY -->
                 <TextView
@@ -154,8 +151,7 @@
                     android:text="@string/city_settings"
                     android:layout_marginTop="20dp"
                     android:textColor="#666"
-                    android:textAllCaps="true"
-                    android:id="@+id/modify_city" />
+                    android:textAllCaps="true" />
 
                 <EditText
                     android:layout_width="fill_parent"
@@ -165,7 +161,7 @@
                     android:padding="10dp"
                     android:textSize="@dimen/input_text_size"
                     android:layout_marginTop="5dp"
-                    android:id="@+id/edit_modify_city" />
+                    android:id="@+id/edit_city" />
 
                 <!-- BIRTHPLACE -->
                 <TextView
@@ -175,8 +171,7 @@
                     android:text="@string/birthplace_settings"
                     android:layout_marginTop="20dp"
                     android:textColor="#666"
-                    android:textAllCaps="true"
-                    android:id="@+id/modify_birthplace" />
+                    android:textAllCaps="true" />
 
                 <EditText
                     android:layout_width="fill_parent"
@@ -186,14 +181,14 @@
                     android:padding="10dp"
                     android:textSize="@dimen/input_text_size"
                     android:layout_marginTop="5dp"
-                    android:id="@+id/edit_modify_birthplace" />
+                    android:id="@+id/edit_birthplace" />
 
                 <!-- Submit Button -->
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:text="@string/modify_settings"
-                    android:id="@+id/button_add_place"
+                    android:id="@+id/button_account_settings"
                     android:textColor="#fff"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
