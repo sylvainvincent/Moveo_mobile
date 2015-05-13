@@ -66,7 +66,6 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
 
         //getInformation(trip);
 
-
     }
 
     private void initialize() {

@@ -25,6 +25,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_LOGIN = "login";
     private static final String TABLE_TRIP = "trip";
     private static final String TABLE_FRIEND = "friend";
+    private static final String TABLE_DIALOG = "dialog";
 
     // NOM DES COLONNES :
 
@@ -52,6 +53,15 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final String KEY_FRIEND_FIRSTNAME = "friend_firstname";
         public static final String KEY_FRIEND_IS_ACCEPTED = "friend_is_accepted";
 
+        // Dialog
+        public static final String KEY_DIALOG_RECIPIENT_ID = "dialog_recipient_id";
+        public static final String KEY_DIALOG_RECIPIENT_LASTNAME = "dialog_recipient_lastname";
+        public static final String KEY_DIALOG_RECIPIENT_FIRSTNAME = "dialog_recipient_firstname";
+        public static final String KEY_DIALOG_MESSAGE = "dialog_message";
+        public static final String KEY_DIALOG_DATE = "dialog_date";
+        public static final String KEY_DIALOG_READ = "dialog_read";
+        public static final String KEY_DIALOG_IS_INBOX = "dialog_id_inbox";
+
     // POSITION DES COLONNES
 
         // Trip
@@ -67,6 +77,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final int POSITION_FRIEND_LASTNAME = 1;
         public static final int POSITION_FRIEND_FIRSTNAME = 2;
         public static final int POSITION_FRIEND_IS_ACCEPTED = 3;
+
+        // Dialog
+        public static final int POSITION_DIALOG_RECIPIENT_ID = 0;
+        public static final int POSITION_DIALOG_RECIPIENT_LASTNAME = 1;
+        public static final int POSITION_DIALOG_RECIPIENT_FIRSTNAME = 2;
+        public static final int POSITION_DIALOG_MESSAGE = 3;
+        public static final int POSITION_DIALOG_DATE = 4;
+        public static final int POSITION_DIALOG_READ = 5;
 
     // CREATION DES TABLES
 
@@ -97,7 +115,16 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_FRIEND_FIRSTNAME + " TEXT,"
                 + KEY_FRIEND_IS_ACCEPTED + " INTEGER"+ ")";
 
-  public DataBaseHandler(Context context) {
+        // Dialog
+        private static final String CREATE_DIALOG_TABLE = "CREATE TABLE "+ TABLE_DIALOG + "("
+                + KEY_DIALOG_RECIPIENT_ID + " INTEGER PRIMARY KEY,"
+                + KEY_DIALOG_RECIPIENT_LASTNAME + " TEXT,"
+                + KEY_DIALOG_RECIPIENT_FIRSTNAME + " TEXT,"
+                + KEY_DIALOG_MESSAGE + " TEXT,"
+                + KEY_DIALOG_DATE + " TEXT,"
+                + KEY_DIALOG_READ + " INTEGER"+ ")";
+
+    public DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -106,6 +133,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_LOGIN_TABLE);
         db.execSQL(CREATE_TRIP_TABLE);
         db.execSQL(CREATE_FRIEND_TABLE);
+        db.execSQL(CREATE_DIALOG_TABLE);
     }
 
     @Override
@@ -114,6 +142,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRIP);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FRIEND);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DIALOG);
         // RECRÉER LA TABLE
         onCreate(db);
     }
@@ -128,6 +157,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.delete(TABLE_LOGIN, null, null);
         db.delete(TABLE_TRIP, null, null);
         db.delete(TABLE_FRIEND, null, null);
+        db.delete(TABLE_DIALOG, null, null);
         db.close();
     }
 }

@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,6 +28,7 @@ import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
+import fr.moveoteam.moveomobile.model.Dialog;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.model.User;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
@@ -178,7 +178,7 @@ public class DashboardActivity extends Activity {
                     userDAO.open();
                     userDAO.addUser(user);
 
-                    if ((json.getString("success").equals("1")) || (json.getString("success").equals("3"))) {
+                    if(!json.getString("friend").equals("0")) {
                         JSONArray friendList = json.getJSONArray("friend");
                         ArrayList<Friend> friendArrayList = new ArrayList<>(friendList.length());
                         for (int i = 0; i < friendList.length(); i++) {
@@ -189,12 +189,14 @@ public class DashboardActivity extends Activity {
                                     friendList.getJSONObject(i).getInt("is_accepted") != 0
                             ));
                         }
+                        Log.e("Friend", "passage réussi");
                         FriendDAO friendDAO = new FriendDAO(DashboardActivity.this);
                         friendDAO.open();
                         friendDAO.addFriendList(friendArrayList);
                     }
 
-                    if ((json.getString("success").equals("1")) || (json.getString("success").equals("2"))) {
+
+                    if (!json.getString("trip").equals("0")) {
                         JSONArray tripList = json.getJSONArray("trip");
                         ArrayList<Trip> tripArrayList = new ArrayList<>(tripList.length());
                         for (int i = 0; i < tripList.length(); i++) {
@@ -211,6 +213,25 @@ public class DashboardActivity extends Activity {
                         TripDAO tripDAO = new TripDAO(DashboardActivity.this);
                         tripDAO.open();
                         tripDAO.addTripListUser(tripArrayList);
+                    }
+
+                    if (!json.getString("inbox").equals("0")) {
+                        JSONArray inbox = json.getJSONArray("inbox");
+                        ArrayList<Dialog> inboxArrayList = new ArrayList<>(inbox.length());
+                        for (int i = 0; i < inbox.length(); i++) {
+                            inboxArrayList.add(new Dialog(
+                                    inbox.getJSONObject(i).getInt("recipient_id"),
+                                    inbox.getJSONObject(i).getString("recipient_last_name"),
+                                    inbox.getJSONObject(i).getString("recipient_first_name"),
+                                    inbox.getJSONObject(i).getString("message"),
+                                    inbox.getJSONObject(i).getBoolean("read_by_recipient"),
+                                    inbox.getJSONObject(i).getString("sent_datetime"),
+                                    inbox.getJSONObject(i).getBoolean("read_by_recipient")
+                            ));
+                        }
+                      //  TripDAO tripDAO = new TripDAO(DashboardActivity.this);
+                        // tripDAO.open();
+                        //tripDAO.addTripListUser(tripArrayList);
                     }
 
                     // L'utilisateur est envoyé vers le DASHBOARDACTIVITY
