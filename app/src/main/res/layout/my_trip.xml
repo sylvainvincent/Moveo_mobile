@@ -165,6 +165,76 @@
             android:layout_alignLeft="@+id/modify_cover"
             android:layout_alignStart="@+id/modify_cover" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/categories_title"
+            android:id="@+id/categories_title"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/modify_description"
+            android:layout_alignLeft="@+id/modify_description_icon"
+            android:layout_alignStart="@+id/modify_description_icon" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/my_trip_category1"
+            android:src="@drawable/my_trip_category_fooding"
+            android:layout_below="@+id/categories_title"
+            android:layout_alignLeft="@+id/categories_title"
+            android:layout_alignStart="@+id/categories_title" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/my_trip_category2"
+            android:src="@drawable/my_trip_category_hobby"
+            android:layout_alignTop="@+id/my_trip_category1"
+            android:layout_toRightOf="@+id/description_title"
+            android:layout_toEndOf="@+id/description_title" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/my_trip_category3"
+            android:src="@drawable/my_trip_category_shopping"
+            android:layout_below="@+id/categories_title"
+            android:layout_alignRight="@+id/delete_app_icon"
+            android:layout_alignEnd="@+id/delete_app_icon" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/my_trip_category4"
+            android:src="@drawable/my_trip_category_gallery"
+            android:layout_alignTop="@+id/my_trip_category3"
+            android:layout_alignRight="@+id/delete_app"
+            android:layout_alignEnd="@+id/delete_app" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/last_comments"
+            android:id="@+id/last_comments_title"
+            android:textAllCaps="true"
+            android:textSize="16sp"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/my_trip_category1"
+            android:layout_alignLeft="@+id/my_trip_category1"
+            android:layout_alignStart="@+id/my_trip_category1" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/last_comments_list"
+            android:layout_below="@+id/last_comments_title"
+            android:layout_alignLeft="@+id/last_comments_title"
+            android:layout_alignStart="@+id/last_comments_title" />
+
     </RelativeLayout>
 
 </ScrollView>
