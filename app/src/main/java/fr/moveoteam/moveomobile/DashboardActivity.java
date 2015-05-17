@@ -166,15 +166,16 @@ public class DashboardActivity extends Activity {
                     user.setLastName(json.getJSONObject("user").getString("user_last_name"));
                     user.setFirstName(json.getJSONObject("user").getString("user_first_name"));
                     user.setBirthday(json.getJSONObject("user").getString("user_birthday"));
+                    user.setAvatar(json.getJSONObject("user").getString("avatar"));
                     user.setEmail(json.getJSONObject("user").getString("user_email"));
                     user.setPassword(password);
                     user.setCountry(json.getJSONObject("user").getString("user_country"));
                     user.setCity(json.getJSONObject("user").getString("user_city"));
-
-                    Log.i("L'id", "" + user.getId());
+                    Log.e("Test","test");
+                    Log.e("Avatar",user.getAvatar());
 
                     // Création de l'objet DAO(utilisateur) pour ajouter un utilisateur
-                    userDAO = new UserDAO(DashboardActivity.this);
+                    UserDAO userDAO = new UserDAO(DashboardActivity.this);
                     userDAO.open();
                     userDAO.addUser(user);
 
@@ -189,7 +190,7 @@ public class DashboardActivity extends Activity {
                                     friendList.getJSONObject(i).getInt("is_accepted") != 0
                             ));
                         }
-                        Log.e("Friend", "passage réussi");
+                        Log.e("friend", "passage réussi");
                         FriendDAO friendDAO = new FriendDAO(DashboardActivity.this);
                         friendDAO.open();
                         friendDAO.addFriendList(friendArrayList);
@@ -210,6 +211,7 @@ public class DashboardActivity extends Activity {
                                     tripList.getJSONObject(i).getInt("photo_count")
                             ));
                         }
+
                         TripDAO tripDAO = new TripDAO(DashboardActivity.this);
                         tripDAO.open();
                         tripDAO.addTripListUser(tripArrayList);
@@ -229,7 +231,7 @@ public class DashboardActivity extends Activity {
                                     inbox.getJSONObject(i).getBoolean("read_by_recipient")
                             ));
                         }
-                      //  TripDAO tripDAO = new TripDAO(DashboardActivity.this);
+                        //  TripDAO tripDAO = new TripDAO(DashboardActivity.this);
                         // tripDAO.open();
                         //tripDAO.addTripListUser(tripArrayList);
                     }

@@ -134,8 +134,9 @@ public class ExploreFragment extends ListFragment {
                     if(tripArrayList != null) {
                         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                         //      R.layout.element_menu,R.id.title,values);
+
                         Log.e("afficher list", tripArrayList.get(1).getName());
-                        setListAdapter(new CustomListAdapter(getActivity(), tripArrayList, true));
+                        setListAdapter(new CustomListAdapter(getActivity(), tripArrayList, true,userDAO.getUserDetails().getAvatar()));
                         Log.e("Message ", "" + tripArrayList.get(0).getName() + "" + tripArrayList.get(0).getName());
                         Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDate());
                     }

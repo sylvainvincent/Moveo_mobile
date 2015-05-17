@@ -10,6 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:alpha="0"
         android:id="@+id/my_trip">
 
         <TextView
@@ -51,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/my_trip_city_title"
+            android:id="@+id/my_trip_country_title"
             android:textStyle="bold"
             android:textSize="18sp"
             android:textAllCaps="true"
@@ -69,9 +70,9 @@
             android:textSize="15sp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
-            android:layout_below="@+id/my_trip_city_title"
-            android:layout_alignLeft="@+id/my_trip_city_title"
-            android:layout_alignStart="@+id/my_trip_city_title" />
+            android:layout_below="@+id/my_trip_country_title"
+            android:layout_alignLeft="@+id/my_trip_country_title"
+            android:layout_alignStart="@+id/my_trip_country_title" />
 
         <TextView
             android:layout_width="wrap_content"

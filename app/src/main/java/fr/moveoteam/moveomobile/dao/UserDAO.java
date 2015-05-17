@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.sql.SQLException;
 
@@ -28,6 +29,7 @@ public class UserDAO {
     private static final String KEY_USER_LASTNAME = "user_lastName";
     private static final String KEY_USER_FIRSTNAME = "user_firstName";
     private static final String KEY_USER_BIRTHDAY = "user_birthday";
+    private static final String KEY_USER_AVATAR = "user_avatar";
     private static final String KEY_USER_EMAIL = "user_email";
     private static final String KEY_USER_PASSWORD = "user_password";
     private static final String KEY_USER_COUNTRY = "user_country";
@@ -38,10 +40,11 @@ public class UserDAO {
     private static final int POSITION_USER_LASTNAME = 1;
     private static final int POSITION_USER_FIRSTNAME = 2;
     private static final int POSITION_USER_BIRTHDAY = 3;
-    private static final int POSITION_USER_EMAIL = 4;
-    private static final int POSITION_USER_PASSWORD = 5;
-    private static final int POSITION_USER_COUNTRY = 6;
-    private static final int POSITION_USER_CITY = 7;
+    private static final int POSITION_USER_AVATAR = 4;
+    private static final int POSITION_USER_EMAIL = 5;
+    private static final int POSITION_USER_PASSWORD = 6;
+    private static final int POSITION_USER_COUNTRY = 7;
+    private static final int POSITION_USER_CITY = 8;
 
     public UserDAO(Context context){
         dbHandler = new DataBaseHandler(context);
@@ -66,11 +69,12 @@ public class UserDAO {
         values.put(KEY_USER_LASTNAME, user.getLastName());     // NOM
         values.put(KEY_USER_FIRSTNAME, user.getFirstName());   // PRÉNOM
         values.put(KEY_USER_BIRTHDAY, user.getBirthday());     // DATE DE NAISSANCE
+        values.put(KEY_USER_AVATAR, user.getAvatar());       // AVATAR
         values.put(KEY_USER_EMAIL, user.getEmail());           // ADRESSE MAIL
-        values.put(KEY_USER_PASSWORD, user.getPassword());           // ADRESSE MAIL
+        values.put(KEY_USER_PASSWORD, user.getPassword());     // PASSWORD
         values.put(KEY_USER_COUNTRY, user.getCountry());       // PAYS
         values.put(KEY_USER_CITY, user.getCity());             // VILLE
-
+        Log.e("avat", values.get(KEY_USER_AVATAR).toString());
         // Insérer la ligne
         database.insert(TABLE_LOGIN, null, values);
        // database.close(); // Fermer la connexion vers la base de données
@@ -90,6 +94,7 @@ public class UserDAO {
             user.setFirstName(cursor.getString(POSITION_USER_FIRSTNAME));
             user.setLastName(cursor.getString(POSITION_USER_LASTNAME));
             user.setBirthday(cursor.getString(POSITION_USER_BIRTHDAY));
+            user.setAvatar(cursor.getString(POSITION_USER_AVATAR));
             user.setEmail(cursor.getString(POSITION_USER_EMAIL));
             user.setPassword(cursor.getString(POSITION_USER_PASSWORD));
             user.setCountry(cursor.getString(POSITION_USER_COUNTRY));

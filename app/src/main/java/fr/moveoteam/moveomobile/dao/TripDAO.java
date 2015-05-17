@@ -119,6 +119,7 @@ public class TripDAO {
      */
     protected Trip cursorToTrip(Cursor cursor){
         Trip trip = new Trip();
+        trip.setId(cursor.getInt(DataBaseHandler.POSITION_FRIEND_ID));
         trip.setName(cursor.getString(DataBaseHandler.POSITION_TRIP_NAME));
         trip.setCountry(cursor.getString(DataBaseHandler.POSITION_TRIP_COUNTRY));
         trip.setDescription(cursor.getString(DataBaseHandler.POSITION_TRIP_DESCRIPTION));

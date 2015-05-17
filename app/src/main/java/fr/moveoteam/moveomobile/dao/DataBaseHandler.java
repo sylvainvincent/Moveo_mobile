@@ -34,6 +34,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final String KEY_USER_LASTNAME = "user_lastName";
         public static final String KEY_USER_FIRSTNAME = "user_firstName";
         public static final String KEY_USER_BIRTHDAY = "user_birthday";
+        public static final String KEY_USER_AVATAR = "user_avatar";
         public static final String KEY_USER_EMAIL = "user_email";
         public static final String KEY_USER_PASSWORD = "user_password";
         public static final String KEY_USER_COUNTRY = "user_country";
@@ -94,6 +95,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_USER_LASTNAME + " TEXT,"
                 + KEY_USER_FIRSTNAME + " TEXT,"
                 + KEY_USER_BIRTHDAY + " TEXT,"
+                + KEY_USER_AVATAR + " TEXT,"
                 + KEY_USER_EMAIL + " TEXT,"
                 + KEY_USER_PASSWORD + " TEXT,"
                 + KEY_USER_COUNTRY + " TEXT,"

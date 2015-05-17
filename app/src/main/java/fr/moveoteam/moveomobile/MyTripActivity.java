@@ -2,18 +2,13 @@ package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,76 +17,64 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
-import fr.moveoteam.moveomobile.dao.FriendDAO;
-import fr.moveoteam.moveomobile.fragment.TripHomeFragment;
-import fr.moveoteam.moveomobile.fragment.TripPlacesListFragment;
+import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.model.Comment;
-import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Place;
-import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**
- * Created by Sylvain on 10/05/15.
+ * Created by Sylvain on 17/05/15.
  */
-public class TripActivity extends Activity implements TripHomeFragment.OnInformationListener{
+public class MyTripActivity extends Activity {
+    private TextView mytriptitle;
+    private ImageView deleteappicon;
+    private TextView deleteapp;
+    private TextView addtripdate;
+    private ImageView coverprofile;
+    private TextView tripdescription;
+    private ImageView mytripcategory1;
+    private ImageView mytripcategory2;
+    private ImageView mytripcategory3;
+    private ImageView mytripcategory4;
+    private ListView lastcommentslist;
+    private TextView mytripcitytitle;
+    private RelativeLayout mytrip;
 
+    TripDAO tripDAO;
     int id;
 
-    RelativeLayout layout;
+    AlertDialog.Builder alertDialog;
 
-    Trip trip;
     ArrayList<Place> placeArrayList;
     ArrayList<Comment> commentArrayList;
-
-    AlertDialog.Builder alertDialog;
-    private TextView tripName;
-    private TextView tripCountry;
-    private TextView tripAuthor;
-    private TextView tripDate;
-    private TextView tripDescription;
-    private  LinearLayout tripHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cover);
-
+        setContentView(R.layout.my_trip);
         initialize();
         id = getIntent().getExtras().getInt("id",0);
-
+        Log.e("id trip",""+id);
         new ExecuteThread().execute();
-
-        //getInformation(trip);
-
     }
 
     private void initialize() {
 
-        tripName = (TextView) findViewById(R.id.trip_name);
-        tripCountry = (TextView) findViewById(R.id.trip_country);
-        tripAuthor = (TextView) findViewById(R.id.trip_author);
-        tripDate = (TextView) findViewById(R.id.trip_date);
-        tripDescription = (TextView) findViewById(R.id.trip_description);
-        tripHome = (LinearLayout) findViewById(R.id.trip_home);
+        mytriptitle = (TextView) findViewById(R.id.my_trip_title);
+        deleteappicon = (ImageView) findViewById(R.id.delete_app_icon);
+        deleteapp = (TextView) findViewById(R.id.delete_app);
+        mytripcitytitle = (TextView) findViewById(R.id.my_trip_country_title);
+        addtripdate = (TextView) findViewById(R.id.add_trip_date);
+        coverprofile = (ImageView) findViewById(R.id.cover_profile);
+        tripdescription = (TextView) findViewById(R.id.trip_description);
+        mytripcategory1 = (ImageView) findViewById(R.id.my_trip_category1);
+        mytripcategory2 = (ImageView) findViewById(R.id.my_trip_category2);
+        mytripcategory3 = (ImageView) findViewById(R.id.my_trip_category3);
+        mytripcategory4 = (ImageView) findViewById(R.id.my_trip_category4);
+        lastcommentslist = (ListView) findViewById(R.id.last_comments_list);
+        mytrip = (RelativeLayout) findViewById(R.id.my_trip);
     }
-
-    @Override
-    public void getInformation(Trip trip) {
-        //if(trip != null) {
-            tripName.setText("Bonjour");
-          /*  tripCountry.setText(trip.getCountry());
-            tripDescription.setText(trip.getDescription());
-            tripAuthor.setText(Html.fromHtml("<font color=#000>par</font> <b>" + trip.getAuthor_last_name() + " " + trip.getAuthor_first_name() + " </b>"));
-            tripDate.setText(tripDate.getText() + " " + trip.getDate());
-            tripHome.setVisibility(View.VISIBLE);
-        /*}else{
-           Log.e("Trip","est a nul");
-        }*/
-    }
-
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
@@ -99,7 +82,7 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(TripActivity.this);
+            pDialog = new ProgressDialog(MyTripActivity.this);
             pDialog.setMessage("Chargement...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -118,16 +101,15 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
             try {
                 if (json.getString("error").equals("0")) {
 
-                    trip = new Trip();
-                    trip.setId(Integer.parseInt(json.getJSONObject("trip").getString("trip_id")));
-                    trip.setName(json.getJSONObject("trip").getString("trip_name"));
-                    trip.setCountry(json.getJSONObject("trip").getString("trip_country"));
-                    trip.setDescription(json.getJSONObject("trip").getString("trip_description"));
-                    trip.setDate(json.getJSONObject("trip").getString("trip_created_at"));
-                    trip.setAuthor_last_name(json.getJSONObject("trip").getString("user_last_name"));
-                    trip.setAuthor_first_name(json.getJSONObject("trip").getString("user_first_name"));
-                    trip.setUserId(Integer.parseInt(json.getJSONObject("trip").getString("user_id")));
-                    Log.e("Trip", trip.toString());
+                    tripDAO = new TripDAO(MyTripActivity.this);
+                    tripDAO.open();
+
+                    mytriptitle.setText(json.getJSONObject("trip").getString("trip_name"));
+                    mytripcitytitle.setText(json.getJSONObject("trip").getString("trip_country"));
+                    tripdescription.setText(json.getJSONObject("trip").getString("trip_description"));
+                    addtripdate.setText(addtripdate.getText() + " " + json.getJSONObject("trip").getString("trip_created_at"));
+
+
                     if((json.getString("success").equals("1")) || (json.getString("success").equals("2"))){
                         JSONArray placeList = json.getJSONArray("place");
                         placeArrayList = new ArrayList<>(placeList.length());
@@ -156,13 +138,7 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
                             Log.e("comment", commentArrayList.get(i).toString());
                         }
                     }
-
-                    FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction ft = fragmentManager.beginTransaction();
-                    TripHomeFragment fragment = new TripHomeFragment();
-                    //fragment.setList(trip);
-                    ft.add(R.id.trip_content,fragment);
-                    ft.commit();
+                    mytrip.setAlpha(1);
 
 
 
@@ -176,7 +152,7 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
                 } else {
 
                     alertDialog = new AlertDialog.Builder(
-                            TripActivity.this);
+                            MyTripActivity.this);
                     alertDialog.setCancelable(false);
                     alertDialog.setMessage("Une erreur s'est produite lors de la récupération du voyage");
                     alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener() {
@@ -192,30 +168,4 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
             }
         }
     }
-
-    public void linkToHomeFragment(View view){
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-
-        ft.add(R.id.trip_content,new TripHomeFragment());
-        ft.commit();
-    }
-
-    public void linkToGastronomyFragment(View view){
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-
-        ft.add(R.id.trip_content,new TripHomeFragment());
-        ft.commit();
-    }
-
-    public void linkToLeisureFragment(View view){
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-
-        ft.add(R.id.trip_content,new TripHomeFragment());
-        ft.commit();
-    }
-
-
 }

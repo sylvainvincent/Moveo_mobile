@@ -22,7 +22,7 @@ public class JSONUser {
     // 10.0.3.2 pour genymotion
     private static String userURL = "http://moveo.besaba.com/user.php";
 
-    // constructor
+    // constructeur
     public JSONUser(){
         this.jsonParser = new JSONParser();
     }

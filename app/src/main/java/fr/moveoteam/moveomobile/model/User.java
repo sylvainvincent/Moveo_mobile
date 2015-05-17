@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class User {
     int id;
-    String firstName, lastName, birthday, email, password, country, city;
+    String firstName, lastName, birthday, email, password, country, city, avatar;
     Date register, lastConnexion;
 
     public User() {
@@ -176,4 +176,8 @@ public class User {
     public void setLastConnexion(Date lastConnexion) {
         this.lastConnexion = lastConnexion;
     }
+
+    public String getAvatar() {return avatar;}
+
+    public void setAvatar(String avatar) {this.avatar = avatar;}
 }

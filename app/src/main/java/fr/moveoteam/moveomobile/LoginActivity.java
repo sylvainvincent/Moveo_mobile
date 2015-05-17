@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.DialogInterface;
@@ -47,7 +48,7 @@ public class LoginActivity extends Activity {
     EditText editMailForgetPassword;
     EditText editLostPassword;
     Toast toast;
-    RelativeLayout layout;
+    ScrollView layout;
 
     String email;
     String password;
@@ -114,7 +115,7 @@ public class LoginActivity extends Activity {
         buttonLogin = (Button) findViewById(R.id.button_login);
         editMail = (EditText) findViewById(R.id.edit_email_login);
         editPassword = (EditText) findViewById(R.id.edit_password_login);
-        layout = (RelativeLayout) findViewById(R.id.login);
+        layout = (ScrollView) findViewById(R.id.login);
 
     }
 
@@ -199,19 +200,20 @@ public class LoginActivity extends Activity {
             pDialog.dismiss();
             try {
                 if (json.getString("error").equals("0")) {
-
+                    Log.e("taille",""+json.getJSONObject("user").getString("avatar").length());
                     // Création de l'objet User
                     User user = new User();
                     user.setId(Integer.parseInt(json.getJSONObject("user").getString("user_id")));
                     user.setLastName(json.getJSONObject("user").getString("user_last_name"));
                     user.setFirstName(json.getJSONObject("user").getString("user_first_name"));
                     user.setBirthday(json.getJSONObject("user").getString("user_birthday"));
+                    user.setAvatar(json.getJSONObject("user").getString("avatar"));
                     user.setEmail(json.getJSONObject("user").getString("user_email"));
                     user.setPassword(password);
                     user.setCountry(json.getJSONObject("user").getString("user_country"));
                     user.setCity(json.getJSONObject("user").getString("user_city"));
-
-                    Log.i("L'id",""+user.getId());
+                    Log.e("Test","test");
+                    Log.e("Avatar",user.getAvatar());
 
                     // Création de l'objet DAO(utilisateur) pour ajouter un utilisateur
                     UserDAO userDAO = new UserDAO(LoginActivity.this);
@@ -229,7 +231,7 @@ public class LoginActivity extends Activity {
                                     friendList.getJSONObject(i).getInt("is_accepted") != 0
                             ));
                         }
-                        Log.e("Friend", "passage réussi");
+                        Log.e("friend", "passage réussi");
                         FriendDAO friendDAO = new FriendDAO(LoginActivity.this);
                         friendDAO.open();
                         friendDAO.addFriendList(friendArrayList);
@@ -250,6 +252,7 @@ public class LoginActivity extends Activity {
                                     tripList.getJSONObject(i).getInt("photo_count")
                             ));
                         }
+
                         TripDAO tripDAO = new TripDAO(LoginActivity.this);
                         tripDAO.open();
                         tripDAO.addTripListUser(tripArrayList);

@@ -53,6 +53,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".TripActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".MyTripActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
     <!-- Permission pour l'accès à internet -->
