@@ -101,6 +101,9 @@
 
     <!-- COMMENTS -->
     <string name="username_comment">Username</string>
+    <string name="modify_comment">Modifier</string>
+    <string name="time_comment">Il y a</string>
+    <string name="comment_content">Commentaire</string>
 
     <!-- Les elements du menu -->
     <string-array name="nav_drawer_items">
