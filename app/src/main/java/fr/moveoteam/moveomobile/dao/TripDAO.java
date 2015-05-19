@@ -30,6 +30,7 @@ public class TripDAO {
     public static final String KEY_TRIP_COUNTRY = "trip_country";
     public static final String KEY_TRIP_DESCRIPTION = "trip_description";
     public static final String KEY_TRIP_CREATED_AT = "trip_created_at";
+    public static final String KEY_TRIP_COVER = "trip_cover";
 
     public TripDAO(Context context){
         dbHandler = new DataBaseHandler(context);
@@ -107,6 +108,7 @@ public class TripDAO {
             values.put(KEY_TRIP_COUNTRY, trip.getCountry());   // PRÉNOM
             values.put(KEY_TRIP_DESCRIPTION, trip.getDescription());     // DATE DE NAISSANCE
             values.put(KEY_TRIP_CREATED_AT, String.valueOf(trip.getDate()));
+            values.put(KEY_TRIP_COVER, trip.getCover());
             // Insérer la ligne
             database.insert(TABLE_TRIP, null, values);
         }
@@ -118,12 +120,14 @@ public class TripDAO {
      * @return un voyage (Trip)
      */
     protected Trip cursorToTrip(Cursor cursor){
+
         Trip trip = new Trip();
         trip.setId(cursor.getInt(DataBaseHandler.POSITION_FRIEND_ID));
         trip.setName(cursor.getString(DataBaseHandler.POSITION_TRIP_NAME));
         trip.setCountry(cursor.getString(DataBaseHandler.POSITION_TRIP_COUNTRY));
         trip.setDescription(cursor.getString(DataBaseHandler.POSITION_TRIP_DESCRIPTION));
         trip.setInsert(cursor.getString(DataBaseHandler.POSITION_TRIP_CREATED_AT));
+        trip.setCover(cursor.getString(DataBaseHandler.POSITION_TRIP_COVER));
 
         return trip;
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
@@ -23,20 +24,18 @@ import fr.moveoteam.moveomobile.model.Trip;
 /**
  * Created by alexMac on 08/04/15.
  */
-public class CustomListAdapter extends BaseAdapter {
+public class TripListAdapter extends BaseAdapter {
 
     ArrayList<Trip> tripList;
     LayoutInflater layoutInflater;
     ViewHolderTrip viewHolderTrip;
     boolean otherUser;
-    String avatar;
     StringBuilder st;
 
-    public CustomListAdapter (Context context, ArrayList<Trip> tripList, boolean otherUser, String avatar){
+    public TripListAdapter(Context context, ArrayList<Trip> tripList, boolean otherUser){
         this.tripList = tripList;
         layoutInflater = LayoutInflater.from(context);
         this.otherUser = otherUser;
-        this.avatar = avatar;
     }
 
     @Override
@@ -76,15 +75,20 @@ public class CustomListAdapter extends BaseAdapter {
             viewHolderTrip.explore_trip_name.setText(tripList.get(position).getName());
             viewHolderTrip.explore_country.setText(tripList.get(position).getCountry());
             if (this.otherUser) {
-                //String authorHTML = "<font color=#000>par</font> <i>" + tripList.get(position).getAuthor_first_name() + " " + tripList.get(position).getAuthor_last_name() + "</i>";
-                //viewHolderTrip.explore_username.setText(Html.fromHtml(authorHTML));
-
-                String authorHTML = "<img src='http://xamarin.com/resources/design/home/devices.png' width=100 height=100/>";
-                Log.e("Affiche", avatar);
-                viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(decodeBase64(avatar));
-
+                String authorHTML = "<font color=#000>par</font> <i>" + tripList.get(position).getAuthor_first_name() + " " + tripList.get(position).getAuthor_last_name() + "</i>";
+                viewHolderTrip.explore_username.setText(Html.fromHtml(authorHTML));
+                if(tripList.get(position).getCover() != null) {
+                    viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(decodeBase64(tripList.get(position).getCover()));
+                }else{
+                    viewHolderTrip.imageViewMainPictureTrip = null;
+                }
             } else {
                 viewHolderTrip.explore_username.setText(Html.fromHtml("<font color=#000>par</font> <i>moi</i>"));
+                if(tripList.get(position).getCover() != null) {
+                    viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(decodeBase64(tripList.get(position).getCover()));
+                }else{
+                    viewHolderTrip.imageViewMainPictureTrip.setImageDrawable(null);
+                }
             }
             viewHolderTrip.number_of_comments.setText((Integer.toString(tripList.get(position).getCommentCount())));
             viewHolderTrip.number_of_pictures.setText(Integer.toString(tripList.get(position).getPhotoCount()));
@@ -117,7 +121,7 @@ public class CustomListAdapter extends BaseAdapter {
     public Bitmap decodeBase64(String input)
     {
         Log.e("Image64","taille : "+input.length());
-        byte[] bytes = Base64.decode(input.getBytes(),Base64.NO_WRAP);
+        byte[] bytes = Base64.decode(input,Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 

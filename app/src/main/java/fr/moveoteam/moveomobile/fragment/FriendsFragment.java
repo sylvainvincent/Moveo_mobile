@@ -2,18 +2,12 @@ package fr.moveoteam.moveomobile.fragment;
 
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import fr.moveoteam.moveomobile.adapter.CustomListAdapter;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
-import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.FriendsListAdapter;
-import fr.moveoteam.moveomobile.model.Trip;
 
 /**
  * Created by Amélie on 10/05/2015.

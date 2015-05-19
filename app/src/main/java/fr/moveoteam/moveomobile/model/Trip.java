@@ -14,13 +14,13 @@ public class Trip {
     int id;
     String country, name, description;
     String insert;
-    Drawable mainPicture;
     User user;
     String author_last_name;
     String author_first_name;
     int commentCount;
     int photoCount;
     String date;
+    String cover;
     int userId;
 
     public Trip() {
@@ -33,36 +33,29 @@ public class Trip {
         this.insert = insert;
     }
 
-    public Trip(int id, String name, String country, String description, String date, String author_last_name, String author_first_name,int commentCount, int photoCount) throws ParseException {
+    public Trip(int id, String name, String country, String description, String date, String cover, String author_last_name, String author_first_name,int commentCount, int photoCount) throws ParseException {
 
         this.id = id;
         this.country = country;
         this.name = name;
         this.description = description;
         this.date = date;
+        this.cover = cover;
         this.author_first_name = author_first_name;
         this.author_last_name =  author_last_name;
         this.commentCount = commentCount;
         this.photoCount = photoCount;
     }
 
-    public Trip(int id, String name, String country, String description, String date,int commentCount, int photoCount) throws ParseException {
+    public Trip(int id, String name, String country, String description, String date, String cover, int commentCount, int photoCount) throws ParseException {
         this.id = id;
         this.country = country;
         this.name = name;
         this.description = description;
         this.date = date;
+        this.cover = cover;
         this.commentCount = commentCount;
         this.photoCount = photoCount;
-    }
-
-    public Trip(String name, String country, String description, String insert, Drawable mainPicture, User user) {
-        this.name = name;
-        this.country = country;
-        this.description = description;
-        this.insert = insert;
-        this.mainPicture = mainPicture;
-        this.user = user;
     }
 
     public int getId() {
@@ -99,14 +92,6 @@ public class Trip {
 
     public void setInsert(String insert) {
         this.insert = insert;
-    }
-
-    public Drawable getMainPicture() {
-        return mainPicture;
-    }
-
-    public void setMainPicture(Drawable mainPicture) {
-        this.mainPicture = mainPicture;
     }
 
     public User getUser() {
@@ -169,6 +154,14 @@ public class Trip {
         this.userId = userId;
     }
 
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
     @Override
     public String toString() {
         return "Trip{" +
@@ -177,13 +170,13 @@ public class Trip {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", insert='" + insert + '\'' +
-                ", mainPicture=" + mainPicture +
                 ", user=" + user +
                 ", author_last_name='" + author_last_name + '\'' +
                 ", author_first_name='" + author_first_name + '\'' +
                 ", commentCount=" + commentCount +
                 ", photoCount=" + photoCount +
                 ", date='" + date + '\'' +
+                ", cover='" + cover + '\'' +
                 ", userId=" + userId +
                 '}';
     }

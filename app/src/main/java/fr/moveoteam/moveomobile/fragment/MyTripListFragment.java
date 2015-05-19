@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.MyTripActivity;
 import fr.moveoteam.moveomobile.dao.TripDAO;
-import fr.moveoteam.moveomobile.adapter.CustomListAdapter;
+import fr.moveoteam.moveomobile.adapter.TripListAdapter;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Trip;
 
@@ -25,13 +25,11 @@ public class MyTripListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        UserDAO userDAO = new UserDAO(getActivity()); // a modifier
-        userDAO.open();
         TripDAO tripDAO = new TripDAO(getActivity());
         tripDAO.open();
         tripArrayList = tripDAO.getTripList();
         if(tripArrayList != null)
-            setListAdapter(new CustomListAdapter(getActivity(), tripArrayList, false,userDAO.getUserDetails().getAvatar()));
+            setListAdapter(new TripListAdapter(getActivity(), tripArrayList, false));
         else setListAdapter(null);
     }
 

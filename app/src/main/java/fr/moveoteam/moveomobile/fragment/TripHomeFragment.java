@@ -60,6 +60,12 @@ public class TripHomeFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        tripName.setText(getArguments().getString("name"));
+        tripAuthor.setText(getArguments().getString("author"));
+        tripDescription.setText(getArguments().getString("description"));
+        tripDate.setText(tripDate.getText()+" "+getArguments().getString("date"));
+        tripCountry.setText(getArguments().getString("country"));
+        tripHome.setVisibility(View.VISIBLE);
 
     }
 

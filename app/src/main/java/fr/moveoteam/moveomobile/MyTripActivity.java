@@ -107,6 +107,7 @@ public class MyTripActivity extends Activity {
                     mytriptitle.setText(json.getJSONObject("trip").getString("trip_name"));
                     mytripcitytitle.setText(json.getJSONObject("trip").getString("trip_country"));
                     tripdescription.setText(json.getJSONObject("trip").getString("trip_description"));
+
                     addtripdate.setText(addtripdate.getText() + " " + json.getJSONObject("trip").getString("trip_created_at"));
 
 

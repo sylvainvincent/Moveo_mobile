@@ -54,6 +54,8 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
     private TextView tripDescription;
     private  LinearLayout tripHome;
 
+    Bundle bundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,6 +163,13 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
                     FragmentTransaction ft = fragmentManager.beginTransaction();
                     TripHomeFragment fragment = new TripHomeFragment();
                     //fragment.setList(trip);
+                    bundle = new Bundle();
+                    bundle.putString("name",trip.getName());
+                    bundle.putString("description",trip.getDescription());
+                    bundle.putString("date",trip.getDate());
+                    bundle.putString("country",trip.getCountry());
+                    bundle.putString("author",trip.getAuthor_first_name()+" "+trip.getAuthor_last_name());
+                    fragment.setArguments(bundle);
                     ft.add(R.id.trip_content,fragment);
                     ft.commit();
 
@@ -196,8 +205,15 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
     public void linkToHomeFragment(View view){
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-
-        ft.add(R.id.trip_content,new TripHomeFragment());
+        TripHomeFragment fragment = new TripHomeFragment();
+        bundle = new Bundle();
+        bundle.putString("name",trip.getName());
+        bundle.putString("description",trip.getDescription());
+        bundle.putString("date",trip.getDate());
+        bundle.putString("country",trip.getCountry());
+        bundle.putString("author",trip.getAuthor_first_name()+" "+trip.getAuthor_last_name());
+        fragment.setArguments(bundle);
+        ft.replace(R.id.trip_content, fragment);
         ft.commit();
     }
 
@@ -205,7 +221,7 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
-        ft.add(R.id.trip_content,new TripHomeFragment());
+        ft.replace(R.id.trip_content, new TripPlacesListFragment());
         ft.commit();
     }
 
@@ -213,7 +229,7 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
-        ft.add(R.id.trip_content,new TripHomeFragment());
+        ft.replace(R.id.trip_content, new TripHomeFragment());
         ft.commit();
     }
 

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.TripActivity;
 import fr.moveoteam.moveomobile.dao.UserDAO;
-import fr.moveoteam.moveomobile.adapter.CustomListAdapter;
+import fr.moveoteam.moveomobile.adapter.TripListAdapter;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
@@ -125,6 +125,7 @@ public class ExploreFragment extends ListFragment {
                                 tripList.getJSONObject(i).getString("trip_country"),
                                 tripList.getJSONObject(i).getString("trip_description"),
                                 tripList.getJSONObject(i).getString("trip_created_at"),
+                                tripList.getJSONObject(i).getString("trip_cover"),
                                 tripList.getJSONObject(i).getString("user_last_name"),
                                 tripList.getJSONObject(i).getString("user_first_name"),
                                 tripList.getJSONObject(i).getInt("comment_count"),
@@ -136,7 +137,7 @@ public class ExploreFragment extends ListFragment {
                         //      R.layout.element_menu,R.id.title,values);
 
                         Log.e("afficher list", tripArrayList.get(1).getName());
-                        setListAdapter(new CustomListAdapter(getActivity(), tripArrayList, true,userDAO.getUserDetails().getAvatar()));
+                        setListAdapter(new TripListAdapter(getActivity(), tripArrayList, true));
                         Log.e("Message ", "" + tripArrayList.get(0).getName() + "" + tripArrayList.get(0).getName());
                         Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDate());
                     }
