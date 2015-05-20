@@ -1,15 +1,11 @@
 package fr.moveoteam.moveomobile.webservice;
 
-import android.content.Context;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import fr.moveoteam.moveomobile.dao.DataBaseHandler;
 
 /**
  * Created by Sylvain on 01/04/15.

@@ -1,26 +1,11 @@
 package fr.moveoteam.moveomobile.thread;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.Gravity;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-
-import fr.moveoteam.moveomobile.DashboardActivity;
-import fr.moveoteam.moveomobile.dao.TripDAO;
-import fr.moveoteam.moveomobile.dao.UserDAO;
-import fr.moveoteam.moveomobile.model.Trip;
-import fr.moveoteam.moveomobile.model.User;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**

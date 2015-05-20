@@ -1,22 +1,46 @@
 package fr.moveoteam.moveomobile.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
 
 /**
  * Created by alexMac on 15/04/15.
  */
-public class Place {
+public class Place implements Parcelable{
     int id;
     String name, address, description;
-    ImageView picture;
     int category;
+    int tripId;
 
     public Place() {
     }
 
-    public Place(String name, String address) {
+    public Place(Parcel parcel){
+        super();
+        readFromParcel(parcel);
+    }
+
+    public static final Parcelable.Creator<Place> CREATOR = new Parcelable.Creator<Place>() {
+        public Place createFromParcel(Parcel in) {
+            return new Place(in);
+        }
+
+        public Place[] newArray(int size) {
+
+            return new Place[size];
+        }
+
+    };
+
+
+    public Place(int id, String name, String address, String description, int category, int tripId) {
+        this.id = id;
         this.name = name;
         this.address = address;
+        this.description = description;
+        this.category = category;
+        this.tripId = tripId;
     }
 
     public Place(int id, String name, String address, String description, int category) {
@@ -27,13 +51,6 @@ public class Place {
         this.category = category;
     }
 
-    public Place(String name, String address, String description, ImageView picture) {
-        this.name = name;
-        this.address = address;
-        this.description = description;
-        this.picture = picture;
-    }
-
     @Override
     public String toString() {
         return "Place{" +
@@ -41,8 +58,8 @@ public class Place {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", description='" + description + '\'' +
-                ", picture=" + picture +
                 ", category=" + category +
+                ", tripId=" + tripId +
                 '}';
     }
 
@@ -74,14 +91,6 @@ public class Place {
         this.description = description;
     }
 
-    public ImageView getPicture() {
-        return picture;
-    }
-
-    public void setPicture(ImageView picture) {
-        this.picture = picture;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -92,5 +101,37 @@ public class Place {
 
     public void setCategory(int category) {
         this.category = category;
+    }
+
+    public int getTripId() {return tripId;}
+
+    public void setTripId(int tripId) {this.tripId = tripId;}
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.address);
+        dest.writeString(this.description);
+        dest.writeInt(this.category);
+        dest.writeInt(this.tripId);
+
+
+    }
+
+    public void readFromParcel(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.address = in.readString();
+        this.description = in.readString();
+        this.category = in.readInt();
+        this.tripId = in.readInt();
+
     }
 }

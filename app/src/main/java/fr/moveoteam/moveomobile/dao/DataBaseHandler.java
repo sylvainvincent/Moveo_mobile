@@ -1,13 +1,8 @@
 package fr.moveoteam.moveomobile.dao;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import java.sql.SQLException;
-
-import fr.moveoteam.moveomobile.model.Friend;
 
 /**
  * Created by Sylvain on 14/04/15.
@@ -24,9 +19,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     // NOMS DES TABLES
     private static final String TABLE_LOGIN = "login";
     private static final String TABLE_TRIP = "trip";
+    private static final String TABLE_PLACE = "place";
+    private static final String TABLE_COMMENT = "comment";
+    private static final String TABLE_PHOTO = "photo";
     private static final String TABLE_FRIEND = "friend";
     private static final String TABLE_DIALOG = "dialog";
-    private static final String TABLE_COMMENT = "comment";
 
     // NOM DES COLONNES :
 
@@ -50,6 +47,27 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final String KEY_TRIP_COVER = "trip_cover";
         public static final String KEY_TRIP_USER = "trip_user";
 
+        // Place
+        public static final String KEY_PLACE_ID = "place_id";
+        public static final String KEY_PLACE_NAME = "place_name";
+        public static final String KEY_PLACE_ADDRESS = "place_address";
+        public static final String KEY_PLACE_DESCRIPTION = "place_description";
+        public static final String KEY_PLACE_CATEGORY= "place_category";
+        public static final String KEY_PLACE_TRIP_ID = "trip_id";
+
+        // Comment
+        public static final String KEY_COMMENT_ID = "comment_id";
+        public static final String KEY_COMMENT_MESSAGE = "comment_message";
+        public static final String KEY_COMMENT_DATE = "comment_date";
+        public static final String KEY_COMMENT_AUTHOR = "author_id";
+        public static final String KEY_COMMENT_TRIP_ID = "trip_id";
+
+        // Photo
+        public static final String KEY_PHOTO_ID = "photo_id";
+        public static final String KEY_PHOTO_BASE64 = "photo_base64";
+        public static final String KEY_PHOTO_DATE = "photo_date";
+        public static final String KEY_PHOTO_TRIP_ID = "trip_id";
+
         // Friend
         public static final String KEY_FRIEND_ID = "friend_id";
         public static final String KEY_FRIEND_LASTNAME = "friend_lastname";
@@ -63,14 +81,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final String KEY_DIALOG_MESSAGE = "dialog_message";
         public static final String KEY_DIALOG_DATE = "dialog_date";
         public static final String KEY_DIALOG_READ = "dialog_read";
-        public static final String KEY_DIALOG_IS_INBOX = "dialog_id_inbox";
-
-        // Comment
-        public static final String KEY_COMMENT_ID = "comment_id";
-        public static final String KEY_COMMENT_MESSAGE = "comment_message";
-        public static final String KEY_COMMENT_DATE = "comment_date";
-        public static final String KEY_COMMENT_AUTHOR = "author_id";
-        public static final String KEY_COMMENT_TRIP_ID = "trip_id";
+        public static final String KEY_DIALOG_IS_INBOX = "dialog_is_inbox";
 
     // POSITION DES COLONNES
 
@@ -82,6 +93,28 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final int POSITION_TRIP_CREATED_AT = 4;
         public static final int POSITION_TRIP_COVER= 5;
         public static final int POSITION_TRIP_USER= 6;
+
+        // Place
+        public static final int POSITION_PLACE_ID = 0;
+        public static final int POSITION_PLACE_NAME = 1;
+        public static final int POSITION_PLACE_ADDRESS = 2;
+        public static final int POSITION_PLACE_DESCRIPTION = 3;
+        public static final int POSITION_PLACE_CATEGORY = 4;
+        public static final int POSITION_PLACE_TRIP_ID = 5;
+
+
+        // Comment
+        public static final int POSITION_COMMENT_ID = 0;
+        public static final int POSITION_COMMENT_MESSAGE = 1;
+        public static final int POSITION_COMMENT_DATE = 2;
+        public static final int POSITION_COMMENT_AUTHOR = 3;
+        public static final int POSITION_COMMENT_ID_TRIP = 4;
+
+        // Photo
+        public static final int POSITION_PHOTO_ID = 0;
+        public static final int POSITION_PHOTO_BASE64 = 1;
+        public static final int POSITION_PHOTO_DATE = 2;
+        public static final int POSITION_PHOTO_TRIP_ID = 3;
 
         // Friend
         public static final int POSITION_FRIEND_ID = 0;
@@ -96,13 +129,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final int POSITION_DIALOG_MESSAGE = 3;
         public static final int POSITION_DIALOG_DATE = 4;
         public static final int POSITION_DIALOG_READ = 5;
-
-        // Comment
-        public static final int POSITION_COMMENT_ID = 0;
-        public static final int POSITION_COMMENT_MESSAGE = 1;
-        public static final int POSITION_COMMENT_DATE = 2;
-        public static final int POSITION_COMMENT_AUTHOR = 3;
-        public static final int POSITION_COMMENT_ID_TRIP = 4;
 
     // CREATION DES TABLES
 
@@ -128,6 +154,30 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_TRIP_COVER + " TEXT,"
                 + KEY_TRIP_USER + " INTEGER" + ")";
 
+        // TRIP
+        private static final String CREATE_PLACE_TABLE = "CREATE TABLE "+ TABLE_PLACE + "("
+                + KEY_PLACE_ID + " INTEGER PRIMARY KEY,"
+                + KEY_PLACE_NAME + " TEXT,"
+                + KEY_PLACE_ADDRESS + " TEXT,"
+                + KEY_PLACE_DESCRIPTION + " TEXT"
+                + KEY_PLACE_CATEGORY + " INTEGER"
+                + KEY_PLACE_TRIP_ID + " INTEGER" + ")";
+
+        // Comment
+        private static final String CREATE_COMMENT_TABLE = "CREATE TABLE "+ TABLE_COMMENT + "("
+                + KEY_COMMENT_ID + " INTEGER PRIMARY KEY,"
+                + KEY_COMMENT_MESSAGE + " TEXT,"
+                + KEY_COMMENT_DATE + " TEXT,"
+                + KEY_COMMENT_AUTHOR + " TEXT,"
+                + KEY_COMMENT_TRIP_ID + " INTEGER" + ")";
+
+        // Comment
+        private static final String CREATE_PHOTO_TABLE = "CREATE TABLE "+ TABLE_PHOTO + "("
+                + KEY_PHOTO_ID + " INTEGER PRIMARY KEY,"
+                + KEY_PHOTO_BASE64 + " TEXT,"
+                + KEY_PHOTO_DATE + " TEXT,"
+                + KEY_PHOTO_TRIP_ID + " INTEGER" + ")";
+
         // FRIEND
         private static final String CREATE_FRIEND_TABLE = "CREATE TABLE "+ TABLE_FRIEND + "("
                 + KEY_FRIEND_ID + " INTEGER PRIMARY KEY,"
@@ -144,13 +194,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_DIALOG_DATE + " TEXT,"
                 + KEY_DIALOG_READ + " INTEGER" + ")";
 
-        // Comment
-        private static final String CREATE_COMMENT_TABLE = "CREATE TABLE "+ TABLE_COMMENT + "("
-                + KEY_COMMENT_ID + " INTEGER PRIMARY KEY,"
-                + KEY_COMMENT_MESSAGE + " TEXT,"
-                + KEY_COMMENT_DATE + "TEXT,"
-                + KEY_COMMENT_AUTHOR + "TEXT,"
-                + KEY_COMMENT_TRIP_ID + "INTEGER" + ")";
 
     public DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -160,9 +203,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_LOGIN_TABLE);
         db.execSQL(CREATE_TRIP_TABLE);
+        db.execSQL(CREATE_PLACE_TABLE);
+        db.execSQL(CREATE_COMMENT_TABLE);
+        db.execSQL(CREATE_PHOTO_TABLE);
         db.execSQL(CREATE_FRIEND_TABLE);
         db.execSQL(CREATE_DIALOG_TABLE);
-        db.execSQL(CREATE_COMMENT_TABLE);
     }
 
     @Override
@@ -170,9 +215,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // SUPPRIMER l'ANCIENNE TABLE s'il en existe
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOGIN);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TRIP);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PLACE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PHOTO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_FRIEND);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DIALOG);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENT);
         // RECRÉER LA TABLE
         onCreate(db);
     }
@@ -186,9 +233,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // Supprimer toutes les lignes
         db.delete(TABLE_LOGIN, null, null);
         db.delete(TABLE_TRIP, null, null);
+        db.delete(TABLE_PLACE, null, null);
+        db.delete(TABLE_COMMENT, null, null);
+        db.delete(TABLE_PHOTO, null, null);
         db.delete(TABLE_FRIEND, null, null);
         db.delete(TABLE_DIALOG, null, null);
-        db.delete(TABLE_COMMENT, null, null);
         db.close();
     }
 }

@@ -120,7 +120,8 @@ public class MyTripActivity extends Activity {
                                     placeList.getJSONObject(i).getString("place_name"),
                                     placeList.getJSONObject(i).getString("place_address"),
                                     placeList.getJSONObject(i).getString("place_description"),
-                                    placeList.getJSONObject(i).getInt("category_id")
+                                    placeList.getJSONObject(i).getInt("category_id"),
+                                    placeList.getJSONObject(i).getInt("trip_id")
                             ));
                             Log.e("Place", placeArrayList.get(i).toString());
                         }

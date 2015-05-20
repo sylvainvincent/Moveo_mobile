@@ -27,8 +27,6 @@ import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.fragment.AddButtonTripFragment;
 import fr.moveoteam.moveomobile.fragment.ExploreFragment;
 import fr.moveoteam.moveomobile.fragment.FriendListFragment;
-import fr.moveoteam.moveomobile.fragment.FriendRequestFragment;
-import fr.moveoteam.moveomobile.fragment.FriendsFragment;
 import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
 import fr.moveoteam.moveomobile.menu.MenuAdapter;
 import fr.moveoteam.moveomobile.menu.MenuItems;

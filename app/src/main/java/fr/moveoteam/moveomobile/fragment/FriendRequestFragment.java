@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.model.Friend;
-import fr.moveoteam.moveomobile.model.FriendsListAdapter;
+import fr.moveoteam.moveomobile.adapter.FriendsListAdapter;
 
 /**
  * Created by Sylvain on 11/05/15.

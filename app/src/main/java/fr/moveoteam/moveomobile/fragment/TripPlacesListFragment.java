@@ -1,7 +1,10 @@
 package fr.moveoteam.moveomobile.fragment;
 
+import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.adapter.PlacesListAdapter;
@@ -17,15 +20,22 @@ public class TripPlacesListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        placesListView();
-        if(places != null) {
-            setListAdapter(new PlacesListAdapter(getActivity(), places));
-        }
-        else {
+        // placesListView();
+        ArrayList<Place> placeArrayList = getArguments().getParcelableArrayList("placeList");
+
+        Log.e("array",placeArrayList.toString());
+        if(placeArrayList != null) {
+            setListAdapter(new PlacesListAdapter(getActivity(), placeArrayList));
+        }else {
             setListAdapter(null);
         }
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
+    /*
     private void placesListView() {
         Place place1 = new Place("N", "A");
         Place place2 = new Place("N", "A");
@@ -33,6 +43,6 @@ public class TripPlacesListFragment extends ListFragment {
         places = new ArrayList<>(2);
         places.add(place1);
         places.add(place2);
-    }
+    } */
 
 }

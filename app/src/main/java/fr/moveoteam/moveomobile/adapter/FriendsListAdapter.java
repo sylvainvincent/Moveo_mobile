@@ -1,4 +1,4 @@
-package fr.moveoteam.moveomobile.model;
+package fr.moveoteam.moveomobile.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.model.Friend;
 
 /**
  * Created by Amélie on 10/05/2015.
@@ -56,7 +57,7 @@ public class FriendsListAdapter extends BaseAdapter {
             viewHolderFriend = (ViewHolderFriend) convertView.getTag();
         }
         viewHolderFriend.friend_name.setText(friendsList.get(position).getFirstName()+" "+friendsList.get(position).getLastName());
-        if(friendsList.get(position).isFriend){
+        if(friendsList.get(position).isFriend()){
             viewHolderFriend.refuse_friend.setVisibility(View.INVISIBLE);
             viewHolderFriend.accept_friend.setVisibility(View.INVISIBLE);
         }else{

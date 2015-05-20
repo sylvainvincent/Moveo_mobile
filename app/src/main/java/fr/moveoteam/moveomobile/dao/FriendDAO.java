@@ -9,7 +9,6 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.model.Friend;
-import fr.moveoteam.moveomobile.model.Trip;
 
 /**
  * Created by Sylvain on 08/05/15.

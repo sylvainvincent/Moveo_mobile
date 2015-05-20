@@ -2,14 +2,10 @@ package fr.moveoteam.moveomobile.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Message;
-import android.util.Log;
 
 import java.util.ArrayList;
 
-import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Dialog;
 
 /**

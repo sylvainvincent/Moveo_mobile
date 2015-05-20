@@ -15,7 +15,6 @@ import android.widget.Toast;
 /**
  * Created by Sylvain on 01/04/15.
  */
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

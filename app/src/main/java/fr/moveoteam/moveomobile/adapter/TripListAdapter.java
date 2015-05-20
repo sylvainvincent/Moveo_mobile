@@ -3,8 +3,6 @@ package fr.moveoteam.moveomobile.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
@@ -18,7 +16,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
-import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Trip;
 
 /**
@@ -74,6 +71,7 @@ public class TripListAdapter extends BaseAdapter {
             }
             viewHolderTrip.explore_trip_name.setText(tripList.get(position).getName());
             viewHolderTrip.explore_country.setText(tripList.get(position).getCountry());
+            Log.e("ExploreList", " " + position);
             if (this.otherUser) {
                 String authorHTML = "<font color=#000>par</font> <i>" + tripList.get(position).getAuthor_first_name() + " " + tripList.get(position).getAuthor_last_name() + "</i>";
                 viewHolderTrip.explore_username.setText(Html.fromHtml(authorHTML));

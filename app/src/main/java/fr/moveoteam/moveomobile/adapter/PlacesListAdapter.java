@@ -1,13 +1,11 @@
 package fr.moveoteam.moveomobile.adapter;
 
 import android.content.Context;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,7 +23,12 @@ public class PlacesListAdapter extends BaseAdapter {
     ViewHolderPlace viewHolderPlace;
 
     public PlacesListAdapter(Context context, ArrayList<Place> placesList) {
-        this.placesList = placesList;
+        ArrayList<Place> placeList = new ArrayList<>(2);
+        placeList.add(new Place(1,"a","b","c",1,2));
+        placeList.add(new Place(1,"d","e","f",1,2));
+        this.placesList = placeList;
+        Log.e("recuperation",placesList.get(0).getName());
+        Log.e("size",placesList.size()+"");
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -56,6 +59,8 @@ public class PlacesListAdapter extends BaseAdapter {
             viewHolderPlace = (ViewHolderPlace) convertView.getTag();
         }
         viewHolderPlace.place_name.setText(placesList.get(position).getName());
+        Log.e("PlaceList", " " + position);
+        Log.e("PlaceList", placesList.get(position).getName());
         viewHolderPlace.place_address.setText(placesList.get(position).getAddress());
         return convertView;
     }

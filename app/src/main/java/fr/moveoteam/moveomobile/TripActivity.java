@@ -2,16 +2,13 @@ package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -22,13 +19,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
-import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.fragment.TripHomeFragment;
 import fr.moveoteam.moveomobile.fragment.TripPlacesListFragment;
 import fr.moveoteam.moveomobile.model.Comment;
-import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Place;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
@@ -63,6 +57,17 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
 
         initialize();
         id = getIntent().getExtras().getInt("id",0);
+
+        /*TripHomeFragment fragment = new TripHomeFragment();
+        bundle = new Bundle();
+        bundle.putString("name",trip.getName());
+        bundle.putString("description",trip.getDescription());
+        bundle.putString("date",trip.getDate());
+        bundle.putString("country",trip.getCountry());
+        bundle.putString("author",trip.getAuthor_first_name()+" "+trip.getAuthor_last_name());
+        fragment.setArguments(bundle); */
+
+
 
         new ExecuteThread().execute();
 
@@ -161,7 +166,10 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
 
                     FragmentManager fragmentManager = getFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
-                    TripHomeFragment fragment = new TripHomeFragment();
+                    TripPlacesListFragment tripPlacesListFragment = new TripPlacesListFragment();
+                    bundle = new Bundle();
+                    bundle.putParcelableArrayList("placeList",placeArrayList);
+                   /* TripHomeFragment fragment = new TripHomeFragment();
                     //fragment.setList(trip);
                     bundle = new Bundle();
                     bundle.putString("name",trip.getName());
@@ -169,8 +177,9 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
                     bundle.putString("date",trip.getDate());
                     bundle.putString("country",trip.getCountry());
                     bundle.putString("author",trip.getAuthor_first_name()+" "+trip.getAuthor_last_name());
-                    fragment.setArguments(bundle);
-                    ft.add(R.id.trip_content,fragment);
+                    fragment.setArguments(bundle); */
+                    tripPlacesListFragment.setArguments(bundle);
+                    ft.replace(R.id.trip_content,tripPlacesListFragment);
                     ft.commit();
 
 
