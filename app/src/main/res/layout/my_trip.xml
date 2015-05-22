@@ -3,88 +3,83 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:id="@+id/my_trip" >
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:alpha="0"
-        android:id="@+id/my_trip">
+        android:padding="20dp"
+        android:orientation="vertical" >
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/my_trip_title"
+            android:id="@+id/my_trip_title"
             android:textAllCaps="true"
-            android:textSize="@dimen/title_size"
-            android:textColor="@color/title"
-            android:textStyle="bold"
-            android:layout_marginLeft="20dp"
-            android:id="@+id/my_trip_title"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/delete_app_icon"
-            android:src="@drawable/delete_app"
-            android:layout_marginRight="5dp"
-            android:layout_alignBottom="@+id/delete_app"
-            android:layout_toLeftOf="@+id/delete_app"
-            android:layout_toStartOf="@+id/delete_app" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/delete_trip"
-            android:layout_gravity="right"
-            android:id="@+id/delete_app"
-            android:layout_alignBottom="@id/my_trip_title"
-            android:layout_marginRight="20dp"
-            android:textColor="#6f6f6f"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/my_trip_country_title"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textAllCaps="true"
-            android:layout_below="@+id/my_trip_title"
-            android:text="@string/my_trip_city_title"
-            android:layout_alignLeft="@+id/my_trip_title"
-            android:layout_alignStart="@+id/my_trip_title" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/add_trip_date"
-            android:id="@+id/add_trip_date"
             android:textSize="15sp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:layout_below="@+id/my_trip_country_title"
-            android:layout_alignLeft="@+id/my_trip_country_title"
-            android:layout_alignStart="@+id/my_trip_country_title" />
+            android:textStyle="bold"
+            android:textColor="#3cb2cc" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/cover_title"
-            android:id="@+id/cover_title"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/my_trip_city_title"
+            android:id="@+id/my_trip_city_title"
             android:textAllCaps="true"
-            android:textSize="16sp"
-            android:layout_below="@+id/add_trip_date"
-            android:layout_alignLeft="@+id/add_trip_date"
-            android:layout_alignStart="@+id/add_trip_date" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="14sp"
+            android:layout_marginTop="5dp"
+            android:text="@string/add_trip_date"
+            android:id="@+id/add_trip_date" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/delete_trip_icon"
+                android:src="@drawable/delete_app"
+                android:id="@+id/delete_app" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/delete_trip"
+                android:textAllCaps="true"
+                android:textSize="15sp"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="#6f6f6f"
+                android:id="@+id/delete_trip" />
+        </LinearLayout>
+
+        <!-- COVER -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/cover_title"
+            android:textAllCaps="true"
+            android:textSize="15sp"
+            android:layout_marginBottom="5dp"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -92,23 +87,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/cover"
             android:scaleType="centerCrop"
-            android:src="@drawable/cover"
-            android:layout_marginTop="5dp"
-            android:layout_below="@+id/cover_title"
-            android:layout_alignLeft="@+id/cover_title"
-            android:layout_alignStart="@+id/cover_title"
-            android:layout_alignRight="@+id/delete_app"
-            android:layout_alignEnd="@+id/delete_app"
-            android:id="@+id/cover_profile" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/modify_cover_icon"
-            android:layout_centerVertical="true"
-            android:src="@drawable/modify_element"
-            android:layout_alignLeft="@+id/cover_profile"
-            android:layout_alignStart="@+id/cover_profile" />
+            android:src="@drawable/cover" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -116,45 +95,27 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/modify_cover"
             android:id="@+id/modify_cover"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/modify_cover_icon"
-            android:layout_toEndOf="@+id/modify_cover_icon" />
+            android:layout_marginTop="5dp"
+            android:textColor="#767574" />
+
+        <!-- DESCRIPTION -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/description_title"
+            android:textAllCaps="true"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/description_title"
-            android:id="@+id/description_title"
-            android:textAllCaps="true"
-            android:textSize="16sp"
-            android:layout_below="@+id/modify_cover_icon"
-            android:layout_alignLeft="@+id/modify_cover_icon"
-            android:layout_alignStart="@+id/modify_cover_icon"
-            android:layout_marginTop="30dp" />
-
-        <TextView
-            android:layout_width="266dp"
-            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/trip_description"
             android:id="@+id/trip_description"
-            android:textColor="#212121"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/description_title"
-            android:layout_alignLeft="@+id/description_title"
-            android:layout_alignStart="@+id/description_title" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/modify_description_icon"
-            android:src="@drawable/modify_element"
-            android:layout_below="@+id/trip_description"
-            android:layout_alignLeft="@+id/trip_description"
-            android:layout_alignStart="@+id/trip_description" />
+            android:textSize="13sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -162,80 +123,72 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/modify_description"
             android:id="@+id/modify_description"
-            android:layout_alignTop="@+id/modify_description_icon"
-            android:layout_alignLeft="@+id/modify_cover"
-            android:layout_alignStart="@+id/modify_cover" />
+            android:layout_marginTop="5dp"
+            android:textColor="#767574" />
 
+        <!-- CATEGORIES -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/categories_title"
-            android:id="@+id/categories_title"
             android:textAllCaps="true"
-            android:textSize="16sp"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/modify_description"
-            android:layout_alignLeft="@+id/modify_description_icon"
-            android:layout_alignStart="@+id/modify_description_icon" />
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/my_trip_category1"
-            android:src="@drawable/my_trip_category_fooding"
-            android:layout_below="@+id/categories_title"
-            android:layout_alignLeft="@+id/categories_title"
-            android:layout_alignStart="@+id/categories_title" />
+        <!-- Categories Icons -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/my_trip_category2"
-            android:src="@drawable/my_trip_category_hobby"
-            android:layout_alignTop="@+id/my_trip_category1"
-            android:layout_toRightOf="@+id/description_title"
-            android:layout_toEndOf="@+id/description_title" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/fooding_icon"
+                android:id="@+id/fooding"
+                android:src="@drawable/my_trip_category_fooding" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/my_trip_category3"
-            android:src="@drawable/my_trip_category_shopping"
-            android:layout_below="@+id/categories_title"
-            android:layout_alignRight="@+id/delete_app_icon"
-            android:layout_alignEnd="@+id/delete_app_icon" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/hobbies_icon"
+                android:id="@+id/hobbies"
+                android:src="@drawable/my_trip_category_hobby" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/my_trip_category4"
-            android:src="@drawable/my_trip_category_gallery"
-            android:layout_alignTop="@+id/my_trip_category3"
-            android:layout_alignRight="@+id/delete_app"
-            android:layout_alignEnd="@+id/delete_app" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/shopping_icon"
+                android:id="@+id/shopping"
+                android:src="@drawable/my_trip_category_shopping" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/pictures_icon"
+                android:id="@+id/pictures"
+                android:src="@drawable/my_trip_category_gallery" />
+        </LinearLayout>
+
+        <!-- LAST COMMENTS -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/last_comments"
-            android:id="@+id/last_comments_title"
             android:textAllCaps="true"
-            android:textSize="16sp"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/my_trip_category1"
-            android:layout_alignLeft="@+id/my_trip_category1"
-            android:layout_alignStart="@+id/my_trip_category1" />
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp" />
 
         <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/last_comments_list"
-            android:layout_below="@+id/last_comments_title"
-            android:layout_alignLeft="@+id/last_comments_title"
-            android:layout_alignStart="@+id/last_comments_title" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listView" />
 
-    </RelativeLayout>
+    </LinearLayout>
+
 
 </ScrollView>

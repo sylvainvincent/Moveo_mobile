@@ -89,6 +89,7 @@
     <!-- MY TRIP -->
     <string name="my_trip_title">Mon voyage</string>
     <string name="delete_trip">Supprimer</string>
+    <string name="delete_trip_icon">Icône suppression</string>
     <string name="my_trip_city_title">City And Country</string>
     <string name="add_trip_date">Voyage ajouté le</string>
     <string name="cover_title">Image de couverture</string>
@@ -98,6 +99,10 @@
     <string name="modify_description">Modifier la description</string>
     <string name="categories_title">Catégories</string>
     <string name="last_comments">Derniers commentaires</string>
+    <string name="fooding_icon">Fooding</string>
+    <string name="hobbies_icon">Hobbies</string>
+    <string name="shopping_icon">Shopping</string>
+    <string name="pictures_icon">Pictures</string>
 
     <!-- COMMENTS -->
     <string name="username_comment">Username</string>
@@ -105,7 +110,7 @@
     <string name="time_comment">Il y a</string>
     <string name="comment_content">Commentaire</string>
 
-    <!-- Les elements du menu -->
+    <!-- Les éléments du menu -->
     <string-array name="nav_drawer_items">
         <item>EXPLORER</item>
         <item>MES VOYAGES</item>
