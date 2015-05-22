@@ -22,6 +22,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
+
+import fr.moveoteam.moveomobile.dao.DialogDAO;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.fragment.AddButtonTripFragment;
@@ -67,7 +69,14 @@ public class HomeActivity extends Activity {
     AlertDialog.Builder alertDialog;
 
     String tripCounter = "0";
+    String friendRequestCounter = "0";
+    boolean friendRequestDisplay = false;
+    String inboxRequestCounter = "0";
+    boolean inboxRequestDisplay = false;
     String friendCounter = "0";
+
+    Bundle bundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +90,7 @@ public class HomeActivity extends Activity {
         listMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 
         // Récupérer les icônes du menu
-       listMenuIcons = getResources()
+        listMenuIcons = getResources()
                 .obtainTypedArray(R.array.nav_drawer_icons);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -97,8 +106,19 @@ public class HomeActivity extends Activity {
 
         FriendDAO friendDAO = new FriendDAO(HomeActivity.this);
         friendDAO.open();
-        if(friendDAO.getFriendList()!= null){
+        if(friendDAO.getFriendRequestList()!= null){
+            friendRequestCounter = Integer.toString(friendDAO.getFriendRequestList().size());
+            friendRequestDisplay = true;
+        }
+        if(friendDAO.getFriendList() != null){
             friendCounter = Integer.toString(friendDAO.getFriendList().size());
+        }
+
+        DialogDAO dialogDAO = new DialogDAO(HomeActivity.this);
+        dialogDAO.open();
+        if(dialogDAO.getInboxList()!= null){
+            inboxRequestCounter = Integer.toString(dialogDAO.getInboxList().size());
+            inboxRequestDisplay = true;
         }
 
         // EXPLORER
@@ -108,9 +128,9 @@ public class HomeActivity extends Activity {
         // MON PROFIL
         listMenuItems.add(new MenuItems(listMenuTitles[2], listMenuIcons.getResourceId(2, -1)));
         // MES AMIS
-        listMenuItems.add(new MenuItems(listMenuTitles[3], listMenuIcons.getResourceId(3, -1), true, friendCounter));
+        listMenuItems.add(new MenuItems(listMenuTitles[3], listMenuIcons.getResourceId(3, -1), friendRequestDisplay, friendRequestCounter));
         // MESSAGERIE
-        listMenuItems.add(new MenuItems(listMenuTitles[4], listMenuIcons.getResourceId(4, -1), true, "3"));
+        listMenuItems.add(new MenuItems(listMenuTitles[4], listMenuIcons.getResourceId(4, -1), inboxRequestDisplay, inboxRequestCounter));
         // PARAMÈTRE
         listMenuItems.add(new MenuItems(listMenuTitles[5], listMenuIcons.getResourceId(5, -1)));
         // A PROPOS
@@ -218,7 +238,10 @@ public class HomeActivity extends Activity {
                 break;
             case 3:
                 fragment = new FriendListFragment();
-
+                bundle = new Bundle();
+                this.bundle.putString("requestCounter",friendRequestCounter);
+                this.bundle.putString("friendCounter",friendCounter);
+                fragment.setArguments(this.bundle);
                 ft.add(R.id.frame_container, fragment);
                 break;
             case 4:

@@ -1,5 +1,6 @@
 package fr.moveoteam.moveomobile.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,18 +19,20 @@ import fr.moveoteam.moveomobile.model.Place;
  */
 public class PlacesListAdapter extends BaseAdapter {
 
+    private Context context;
+
     ArrayList<Place> placesList;
     LayoutInflater layoutInflater;
     ViewHolderPlace viewHolderPlace;
 
     public PlacesListAdapter(Context context, ArrayList<Place> placesList) {
+        this.context = context;
         ArrayList<Place> placeList = new ArrayList<>(2);
         placeList.add(new Place(1,"a","b","c",1,2));
-        placeList.add(new Place(1,"d","e","f",1,2));
+        placeList.add(new Place(2,"d","e","f",1,2));
         this.placesList = placeList;
         Log.e("recuperation",placesList.get(0).getName());
         Log.e("size",placesList.size()+"");
-        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -50,6 +53,8 @@ public class PlacesListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
+
+            layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(R.layout.row_list_places, null);
             viewHolderPlace = new ViewHolderPlace();
             viewHolderPlace.place_name = (TextView) convertView.findViewById(R.id.place_list_name);

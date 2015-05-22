@@ -78,7 +78,7 @@ public class JSONParser {
         } catch (JSONException e) {
             Log.e("JSON Parser", "Erreur de parse " + e.toString());
         }
-        // Retour un objet Json
+        // Retourne un objet Json
         return jObj;
     }
 }

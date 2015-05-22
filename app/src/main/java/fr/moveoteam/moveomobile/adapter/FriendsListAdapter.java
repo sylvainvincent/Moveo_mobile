@@ -61,7 +61,7 @@ public class FriendsListAdapter extends BaseAdapter {
             viewHolderFriend.refuse_friend.setVisibility(View.INVISIBLE);
             viewHolderFriend.accept_friend.setVisibility(View.INVISIBLE);
         }else{
-            viewHolderFriend.delete_friend.setVisibility(View.INVISIBLE);
+            viewHolderFriend.delete_friend.setEnabled(false);
         }
         return convertView;
     }

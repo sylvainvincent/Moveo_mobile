@@ -23,6 +23,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.dao.DataBaseHandler;
+import fr.moveoteam.moveomobile.dao.DialogDAO;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
@@ -227,14 +228,14 @@ public class DashboardActivity extends Activity {
                                     inbox.getJSONObject(i).getString("recipient_last_name"),
                                     inbox.getJSONObject(i).getString("recipient_first_name"),
                                     inbox.getJSONObject(i).getString("message"),
-                                    inbox.getJSONObject(i).getBoolean("read_by_recipient"),
                                     inbox.getJSONObject(i).getString("sent_datetime"),
-                                    inbox.getJSONObject(i).getBoolean("read_by_recipient")
+                                    inbox.getJSONObject(i).getBoolean("read_by_recipient"),
+                                    true
                             ));
                         }
-                        //  TripDAO tripDAO = new TripDAO(DashboardActivity.this);
-                        // tripDAO.open();
-                        //tripDAO.addTripListUser(tripArrayList);
+                        DialogDAO dialogDAO = new DialogDAO(DashboardActivity.this);
+                        dialogDAO.open();
+                        dialogDAO.addInboxList(inboxArrayList);
                     }
 
                     // L'utilisateur est envoyé vers le DASHBOARDACTIVITY

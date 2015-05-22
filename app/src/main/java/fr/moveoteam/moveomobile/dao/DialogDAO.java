@@ -2,7 +2,9 @@ package fr.moveoteam.moveomobile.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -22,20 +24,14 @@ public class DialogDAO {
     // NOM DE LA TABLE
     private static final String TABLE_DIALOG = "dialog";
 
-    // Dialog
-    public static final String KEY_DIALOG_RECIPIENT_ID = "friend_id";
-    public static final String KEY_DIALOG_RECIPIENT_LASTNAME = "dialog_recipient_lastname";
-    public static final String KEY_DIALOG_RECIPIENT_FIRSTNAME = "dialog_recipient_firstname";
-    public static final String KEY_DIALOG_MESSAGE = "dialog_message";
-    public static final String KEY_DIALOG_DATE = "dialog_date";
-    public static final String KEY_DIALOG_READ = "read";
-
+    // LES COLONNES
     private String[] allColumns = { DataBaseHandler.KEY_DIALOG_RECIPIENT_ID,
             DataBaseHandler.KEY_DIALOG_RECIPIENT_LASTNAME,
             DataBaseHandler.KEY_DIALOG_RECIPIENT_FIRSTNAME,
             DataBaseHandler.KEY_DIALOG_MESSAGE,
             DataBaseHandler.KEY_DIALOG_DATE,
-            DataBaseHandler.KEY_DIALOG_READ};
+            DataBaseHandler.KEY_DIALOG_READ,
+            DataBaseHandler.KEY_DIALOG_IS_INBOX };
 
     public DialogDAO(Context context){
         dbHandler = new DataBaseHandler(context);
@@ -57,69 +53,89 @@ public class DialogDAO {
         dbHandler.close();
     }
 
+
+    /**
+     *
+     * @param inboxList ArrayList contenant les messages reçus
+     */
     public void addInboxList(ArrayList<Dialog> inboxList) {
         ContentValues values;
         for(Dialog dialog : inboxList) {
             values = new ContentValues();
-            values.put(KEY_DIALOG_RECIPIENT_ID, dialog.getRecipientId());
-            values.put(KEY_DIALOG_RECIPIENT_LASTNAME, dialog.getRecipientLastName());     // NOM
-            values.put(KEY_DIALOG_RECIPIENT_FIRSTNAME, dialog.getRecipientFirstName());   // PRÉNOM
-            values.put(KEY_DIALOG_MESSAGE, dialog.getMessage());
-            values.put(KEY_DIALOG_DATE, dialog.getDate());
-            values.put(KEY_DIALOG_READ, dialog.isRead());
+            values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_ID, dialog.getRecipientId());
+            values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_LASTNAME, dialog.getRecipientLastName());     // NOM
+            values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_FIRSTNAME, dialog.getRecipientFirstName());   // PRÉNOM
+            values.put(DataBaseHandler.KEY_DIALOG_MESSAGE, dialog.getMessage());
+            values.put(DataBaseHandler.KEY_DIALOG_DATE, dialog.getDate());
+            values.put(DataBaseHandler.KEY_DIALOG_READ, dialog.isRead());
+            values.put(DataBaseHandler.KEY_DIALOG_IS_INBOX, 1);
             // Insérer la ligne
             database.insert(TABLE_DIALOG, null, values);
         }
     }
-/*
-    public ArrayList<Friend> getFriendList(){
-        ArrayList<Friend> friendList = null;
-        String selectQuery = "SELECT  * FROM " + TABLE_FRIEND;
 
-        Cursor cursor = database.query(TABLE_FRIEND,allColumns,KEY_FRIEND_IS_ACCEPTED+" = 1",null,null,null,null);
-        if(cursor.getCount()>0) {
-            friendList = new ArrayList<>(cursor.getCount());
+    public void addSendboxList(ArrayList<Dialog> sendboxList) {
+        ContentValues values;
+        for(Dialog dialog : sendboxList) {
+            values = new ContentValues();
+            values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_ID, dialog.getRecipientId());
+            values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_LASTNAME, dialog.getRecipientLastName());     // NOM
+            values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_FIRSTNAME, dialog.getRecipientFirstName());   // PRÉNOM
+            values.put(DataBaseHandler.KEY_DIALOG_MESSAGE, dialog.getMessage());
+            values.put(DataBaseHandler.KEY_DIALOG_DATE, dialog.getDate());
+            values.put(DataBaseHandler.KEY_DIALOG_IS_INBOX, dialog.isInbox());
+            // Insérer la ligne
+            database.insert(TABLE_DIALOG, null, values);
         }
-        // Se déplacer à la première ligne
-        cursor.moveToFirst();
-        while(!cursor.isAfterLast()){
-            assert friendList != null;
-            friendList.add(this.cursorToFriend(cursor));
-            cursor.moveToNext();
-        }
-        cursor.close();
-        // database.close();
-        if(friendList != null) {
-            Log.i("Verification taille ", "" + friendList.size());
-            Log.i("Verification nom ", "" + friendList.get(0).getLastName());
-            Log.i("Verification nom ", "" + friendList.get(1).getLastName());
-        }
-        return friendList;
     }
 
-    public ArrayList<Friend> getFriendRequestList(){
-        ArrayList<Friend> friendList = null;
-        // String selectQuery = "SELECT  * FROM " + TABLE_FRIEND+ "WHERE "+ KEY_FRIEND_IS_ACCEPTED+" = 1";
+    public ArrayList<Dialog> getInboxList(){
+        ArrayList<Dialog> inboxArrayList = null;
 
-        Cursor cursor = database.query(TABLE_FRIEND,allColumns,KEY_FRIEND_IS_ACCEPTED+" = 0",null,null,null,null);
+        Cursor cursor = database.query(TABLE_DIALOG, allColumns, DataBaseHandler.KEY_DIALOG_IS_INBOX + " = 1", null, null, null, null);
         if(cursor.getCount()>0) {
-            friendList = new ArrayList<>(cursor.getCount());
+            inboxArrayList = new ArrayList<>(cursor.getCount());
         }
         // Se déplacer à la première ligne
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
-            assert friendList != null;
-            friendList.add(this.cursorToFriend(cursor));
+            assert inboxArrayList != null;
+            inboxArrayList.add(this.cursorToDialog(cursor, true));
             cursor.moveToNext();
         }
         cursor.close();
         // database.close();
-        if(friendList != null) {
-            Log.i("Verification taille ", "" + friendList.size());
-            Log.i("Verification nom ", "" + friendList.get(0).getLastName());
-            Log.i("Verification nom ", "" + friendList.get(1).getLastName());
+        if(inboxArrayList != null) {
+            Log.i("Verification taille ", "" + inboxArrayList.size());
+            Log.i("Verification nom ", "" + inboxArrayList.get(0).getRecipientFirstName());
+            Log.i("Verification nom ", "" + inboxArrayList.get(0).isRead());
         }
-        return friendList;
+        return inboxArrayList;
+    }
+
+    public ArrayList<Dialog> getSendboxList(){
+        ArrayList<Dialog> sendboxArrayList = null;
+        // String selectQuery = "SELECT  * FROM " + TABLE_FRIEND+ "WHERE "+ KEY_FRIEND_IS_ACCEPTED+" = 1";
+
+        Cursor cursor = database.query(TABLE_DIALOG, allColumns, DataBaseHandler.POSITION_DIALOG_RECIPIENT_FIRSTNAME+" = 0", null, null, null, null);
+        if(cursor.getCount()>0) {
+            sendboxArrayList = new ArrayList<>(cursor.getCount());
+        }
+        // Se déplacer à la première ligne
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            assert sendboxArrayList != null;
+            sendboxArrayList.add(this.cursorToDialog(cursor, false));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        // database.close();
+        if(sendboxArrayList != null) {
+            Log.i("Verification taille ", "" + sendboxArrayList.size());
+            Log.i("Verification nom ", "" + sendboxArrayList.get(0).getRecipientFirstName());
+            Log.i("Verification nom ", "" + sendboxArrayList.get(0).getRecipientLastName());
+        }
+        return sendboxArrayList;
     }
 
     /**
@@ -127,13 +143,17 @@ public class DialogDAO {
      * @param cursor un curseur
      * @return un voyage (Trip)
      */
-    /*protected Message Friend cursorToMessage(Cursor cursor){
-        Message message = new Message() ;
-        message.setId(cursor.getInt(DataBaseHandler.POSITION_FRIEND_ID));
-        friend.setLastName(cursor.getString(DataBaseHandler.POSITION_FRIEND_LASTNAME));
-        friend.setFirstName(cursor.getString(DataBaseHandler.POSITION_FRIEND_FIRSTNAME));
-        friend.setFriend((cursor.getInt(DataBaseHandler.POSITION_FRIEND_IS_ACCEPTED))!=0);
+    protected Dialog cursorToDialog(Cursor cursor, boolean isInbox){
 
-        return message;
-    }/*/
+        Dialog dialog = new Dialog() ;
+        dialog.setRecipientId(cursor.getInt(DataBaseHandler.POSITION_FRIEND_ID));
+        dialog.setRecipientLastName(cursor.getString(DataBaseHandler.POSITION_FRIEND_LASTNAME));
+        dialog.setRecipientFirstName(cursor.getString(DataBaseHandler.POSITION_FRIEND_FIRSTNAME));
+        dialog.setMessage(cursor.getString(DataBaseHandler.POSITION_DIALOG_MESSAGE));
+        dialog.setDate(cursor.getString(DataBaseHandler.POSITION_DIALOG_DATE));
+        if(isInbox) dialog.setRead(cursor.getInt(DataBaseHandler.POSITION_DIALOG_READ)==1);
+        dialog.setInbox(isInbox);
+
+        return dialog;
+    }
 }

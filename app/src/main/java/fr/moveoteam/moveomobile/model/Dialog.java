@@ -13,6 +13,8 @@ public class Dialog {
     String date;
     boolean inbox;
 
+    public Dialog(){}
+
     public Dialog(int recipientId, String recipientLastName, String recipientFirstName, String message, String date, boolean inbox) {
         this.recipientId = recipientId;
         this.recipientLastName = recipientLastName;
@@ -22,13 +24,13 @@ public class Dialog {
         this.inbox = inbox;
     }
 
-    public Dialog(int recipientId, String recipientLastName, String recipientFirstName, String message, boolean read, String date, boolean inbox) {
+    public Dialog(int recipientId, String recipientLastName, String recipientFirstName, String message, String date, boolean read, boolean inbox) {
         this.recipientId = recipientId;
         this.recipientLastName = recipientLastName;
         this.recipientFirstName = recipientFirstName;
         this.message = message;
-        this.read = read;
         this.date = date;
+        this.read = read;
         this.inbox = inbox;
     }
 

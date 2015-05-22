@@ -129,6 +129,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final int POSITION_DIALOG_MESSAGE = 3;
         public static final int POSITION_DIALOG_DATE = 4;
         public static final int POSITION_DIALOG_READ = 5;
+        public static final int POSITION_DIALOG_IS_INBOX = 6;
 
     // CREATION DES TABLES
 
@@ -192,7 +193,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_DIALOG_RECIPIENT_FIRSTNAME + " TEXT,"
                 + KEY_DIALOG_MESSAGE + " TEXT,"
                 + KEY_DIALOG_DATE + " TEXT,"
-                + KEY_DIALOG_READ + " INTEGER" + ")";
+                + KEY_DIALOG_READ + " INTEGER,"
+                + KEY_DIALOG_IS_INBOX + " INTEGER" + ")";
 
 
     public DataBaseHandler(Context context) {
