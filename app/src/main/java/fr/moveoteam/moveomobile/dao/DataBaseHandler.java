@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DataBaseHandler extends SQLiteOpenHelper {
 
-    // TOUT LES VARIABLES STATIC
+    // TOUT LES VARIABLES
     // VERSION DE LA BASE DE DONNÉES
     private static final int DATABASE_VERSION = 1;
 
@@ -72,7 +72,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final String KEY_FRIEND_ID = "friend_id";
         public static final String KEY_FRIEND_LASTNAME = "friend_lastname";
         public static final String KEY_FRIEND_FIRSTNAME = "friend_firstname";
+        public static final String KEY_FRIEND_BIRTHDAY = "friend_birthday";
+        public static final String KEY_FRIEND_AVATAR = "friend_avatar";
         public static final String KEY_FRIEND_IS_ACCEPTED = "friend_is_accepted";
+        public static final String KEY_FRIEND_COUNTRY = "friend_country";
+        public static final String KEY_FRIEND_CITY = "friend_city";
+
 
         // Dialog
         public static final String KEY_DIALOG_RECIPIENT_ID = "dialog_recipient_id";
@@ -120,7 +125,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final int POSITION_FRIEND_ID = 0;
         public static final int POSITION_FRIEND_LASTNAME = 1;
         public static final int POSITION_FRIEND_FIRSTNAME = 2;
-        public static final int POSITION_FRIEND_IS_ACCEPTED = 3;
+        public static final int POSITION_FRIEND_BIRTHDAY = 3 ;
+        public static final int POSITION_FRIEND_AVATAR = 4;
+        public static final int POSITION_FRIEND_IS_ACCEPTED = 5;
+        public static final int POSITION_FRIEND_COUNTRY= 6;
+        public static final int POSITION_FRIEND_CITY = 7;
 
         // Dialog
         public static final int POSITION_DIALOG_RECIPIENT_ID = 0;
@@ -184,8 +193,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_FRIEND_ID + " INTEGER PRIMARY KEY,"
                 + KEY_FRIEND_LASTNAME + " TEXT,"
                 + KEY_FRIEND_FIRSTNAME + " TEXT,"
-                + KEY_FRIEND_IS_ACCEPTED + " INTEGER" + ")";
-
+                + KEY_FRIEND_BIRTHDAY + " TEXT,"
+                + KEY_FRIEND_AVATAR + " TEXT,"
+                + KEY_FRIEND_IS_ACCEPTED + " INTEGER,"
+                + KEY_FRIEND_COUNTRY + " TEXT,"
+                + KEY_FRIEND_CITY + " TEXT" + ")";
         // Dialog
         private static final String CREATE_DIALOG_TABLE = "CREATE TABLE "+ TABLE_DIALOG + "("
                 + KEY_DIALOG_RECIPIENT_ID + " INTEGER PRIMARY KEY,"

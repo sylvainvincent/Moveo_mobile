@@ -1,8 +1,12 @@
 package fr.moveoteam.moveomobile.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Base64;
+import android.util.Log;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -87,4 +91,26 @@ public class Function {
 
         return false;
     }
+
+    public static Bitmap decodeBase64(String input)
+    {
+        Bitmap bitmap;
+
+        if(input != null){
+            Log.e("Image64", "taille : " + input.length());
+            byte[] bytes = Base64.decode(input, Base64.DEFAULT);
+            bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        }else bitmap = null;
+        return bitmap;
+    }
+
+    public static String displayCurrentDate() {
+        String format = "dd/MM/yy H:mm:ss";
+
+        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat(format);
+        java.util.Date date = new java.util.Date();
+
+        return formater.format(date);
+    }
+
 }

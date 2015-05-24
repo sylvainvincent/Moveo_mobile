@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="fill_parent">
+
+    <fragment
+        android:id="@+id/CommentListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:name="fr.moveoteam.moveomobile.fragment.CommentListFragment"
+        tools:layout="@layout/row_list_comments">
+    </fragment>
+
+    <fragment
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:name="fr.moveoteam.moveomobile.fragment.AddCommentFragment"
+        tools:layout="@layout/fragment_add_comment"
+        android:layout_gravity="bottom"
+
+        android:id="@+id/comment_input">
+    </fragment>
+
+
+
+</LinearLayout>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import fr.moveoteam.moveomobile.model.Trip;
 /**
  * Created by Sylvain on 10/05/15.
  */
-public class TripHomeFragment extends Fragment {
+public class HomeCategoryFragment extends Fragment {
 
     private TextView tripName;
     private TextView tripCountry;
@@ -26,12 +27,14 @@ public class TripHomeFragment extends Fragment {
     private  LinearLayout tripHome;
     OnInformationListener information;
     Trip trip;
-    // Container Activity must implement this interface
+
+    // L'activity doit implémenté cette interface
     public interface OnHeadlineSelectedListener {
         public void onArticleSelected(int position);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i("Creation", "TripHomeFragment");
         View view = inflater.inflate(R.layout.fragment_trip_description, container,false);
         tripName = (TextView) view.findViewById(R.id.trip_name);
         tripCountry = (TextView) view.findViewById(R.id.trip_country);
@@ -79,5 +82,7 @@ public class TripHomeFragment extends Fragment {
         tripDate.setText(tripDate.getText() + " " + trip.getDate());
         tripHome.setVisibility(View.VISIBLE);
     }
+
+
 
 }

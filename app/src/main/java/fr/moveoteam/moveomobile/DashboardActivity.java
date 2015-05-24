@@ -188,10 +188,16 @@ public class DashboardActivity extends Activity {
                                     friendList.getJSONObject(i).getInt("friend_id"),
                                     friendList.getJSONObject(i).getString("friend_last_name"),
                                     friendList.getJSONObject(i).getString("friend_first_name"),
+                                    friendList.getJSONObject(i).getString("friend_birthday"),
+                                    friendList.getJSONObject(i).getString("friend_avatar"),
+                                    friendList.getJSONObject(i).getString("friend_country"),
+                                    friendList.getJSONObject(i).getString("friend_city"),
                                     friendList.getJSONObject(i).getInt("is_accepted") != 0
                             ));
                         }
-                        Log.e("friend", "passage réussi");
+                        Log.i("Json",friendList.getJSONObject(0).getString("friend_avatar"));
+                        Log.e("friend", friendArrayList.toString());
+
                         FriendDAO friendDAO = new FriendDAO(DashboardActivity.this);
                         friendDAO.open();
                         friendDAO.addFriendList(friendArrayList);

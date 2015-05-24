@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Trip;
 
 /**
@@ -76,18 +77,20 @@ public class TripListAdapter extends BaseAdapter {
                 String authorHTML = "<font color=#000>par</font> <i>" + tripList.get(position).getAuthor_first_name() + " " + tripList.get(position).getAuthor_last_name() + "</i>";
                 viewHolderTrip.explore_username.setText(Html.fromHtml(authorHTML));
                 if(tripList.get(position).getCover() != null) {
-                    viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(decodeBase64(tripList.get(position).getCover()));
+                    viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
                 }else{
                     viewHolderTrip.imageViewMainPictureTrip = null;
                 }
             } else {
                 viewHolderTrip.explore_username.setText(Html.fromHtml("<font color=#000>par</font> <i>moi</i>"));
                 if(tripList.get(position).getCover() != null) {
-                    viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(decodeBase64(tripList.get(position).getCover()));
+                    viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
                 }else{
                     viewHolderTrip.imageViewMainPictureTrip.setImageDrawable(null);
                 }
             }
+            Log.e("PlaceList", " " + position);
+            Log.e("PlaceList", tripList.get(position).getName());
             viewHolderTrip.number_of_comments.setText((Integer.toString(tripList.get(position).getCommentCount())));
             viewHolderTrip.number_of_pictures.setText(Integer.toString(tripList.get(position).getPhotoCount()));
         }/*else{
@@ -115,13 +118,5 @@ public class TripListAdapter extends BaseAdapter {
         ImageView imageViewMainPictureTrip;
          ImageView imageButtonComments, imageButtonPictures;
     }
-
-    public Bitmap decodeBase64(String input)
-    {
-        Log.e("Image64","taille : "+input.length());
-        byte[] bytes = Base64.decode(input,Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-    }
-
 
 }

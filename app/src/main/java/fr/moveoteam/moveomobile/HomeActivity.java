@@ -26,9 +26,9 @@ import java.util.ArrayList;
 import fr.moveoteam.moveomobile.dao.DialogDAO;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
-import fr.moveoteam.moveomobile.fragment.AddButtonTripFragment;
+import fr.moveoteam.moveomobile.fragment.AddTripFragment;
 import fr.moveoteam.moveomobile.fragment.ExploreFragment;
-import fr.moveoteam.moveomobile.fragment.FriendListFragment;
+import fr.moveoteam.moveomobile.fragment.FriendCategoryFragment;
 import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
 import fr.moveoteam.moveomobile.menu.MenuAdapter;
 import fr.moveoteam.moveomobile.menu.MenuItems;
@@ -229,7 +229,7 @@ public class HomeActivity extends Activity {
                 break;
             case 1:
                 fragment = new MyTripListFragment();
-                fragment2 = new AddButtonTripFragment();
+                fragment2 = new AddTripFragment();
                 ft.add(R.id.frame_container, fragment2);
                 ft.add(R.id.frame_container, fragment);
                 break;
@@ -237,12 +237,12 @@ public class HomeActivity extends Activity {
                 fragment = new ExploreFragment();
                 break;
             case 3:
-                fragment = new FriendListFragment();
+                fragment = new FriendCategoryFragment();
                 bundle = new Bundle();
                 this.bundle.putString("requestCounter",friendRequestCounter);
                 this.bundle.putString("friendCounter",friendCounter);
                 fragment.setArguments(this.bundle);
-                ft.add(R.id.frame_container, fragment);
+                ft.add(R.id.frame_container, fragment,"a");
                 break;
             case 4:
                 fragment = new ExploreFragment();

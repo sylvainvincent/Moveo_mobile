@@ -60,9 +60,8 @@ public class MyTripActivity extends Activity {
     }
 
     private void initialize() {
-
+        /*
         mytriptitle = (TextView) findViewById(R.id.my_trip_title);
-        deleteappicon = (ImageView) findViewById(R.id.delete_app_icon);
         deleteapp = (TextView) findViewById(R.id.delete_app);
         mytripcitytitle = (TextView) findViewById(R.id.my_trip_country_title);
         addtripdate = (TextView) findViewById(R.id.add_trip_date);
@@ -74,6 +73,7 @@ public class MyTripActivity extends Activity {
         mytripcategory4 = (ImageView) findViewById(R.id.my_trip_category4);
         lastcommentslist = (ListView) findViewById(R.id.last_comments_list);
         mytrip = (RelativeLayout) findViewById(R.id.my_trip);
+        */
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
@@ -135,7 +135,11 @@ public class MyTripActivity extends Activity {
                                     commentList.getJSONObject(i).getInt("comment_id"),
                                     commentList.getJSONObject(i).getString("comment_message"),
                                     commentList.getJSONObject(i).getString("comment_added_datetime"),
-                                    commentList.getJSONObject(i).getInt("user_id")
+                                    commentList.getJSONObject(i).getInt("user_id"),
+                                    commentList.getJSONObject(i).getString("user_last_name"),
+                                    commentList.getJSONObject(i).getString("user_first_name"),
+                                    commentList.getJSONObject(i).getString("user_link_avatar")
+
                             ));
                             Log.e("comment", commentArrayList.get(i).toString());
                         }

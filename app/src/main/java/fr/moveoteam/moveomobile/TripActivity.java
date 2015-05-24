@@ -2,6 +2,7 @@ package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -10,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,9 +22,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import fr.moveoteam.moveomobile.fragment.TripHomeFragment;
-import fr.moveoteam.moveomobile.fragment.TripPlacesListFragment;
+import fr.moveoteam.moveomobile.fragment.CommentCategoryFragment;
+import fr.moveoteam.moveomobile.fragment.CommentListFragment;
+import fr.moveoteam.moveomobile.fragment.HomeCategoryFragment;
+import fr.moveoteam.moveomobile.fragment.PlaceListFragment;
 import fr.moveoteam.moveomobile.model.Comment;
+import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Place;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
@@ -30,7 +35,7 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
 /**
  * Created by Sylvain on 10/05/15.
  */
-public class TripActivity extends Activity implements TripHomeFragment.OnInformationListener{
+public class TripActivity extends Activity implements HomeCategoryFragment.OnInformationListener{
 
     int id;
 
@@ -50,28 +55,38 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
 
     Bundle bundle;
 
+    PlaceListFragment gastronomyPlaceListFragment;
+    PlaceListFragment leisurePlaceListFragment;
+    PlaceListFragment shoppingPlaceListFragment;
+    CommentCategoryFragment commentCategoryFragment;
+    String gastronomyPlaceListFragmentTag;
+    String leisurePlaceListFragmentTag;
+    String shoppingPlaceListFragmentTag;
+    HomeCategoryFragment homeCategoryFragment;
+    String  tripHomeFragmentTag;
+    private ImageView homeCategory;
+    private ImageView foodingCategory;
+    private ImageView hobbiesCategory;
+    private ImageView shoppingCategory;
+    private ImageView picturesCategory;
+    private ImageView commentsCategory;
+    private ImageView imageCover;
+
+    FragmentManager fragmentManager;
+    FragmentTransaction ft;
+
+    private static final String HOME_FRAGMENT_TAG="HOME";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cover);
-
         initialize();
         id = getIntent().getExtras().getInt("id",0);
 
-        /*TripHomeFragment fragment = new TripHomeFragment();
-        bundle = new Bundle();
-        bundle.putString("name",trip.getName());
-        bundle.putString("description",trip.getDescription());
-        bundle.putString("date",trip.getDate());
-        bundle.putString("country",trip.getCountry());
-        bundle.putString("author",trip.getAuthor_first_name()+" "+trip.getAuthor_last_name());
-        fragment.setArguments(bundle); */
-
-
-
         new ExecuteThread().execute();
-
-        //getInformation(trip);
 
     }
 
@@ -83,6 +98,12 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
         tripDate = (TextView) findViewById(R.id.trip_date);
         tripDescription = (TextView) findViewById(R.id.trip_description);
         tripHome = (LinearLayout) findViewById(R.id.trip_home);
+        homeCategory = (ImageView) findViewById(R.id.home_category);
+        foodingCategory = (ImageView) findViewById(R.id.fooding_category);
+        hobbiesCategory = (ImageView) findViewById(R.id.hobbies_category);
+        commentsCategory = (ImageView) findViewById(R.id.comments_category);
+        imageCover = (ImageView) findViewById(R.id.image_cover);
+
     }
 
     @Override
@@ -100,8 +121,11 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
     }
 
 
+
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
+        private FragmentManager fragmentManager;
+        private FragmentTransaction ft;
 
         @Override
         protected void onPreExecute() {
@@ -109,7 +133,7 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
             pDialog = new ProgressDialog(TripActivity.this);
             pDialog.setMessage("Chargement...");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
+            pDialog.setCancelable(false);
             pDialog.show();
         }
 
@@ -130,6 +154,7 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
                     trip.setName(json.getJSONObject("trip").getString("trip_name"));
                     trip.setCountry(json.getJSONObject("trip").getString("trip_country"));
                     trip.setDescription(json.getJSONObject("trip").getString("trip_description"));
+                    trip.setCover(json.getJSONObject("trip").getString("trip_cover"));
                     trip.setDate(json.getJSONObject("trip").getString("trip_created_at"));
                     trip.setAuthor_last_name(json.getJSONObject("trip").getString("user_last_name"));
                     trip.setAuthor_first_name(json.getJSONObject("trip").getString("user_first_name"));
@@ -158,28 +183,55 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
                                     commentList.getJSONObject(i).getInt("comment_id"),
                                     commentList.getJSONObject(i).getString("comment_message"),
                                     commentList.getJSONObject(i).getString("comment_added_datetime"),
-                                    commentList.getJSONObject(i).getInt("user_id")
+                                    commentList.getJSONObject(i).getInt("user_id"),
+                                    commentList.getJSONObject(i).getString("user_last_name"),
+                                    commentList.getJSONObject(i).getString("user_first_name"),
+                                    commentList.getJSONObject(i).getString("user_link_avatar")
                             ));
                             Log.e("comment", commentArrayList.get(i).toString());
                         }
                     }
 
-                    FragmentManager fragmentManager = getFragmentManager();
+                    homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category_blue));
+                    imageCover.setImageBitmap(Function.decodeBase64(trip.getCover()));
+                    imageCover.setVisibility(View.VISIBLE);
+
+                    fragmentManager = getFragmentManager();
                     FragmentTransaction ft = fragmentManager.beginTransaction();
-                    TripPlacesListFragment tripPlacesListFragment = new TripPlacesListFragment();
+
+                    gastronomyPlaceListFragment = new PlaceListFragment();
+                    bundle = new Bundle();
+                    bundle.putParcelableArrayList("placeList", placeArrayList);
+                    gastronomyPlaceListFragment.setArguments(bundle);
+                    //ft.add(gastronomyPlaceListFragment, "gastronomy");
+
+
+                    leisurePlaceListFragment = new PlaceListFragment();
                     bundle = new Bundle();
                     bundle.putParcelableArrayList("placeList",placeArrayList);
-                   /* TripHomeFragment fragment = new TripHomeFragment();
-                    //fragment.setList(trip);
+                    leisurePlaceListFragment.setArguments(bundle);
+                    leisurePlaceListFragmentTag = leisurePlaceListFragment.getTag();
+
+                    shoppingPlaceListFragment = new PlaceListFragment();
+                    bundle = new Bundle();
+                    bundle.putParcelableArrayList("placeList",placeArrayList);
+                    shoppingPlaceListFragment.setArguments(bundle);
+                    shoppingPlaceListFragmentTag = shoppingPlaceListFragment.getTag();
+
+                    commentCategoryFragment = new CommentCategoryFragment();
+                    bundle = new Bundle();
+                    bundle.putParcelableArrayList("commentList",commentArrayList);
+                    commentCategoryFragment.setArguments(bundle);
+
+                    homeCategoryFragment = new HomeCategoryFragment();
                     bundle = new Bundle();
                     bundle.putString("name",trip.getName());
                     bundle.putString("description",trip.getDescription());
                     bundle.putString("date",trip.getDate());
                     bundle.putString("country",trip.getCountry());
-                    bundle.putString("author",trip.getAuthor_first_name()+" "+trip.getAuthor_last_name());
-                    fragment.setArguments(bundle); */
-                    tripPlacesListFragment.setArguments(bundle);
-                    ft.replace(R.id.trip_content,tripPlacesListFragment);
+                    bundle.putString("author", trip.getAuthor_first_name() + " " + trip.getAuthor_last_name());
+                    homeCategoryFragment.setArguments(bundle);
+                    ft.replace(R.id.trip_content, homeCategoryFragment, HOME_FRAGMENT_TAG);
                     ft.commit();
 
 
@@ -212,35 +264,61 @@ public class TripActivity extends Activity implements TripHomeFragment.OnInforma
     }
 
     public void linkToHomeFragment(View view){
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        TripHomeFragment fragment = new TripHomeFragment();
-        bundle = new Bundle();
-        bundle.putString("name",trip.getName());
-        bundle.putString("description",trip.getDescription());
-        bundle.putString("date",trip.getDate());
-        bundle.putString("country",trip.getCountry());
-        bundle.putString("author",trip.getAuthor_first_name()+" "+trip.getAuthor_last_name());
-        fragment.setArguments(bundle);
-        ft.replace(R.id.trip_content, fragment);
+        homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category_blue));
+        foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category));
+        hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
+        commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category));
+        ft = getFragmentManager().beginTransaction();
+        //ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.trip_content, homeCategoryFragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
+        // ft.addToBackStack(null);
         ft.commit();
     }
 
     public void linkToGastronomyFragment(View view){
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-
-        ft.replace(R.id.trip_content, new TripPlacesListFragment());
+        foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category_blue));
+        homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
+        hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
+        commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category));
+        ft = getFragmentManager().beginTransaction();
+        //ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.trip_content, gastronomyPlaceListFragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
+        // ft.addToBackStack(null);
         ft.commit();
     }
 
     public void linkToLeisureFragment(View view){
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-
-        ft.replace(R.id.trip_content, new TripHomeFragment());
+        hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category_blue));
+        foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category));
+        homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
+        commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category));
+        ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.trip_content, gastronomyPlaceListFragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
+        ft.addToBackStack(null);
         ft.commit();
     }
+
+    public void linkToCommentsFragment(View view){
+        commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category_blue));
+        hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
+        foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category));
+        homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
+        //ft = getFragmentManager().beginTransaction();
+        ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.trip_content, commentCategoryFragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+    @Override // Fermer l'activity lorsque l'on appuie sur le bouton "back"
+    public void onBackPressed() {
+        this.finish();
+    }
+
 
 
 }

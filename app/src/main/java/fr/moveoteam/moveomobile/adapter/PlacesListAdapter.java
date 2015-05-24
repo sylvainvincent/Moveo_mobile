@@ -27,12 +27,12 @@ public class PlacesListAdapter extends BaseAdapter {
 
     public PlacesListAdapter(Context context, ArrayList<Place> placesList) {
         this.context = context;
-        ArrayList<Place> placeList = new ArrayList<>(2);
+        ArrayList<Place> placeList = new ArrayList<>(1);
         placeList.add(new Place(1,"a","b","c",1,2));
         placeList.add(new Place(2,"d","e","f",1,2));
         this.placesList = placeList;
-        Log.e("recuperation",placesList.get(0).getName());
-        Log.e("size",placesList.size()+"");
+        Log.e("recuperation",placeList.get(0).getName());
+        Log.e("size",placeList.size()+"");
     }
 
     @Override

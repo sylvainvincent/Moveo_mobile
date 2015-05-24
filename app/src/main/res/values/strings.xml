@@ -165,5 +165,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_hint">Recherche...</string>
     <string name="friends_request_title">nouvelles demandes d\'amis</string>
+    <string name="comment_button_text">Publier</string>
+    <string name="comment_text">Votre commentaire</string>
+    <string name="comment_hint">commenter...</string>
 
 </resources>

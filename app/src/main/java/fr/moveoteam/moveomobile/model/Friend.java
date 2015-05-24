@@ -4,16 +4,34 @@ package fr.moveoteam.moveomobile.model;
  * Created by Sylvain on 08/05/15.
  */
 public class Friend {
+
     int id;
-    String firstName, lastName;
+    String firstName;
+    String lastName;
+    String birthday;
+    String avatarBase64;
+    String country;
+    String city;
     boolean isFriend;
 
-    public Friend(){};
+    public Friend(){}
 
-    public Friend(int id, String firstName, String lastName, boolean isFriend){
+    public Friend(int id, String firstName, String lastName, String avatarBase64, boolean isFriend){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.avatarBase64 = avatarBase64;
+        this.isFriend = isFriend;
+    }
+
+    public Friend(int id, String firstName, String lastName, String birthday, String avatarBase64, String country, String city, boolean isFriend) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.avatarBase64 = avatarBase64;
+        this.country = country;
+        this.city = city;
         this.isFriend = isFriend;
     }
 
@@ -47,5 +65,51 @@ public class Friend {
 
     public void setFriend(boolean isFriend) {
         this.isFriend = isFriend;
+    }
+
+    public String getAvatarBase64() {
+        return avatarBase64;
+    }
+
+    public void setAvatarBase64(String avatarBase64) {
+        this.avatarBase64 = avatarBase64;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    @Override
+    public String toString() {
+        return "Friend{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", avatarBase64='" + avatarBase64 + '\'' +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", isFriend=" + isFriend +
+                '}';
     }
 }

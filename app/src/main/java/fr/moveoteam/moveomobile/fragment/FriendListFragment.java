@@ -1,46 +1,46 @@
 package fr.moveoteam.moveomobile.fragment;
 
-import android.app.Fragment;
+import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
-import fr.moveoteam.moveomobile.R;
+import java.util.ArrayList;
+
+import fr.moveoteam.moveomobile.TripActivity;
+import fr.moveoteam.moveomobile.UserProfile;
+import fr.moveoteam.moveomobile.dao.FriendDAO;
+import fr.moveoteam.moveomobile.model.Friend;
+import fr.moveoteam.moveomobile.adapter.FriendsListAdapter;
+import fr.moveoteam.moveomobile.model.Trip;
 
 /**
- * Created by Sylvain on 11/05/15.
+ * Created by Amélie on 10/05/2015.
  */
-public class FriendListFragment extends Fragment {
+public class FriendListFragment extends ListFragment {
 
-
-    private TextView friendcounter;
-    private TextView friendsrequesttitle;
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_friend_list, container,false);
-    }
+    ArrayList<Friend> friendArrayList;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initialize();
-        if(!getArguments().getString("requestCounter").equals("0"))
-            friendsrequesttitle.setText(getArguments().getString("requestCounter")+" "+friendsrequesttitle.getText());
-        else friendsrequesttitle.setText(null);
-
-        if(getArguments().getString("friendCounter").equals("0") || getArguments().getString("friendCounter").equals("1"))
-            friendcounter.setText(getArguments().getString("friendCounter")+" contact");
-        else friendcounter.setText(getArguments().getString("friendCounter")+" "+friendcounter.getText());
+        FriendDAO friendDAO = new FriendDAO(getActivity());
+        friendDAO.open();
+        friendArrayList = friendDAO.getFriendList();
+        if(friendArrayList != null)
+            setListAdapter(new FriendsListAdapter(getActivity(), friendArrayList));
+        else setListAdapter(null);
     }
 
-    private void initialize() {
-
-        friendcounter = (TextView) getActivity().findViewById(R.id.friend_counter);
-        friendsrequesttitle = (TextView) getActivity().findViewById(R.id.friends_request_title);
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Friend friend = friendArrayList.get(position);
+        Log.e("Recuperation", friend.getFirstName());
+        Intent intent = new Intent(getActivity(), UserProfile.class);
+        intent.putExtra("id",friend.getId());
+        startActivity(intent);
     }
+
 }

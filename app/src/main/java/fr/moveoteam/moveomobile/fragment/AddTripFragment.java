@@ -13,7 +13,7 @@ import fr.moveoteam.moveomobile.R;
 /**
  * Created by Sylvain on 07/05/15.
  */
-public class AddButtonTripFragment extends Fragment{
+public class AddTripFragment extends Fragment{
 
     TextView text;
 

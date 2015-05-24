@@ -1,6 +1,7 @@
 package fr.moveoteam.moveomobile.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.model.Friend;
+import fr.moveoteam.moveomobile.model.Function;
 
 /**
  * Created by Amélie on 10/05/2015.
@@ -57,11 +59,17 @@ public class FriendsListAdapter extends BaseAdapter {
             viewHolderFriend = (ViewHolderFriend) convertView.getTag();
         }
         viewHolderFriend.friend_name.setText(friendsList.get(position).getFirstName()+" "+friendsList.get(position).getLastName());
+
+        Log.i("test friend", friendsList.get(position).toString());
+
+        if(friendsList.get(position).getAvatarBase64() != null && !friendsList.get(position).getAvatarBase64().equals("0"))
+            viewHolderFriend.avatar.setImageBitmap(Function.decodeBase64(friendsList.get(position).getAvatarBase64()));
+
         if(friendsList.get(position).isFriend()){
             viewHolderFriend.refuse_friend.setVisibility(View.INVISIBLE);
             viewHolderFriend.accept_friend.setVisibility(View.INVISIBLE);
         }else{
-            viewHolderFriend.delete_friend.setEnabled(false);
+            viewHolderFriend.delete_friend.setVisibility(View.INVISIBLE);
         }
         return convertView;
     }

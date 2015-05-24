@@ -49,7 +49,7 @@ public class JSONUser {
     * @param email une adresse mail saisie par l'utilisateur dans le formulaire de connexion
     * @param password un mot de passe saisi par l'utilisateur dans le formulaire de connexion
     * @see JSONParser
-    * @return un objet json contenant soit un message d'erreur ou soit les informations de l'utilisateur
+    * @return un objet json contenant soit un message d'erreur ou soit tous les informations de l'utilisateur(amis, messages, ...)
     */
     public JSONObject loginUser(String email, String password){
 
@@ -75,17 +75,25 @@ public class JSONUser {
         return jsonParser.getJSONFromUrl(userURL, lostPasswordForm);
     }
 
-    public JSONObject modifyUser(String name, String firstname, String email, String birthdate, String city, String birthplace) {
+    public JSONObject modifyUser(String name, String firstname, String email, String birthday, String city, String birthplace) {
         List<NameValuePair> modifyUserForm = new ArrayList<>();
         modifyUserForm.add(new BasicNameValuePair("tag", "forgetPassword"));
         modifyUserForm.add(new BasicNameValuePair("name", name));
         modifyUserForm.add(new BasicNameValuePair("firstname", firstname));
         modifyUserForm.add(new BasicNameValuePair("email", email));
-        modifyUserForm.add(new BasicNameValuePair("birthdate", birthdate));
+        modifyUserForm.add(new BasicNameValuePair("birthday", birthday));
         modifyUserForm.add(new BasicNameValuePair("city", city));
         modifyUserForm.add(new BasicNameValuePair("birthplace", birthplace));
 
         return jsonParser.getJSONFromUrl(userURL, modifyUserForm);
+    }
+
+    public JSONObject getOtherUser(String id){
+        List<NameValuePair> otherUserForm = new ArrayList<>();
+        otherUserForm.add(new BasicNameValuePair("tag", "getOtherUser"));
+        otherUserForm.add(new BasicNameValuePair("idOtherUser", id));
+
+        return jsonParser.getJSONFromUrl(userURL, otherUserForm);
     }
 
 }
