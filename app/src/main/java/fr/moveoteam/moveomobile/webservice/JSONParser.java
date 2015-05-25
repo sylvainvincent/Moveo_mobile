@@ -8,7 +8,11 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 /**
@@ -41,20 +46,26 @@ public class JSONParser {
     public JSONObject getJSONFromUrl(String url, List<NameValuePair> postParameters) {
         // Making HTTP request
         try {
+            int timeout = 30000; // 30 secondes
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
             // Pour créer une requête POST nous allons créer un objet HttpPost avec comme paramètre l'URL du web service
             HttpPost httpPost = new HttpPost(url);
             // on affecte le résultat du formulaire sur l'objet
             httpPost.setEntity(new UrlEncodedFormEntity(postParameters));
+            HttpParams httpParams = new BasicHttpParams();
+            HttpConnectionParams.setConnectionTimeout(httpParams,timeout);
+            HttpConnectionParams.setSoTimeout(httpParams, timeout);
+            httpPost.setParams(httpParams);
             //La requête est envoyée !!! on récupère la réponse
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
-        } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException | SocketTimeoutException | ConnectTimeoutException e) {
+            Log.e("Time out", "timeout");
             e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            jObj = null; // forcer le null
+            return jObj;
         } catch (IOException e) {
             e.printStackTrace();
         }

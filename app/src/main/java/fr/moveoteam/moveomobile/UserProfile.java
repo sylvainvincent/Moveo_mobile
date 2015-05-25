@@ -2,9 +2,12 @@ package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -60,6 +63,8 @@ public class UserProfile extends Activity {
         id = getIntent().getExtras().getInt("id",0);
 
         initialize();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowTitleEnabled(false);
 
         FriendDAO friendDAO = new FriendDAO(UserProfile.this);
         friendDAO.open();
@@ -69,8 +74,23 @@ public class UserProfile extends Activity {
         if(!friend.getAvatarBase64().equals("0"))
             useravatar.setImageBitmap(Function.decodeBase64(friend.getAvatarBase64()));
         usernameprofile.setText(friend.getFirstName()+" "+friend.getLastName());
+        livein.setText(livein.getText()+" "+friend.getCity()+" en "+friend.getCountry());
+
+        addfriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
 
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+         finish();
+        return true;
     }
 
     private void initialize() {
@@ -152,5 +172,7 @@ public class UserProfile extends Activity {
 
         }
     }
+
+
 
 }

@@ -2,7 +2,6 @@ package fr.moveoteam.moveomobile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -10,6 +9,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,7 +58,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     PlaceListFragment gastronomyPlaceListFragment;
     PlaceListFragment leisurePlaceListFragment;
     PlaceListFragment shoppingPlaceListFragment;
-    CommentCategoryFragment commentCategoryFragment;
+    CommentListFragment commentCategoryFragment;
     String gastronomyPlaceListFragmentTag;
     String leisurePlaceListFragmentTag;
     String shoppingPlaceListFragmentTag;
@@ -76,7 +76,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     FragmentTransaction ft;
 
     private static final String HOME_FRAGMENT_TAG="HOME";
-
+    private LinearLayout tripcontent;
 
 
     @Override
@@ -84,6 +84,10 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cover);
         initialize();
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowTitleEnabled(false);
+
         id = getIntent().getExtras().getInt("id",0);
 
         new ExecuteThread().execute();
@@ -103,6 +107,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         hobbiesCategory = (ImageView) findViewById(R.id.hobbies_category);
         commentsCategory = (ImageView) findViewById(R.id.comments_category);
         imageCover = (ImageView) findViewById(R.id.image_cover);
+        tripcontent = (LinearLayout) findViewById(R.id.trip_content);
 
     }
 
@@ -120,7 +125,11 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         }*/
     }
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
+    }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
@@ -218,7 +227,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
                     shoppingPlaceListFragment.setArguments(bundle);
                     shoppingPlaceListFragmentTag = shoppingPlaceListFragment.getTag();
 
-                    commentCategoryFragment = new CommentCategoryFragment();
+                    commentCategoryFragment = new CommentListFragment();
                     bundle = new Bundle();
                     bundle.putParcelableArrayList("commentList",commentArrayList);
                     commentCategoryFragment.setArguments(bundle);
@@ -233,7 +242,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
                     homeCategoryFragment.setArguments(bundle);
                     ft.replace(R.id.trip_content, homeCategoryFragment, HOME_FRAGMENT_TAG);
                     ft.commit();
-
+                    tripcontent.setVisibility(View.VISIBLE);
 
 
                     /*tripName.setText(trip.getName());

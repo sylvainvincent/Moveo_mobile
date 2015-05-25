@@ -10,9 +10,11 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -148,13 +150,22 @@ public class HomeActivity extends Activity {
                 listMenuItems);
         listSliderMenu.setAdapter(menuAdapter);
 
+       // drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+
         // enabling action bar app icon and behaving it as toggle button
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        try{
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }catch (Exception e){
+
+        }
         getActionBar().setHomeButtonEnabled(true);
         userDAO = new UserDAO(HomeActivity.this);
         userDAO.open();
+        Toolbar t = new Toolbar(getApplication());
+        t.setNavigationIcon(R.drawable.ic_drawer);
         mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                null, //nav menu toggle icon
+                t, //nav menu toggle icon
                 R.string.app_name, // nav drawer open - description for accessibility
                 R.string.app_name // nav drawer close - description for accessibility
         ) {
@@ -170,6 +181,7 @@ public class HomeActivity extends Activity {
                 invalidateOptionsMenu();
             }
         };
+
         drawerLayout.setDrawerListener(mDrawerToggle);
 
         if (savedInstanceState == null) {
@@ -183,7 +195,7 @@ public class HomeActivity extends Activity {
     }
 
     /**
-     * Slide menu item click listener
+     * Class appelé pour faire des actions selon l'item sélectionné
      * */
     private class SlideMenuClickListener implements
             ListView.OnItemClickListener {
@@ -230,19 +242,17 @@ public class HomeActivity extends Activity {
             case 1:
                 fragment = new MyTripListFragment();
                 fragment2 = new AddTripFragment();
-                ft.add(R.id.frame_container, fragment2);
-                ft.add(R.id.frame_container, fragment);
+               // ft.add(R.id.frame_container, fragment2);
+                ft.replace(R.id.frame_container, fragment);
                 break;
             case 2:
                 fragment = new ExploreFragment();
                 break;
             case 3:
                 fragment = new FriendCategoryFragment();
-                bundle = new Bundle();
-                this.bundle.putString("requestCounter",friendRequestCounter);
-                this.bundle.putString("friendCounter",friendCounter);
-                fragment.setArguments(this.bundle);
-                ft.add(R.id.frame_container, fragment,"a");
+
+
+                ft.replace(R.id.frame_container, fragment);
                 break;
             case 4:
                 fragment = new ExploreFragment();
@@ -270,7 +280,7 @@ public class HomeActivity extends Activity {
          //   ft.remove(fragment);
          //   ft.add(R.id.frame_container, fragment);
             ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
-            ft.addToBackStack(null);
+           // ft.addToBackStack(null);
             ft.commit();
 
             // update selected item and title, then close the drawer

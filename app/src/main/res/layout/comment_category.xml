@@ -19,7 +19,6 @@
         android:name="fr.moveoteam.moveomobile.fragment.AddCommentFragment"
         tools:layout="@layout/fragment_add_comment"
         android:layout_gravity="bottom"
-
         android:id="@+id/comment_input">
     </fragment>
 

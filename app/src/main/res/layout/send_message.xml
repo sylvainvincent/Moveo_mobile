@@ -11,14 +11,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView android:text="@string/label_send_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/send_message_username"/>
+
     </LinearLayout>
 
     <EditText
@@ -28,6 +31,7 @@
         android:layout_marginTop="30dp"
         android:hint="@string/hint_message_editView"
         android:gravity="top" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -51,4 +55,5 @@
         android:textSize="13sp"
         android:id="@+id/cancelAddPlace"
         android:layout_gravity="center_horizontal" />
+
 </LinearLayout>

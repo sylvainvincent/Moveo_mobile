@@ -1,7 +1,9 @@
 <resources>
 
     <!-- Base Application Theme -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"></style>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:colorPrimary">#2196F3</item>
+    </style>
 
     <!-- Theme with no ActionBar -->
     <style name="AppThemeWithNoTitleBar" parent="android:Theme.Light.NoTitleBar"></style>

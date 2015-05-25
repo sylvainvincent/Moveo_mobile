@@ -158,7 +158,25 @@ public class DashboardActivity extends Activity {
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                if (json.getString("error").equals("0")) {
+
+                if(json == null){
+                    Log.e("test json","null");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
+                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            System.exit(0);
+                        }
+                    });
+                    builder.setMessage("Connexion perdu");
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            System.exit(0);
+                        }
+                    });
+                    builder.show();
+                } else if (json.getString("error").equals("0")) {
                     DataBaseHandler db = new DataBaseHandler(DashboardActivity.this);
                     db.resetTables();
                     // Création de l'objet User

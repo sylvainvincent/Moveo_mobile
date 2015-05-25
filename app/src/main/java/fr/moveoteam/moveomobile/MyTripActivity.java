@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -27,19 +28,6 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
  * Created by Sylvain on 17/05/15.
  */
 public class MyTripActivity extends Activity {
-    private TextView mytriptitle;
-    private ImageView deleteappicon;
-    private TextView deleteapp;
-    private TextView addtripdate;
-    private ImageView coverprofile;
-    private TextView tripdescription;
-    private ImageView mytripcategory1;
-    private ImageView mytripcategory2;
-    private ImageView mytripcategory3;
-    private ImageView mytripcategory4;
-    private ListView lastcommentslist;
-    private TextView mytripcitytitle;
-    private RelativeLayout mytrip;
 
     TripDAO tripDAO;
     int id;
@@ -48,32 +36,46 @@ public class MyTripActivity extends Activity {
 
     ArrayList<Place> placeArrayList;
     ArrayList<Comment> commentArrayList;
+    private TextView modifycover;
+    private ImageView pictures;
+    private TextView mytripcitytitle;
+    private TextView mytriptitle;
+    private ScrollView mytrip;
+    private ListView listView;
+    private TextView tripdescription;
+    private TextView addtripdate;
+    private TextView modifydescription;
+    private ImageView deleteapp;
+    private TextView deletetrip;
+    private ImageView shopping;
+    private ImageView hobbies;
+    private ImageView fooding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_trip);
-        initialize();
+
         id = getIntent().getExtras().getInt("id",0);
         Log.e("id trip",""+id);
         new ExecuteThread().execute();
+        initialize();
     }
 
     private void initialize() {
-        /*
-        mytriptitle = (TextView) findViewById(R.id.my_trip_title);
-        deleteapp = (TextView) findViewById(R.id.delete_app);
-        mytripcitytitle = (TextView) findViewById(R.id.my_trip_country_title);
-        addtripdate = (TextView) findViewById(R.id.add_trip_date);
-        coverprofile = (ImageView) findViewById(R.id.cover_profile);
+
+        modifycover = (TextView) findViewById(R.id.modify_cover);
+        pictures = (ImageView) findViewById(R.id.pictures);
+        mytripcitytitle = (TextView) findViewById(R.id.my_trip_city_title);
+        mytrip = (ScrollView) findViewById(R.id.my_trip);
+        listView = (ListView) findViewById(R.id.listView);
         tripdescription = (TextView) findViewById(R.id.trip_description);
-        mytripcategory1 = (ImageView) findViewById(R.id.my_trip_category1);
-        mytripcategory2 = (ImageView) findViewById(R.id.my_trip_category2);
-        mytripcategory3 = (ImageView) findViewById(R.id.my_trip_category3);
-        mytripcategory4 = (ImageView) findViewById(R.id.my_trip_category4);
-        lastcommentslist = (ListView) findViewById(R.id.last_comments_list);
-        mytrip = (RelativeLayout) findViewById(R.id.my_trip);
-        */
+        addtripdate = (TextView) findViewById(R.id.add_trip_date);
+        mytriptitle = (TextView) findViewById(R.id.my_trip_title);
+        modifydescription = (TextView) findViewById(R.id.modify_description);
+        deleteapp = (ImageView) findViewById(R.id.delete_app);
+        deletetrip = (TextView) findViewById(R.id.delete_trip);
+
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
@@ -145,7 +147,7 @@ public class MyTripActivity extends Activity {
                         }
                     }
                     mytrip.setAlpha(1);
-
+                    //pictures.setImageBitmap(tripDAO.getTripList().);
 
 
                     /*tripName.setText(trip.getName());

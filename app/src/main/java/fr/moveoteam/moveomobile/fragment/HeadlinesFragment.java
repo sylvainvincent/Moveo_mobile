@@ -1,4 +1,4 @@
-package fr.moveoteam.moveomobile;
+package fr.moveoteam.moveomobile.fragment;
 
 import android.app.Activity;
 import android.app.ListFragment;
