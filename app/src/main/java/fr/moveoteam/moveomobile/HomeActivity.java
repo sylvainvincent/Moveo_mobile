@@ -50,6 +50,7 @@ public class HomeActivity extends Activity {
 
     Fragment fragment = null;
     Fragment fragment2 = null;
+    FriendCategoryFragment friendCategoryFragment;
 
     // Titre dans l'action bar
     private CharSequence mDrawerTitle;
@@ -154,23 +155,27 @@ public class HomeActivity extends Activity {
 
         // enabling action bar app icon and behaving it as toggle button
 
-        try{
+        /*try{
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }catch (Exception e){
 
-        }
-        getActionBar().setHomeButtonEnabled(true);
+        }*/
+        //getActionBar().setIcon(R.drawable.ic_drawer);
+        getActionBar().setHomeButtonEnabled(true); // Activer l'icône d'ouverture du menu
+        getActionBar().setIcon(R.drawable.ic_drawer);
         userDAO = new UserDAO(HomeActivity.this);
         userDAO.open();
         Toolbar t = new Toolbar(getApplication());
-        t.setNavigationIcon(R.drawable.ic_drawer);
+        //t.setNavigationIcon(R.drawable.ic_drawer);
+
+
         mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
                 t, //nav menu toggle icon
                 R.string.app_name, // nav drawer open - description for accessibility
                 R.string.app_name // nav drawer close - description for accessibility
         ) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mDrawerTitle+" ["+mTitle+"]");
+                getActionBar().setTitle(mTitle);
                 // calling onPrepareOptionsMenu() to show action bar icons
                 invalidateOptionsMenu();
             }
@@ -181,16 +186,16 @@ public class HomeActivity extends Activity {
                 invalidateOptionsMenu();
             }
         };
+        mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_drawer);
 
         drawerLayout.setDrawerListener(mDrawerToggle);
-
+        drawerLayout.setStatusBarBackgroundColor(500);
         if (savedInstanceState == null) {
-            // on first time display view for first nav item
-            // displayView(0);
+            // La premiere page par défaut lors du lancement de l'application est "Explorer"
+            displayView(0);
         }
 
-        // La page par defaut est "Explorer"
-        displayView(0);
+        friendCategoryFragment = new FriendCategoryFragment();
 
     }
 
@@ -237,7 +242,7 @@ public class HomeActivity extends Activity {
         switch (position) {
             case 0:
                 fragment = new ExploreFragment();
-                ft.add(R.id.frame_container, fragment);
+                ft.replace(R.id.frame_container, fragment);
                 break;
             case 1:
                 fragment = new MyTripListFragment();
@@ -250,9 +255,7 @@ public class HomeActivity extends Activity {
                 break;
             case 3:
                 fragment = new FriendCategoryFragment();
-
-
-                ft.replace(R.id.frame_container, fragment);
+                ft.replace(R.id.frame_container, friendCategoryFragment);
                 break;
             case 4:
                 fragment = new ExploreFragment();
@@ -280,7 +283,7 @@ public class HomeActivity extends Activity {
          //   ft.remove(fragment);
          //   ft.add(R.id.frame_container, fragment);
             ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
-           // ft.addToBackStack(null);
+            ft.addToBackStack(null);
             ft.commit();
 
             // update selected item and title, then close the drawer
@@ -295,13 +298,13 @@ public class HomeActivity extends Activity {
     }
 
     /***
-     * Called when invalidateOptionsMenu() is triggered
+     * Appelé lorsque invalidateOptionsMenu() est déclenché
      */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // if nav drawer is opened, hide the action items
-        //boolean drawerOpen = drawerLayout.isDrawerOpen(listSliderMenu);
-        //menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        // Si le menu est ouvert, cacher certains items de la barre
+        // boolean drawerOpen = drawerLayout.isDrawerOpen(listSliderMenu);
+        // menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -312,8 +315,8 @@ public class HomeActivity extends Activity {
     }
 
     /**
-     * When using the ActionBarDrawerToggle, you must call it during
-     * onPostCreate() and onConfigurationChanged()...
+     * Pendant l'utilisation de l'ActionBarDrawerToggle, ce procedure est appellé lors du
+     * onPostCreate() et du onConfigurationChanged()...
      */
 
     @Override
@@ -351,7 +354,7 @@ public class HomeActivity extends Activity {
         alertDialog.show();
     }
 
-    // Procedure qui permet d'affecter les elements de l'interface graphique aux objets de la classe
+    // Procedure qui permet d'affecter les éléments de l'interface graphique aux objets de la classe
     public void initialization() {
         exploreTitle = (TextView) findViewById(R.id.explore_title);
         listView = (ListView) findViewById(R.id.listViewExploreTrip);

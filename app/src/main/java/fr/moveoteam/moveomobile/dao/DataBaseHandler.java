@@ -70,14 +70,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         // Friend
         public static final String KEY_FRIEND_ID = "friend_id";
-        public static final String KEY_FRIEND_LASTNAME = "friend_lastname";
         public static final String KEY_FRIEND_FIRSTNAME = "friend_firstname";
+        public static final String KEY_FRIEND_LASTNAME = "friend_lastname";
         public static final String KEY_FRIEND_BIRTHDAY = "friend_birthday";
         public static final String KEY_FRIEND_AVATAR = "friend_avatar";
-        public static final String KEY_FRIEND_IS_ACCEPTED = "friend_is_accepted";
         public static final String KEY_FRIEND_COUNTRY = "friend_country";
         public static final String KEY_FRIEND_CITY = "friend_city";
-
+        public static final String KEY_FRIEND_IS_ACCEPTED = "friend_is_accepted";
 
         // Dialog
         public static final String KEY_DIALOG_RECIPIENT_ID = "dialog_recipient_id";
@@ -123,15 +122,16 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
         // Friend
         public static final int POSITION_FRIEND_ID = 0;
-        public static final int POSITION_FRIEND_LASTNAME = 1;
-        public static final int POSITION_FRIEND_FIRSTNAME = 2;
-        public static final int POSITION_FRIEND_BIRTHDAY = 3 ;
+        public static final int POSITION_FRIEND_FIRSTNAME = 1;
+        public static final int POSITION_FRIEND_LASTNAME = 2;
+        public static final int POSITION_FRIEND_BIRTHDAY = 3;
         public static final int POSITION_FRIEND_AVATAR = 4;
-        public static final int POSITION_FRIEND_IS_ACCEPTED = 5;
-        public static final int POSITION_FRIEND_COUNTRY= 6;
-        public static final int POSITION_FRIEND_CITY = 7;
+        public static final int POSITION_FRIEND_COUNTRY = 5;
+        public static final int POSITION_FRIEND_CITY = 6;
+        public static final int POSITION_FRIEND_IS_ACCEPTED = 7;
 
-        // Dialog
+
+    // Dialog
         public static final int POSITION_DIALOG_RECIPIENT_ID = 0;
         public static final int POSITION_DIALOG_RECIPIENT_LASTNAME = 1;
         public static final int POSITION_DIALOG_RECIPIENT_FIRSTNAME = 2;
@@ -169,8 +169,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_PLACE_ID + " INTEGER PRIMARY KEY,"
                 + KEY_PLACE_NAME + " TEXT,"
                 + KEY_PLACE_ADDRESS + " TEXT,"
-                + KEY_PLACE_DESCRIPTION + " TEXT"
-                + KEY_PLACE_CATEGORY + " INTEGER"
+                + KEY_PLACE_DESCRIPTION + " TEXT,"
+                + KEY_PLACE_CATEGORY + " INTEGER,"
                 + KEY_PLACE_TRIP_ID + " INTEGER" + ")";
 
         // Comment
@@ -191,13 +191,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         // FRIEND
         private static final String CREATE_FRIEND_TABLE = "CREATE TABLE "+ TABLE_FRIEND + "("
                 + KEY_FRIEND_ID + " INTEGER PRIMARY KEY,"
-                + KEY_FRIEND_LASTNAME + " TEXT,"
                 + KEY_FRIEND_FIRSTNAME + " TEXT,"
+                + KEY_FRIEND_LASTNAME + " TEXT,"
                 + KEY_FRIEND_BIRTHDAY + " TEXT,"
                 + KEY_FRIEND_AVATAR + " TEXT,"
-                + KEY_FRIEND_IS_ACCEPTED + " INTEGER,"
                 + KEY_FRIEND_COUNTRY + " TEXT,"
-                + KEY_FRIEND_CITY + " TEXT" + ")";
+                + KEY_FRIEND_CITY + " TEXT,"
+                + KEY_FRIEND_IS_ACCEPTED + " INTEGER" + ")";
         // Dialog
         private static final String CREATE_DIALOG_TABLE = "CREATE TABLE "+ TABLE_DIALOG + "("
                 + KEY_DIALOG_RECIPIENT_ID + " INTEGER PRIMARY KEY,"

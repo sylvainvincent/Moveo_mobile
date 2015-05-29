@@ -2,14 +2,21 @@
 
     <!-- Base Application Theme -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:colorPrimary">#2196F3</item>
     </style>
 
     <!-- Theme with no ActionBar -->
-    <style name="AppThemeWithNoTitleBar" parent="android:Theme.Light.NoTitleBar"></style>
+    <style name="AppThemeWithNoTitleBar" parent="android:Theme.Light.NoTitleBar"/>
 
     <style name="MainTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
         <item name="android:icon">@drawable/ic_action_logo</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+
     </style>
+
+    <style name="MyActionBar"
+        parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">#3cb2cc</item>
+    </style>
+
 
 </resources>

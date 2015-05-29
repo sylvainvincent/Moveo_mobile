@@ -46,7 +46,7 @@ public class JSONParser {
     public JSONObject getJSONFromUrl(String url, List<NameValuePair> postParameters) {
         // Making HTTP request
         try {
-            int timeout = 30000; // 30 secondes
+            int timeout = 20000; // 20 secondes
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
             // Pour créer une requête POST nous allons créer un objet HttpPost avec comme paramètre l'URL du web service

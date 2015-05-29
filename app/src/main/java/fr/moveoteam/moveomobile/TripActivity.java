@@ -156,7 +156,9 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                if (json.getString("error").equals("0")) {
+                if(json == null){
+                    finish();
+                }else if (json.getString("error").equals("0")) {
 
                     trip = new Trip();
                     trip.setId(Integer.parseInt(json.getJSONObject("trip").getString("trip_id")));
@@ -234,6 +236,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
 
                     homeCategoryFragment = new HomeCategoryFragment();
                     bundle = new Bundle();
+                    bundle.putInt("userId",trip.getUserId());
                     bundle.putString("name",trip.getName());
                     bundle.putString("description",trip.getDescription());
                     bundle.putString("date",trip.getDate());

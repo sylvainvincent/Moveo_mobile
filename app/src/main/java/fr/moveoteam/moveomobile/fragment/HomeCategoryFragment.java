@@ -2,6 +2,7 @@ package fr.moveoteam.moveomobile.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.UserProfile;
 import fr.moveoteam.moveomobile.model.Trip;
 
 /**
@@ -66,6 +68,14 @@ public class HomeCategoryFragment extends Fragment {
         tripDate.setText(tripDate.getText()+" "+getArguments().getString("date"));
         tripCountry.setText(getArguments().getString("country"));
         tripHome.setVisibility(View.VISIBLE);
+        tripAuthor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),UserProfile.class);
+                intent.putExtra("id",getArguments().getInt("userId"));
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -83,6 +93,11 @@ public class HomeCategoryFragment extends Fragment {
         tripHome.setVisibility(View.VISIBLE);
     }
 
+    public void link(View v){
+        Intent intent = new Intent(getActivity(),UserProfile.class);
+        intent.putExtra("id",getArguments().getInt("userId"));
+        startActivity(intent);
+    }
 
 
 }

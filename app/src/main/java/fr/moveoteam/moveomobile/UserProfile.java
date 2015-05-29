@@ -69,12 +69,33 @@ public class UserProfile extends Activity {
         FriendDAO friendDAO = new FriendDAO(UserProfile.this);
         friendDAO.open();
 
+
+
         friend = friendDAO.getFriend(id);
         Log.i("info friend",""+id);
-        if(!friend.getAvatarBase64().equals("0"))
+        if(!friend.getAvatarBase64().equals(""))
             useravatar.setImageBitmap(Function.decodeBase64(friend.getAvatarBase64()));
-        usernameprofile.setText(friend.getFirstName()+" "+friend.getLastName());
-        livein.setText(livein.getText()+" "+friend.getCity()+" en "+friend.getCountry());
+
+        usernameprofile.setText(friend.getFirstName()+" "+friend.getLastName().toUpperCase());
+
+        // Affichage du lieu de l'utilisateur
+        if(friend.getCity() != null && friend.getCountry() != null)
+            livein.setText(livein.getText()+" en "+friend.getCountry());
+        else if (friend.getCountry() == null)
+            livein.setText(livein.getText()+" "+friend.getCity());
+        else
+            livein.setText("lieu non renseigné");
+
+
+        sendmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserProfile.this,SendMessage.class);
+                intent.putExtra("id",id);
+                intent.putExtra("name",friend.getFirstName()+" "+friend.getLastName());
+                startActivity(intent);
+            }
+        });
 
         addfriend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +103,7 @@ public class UserProfile extends Activity {
 
             }
         });
+
 
 
 

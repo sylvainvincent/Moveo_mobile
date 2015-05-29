@@ -20,6 +20,7 @@ public class FriendRequestFragment extends ListFragment {
         FriendDAO friendDAO = new FriendDAO(getActivity());
         friendDAO.open();
         ArrayList<Friend> friendArrayList = friendDAO.getFriendRequestList();
+        friendDAO.close();
         if(friendArrayList != null)
             setListAdapter(new FriendsListAdapter(getActivity(), friendArrayList));
         else setListAdapter(null);

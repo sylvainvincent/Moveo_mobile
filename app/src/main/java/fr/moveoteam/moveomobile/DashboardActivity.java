@@ -6,12 +6,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Matrix;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -48,12 +50,12 @@ public class DashboardActivity extends Activity {
     AlertDialog.Builder alertDialog;
 
     String password;
-
+    ImageView logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
-
+        logo = (ImageView) findViewById(R.id.loading_logo);
         // Création de la classe UserDAO pour manipuler la table user de ma BDD
         userDAO = new UserDAO(DashboardActivity.this);
         //On ouvre la base de données pour écrire dedans
@@ -144,8 +146,10 @@ public class DashboardActivity extends Activity {
             pDialog.show();
         }
 
+
         @Override
         protected JSONObject doInBackground(String... args) {
+
             JSONUser jsonUser = new JSONUser();
             userDAO = new UserDAO(DashboardActivity.this);
             userDAO.open();
@@ -204,13 +208,13 @@ public class DashboardActivity extends Activity {
                         for (int i = 0; i < friendList.length(); i++) {
                             friendArrayList.add(new Friend(
                                     friendList.getJSONObject(i).getInt("friend_id"),
-                                    friendList.getJSONObject(i).getString("friend_last_name"),
                                     friendList.getJSONObject(i).getString("friend_first_name"),
+                                    friendList.getJSONObject(i).getString("friend_last_name"),
                                     friendList.getJSONObject(i).getString("friend_birthday"),
                                     friendList.getJSONObject(i).getString("friend_avatar"),
                                     friendList.getJSONObject(i).getString("friend_country"),
                                     friendList.getJSONObject(i).getString("friend_city"),
-                                    friendList.getJSONObject(i).getInt("is_accepted") != 0
+                                    ((friendList.getJSONObject(i).getInt("is_accepted")) != 0)
                             ));
                         }
                         Log.i("Json",friendList.getJSONObject(0).getString("friend_avatar"));
@@ -220,7 +224,6 @@ public class DashboardActivity extends Activity {
                         friendDAO.open();
                         friendDAO.addFriendList(friendArrayList);
                     }
-
 
                     if (!json.getString("trip").equals("0")) {
                         JSONArray tripList = json.getJSONArray("trip");

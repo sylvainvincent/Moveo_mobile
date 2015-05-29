@@ -62,14 +62,17 @@ public class FriendsListAdapter extends BaseAdapter {
 
         Log.i("test friend", friendsList.get(position).toString());
 
-        if(friendsList.get(position).getAvatarBase64() != null && !friendsList.get(position).getAvatarBase64().equals("0"))
+        if(!friendsList.get(position).getAvatarBase64().equals(""))
             viewHolderFriend.avatar.setImageBitmap(Function.decodeBase64(friendsList.get(position).getAvatarBase64()));
 
         if(friendsList.get(position).isFriend()){
-            viewHolderFriend.refuse_friend.setVisibility(View.INVISIBLE);
-            viewHolderFriend.accept_friend.setVisibility(View.INVISIBLE);
+            viewHolderFriend.refuse_friend.setVisibility(View.GONE);
+            viewHolderFriend.accept_friend.setVisibility(View.GONE);
+            viewHolderFriend.delete_friend.setVisibility(View.VISIBLE);
         }else{
-            viewHolderFriend.delete_friend.setVisibility(View.INVISIBLE);
+            viewHolderFriend.refuse_friend.setVisibility(View.VISIBLE);
+            viewHolderFriend.accept_friend.setVisibility(View.VISIBLE);
+            viewHolderFriend.delete_friend.setVisibility(View.GONE);
         }
         return convertView;
     }

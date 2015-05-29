@@ -25,11 +25,8 @@ public class PlacesListAdapter extends BaseAdapter {
     LayoutInflater layoutInflater;
     ViewHolderPlace viewHolderPlace;
 
-    public PlacesListAdapter(Context context, ArrayList<Place> placesList) {
+    public PlacesListAdapter(Context context, ArrayList<Place> placeList) {
         this.context = context;
-        ArrayList<Place> placeList = new ArrayList<>(1);
-        placeList.add(new Place(1,"a","b","c",1,2));
-        placeList.add(new Place(2,"d","e","f",1,2));
         this.placesList = placeList;
         Log.e("recuperation",placeList.get(0).getName());
         Log.e("size",placeList.size()+"");

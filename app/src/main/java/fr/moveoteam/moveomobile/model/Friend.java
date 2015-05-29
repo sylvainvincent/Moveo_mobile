@@ -106,10 +106,10 @@ public class Friend {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", birthday='" + birthday + '\'' +
-                ", avatarBase64='" + avatarBase64 + '\'' +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
-                ", isFriend=" + isFriend +
+                ", isFriend=" + isFriend + '\'' +
+                ", avatarBase64='" + avatarBase64 +
                 '}';
     }
 }

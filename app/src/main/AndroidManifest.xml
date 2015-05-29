@@ -49,11 +49,13 @@
         <activity android:name=".UserProfile"
             android:screenOrientation="portrait"/>
         <activity android:name=".SendMessage"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
         <activity android:name=".TripActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".MyTripActivity"
             android:screenOrientation="portrait"/>
+
     </application>
 
     <!-- Permission pour l'accès à internet -->

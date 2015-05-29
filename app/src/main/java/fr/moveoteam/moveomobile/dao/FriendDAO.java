@@ -25,8 +25,8 @@ public class FriendDAO {
 
     // LES COLONNES
     private String[] allColumns = { DataBaseHandler.KEY_FRIEND_ID,
-                                    DataBaseHandler.KEY_FRIEND_LASTNAME,
                                     DataBaseHandler.KEY_FRIEND_FIRSTNAME,
+                                    DataBaseHandler.KEY_FRIEND_LASTNAME,
                                     DataBaseHandler.KEY_FRIEND_BIRTHDAY,
                                     DataBaseHandler.KEY_FRIEND_AVATAR,
                                     DataBaseHandler.KEY_FRIEND_COUNTRY,
@@ -58,13 +58,13 @@ public class FriendDAO {
         for(Friend friend : friendList) {
             values = new ContentValues();
             values.put(DataBaseHandler.KEY_FRIEND_ID, friend.getId());
-            values.put(DataBaseHandler.KEY_FRIEND_LASTNAME, friend.getLastName());     // NOM
             values.put(DataBaseHandler.KEY_FRIEND_FIRSTNAME, friend.getFirstName());   // PRÉNOM
+            values.put(DataBaseHandler.KEY_FRIEND_LASTNAME, friend.getLastName());     // NOM
             values.put(DataBaseHandler.KEY_FRIEND_BIRTHDAY, friend.getBirthday());     // DATE D'ANNIVERSAIRE
             values.put(DataBaseHandler.KEY_FRIEND_AVATAR, friend.getAvatarBase64());   // AVATAR
             values.put(DataBaseHandler.KEY_FRIEND_COUNTRY, friend.getCountry());       // PAYS
             values.put(DataBaseHandler.KEY_FRIEND_CITY, friend.getCity());             // VILLE
-            values.put(DataBaseHandler.KEY_FRIEND_IS_ACCEPTED, friend.isFriend());     // AMI ?
+            values.put(DataBaseHandler.KEY_FRIEND_IS_ACCEPTED, ((friend.isFriend()) ? 1 : 0));     // AMI ?
             // Insérer la ligne
             database.insert(TABLE_FRIEND, null, values);
         }
@@ -145,13 +145,14 @@ public class FriendDAO {
     protected Friend cursorToFriend(Cursor cursor){
         Friend friend = new Friend() ;
         friend.setId(cursor.getInt(DataBaseHandler.POSITION_FRIEND_ID));
-        friend.setLastName(cursor.getString(DataBaseHandler.POSITION_FRIEND_LASTNAME));
         friend.setFirstName(cursor.getString(DataBaseHandler.POSITION_FRIEND_FIRSTNAME));
+        friend.setLastName(cursor.getString(DataBaseHandler.POSITION_FRIEND_LASTNAME));
         friend.setBirthday(cursor.getString(DataBaseHandler.POSITION_FRIEND_BIRTHDAY));
         friend.setAvatarBase64(cursor.getString(DataBaseHandler.POSITION_FRIEND_AVATAR));
         friend.setCountry(cursor.getString(DataBaseHandler.POSITION_FRIEND_COUNTRY));
         friend.setCity(cursor.getString(DataBaseHandler.POSITION_FRIEND_CITY));
-        friend.setFriend((cursor.getInt(DataBaseHandler.POSITION_FRIEND_IS_ACCEPTED)) != 0);
+        Log.e("FriendDAO",""+cursor.getInt(DataBaseHandler.POSITION_FRIEND_IS_ACCEPTED));
+        friend.setFriend(cursor.getInt(DataBaseHandler.POSITION_FRIEND_IS_ACCEPTED) != 0);
 
         return friend;
     }

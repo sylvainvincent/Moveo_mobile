@@ -73,12 +73,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="invisible"
         android:id="@+id/trip_content"
         android:orientation="vertical">
 
-    </LinearLayout>
 
+    </LinearLayout>
 </LinearLayout>
