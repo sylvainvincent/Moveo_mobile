@@ -9,6 +9,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -111,6 +112,18 @@ public class Function {
         java.util.Date date = new java.util.Date();
 
         return formater.format(date);
+    }
+
+    public static String dateDifference (Date date){
+
+        /** Date du jour */
+        Date today = new Date( );
+
+        // Calcul de différence
+        long diff = today.getTime( ) - date.getTime( );
+
+        return "Différence en nombre de jour entre "+date+ " et " + today +
+                " nest " + (diff / (1000*60*60*24)) + " jours.";
     }
 
 }

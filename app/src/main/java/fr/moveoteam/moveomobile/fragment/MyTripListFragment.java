@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import fr.moveoteam.moveomobile.MyTripActivity;
+import fr.moveoteam.moveomobile.activity.MyTripActivity;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.adapter.TripListAdapter;
 import fr.moveoteam.moveomobile.model.Trip;

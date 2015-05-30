@@ -1,4 +1,4 @@
-package fr.moveoteam.moveomobile;
+package fr.moveoteam.moveomobile.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -21,14 +21,12 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import fr.moveoteam.moveomobile.adapter.TripListAdapter;
+import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
-import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
-import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
  * Created by Amélie on 27/04/2015.

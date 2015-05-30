@@ -133,15 +133,31 @@
                     android:textColor="#666"
                     android:textAllCaps="true" />
 
-                <EditText
+                <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/input_background"
-                    android:textColor="@color/input_color"
-                    android:padding="10dp"
-                    android:textSize="@dimen/input_text_size"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/edit_birthdate" />
+                    android:layout_marginTop="5dp">
+                    <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/input_background"
+                        android:textColor="@color/input_color"
+                        android:padding="10dp"
+                        android:layout_weight="4"
+                        android:textSize="@dimen/input_text_size"
+                        android:id="@+id/edit_birthday"
+                        android:layout_gravity="center_vertical"
+                        android:enabled="false"
+                        android:inputType="date" />
+                    <ImageButton
+                        android:id="@+id/birthday_button"
+                        android:layout_width="0dp"
+                        android:layout_height="43dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:src="@android:drawable/ic_menu_my_calendar"/>
+                </LinearLayout>
+
 
                 <!-- CURRENT CITY -->
                 <TextView

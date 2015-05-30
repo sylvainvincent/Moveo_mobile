@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/modify_comment"
-        android:id="@+id/textView3" />
+        android:id="@+id/modify_text" />
 
 
 </LinearLayout>

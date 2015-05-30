@@ -2,11 +2,15 @@ package fr.moveoteam.moveomobile.fragment;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import fr.moveoteam.moveomobile.activity.PlaceActivity;
 import fr.moveoteam.moveomobile.adapter.PlacesListAdapter;
 import fr.moveoteam.moveomobile.model.Place;
 
@@ -38,6 +42,20 @@ public class PlaceListFragment extends ListFragment {
         }else {
             setListAdapter(null);
         }
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+
+        super.onListItemClick(l, v, position, id);
+        Place place = placeArrayList.get(position);
+        Log.e("Recuperation", ""+place.getId());
+        Intent intent = new Intent(getActivity(), PlaceActivity.class);
+        intent.putExtra("placeName",place.getName());
+        intent.putExtra("placeAddress",place.getAddress());
+        intent.putExtra("placeDescription",place.getDescription());
+        startActivity(intent);
+
     }
 
 }

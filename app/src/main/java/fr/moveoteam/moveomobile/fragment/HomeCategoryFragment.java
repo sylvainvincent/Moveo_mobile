@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import fr.moveoteam.moveomobile.R;
-import fr.moveoteam.moveomobile.UserProfile;
+import fr.moveoteam.moveomobile.activity.UserProfile;
 import fr.moveoteam.moveomobile.model.Trip;
 
 /**

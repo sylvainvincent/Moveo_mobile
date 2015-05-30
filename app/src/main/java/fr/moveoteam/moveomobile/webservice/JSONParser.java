@@ -68,6 +68,8 @@ public class JSONParser {
             return jObj;
         } catch (IOException e) {
             e.printStackTrace();
+            jObj = null; // forcer le null
+            return jObj;
         }
         try { // Nous lisons le résultat qui nous a été envoyé
             BufferedReader reader = new BufferedReader(new InputStreamReader(

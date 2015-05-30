@@ -1,4 +1,4 @@
-package fr.moveoteam.moveomobile;
+package fr.moveoteam.moveomobile.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -20,9 +20,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-import fr.moveoteam.moveomobile.fragment.CommentCategoryFragment;
+import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.fragment.CommentListFragment;
 import fr.moveoteam.moveomobile.fragment.HomeCategoryFragment;
 import fr.moveoteam.moveomobile.fragment.PlaceListFragment;
@@ -200,7 +204,22 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
                                     commentList.getJSONObject(i).getString("user_link_avatar")
                             ));
                             Log.e("comment", commentArrayList.get(i).toString());
+                            /*
+                            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            try {
+
+                                Date date = dateFormat.parse(commentList.getJSONObject(i).getString("trip_created_at"));
+                                Log.e("Test de date",""+Function.dateDifference(date));
+                                Log.e("Test de date 2", dateFormat.format(date));
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            */
                         }
+
+
+
                     }
 
                     homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category_blue));

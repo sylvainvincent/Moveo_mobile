@@ -9,12 +9,10 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import fr.moveoteam.moveomobile.TripActivity;
-import fr.moveoteam.moveomobile.UserProfile;
+import fr.moveoteam.moveomobile.activity.UserProfile;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.adapter.FriendsListAdapter;
-import fr.moveoteam.moveomobile.model.Trip;
 
 /**
  * Created by Amélie on 10/05/2015.

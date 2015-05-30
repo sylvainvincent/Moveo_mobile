@@ -19,4 +19,6 @@ public class CommentCategoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.comment_category,container,false);
     }
+
+
 }

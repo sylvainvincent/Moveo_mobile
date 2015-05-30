@@ -1,4 +1,4 @@
-package fr.moveoteam.moveomobile;
+package fr.moveoteam.moveomobile.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 
+import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.DialogDAO;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
@@ -189,7 +190,6 @@ public class HomeActivity extends Activity {
         mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_drawer);
 
         drawerLayout.setDrawerListener(mDrawerToggle);
-        drawerLayout.setStatusBarBackgroundColor(500);
         if (savedInstanceState == null) {
             // La premiere page par défaut lors du lancement de l'application est "Explorer"
             displayView(0);
@@ -252,6 +252,8 @@ public class HomeActivity extends Activity {
                 break;
             case 2:
                 fragment = new ExploreFragment();
+                Intent intent = new Intent(this,AccountSettingsActivity.class);
+                startActivity(intent);
                 break;
             case 3:
                 fragment = new FriendCategoryFragment();
@@ -269,7 +271,7 @@ public class HomeActivity extends Activity {
             case 7:
                 userDAO = new UserDAO(HomeActivity.this);
                 userDAO.logoutUser(HomeActivity.this);
-                Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
+                intent = new Intent(HomeActivity.this,LoginActivity.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -308,10 +310,11 @@ public class HomeActivity extends Activity {
         return super.onPrepareOptionsMenu(menu);
     }
 
+    @Nullable
     @Override // Change le titre de l'actionBar
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getActionBar().setTitle(mTitle);
+            getActionBar().setTitle(mTitle);
     }
 
     /**

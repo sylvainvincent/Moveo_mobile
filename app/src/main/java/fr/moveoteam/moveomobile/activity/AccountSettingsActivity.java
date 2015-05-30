@@ -1,16 +1,25 @@
-package fr.moveoteam.moveomobile;
+package fr.moveoteam.moveomobile.activity;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
 
+import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.fragment.BirthdayFragment;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
@@ -26,7 +35,10 @@ public class AccountSettingsActivity extends Activity {
     EditText modifyBirthDate;
     EditText modifyCity;
     EditText modifyBirthPlace;
+    TextView dateEdit;
+    ImageButton birthdayButton;
     Toast toast;
+    int a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +46,39 @@ public class AccountSettingsActivity extends Activity {
         setContentView(R.layout.my_account);
 
         this.initialization();
+        this.eventButton();
+
+        birthdayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               final BirthdayFragment birthdayFragment = new BirthdayFragment(AccountSettingsActivity.this,1,new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                    }
+
+                },2014,3,1);
+
+                birthdayFragment.setButton(DatePickerDialog.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dateEdit.setText(birthdayFragment.getDatePicker().getDayOfMonth()+"/"
+                                +birthdayFragment.getDatePicker().getMonth()+"/"+
+                                +birthdayFragment.getDatePicker().getYear());
+                    }
+                });
+
+                birthdayFragment.setButton(DatePickerDialog.BUTTON_NEGATIVE,"EFFACER", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dateEdit.setText("");
+                    }
+                });
+                birthdayFragment.show();
+            }
+        });
+
     }
 
     // Procédure qui permet d'affecter les elements de l'interface graphique aux objets de la classe
@@ -42,9 +87,10 @@ public class AccountSettingsActivity extends Activity {
         modifyName = (EditText) findViewById(R.id.edit_name);
         modifyFirstname = (EditText) findViewById(R.id.edit_firstname);
         modifyEmail = (EditText) findViewById(R.id.edit_email);
-        modifyBirthDate = (EditText) findViewById(R.id.edit_birthdate);
         modifyCity = (EditText) findViewById(R.id.edit_city);
         modifyBirthPlace = (EditText) findViewById(R.id.edit_birthplace);
+        dateEdit = (TextView) findViewById(R.id.edit_birthday);
+        birthdayButton = (ImageButton) findViewById(R.id.birthday_button);
     }
 
     // Procédure qui permet déclencher un évènement lorsque l'on clique sur un bouton
@@ -82,6 +128,8 @@ public class AccountSettingsActivity extends Activity {
         );
     }
 
+
+
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
 
         @Override
@@ -89,12 +137,13 @@ public class AccountSettingsActivity extends Activity {
             String name = modifyName.getText().toString();
             String firstname = modifyFirstname.getText().toString();
             String email = modifyEmail.getText().toString();
-            String birthdate = modifyBirthDate.getText().toString();
+            String date = dateEdit.toString();
+            Log.e("dateEdit", date);
             String city = modifyCity.getText().toString();
             String birthplace = modifyBirthPlace.getText().toString();
 
             JSONUser jsonUser = new JSONUser();
-            return jsonUser.modifyUser(name, firstname, email, birthdate, city, birthplace);
+            return jsonUser.modifyUser(name, firstname, email, date, city, birthplace);
         }
     }
 }

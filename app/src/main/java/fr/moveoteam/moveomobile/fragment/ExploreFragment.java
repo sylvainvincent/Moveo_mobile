@@ -1,8 +1,10 @@
 package fr.moveoteam.moveomobile.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,7 +20,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import fr.moveoteam.moveomobile.TripActivity;
+import fr.moveoteam.moveomobile.activity.TripActivity;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.adapter.TripListAdapter;
 import fr.moveoteam.moveomobile.model.Trip;
@@ -110,9 +112,26 @@ public class ExploreFragment extends ListFragment {
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                // Log.e("ExploreFragment",json.getString("message"));
+                if(json == null){
+                    Log.e("test json","null");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            System.exit(0);
+                        }
+                    });
+                    builder.setMessage("Connexion perdu");
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            System.exit(0);
+                        }
+                    });
+                    builder.show();
+                }
                 // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
-                if(json.getString("success").equals("1")) {
+                else if(json.getString("success").equals("1")) {
                     // Recuperation des voyages sous la forme d'un JSONArray
                     JSONArray tripList = json.getJSONArray("trip");
 
