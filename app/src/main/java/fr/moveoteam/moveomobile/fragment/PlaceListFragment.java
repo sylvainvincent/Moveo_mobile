@@ -37,11 +37,8 @@ public class PlaceListFragment extends ListFragment {
         else
             placeArrayList = null;
 
-        if(placeArrayList != null) {
-            setListAdapter(new PlacesListAdapter(getActivity(), placeArrayList));
-        }else {
-            setListAdapter(null);
-        }
+        setListAdapter(new PlacesListAdapter(getActivity(), placeArrayList));
+
     }
 
     @Override

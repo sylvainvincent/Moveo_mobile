@@ -32,6 +32,14 @@ public class TripDAO {
     public static final String KEY_TRIP_CREATED_AT = "trip_created_at";
     public static final String KEY_TRIP_COVER = "trip_cover";
 
+    // LES COLONNES
+    private String[] allColumns = { DataBaseHandler.KEY_TRIP_ID,
+                                    DataBaseHandler.KEY_TRIP_NAME,
+                                    DataBaseHandler.KEY_TRIP_COUNTRY,
+                                    DataBaseHandler.KEY_TRIP_DESCRIPTION,
+                                    DataBaseHandler.KEY_TRIP_CREATED_AT,
+                                    DataBaseHandler.KEY_TRIP_COVER };
+
     public TripDAO(Context context){
         dbHandler = new DataBaseHandler(context);
     }
@@ -103,15 +111,30 @@ public class TripDAO {
         ContentValues values;
         for(Trip trip : tripList) {
             values = new ContentValues();
-            values.put(KEY_TRIP_ID, trip.getId());
-            values.put(KEY_TRIP_NAME, trip.getName());     // NOM
-            values.put(KEY_TRIP_COUNTRY, trip.getCountry());   // PRÉNOM
-            values.put(KEY_TRIP_DESCRIPTION, trip.getDescription());     // DATE DE NAISSANCE
-            values.put(KEY_TRIP_CREATED_AT, String.valueOf(trip.getDate()));
-            values.put(KEY_TRIP_COVER, trip.getCover());
+            values.put(DataBaseHandler.KEY_TRIP_ID, trip.getId());
+            values.put(DataBaseHandler.KEY_TRIP_NAME, trip.getName());     // NOM
+            values.put(DataBaseHandler.KEY_TRIP_COUNTRY, trip.getCountry());   // PRÉNOM
+            values.put(DataBaseHandler.KEY_TRIP_DESCRIPTION, trip.getDescription());     // DATE DE NAISSANCE
+            values.put(DataBaseHandler.KEY_TRIP_CREATED_AT, String.valueOf(trip.getDate()));
+            values.put(DataBaseHandler.KEY_TRIP_COVER, trip.getCover());
             // Insérer la ligne
             database.insert(TABLE_TRIP, null, values);
         }
+    }
+
+    public Trip getTrip(int tripId){
+        Trip trip = null;
+        Cursor cursor = database.query(TABLE_TRIP, allColumns, DataBaseHandler.KEY_TRIP_ID+ " = " + tripId, null, null, null, null);
+        if(cursor.getCount()>0) {
+            trip = cursorToTrip(cursor);
+        }
+        cursor.close();
+        // database.close()
+        if(trip != null) {
+            Log.i("Verification nom ", "" + trip.getName());
+            Log.i("Verification pays ", "" + trip.getCountry());
+        }
+        return trip;
     }
 
     /**

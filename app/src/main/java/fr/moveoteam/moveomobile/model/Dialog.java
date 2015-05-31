@@ -13,6 +13,8 @@ public class Dialog {
     String date;
     boolean inbox;
 
+    private boolean selected;
+
     public Dialog(){}
 
     public Dialog(int recipientId, String recipientLastName, String recipientFirstName, String message, String date, boolean inbox) {
@@ -101,5 +103,13 @@ public class Dialog {
                 ", date='" + date + '\'' +
                 ", inbox=" + inbox +
                 '}';
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 }

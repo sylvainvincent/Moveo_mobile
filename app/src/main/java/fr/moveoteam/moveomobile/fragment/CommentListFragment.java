@@ -25,18 +25,15 @@ public class CommentListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(getArguments().getParcelableArrayList("commentList") != null) {
+        /*if(getArguments().getParcelableArrayList("commentList") != null) {
+
             commentArrayList = getArguments().getParcelableArrayList("commentList");
             Log.e("array", commentArrayList.toString());
         }
-        else commentArrayList = null;
+        else */ commentArrayList = null;
 
+        setListAdapter(new CommentListAdapter(getActivity(), commentArrayList));
 
-        if(commentArrayList != null) {
-            setListAdapter(new CommentListAdapter(getActivity(), commentArrayList));
-        }else {
-            setListAdapter(null);
-        }
 
     }
 

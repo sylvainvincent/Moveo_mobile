@@ -48,4 +48,12 @@ public class JSONTrip {
         return jsonParser.getJSONFromUrl(tripURL,tripRequest);
     }
 
+    public JSONObject getPhotoGallery(String tripId){
+
+        List<NameValuePair> photoRequest = new ArrayList<>();
+        photoRequest.add(new BasicNameValuePair("tag","getPhotoGallery"));
+        photoRequest.add(new BasicNameValuePair("trip_id",tripId));
+        return jsonParser.getJSONFromUrl(tripURL,photoRequest);
+    }
+
 }

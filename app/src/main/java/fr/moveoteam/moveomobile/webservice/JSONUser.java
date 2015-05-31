@@ -75,15 +75,16 @@ public class JSONUser {
         return jsonParser.getJSONFromUrl(userURL, lostPasswordForm);
     }
 
-    public JSONObject modifyUser(String name, String firstname, String email, String birthday, String city, String birthplace) {
+    public JSONObject modifyUser(String id, String lastName, String firstName, String avatar, String birthday, String city, String country) {
         List<NameValuePair> modifyUserForm = new ArrayList<>();
         modifyUserForm.add(new BasicNameValuePair("tag", "forgetPassword"));
-        modifyUserForm.add(new BasicNameValuePair("name", name));
-        modifyUserForm.add(new BasicNameValuePair("firstname", firstname));
-        modifyUserForm.add(new BasicNameValuePair("email", email));
+        modifyUserForm.add(new BasicNameValuePair("userId", id));
+        modifyUserForm.add(new BasicNameValuePair("name", lastName));
+        modifyUserForm.add(new BasicNameValuePair("firstName", firstName));
+        modifyUserForm.add(new BasicNameValuePair("avatar", avatar));
         modifyUserForm.add(new BasicNameValuePair("birthday", birthday));
         modifyUserForm.add(new BasicNameValuePair("city", city));
-        modifyUserForm.add(new BasicNameValuePair("birthplace", birthplace));
+        modifyUserForm.add(new BasicNameValuePair("country", country));
 
         return jsonParser.getJSONFromUrl(userURL, modifyUserForm);
     }

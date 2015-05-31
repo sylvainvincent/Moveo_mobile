@@ -44,6 +44,7 @@ public class HomeCategoryFragment extends Fragment {
         tripDate = (TextView) view.findViewById(R.id.trip_date);
         tripDescription = (TextView) view.findViewById(R.id.trip_description);
         tripHome = (LinearLayout) view.findViewById(R.id.trip_home);
+
         return view;
     }
 
@@ -68,6 +69,8 @@ public class HomeCategoryFragment extends Fragment {
         tripDate.setText(tripDate.getText()+" "+getArguments().getString("date"));
         tripCountry.setText(getArguments().getString("country"));
         tripHome.setVisibility(View.VISIBLE);
+
+        tripHome.setClickable(true);
         tripAuthor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -78,6 +78,7 @@ public class ExploreFragment extends ListFragment {
         listener = null;
     }
 
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -109,6 +110,13 @@ public class ExploreFragment extends ListFragment {
         }
 
         @Override
+        protected void onCancelled() {
+            Log.e("Explore","onCancelled");
+            super.onCancelled();
+
+        }
+
+        @Override
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
@@ -134,7 +142,24 @@ public class ExploreFragment extends ListFragment {
                 else if(json.getString("success").equals("1")) {
                     // Recuperation des voyages sous la forme d'un JSONArray
                     JSONArray tripList = json.getJSONArray("trip");
-
+                    if(tripList == null){
+                        Log.e("test jsonarray","null");
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                            @Override
+                            public void onCancel(DialogInterface dialog) {
+                                System.exit(0);
+                            }
+                        });
+                        builder.setMessage("Connexion perdu");
+                        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                System.exit(0);
+                            }
+                        });
+                        builder.show();
+                    }
                     tripArrayList = new ArrayList<>(tripList.length());
 
                     for (int i = 0; i < tripList.length(); i++) {

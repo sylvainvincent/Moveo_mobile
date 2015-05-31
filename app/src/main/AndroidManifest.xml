@@ -59,7 +59,9 @@
         <activity android:name=".activity.AccountSettingsActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
-
+        <activity android:name=".activity.PhotoActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"/>
 
     </application>
 

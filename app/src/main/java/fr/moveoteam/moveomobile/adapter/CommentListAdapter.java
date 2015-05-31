@@ -35,12 +35,12 @@ public class CommentListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return commentArrayList.size();
+        return commentArrayList != null?commentArrayList.size():1;
     }
 
     @Override
     public Object getItem(int position) {
-        return commentArrayList.get(position);
+        return commentArrayList != null?commentArrayList.get(position):null;
     }
 
     @Override
@@ -65,18 +65,28 @@ public class CommentListAdapter extends BaseAdapter {
         } else {
             viewHolderComment = (ViewHolderComment) convertView.getTag();
         }
-        if(commentArrayList.get(position).getUserAvatarBase64() != null)
-            viewHolderComment.avatarComment.setImageBitmap(Function.decodeBase64(commentArrayList.get(position).getUserAvatarBase64()));
-        viewHolderComment.userNameComment.setText(commentArrayList.get(position).getUserFirstName()+" "+commentArrayList.get(position).getUserLastName());
-        viewHolderComment.commentContent.setText(commentArrayList.get(position).getMessage());
-        viewHolderComment.timeComment.setText(viewHolderComment.timeComment.getText()+" "+ commentArrayList.get(position).getDate());
-        Log.e("position comment",position+"");
-        UserDAO userDAO = new UserDAO(context);
-        userDAO.open();
-        if(commentArrayList.get(position).getIdUser() != userDAO.getUserDetails().getId())
-            viewHolderComment.modifyText.setVisibility(View.INVISIBLE);
-        userDAO.close();
 
+        if(commentArrayList == null){
+            viewHolderComment.avatarComment.setVisibility(View.GONE);
+            viewHolderComment.userNameComment.setText("Pas de commentaires");
+            viewHolderComment.commentContent.setVisibility(View.GONE);
+            viewHolderComment.timeComment.setVisibility(View.GONE);
+            viewHolderComment.modifyText.setVisibility(View.GONE);
+
+        }
+        else {
+            if (commentArrayList.get(position).getUserAvatarBase64() != null)
+                viewHolderComment.avatarComment.setImageBitmap(Function.decodeBase64(commentArrayList.get(position).getUserAvatarBase64()));
+            viewHolderComment.userNameComment.setText(commentArrayList.get(position).getUserFirstName() + " " + commentArrayList.get(position).getUserLastName());
+            viewHolderComment.commentContent.setText(commentArrayList.get(position).getMessage());
+            viewHolderComment.timeComment.setText(viewHolderComment.timeComment.getText() + " " + commentArrayList.get(position).getDate());
+            Log.e("position comment", position + "");
+            UserDAO userDAO = new UserDAO(context);
+            userDAO.open();
+            if (commentArrayList.get(position).getIdUser() != userDAO.getUserDetails().getId())
+                viewHolderComment.modifyText.setVisibility(View.INVISIBLE);
+            userDAO.close();
+        }
         return convertView;
     }
 

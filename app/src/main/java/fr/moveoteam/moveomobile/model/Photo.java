@@ -1,11 +1,14 @@
 package fr.moveoteam.moveomobile.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 /**
  * Created by alexMac on 08/04/15.
  */
-public class Photo {
+public class Photo implements Parcelable {
     int id;
     String photoBase64;
     String publicationDate;
@@ -13,12 +16,29 @@ public class Photo {
 
     public Photo() {}
 
+    public Photo(Parcel p){
+        super();
+        readFromParcel(p);
+    }
+
     public Photo(int id, String photoBase64, String publicationDate, int tripId) {
         this.id = id;
         this.photoBase64 = photoBase64;
         this.publicationDate = publicationDate;
         this.tripId = tripId;
     }
+
+    public static final Parcelable.Creator<Photo> CREATOR = new Parcelable.Creator<Photo>() {
+        public Photo createFromParcel(Parcel in) {
+            return new Photo(in);
+        }
+
+        public Photo[] newArray(int size) {
+
+            return new Photo[size];
+        }
+
+    };
 
     @Override
     public boolean equals(Object o) {
@@ -85,5 +105,25 @@ public class Photo {
                 ", publicationDate='" + publicationDate + '\'' +
                 ", tripId=" + tripId +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.photoBase64);
+        dest.writeString(this.publicationDate);
+        dest.writeInt(this.tripId);
+    }
+
+    public void readFromParcel(Parcel in){
+        this.id = in.readInt();
+        this.photoBase64 = in.readString();
+        this.publicationDate = in.readString();
+        this.tripId = in.readInt();
     }
 }

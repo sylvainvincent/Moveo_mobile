@@ -22,6 +22,7 @@ import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.model.Comment;
 import fr.moveoteam.moveomobile.model.Place;
+import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**
@@ -58,6 +59,11 @@ public class MyTripActivity extends Activity {
 
         id = getIntent().getExtras().getInt("id",0);
         Log.e("id trip",""+id);
+
+        tripDAO = new TripDAO(MyTripActivity.this);
+
+        //Trip = tripDAO.getTripList().get(i)
+
         new ExecuteThread().execute();
         initialize();
     }

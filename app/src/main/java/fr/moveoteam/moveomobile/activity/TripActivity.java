@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -27,8 +28,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.fragment.CommentCategoryFragment;
 import fr.moveoteam.moveomobile.fragment.CommentListFragment;
 import fr.moveoteam.moveomobile.fragment.HomeCategoryFragment;
+import fr.moveoteam.moveomobile.fragment.PhotoGalleryFragment;
 import fr.moveoteam.moveomobile.fragment.PlaceListFragment;
 import fr.moveoteam.moveomobile.model.Comment;
 import fr.moveoteam.moveomobile.model.Function;
@@ -62,7 +65,8 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     PlaceListFragment gastronomyPlaceListFragment;
     PlaceListFragment leisurePlaceListFragment;
     PlaceListFragment shoppingPlaceListFragment;
-    CommentListFragment commentCategoryFragment;
+    PhotoGalleryFragment photoGalleryFragment;
+    CommentCategoryFragment commentCategoryFragment;
     String gastronomyPlaceListFragmentTag;
     String leisurePlaceListFragmentTag;
     String shoppingPlaceListFragmentTag;
@@ -79,8 +83,8 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     FragmentManager fragmentManager;
     FragmentTransaction ft;
 
-    private static final String HOME_FRAGMENT_TAG="HOME";
-    private LinearLayout tripcontent;
+    private static final String HOME_FRAGMENT_TAG = "HOME";
+    private FrameLayout tripcontent;
 
 
     @Override
@@ -110,8 +114,9 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         foodingCategory = (ImageView) findViewById(R.id.fooding_category);
         hobbiesCategory = (ImageView) findViewById(R.id.hobbies_category);
         commentsCategory = (ImageView) findViewById(R.id.comments_category);
+        picturesCategory = (ImageView) findViewById(R.id.pictures_category);
         imageCover = (ImageView) findViewById(R.id.image_cover);
-        tripcontent = (LinearLayout) findViewById(R.id.trip_content);
+        tripcontent = (FrameLayout) findViewById(R.id.trip_content);
 
     }
 
@@ -248,15 +253,19 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
                     shoppingPlaceListFragment.setArguments(bundle);
                     shoppingPlaceListFragmentTag = shoppingPlaceListFragment.getTag();
 
-                    commentCategoryFragment = new CommentListFragment();
+                    photoGalleryFragment = new PhotoGalleryFragment();
+                    bundle.putInt("tripId",id);
+                    photoGalleryFragment.setArguments(bundle);
+
+                    commentCategoryFragment = new CommentCategoryFragment();
                     bundle = new Bundle();
                     bundle.putParcelableArrayList("commentList",commentArrayList);
                     commentCategoryFragment.setArguments(bundle);
 
                     homeCategoryFragment = new HomeCategoryFragment();
                     bundle = new Bundle();
-                    bundle.putInt("userId",trip.getUserId());
-                    bundle.putString("name",trip.getName());
+                    bundle.putInt("userId", trip.getUserId());
+                    bundle.putString("name", trip.getName());
                     bundle.putString("description",trip.getDescription());
                     bundle.putString("date",trip.getDate());
                     bundle.putString("country",trip.getCountry());
@@ -307,11 +316,28 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         ft.commit();
     }
 
+    public void linkToAlbumFragment(View view){
+        picturesCategory.setImageDrawable(getResources().getDrawable(R.drawable.pictures_category_blue));
+        foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category));
+        homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
+        hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
+        commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category));
+        ft = getFragmentManager().beginTransaction();
+        //ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.trip_content, photoGalleryFragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
+        // ft.addToBackStack(null);
+        ft.commit();
+    }
+
     public void linkToGastronomyFragment(View view){
+        Log.e("id de la vue",""+view.getId());
         foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category_blue));
         homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
         hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
         commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category));
+        picturesCategory.setImageDrawable(getResources().getDrawable(R.drawable.pictures_category));
+
         ft = getFragmentManager().beginTransaction();
         //ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.trip_content, gastronomyPlaceListFragment);
@@ -321,10 +347,13 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     }
 
     public void linkToLeisureFragment(View view){
+        Log.e("id de la vue",""+view.getId());
         hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category_blue));
         foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category));
         homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
         commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category));
+        picturesCategory.setImageDrawable(getResources().getDrawable(R.drawable.pictures_category));
+
         ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.trip_content, gastronomyPlaceListFragment);
         ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
@@ -333,10 +362,13 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     }
 
     public void linkToCommentsFragment(View view){
+        Log.e("id de la vue",""+view.getId());
         commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category_blue));
         hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
         foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category));
         homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
+        picturesCategory.setImageDrawable(getResources().getDrawable(R.drawable.pictures_category));
+
         //ft = getFragmentManager().beginTransaction();
         ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.trip_content, commentCategoryFragment);
@@ -345,6 +377,9 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         ft.commit();
     }
 
+    private void ChangeIcon(View view){
+
+    }
     @Override // Fermer l'activity lorsque l'on appuie sur le bouton "back"
     public void onBackPressed() {
         this.finish();
