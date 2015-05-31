@@ -139,8 +139,8 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="@string/add_place"
-                android:id="@+id/buttonAddPlace"
+                android:text="@string/save"
+                android:id="@+id/save_settings"
                 android:textColor="#fff"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"

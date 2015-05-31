@@ -11,6 +11,7 @@
     <string name="country">Pays</string>
     <string name="city">Ville</string>
     <string name="add_trip">Ajouter un voyage</string>
+    <string name="save">Enregistrer</string>
 
     <!-- REGISTER -->
     <string name="register_button">Créer un compte</string>
