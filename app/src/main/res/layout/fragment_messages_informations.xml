@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:background="#f6f6f6">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/receive_messages_icon"
+        android:contentDescription="@string/receive_messages"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/receive_messages" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/send_messages"
+        android:src="@drawable/send_messages"
+        android:contentDescription="@string/send_messages"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/receive_messages_icon"
+        android:layout_toEndOf="@+id/receive_messages_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/number_of_messages"
+        android:id="@+id/textView"
+        android:layout_centerVertical="true"
+        android:textSize="12sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>

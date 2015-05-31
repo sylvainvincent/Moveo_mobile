@@ -110,6 +110,16 @@
     <string name="time_comment">Il y a</string>
     <string name="comment_content">Commentaire</string>
 
+    <!-- MESSAGES -->
+    <string name="date_message">Date</string>
+    <string name="message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu neque varius, consectetur lectus ac, vestibulum arcu. Suspendisse a vulputate quam. Phasellus quis urna felis. Etiam sodales dolor mauris. Suspendisse feugiat interdum odio, quis laoreet nunc feugiat ullamcorper.</string>
+    <string name="receive_messages">Messages reçus</string>
+    <string name="send_messages">Messages envoyés</string>
+    <string name="reply">Répondre</string>
+    <string name="number_of_messages">2 messages</string>
+    <string name="check_messages">Tout cocher</string>
+    <string name="trash_messages">Supprimer</string>
+
     <!-- Les éléments du menu -->
     <string-array name="nav_drawer_items">
         <item>EXPLORER</item>
