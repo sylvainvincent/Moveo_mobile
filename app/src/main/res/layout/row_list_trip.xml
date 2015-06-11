@@ -5,7 +5,7 @@
     android:baselineAligned="false"
     android:orientation="horizontal">
 
-        <!-- Trip Picture -->
+        <!-- Profil -->
         <ImageView
             android:layout_width="170dp"
             android:layout_height="120dp"
@@ -15,7 +15,7 @@
             android:id="@+id/imageViewMainPictureTrip"
             android:src="@drawable/journey"/>
 
-        <!-- Trip Informations -->
+        <!-- Information -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"

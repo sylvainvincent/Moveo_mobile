@@ -23,6 +23,21 @@ public class JSONTrip {
         this.jsonParser = new JSONParser();
     }
 
+    public JSONObject addTrip(String userId, String name, String country, String description, String photoBase64){
+
+        List<NameValuePair> tripForm = new ArrayList<>();
+        tripForm.add(new BasicNameValuePair("tag","addTrip"));
+        tripForm.add(new BasicNameValuePair("user_id",userId));
+        tripForm.add(new BasicNameValuePair("trip_name",name));
+        tripForm.add(new BasicNameValuePair("trip_country",country));
+        tripForm.add(new BasicNameValuePair("description",description));
+        tripForm.add(new BasicNameValuePair("cover",photoBase64));
+
+        return jsonParser.getJSONFromUrl(tripURL,tripForm);
+
+    }
+
+
     public JSONObject getExploreTrips(String userId){
 
         List<NameValuePair> loginForm = new ArrayList<>();

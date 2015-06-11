@@ -102,7 +102,7 @@ public class TripDAO {
         if(tripList != null) {
             Log.i("Verification taille ", "" + tripList.size());
             Log.i("Verification nom ", "" + tripList.get(0).getName());
-            Log.i("Verification nom ", "" + tripList.get(1).getName());
+            //Log.i("Verification nom ", "" + tripList.get(1).getName());
         }
         return tripList;
     }

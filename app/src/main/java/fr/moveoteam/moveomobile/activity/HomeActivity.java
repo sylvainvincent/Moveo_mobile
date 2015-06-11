@@ -242,13 +242,13 @@ public class HomeActivity extends Activity {
         switch (position) {
             case 0:
                 fragment = new ExploreFragment();
-                ft.replace(R.id.frame_container, fragment);
+                ft.add(R.id.frame_container, fragment);
                 break;
             case 1:
                 fragment = new MyTripListFragment();
                 fragment2 = new AddTripFragment();
-               // ft.add(R.id.frame_container, fragment2);
-                ft.replace(R.id.frame_container, fragment);
+                ft.add(R.id.frame_container, fragment2);
+                ft.add(R.id.frame_container, fragment);
                 break;
             case 2:
                 fragment = new ExploreFragment();
@@ -257,7 +257,7 @@ public class HomeActivity extends Activity {
                 break;
             case 3:
                 fragment = new FriendCategoryFragment();
-                ft.replace(R.id.frame_container, friendCategoryFragment);
+                ft.add(R.id.frame_container, friendCategoryFragment);
                 break;
             case 4:
                 fragment = new ExploreFragment();
@@ -295,7 +295,7 @@ public class HomeActivity extends Activity {
             drawerLayout.closeDrawer(listSliderMenu);
         } else {
             // Erreur lors de la création du fragment
-            Log.e("MainActivity", "Error in creating fragment");
+            Log.e("MainActivity", "Erreur lors de la création du fragment");
         }
     }
 

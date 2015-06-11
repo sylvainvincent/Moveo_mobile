@@ -18,11 +18,11 @@ public class PhotoActivity extends Activity {
 
     private ImageView photo;
     String photoBase64;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo);
-        Log.e("Welcome", "to the world");
         initialize();
         int id = getIntent().getExtras().getInt("id");
         ArrayList<Photo> photos = getIntent().getExtras().getParcelableArrayList("photoArrayList");

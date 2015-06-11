@@ -56,18 +56,5 @@ public class ImageAdapter extends BaseAdapter {
         return imageView;
     }
 
-    // references to our images
-    private Integer[] mThumbIds = {
-            R.drawable.pictures_category_blue, R.drawable.pictures_category_blue,
-            R.drawable.pictures_category_blue, R.drawable.pictures_category_blue,
-            R.drawable.pictures_category_blue, R.drawable.pictures_category_blue,
-            R.drawable.pictures_category_blue, R.drawable.pictures_category_blue,
-            R.drawable.pictures_category_blue, R.drawable.pictures_category_blue,
-            R.drawable.pictures_category_blue, R.drawable.pictures_category_blue,
-            R.drawable.pictures_category_blue, R.drawable.pictures_category_blue,
-            R.drawable.pictures_category_blue, R.drawable.pictures_category_blue,
-            R.drawable.pictures_category_blue, R.drawable.pictures_category_blue,
-            R.drawable.pictures_category_blue, R.drawable.pictures_category_blue,
-            R.drawable.pictures_category_blue, R.drawable.pictures_category_blue
-    };
+
 }

@@ -105,7 +105,9 @@ public class PhotoGalleryFragment  extends Fragment{
 
                         ));
                     }
+
                     gridview.setAdapter(new ImageAdapter(getActivity(),photoArrayList));
+
                     gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -114,6 +116,7 @@ public class PhotoGalleryFragment  extends Fragment{
                             View photoView = factory.inflate(R.layout.photo, null);
                             ImageView image = (ImageView) photoView.findViewById(R.id.photo);
                             TextView photoDate = (TextView) photoView.findViewById(R.id.photo_publication_date);
+
                             photoDate.setText(photoDate.getText()+" "+photoArrayList.get(position).getPublicationDate());
                             image.setImageBitmap(Function.decodeBase64(photoArrayList.get(position).getPhotoBase64()));
                             print.setView(photoView);
@@ -124,7 +127,7 @@ public class PhotoGalleryFragment  extends Fragment{
                 } else {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                     alertDialog.setCancelable(true);
-                    alertDialog.setMessage("Erreur lors de la récupération des photos");
+                    alertDialog.setMessage("La galerie d'images est vide");
                     alertDialog.show();
                 }
             } catch (JSONException e) {

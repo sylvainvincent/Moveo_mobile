@@ -28,9 +28,8 @@ import java.util.List;
  * Created by Sylvain on 04/04/15.
  */
 public class JSONParser {
-    static InputStream is = null;
-    static JSONObject jObj = null;
-    static String json = "";
+
+
 
     // constructeur vide
     public JSONParser() {
@@ -44,9 +43,14 @@ public class JSONParser {
 	* @param postParameters le tableau associatif avec un tag
     */
     public JSONObject getJSONFromUrl(String url, List<NameValuePair> postParameters) {
-        // Making HTTP request
+
+        InputStream is = null;
+        JSONObject jObj = null;
+        String json = "";
+        int timeout;
+
         try {
-            int timeout = 20000; // 20 secondes
+            timeout = 20000; // 20 secondes
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
             // Pour créer une requête POST nous allons créer un objet HttpPost avec comme paramètre l'URL du web service
@@ -57,18 +61,16 @@ public class JSONParser {
             HttpConnectionParams.setConnectionTimeout(httpParams,timeout);
             HttpConnectionParams.setSoTimeout(httpParams, timeout);
             httpPost.setParams(httpParams);
-            //La requête est envoyée !!! on récupère la réponse
+            // La requête est envoyée !!! on récupère la réponse
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             is = httpEntity.getContent();
         } catch (UnsupportedEncodingException | SocketTimeoutException | ConnectTimeoutException e) {
             Log.e("Time out", "timeout");
             e.printStackTrace();
-            jObj = null; // forcer le null
             return jObj;
         } catch (IOException e) {
             e.printStackTrace();
-            jObj = null; // forcer le null
             return jObj;
         }
         try { // Nous lisons le résultat qui nous a été envoyé
@@ -91,6 +93,7 @@ public class JSONParser {
         } catch (JSONException e) {
             Log.e("JSON Parser", "Erreur de parse " + e.toString());
         }
+
         // Retourne un objet Json
         return jObj;
     }

@@ -24,6 +24,7 @@ public class MyTripListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         TripDAO tripDAO = new TripDAO(getActivity());
         tripDAO.open();
         tripArrayList = tripDAO.getTripList();
@@ -43,6 +44,9 @@ public class MyTripListFragment extends ListFragment {
         startActivity(intent);
     }
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("test","resume");
+    }
 }

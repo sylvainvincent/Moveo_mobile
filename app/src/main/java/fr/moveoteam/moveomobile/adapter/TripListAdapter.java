@@ -77,6 +77,7 @@ public class TripListAdapter extends BaseAdapter {
                 String authorHTML = "<font color=#000>par</font> <i>" + tripList.get(position).getAuthor_first_name() + " " + tripList.get(position).getAuthor_last_name() + "</i>";
                 viewHolderTrip.explore_username.setText(Html.fromHtml(authorHTML));
                 if(!tripList.get(position).getCover().equals("null")) {
+                    Log.e("Cover", " " + tripList.get(position).getCover());
                     viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
                 }
             } else {
