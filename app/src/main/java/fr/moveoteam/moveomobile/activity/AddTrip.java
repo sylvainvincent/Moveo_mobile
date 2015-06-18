@@ -4,12 +4,20 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +33,7 @@ import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.adapter.TripListAdapter;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
+import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
@@ -35,17 +44,20 @@ public class AddTrip extends Activity {
 
     private TextView addtriptitle;
     private TextView city;
-    private EditText editCity;
+    private EditText editTripName;
     private TextView country;
     private EditText editCountry;
     private TextView descriptionTrip;
     private EditText editdescriptiontrip;
     private TextView addcover;
-    private Button addfile;
+    private Button addPhotoButton;
     private Button buttonAddPlace;
     private TextView cancelAddPlace;
     private RelativeLayout addplace;
+    private EditText linkPhoto;
+    private ImageView image;
 
+    String photoBase64;
 
     int userId;
 
@@ -63,10 +75,21 @@ public class AddTrip extends Activity {
         userDAO.open();
         userId = userDAO.getUserDetails().getId();
 
+
+
         buttonAddPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ExecuteThread().execute();
+                if(!editTripName.getText().toString().equals("") && !editCountry.getText().toString().equals(""))
+                    new ExecuteThread().execute();
+            }
+        });
+
+        addPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent,1);
             }
         });
     }
@@ -74,17 +97,18 @@ public class AddTrip extends Activity {
     private void initialize() {
 
         addtriptitle = (TextView) findViewById(R.id.add_trip_title);
-        city = (TextView) findViewById(R.id.city);
-        editCity = (EditText) findViewById(R.id.editCity);
+        city = (TextView) findViewById(R.id.add_trip_name);
+        editTripName = (EditText) findViewById(R.id.edit_trip_name);
         country = (TextView) findViewById(R.id.country);
         editCountry = (EditText) findViewById(R.id.editCountry);
         descriptionTrip = (TextView) findViewById(R.id.descriptionTrip);
         editdescriptiontrip = (EditText) findViewById(R.id.edit_description_trip);
         addcover = (TextView) findViewById(R.id.add_cover);
-        addfile = (Button) findViewById(R.id.add_file);
+        addPhotoButton = (Button) findViewById(R.id.add_photo_button);
         buttonAddPlace = (Button) findViewById(R.id.buttonAddPlace);
         cancelAddPlace = (TextView) findViewById(R.id.cancelAddPlace);
         addplace = (RelativeLayout) findViewById(R.id.add_place);
+        linkPhoto = (EditText) findViewById(R.id.link_photo_trip);
     }
 
 
@@ -104,13 +128,12 @@ public class AddTrip extends Activity {
         protected JSONObject doInBackground(String... arg){
 
             String id = Integer.toString(userId);
-            String name = editCity.getText().toString();
+            String name = editTripName.getText().toString();
             String country = editCountry.getText().toString();
-            String cover = null;
             String description = editdescriptiontrip.getText().toString();
 
             JSONTrip jsonTrip = new JSONTrip();
-            return jsonTrip.addTrip(id,name,country,cover,description);
+            return jsonTrip.addTrip(id,name,country,photoBase64,description);
         }
 
         @Override
@@ -146,6 +169,42 @@ public class AddTrip extends Activity {
             }
 
         }
-
+		
     }
+	
+	@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+			// Récupération des informations d'une photo sélectionné dans l'album
+            if (requestCode == 1) {
+
+                // RECUPERATION DE L'ADRESSE DE LA PHOTO
+                Uri selectedImage = data.getData();
+
+                String[] filePath = {MediaStore.Images.Media.DATA};
+
+                Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
+
+                c.moveToFirst();
+
+                int columnIndex = c.getColumnIndex(filePath[0]);
+
+                String picturePath = c.getString(columnIndex);
+                // FIN DE LA RECUPERATION
+                c.close();
+
+                Bitmap photo = (BitmapFactory.decodeFile(picturePath));
+                Log.w("path de l'image", picturePath + "");
+				// Remplir le champ en dessous de la photo avec le chemin de la nouvelle
+                linkPhoto.setText(picturePath);
+				
+				// Stoker la photo en base64 dans une variable
+                photoBase64 = Function.encodeBase64(photo);
+				
+				// Changer la photo actuel avec la nouvelle
+                image.setImageBitmap(photo);
+            }
+        }
+    }
+	
 }

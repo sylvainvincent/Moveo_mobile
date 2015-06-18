@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
+ * FICHIER TEMPORAIRE A SUPPRIMER !!!!!!!!!!!
  * Created by Sylvain on 04/05/15.
  */
 public class ExecuteThreadLogin extends AsyncTask<String, String, JSONObject> {

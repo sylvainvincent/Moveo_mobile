@@ -1,6 +1,7 @@
 package fr.moveoteam.moveomobile.menu;
 
 /**
+ * Classe métier pour les elements du menu (Titre, icônes et compteur pour les nouveaux elements)
  * Created by Sylvain on 27/04/15.
  */
 public class MenuItems {

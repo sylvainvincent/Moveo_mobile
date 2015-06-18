@@ -67,7 +67,7 @@ public class UserDAO {
         values.put(KEY_USER_LASTNAME, user.getLastName());     // NOM
         values.put(KEY_USER_FIRSTNAME, user.getFirstName());   // PRÉNOM
         values.put(KEY_USER_BIRTHDAY, user.getBirthday());     // DATE DE NAISSANCE
-        values.put(KEY_USER_AVATAR, user.getAvatar());       // AVATAR
+        values.put(KEY_USER_AVATAR, user.getAvatar());         // AVATAR
         values.put(KEY_USER_EMAIL, user.getEmail());           // ADRESSE MAIL
         values.put(KEY_USER_PASSWORD, user.getPassword());     // PASSWORD
         values.put(KEY_USER_COUNTRY, user.getCountry());       // PAYS
@@ -75,8 +75,24 @@ public class UserDAO {
         Log.e("avat", values.get(KEY_USER_AVATAR).toString());
         // Insérer la ligne
         database.insert(TABLE_LOGIN, null, values);
-       // database.close(); // Fermer la connexion vers la base de données
+        // database.close(); // Fermer la connexion vers la base de données
     }
+	
+	/**
+	 *
+	 **/
+	 public int modifyUser(User user){
+
+		ContentValues values = new ContentValues();
+
+        if(user.getLastName() != null) values.put(KEY_USER_LASTNAME, user.getLastName());     // NOM
+        if(user.getFirstName() != null) values.put(KEY_USER_FIRSTNAME, user.getFirstName());   // PRÉNOM
+        if(user.getBirthday() != null) values.put(KEY_USER_BIRTHDAY, user.getBirthday());     // DATE DE NAISSANCE
+        if(user.getAvatar() != null)values.put(KEY_USER_AVATAR, user.getAvatar());         // AVATAR
+        if(user.getCountry() != null)values.put(KEY_USER_COUNTRY, user.getCountry());       // PAYS
+        if(user.getCity() != null)values.put(KEY_USER_CITY, user.getCity());             // VILLE
+		return database.update(TABLE_LOGIN, values, null, null);
+	 }
 
 
     public User getUserDetails(){

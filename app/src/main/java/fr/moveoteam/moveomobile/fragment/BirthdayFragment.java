@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 
 /**
- * Classe permettant de Créer une liste déroulant avec jour, mois et année dans une boite de dialogue
+ * Classe permettant de créer une liste déroulant avec jour, mois et année dans une boite de dialogue
  * Created by Sylvain on 30/05/15.
  */
 public class BirthdayFragment extends DatePickerDialog {

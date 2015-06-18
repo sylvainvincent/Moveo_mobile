@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:fillViewport="true">
@@ -29,7 +29,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:id="@+id/user_avatar"
-                android:src="@drawable/user_avatar"
+                android:src="@drawable/default_avatar"
                 android:layout_marginTop="50dp"
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="center_horizontal" />
@@ -115,10 +115,13 @@
 
             </LinearLayout>
 
-            <ListView
+            <LinearLayout
+                android:id="@+id/trip_list_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/list_view_user_trips" />
+                android:layout_height="match_parent"
+                android:orientation="vertical" />
+
+
 
         </LinearLayout>
 

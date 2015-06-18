@@ -22,11 +22,14 @@ import fr.moveoteam.moveomobile.dao.FriendDAO;
  */
 public class FriendCategoryFragment extends Fragment {
 
-
+    // Elements de la vue
     private TextView friendcounter;
     private TextView friendsrequesttitle;
+
+    // Fragments de la vue
     FriendRequestFragment friendRequestFragment;
     FriendListFragment friendListFragment;
+
     View view;
 
     @Nullable
@@ -41,7 +44,6 @@ public class FriendCategoryFragment extends Fragment {
             view = inflater.inflate(R.layout.friend, container, false);
             friendRequestFragment = (FriendRequestFragment) getFragmentManager().findFragmentById(R.id.fragment_friend_list_request);
             friendListFragment = (FriendListFragment) getFragmentManager().findFragmentById(R.id.fragment_friend_list);
-
             friendcounter = (TextView) view.findViewById(R.id.friend_counter);
             friendsrequesttitle = (TextView) view.findViewById(R.id.friends_request_title);
         } catch (InflateException e) {

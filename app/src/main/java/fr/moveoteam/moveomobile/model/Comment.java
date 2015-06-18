@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ * Classe métier pour les commentaires
  * Created by Sylvain on 10/05/15.
  */
 public class Comment implements Parcelable{
@@ -15,8 +16,6 @@ public class Comment implements Parcelable{
     String userLastName;
     String userFirstName;
     String userAvatarBase64;
-
-
 
     public Comment(){}
 

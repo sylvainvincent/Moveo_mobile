@@ -8,6 +8,10 @@ import android.net.NetworkInfo;
 import android.util.Base64;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -15,6 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Classe contenant divers fonctions utilisable n'importe où
  * Created by Sylvain on 14/04/15.
  */
 public class Function {
@@ -105,6 +110,19 @@ public class Function {
         return bitmap;
     }
 
+    public static String encodeBase64(Bitmap photo)
+    {
+        Bitmap image = photo;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b,Base64.DEFAULT);
+
+        Log.e("LOOK", imageEncoded);
+        return imageEncoded;
+    }
+
     public static String displayCurrentDate() {
         String format = "dd/MM/yy H:mm:ss";
 
@@ -124,6 +142,24 @@ public class Function {
 
         return "Différence en nombre de jour entre "+date+ " et " + today +
                 " nest " + (diff / (1000*60*60*24)) + " jours.";
+    }
+
+    public static String dateSqlToDateJava (String date) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Log.i("Function",sdf.toString());
+        Date convertedDate = null;
+        try {
+            convertedDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.i("Function",convertedDate.toString());
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+       // String newDate = sdf.format(convertedCurrentDate);
+        return dateFormat.format(convertedDate);
     }
 
 }

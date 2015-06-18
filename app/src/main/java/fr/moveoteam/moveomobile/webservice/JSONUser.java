@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe qui envoie des informations(Tag,id,nom,...) sous forme list <Clé,valeur> vers la classe JsonParser
+ * qui va traiter les informations et les envoyer vers le fichier "User" du webService 
  * Created by Sylvain on 01/04/15.
  */
 public class JSONUser {
@@ -77,9 +79,9 @@ public class JSONUser {
 
     public JSONObject modifyUser(String id, String lastName, String firstName, String avatar, String birthday, String city, String country) {
         List<NameValuePair> modifyUserForm = new ArrayList<>();
-        modifyUserForm.add(new BasicNameValuePair("tag", "forgetPassword"));
+        modifyUserForm.add(new BasicNameValuePair("tag", "updateProfil"));
         modifyUserForm.add(new BasicNameValuePair("userId", id));
-        modifyUserForm.add(new BasicNameValuePair("name", lastName));
+        modifyUserForm.add(new BasicNameValuePair("lastName", lastName));
         modifyUserForm.add(new BasicNameValuePair("firstName", firstName));
         modifyUserForm.add(new BasicNameValuePair("avatar", avatar));
         modifyUserForm.add(new BasicNameValuePair("birthday", birthday));
@@ -97,4 +99,13 @@ public class JSONUser {
         return jsonParser.getJSONFromUrl(userURL, otherUserForm);
     }
 
+    public JSONObject sendMessage(String message, String userId, String idRecipient){
+        List<NameValuePair> messageForm = new ArrayList<>();
+        messageForm.add(new BasicNameValuePair("tag", "addDialog"));
+        messageForm.add(new BasicNameValuePair("message", message));
+        messageForm.add(new BasicNameValuePair("userId", userId));
+        messageForm.add(new BasicNameValuePair("recipientId", idRecipient));
+
+        return jsonParser.getJSONFromUrl(userURL,messageForm);
+    }
 }

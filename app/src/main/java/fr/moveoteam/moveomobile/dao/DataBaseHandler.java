@@ -208,7 +208,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_DIALOG_READ + " INTEGER,"
                 + KEY_DIALOG_IS_INBOX + " INTEGER" + ")";
 
-
     public DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

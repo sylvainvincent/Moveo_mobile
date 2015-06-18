@@ -79,7 +79,7 @@ public class CommentListAdapter extends BaseAdapter {
                 viewHolderComment.avatarComment.setImageBitmap(Function.decodeBase64(commentArrayList.get(position).getUserAvatarBase64()));
             viewHolderComment.userNameComment.setText(commentArrayList.get(position).getUserFirstName() + " " + commentArrayList.get(position).getUserLastName());
             viewHolderComment.commentContent.setText(commentArrayList.get(position).getMessage());
-            viewHolderComment.timeComment.setText(viewHolderComment.timeComment.getText() + " " + commentArrayList.get(position).getDate());
+            viewHolderComment.timeComment.setText("Il y a " + commentArrayList.get(position).getDate());
             Log.e("position comment", position + "");
             UserDAO userDAO = new UserDAO(context);
             userDAO.open();

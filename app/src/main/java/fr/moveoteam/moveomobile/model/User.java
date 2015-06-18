@@ -3,6 +3,7 @@ package fr.moveoteam.moveomobile.model;
 import java.util.Date;
 
 /**
+ * Classe métier sur l'utilisateur
  * Created by alexMac on 07/04/15.
  */
 public class User {

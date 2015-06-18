@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import fr.moveoteam.moveomobile.R;
 
 /**
+ * Classe qui place des informations du menu dans le drawerLayout
  * Created by Sylvain on 27/04/15.
  */
 public class MenuAdapter extends BaseAdapter {

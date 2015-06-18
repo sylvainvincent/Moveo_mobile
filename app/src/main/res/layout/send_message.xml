@@ -1,7 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fr.moveoteam.moveomobile.activity.SendMessage"
+    tools:context="fr.moveoteam.moveomobile.activity.SendMessageActivity"
     android:orientation="vertical">
     <LinearLayout
         android:orientation="vertical"
@@ -30,6 +30,7 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/send_message_content"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:background="@drawable/edit_text_style"

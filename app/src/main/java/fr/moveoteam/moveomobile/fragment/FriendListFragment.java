@@ -39,6 +39,7 @@ public class FriendListFragment extends ListFragment {
         Log.e("Recuperation", friend.getFirstName());
         Intent intent = new Intent(getActivity(), UserProfile.class);
         intent.putExtra("id",friend.getId());
+        intent.putExtra("friend",1);
         startActivity(intent);
     }
 

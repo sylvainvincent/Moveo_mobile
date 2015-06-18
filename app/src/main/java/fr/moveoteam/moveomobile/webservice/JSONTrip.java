@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Classe qui envoie des informations(Tag,id,nom,...) sous forme list <Clé,valeur> vers la classe JsonParser
+ * qui va traiter les informations et les envoyer vers le fichier "trip" du webService 
  * Created by Sylvain on 18/04/15.
  */
 public class JSONTrip {
@@ -69,6 +71,24 @@ public class JSONTrip {
         photoRequest.add(new BasicNameValuePair("tag","getPhotoGallery"));
         photoRequest.add(new BasicNameValuePair("trip_id",tripId));
         return jsonParser.getJSONFromUrl(tripURL,photoRequest);
+    }
+
+    public JSONObject getComments(String tripId){
+
+        List<NameValuePair> commentRequest = new ArrayList<>();
+        commentRequest.add(new BasicNameValuePair("tag","getCommentList"));
+        commentRequest.add(new BasicNameValuePair("trip_id",tripId));
+        return jsonParser.getJSONFromUrl(tripURL,commentRequest);
+    }
+	
+	  public JSONObject addComment(String userId, String tripId, String message){
+
+        List<NameValuePair> commentForm = new ArrayList<>();
+        commentForm.add(new BasicNameValuePair("tag","addComment"));
+        commentForm.add(new BasicNameValuePair("user_id",userId));
+        commentForm.add(new BasicNameValuePair("trip_id",tripId));
+        commentForm.add(new BasicNameValuePair("comment_message",message));
+        return jsonParser.getJSONFromUrl(tripURL,commentForm);
     }
 
 }

@@ -25,6 +25,7 @@ import java.net.SocketTimeoutException;
 import java.util.List;
 
 /**
+ * Cette classe est utilisé pour faire des requêtes vers un webService et parser les informations de retour  
  * Created by Sylvain on 04/04/15.
  */
 public class JSONParser {
@@ -50,7 +51,7 @@ public class JSONParser {
         int timeout;
 
         try {
-            timeout = 20000; // 20 secondes
+            timeout = 15000; // 20 secondes
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
             // Pour créer une requête POST nous allons créer un objet HttpPost avec comme paramètre l'URL du web service

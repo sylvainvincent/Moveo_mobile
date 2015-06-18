@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.widget.ImageView;
 
 /**
+ * Classe métier sur les lieux
  * Created by alexMac on 15/04/15.
  */
 public class Place implements Parcelable{

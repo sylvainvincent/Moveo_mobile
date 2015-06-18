@@ -49,4 +49,6 @@ public class MyTripListFragment extends ListFragment {
         super.onResume();
         Log.e("test","resume");
     }
+
+
 }

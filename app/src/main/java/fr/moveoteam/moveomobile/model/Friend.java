@@ -1,6 +1,7 @@
 package fr.moveoteam.moveomobile.model;
 
 /**
+ * Classe métier sur les amis
  * Created by Sylvain on 08/05/15.
  */
 public class Friend {

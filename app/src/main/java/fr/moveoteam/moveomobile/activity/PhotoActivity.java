@@ -12,10 +12,11 @@ import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Photo;
 
 /**
+ * Classe permettant d'afficher en taille réel la photo sélectionner 
  * Created by Sylvain on 31/05/15.
  */
 public class PhotoActivity extends Activity {
-
+	// CLASSE TEMPORAIRE , A SUPPRIMER!!!!
     private ImageView photo;
     String photoBase64;
 

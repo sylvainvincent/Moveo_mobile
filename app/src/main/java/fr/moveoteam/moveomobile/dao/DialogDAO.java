@@ -112,6 +112,16 @@ public class DialogDAO {
         }
         return inboxArrayList;
     }
+	
+	// Retourne le nombre de message non lu
+	// A COMPLETER !!!!!
+	public int getInboxCount(){
+		Cursor cursor = database.query(TABLE_DIALOG, allColumns, DataBaseHandler.KEY_DIALOG_IS_INBOX + " = 1", null, null , null, null);
+		cursor.close();
+		return cursor.getCount();
+	}
+	
+	
 
     public ArrayList<Dialog> getSendboxList(){
         ArrayList<Dialog> sendboxArrayList = null;

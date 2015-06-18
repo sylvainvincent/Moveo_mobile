@@ -65,6 +65,15 @@
                     android:layout_gravity="center_horizontal"
                     android:id="@+id/modify_thumbnail" />
 
+
+                <EditText
+                    android:id="@+id/link_photo"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:focusable="true"
+                    android:clickable="true" />
+
                 <!-- NAME -->
                 <TextView
                     android:layout_width="wrap_content"
