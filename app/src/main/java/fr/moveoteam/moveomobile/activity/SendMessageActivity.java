@@ -85,7 +85,6 @@ public class SendMessageActivity extends Activity {
             pDialog.show();
         }
 
-
         @Override
         protected JSONObject doInBackground(String... params) {
             String message = messageContent.getText().toString();

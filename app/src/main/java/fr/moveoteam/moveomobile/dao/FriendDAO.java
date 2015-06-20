@@ -69,7 +69,20 @@ public class FriendDAO {
             database.insert(TABLE_FRIEND, null, values);
         }
     }
+	
+	public boolean acceptFriend(int friendId){
 
+		ContentValues values = new ContentValues();
+        values.put(DataBaseHandler.KEY_FRIEND_IS_ACCEPTED, 1); 
+		return database.update(TABLE_FRIEND, values, DataBaseHandler.KEY_FRIEND_ID+" = "+friendId, null)>0;
+	}
+	
+	public boolean removeFriend(int friendId){
+
+		ContentValues values = new ContentValues();
+		return database.delete(TABLE_FRIEND, DataBaseHandler.KEY_FRIEND_ID+" = "+friendId, null)>0;
+	}
+	
     public ArrayList<Friend> getFriendList(){
         ArrayList<Friend> friendList = null;
 
@@ -89,7 +102,7 @@ public class FriendDAO {
         if(friendList != null) {
             Log.i("Verification taille ", "" + friendList.size());
             Log.i("Verification nom ", "" + friendList.get(0).getLastName());
-//            Log.i("Verification nom ", "" + friendList.get(1).getLastName());
+//          Log.i("Verification nom ", "" + friendList.get(1).getLastName());
         }
         return friendList;
     }
@@ -151,7 +164,6 @@ public class FriendDAO {
         friend.setAvatarBase64(cursor.getString(DataBaseHandler.POSITION_FRIEND_AVATAR));
         friend.setCountry(cursor.getString(DataBaseHandler.POSITION_FRIEND_COUNTRY));
         friend.setCity(cursor.getString(DataBaseHandler.POSITION_FRIEND_CITY));
-        Log.e("FriendDAO",""+cursor.getInt(DataBaseHandler.POSITION_FRIEND_IS_ACCEPTED));
         friend.setFriend(cursor.getInt(DataBaseHandler.POSITION_FRIEND_IS_ACCEPTED) != 0);
 
         return friend;

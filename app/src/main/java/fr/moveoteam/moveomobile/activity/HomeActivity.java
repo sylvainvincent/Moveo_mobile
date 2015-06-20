@@ -60,6 +60,7 @@ public class HomeActivity extends Activity {
     Fragment fragment = null;
     Fragment fragment2 = null;
     FriendCategoryFragment friendCategoryFragment;
+    FragmentTransaction ft;
 
     // Titre dans l'action bar
     private CharSequence mDrawerTitle;
@@ -245,7 +246,7 @@ public class HomeActivity extends Activity {
     private void displayView(int position) {
         // Mettre à jour le contenu principal par un nouveau fragment
         FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft = fragmentManager.beginTransaction();
         if(fragment2 != null)ft.remove(fragment2);
         if(fragment != null)ft.remove(fragment);
         switch (position) {
@@ -265,7 +266,7 @@ public class HomeActivity extends Activity {
                 startActivity(intent);
                 break;
             case 3:
-                fragment = new FriendCategoryFragment();
+                fragment = friendCategoryFragment;
                 ft.add(R.id.frame_container, fragment);
                 break;
             case 4:
@@ -407,5 +408,13 @@ public class HomeActivity extends Activity {
             }
         }
     }*/
+	
+	public void refreshFragment(){
+        ft = getFragmentManager().beginTransaction();
+        Log.e("HomeActivity",fragment.toString());
+		ft.detach(fragment);
+		ft.attach(fragment);
+        ft.commit();
+	}
 
 }

@@ -125,10 +125,14 @@ public class PhotoGalleryFragment  extends Fragment{
                         }
                     });
                 } else {
+                    /*
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                     alertDialog.setCancelable(true);
                     alertDialog.setMessage("La galerie d'images est vide");
                     alertDialog.show();
+                    */
+                    gridview.setEmptyView(null);
+                    gridview.setAdapter(null);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

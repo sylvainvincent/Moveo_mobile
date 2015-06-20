@@ -34,6 +34,7 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
  */
 public class UserProfile extends Activity {
 
+	// Elements de vue
     private ImageView useravatar;
     private TextView usernameprofile;
     private TextView livein;
@@ -45,17 +46,21 @@ public class UserProfile extends Activity {
     private TextView tripsusertitle;
     private LinearLayout userinfos;
     private RelativeLayout userprofile;
-
-    int id;
-    boolean isFriend;
-
+	
+	// Manipulation de la table friend (Base de données)
     FriendDAO friendDAO;
-
+	
     ArrayList<Trip> tripArrayList;
 
+	// FRAGMENT
     TripListFragment tripListFragment;
 
+	// CLASSE METIER 
     Friend friend;
+	
+	// AUTRES
+	int id;
+    boolean isFriend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

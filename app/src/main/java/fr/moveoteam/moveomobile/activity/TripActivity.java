@@ -44,6 +44,13 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
  */
 public class TripActivity extends Activity implements HomeCategoryFragment.OnInformationListener{
 
+	private TextView tripName;
+    private TextView tripCountry;
+    private TextView tripAuthor;
+    private TextView tripDate;
+    private TextView tripDescription;
+    private  LinearLayout tripHome;
+	
     int id;
 
     RelativeLayout layout;
@@ -53,12 +60,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     ArrayList<Comment> commentArrayList;
 
     AlertDialog.Builder alertDialog;
-    private TextView tripName;
-    private TextView tripCountry;
-    private TextView tripAuthor;
-    private TextView tripDate;
-    private TextView tripDescription;
-    private  LinearLayout tripHome;
+  
 
     Bundle bundle;
 
