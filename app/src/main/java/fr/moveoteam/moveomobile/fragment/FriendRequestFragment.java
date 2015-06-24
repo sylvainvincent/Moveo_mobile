@@ -14,6 +14,8 @@ import fr.moveoteam.moveomobile.adapter.FriendsListAdapter;
  */
 public class FriendRequestFragment extends ListFragment {
 
+    FriendsListAdapter listAdapter;
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -21,9 +23,16 @@ public class FriendRequestFragment extends ListFragment {
         friendDAO.open();
         ArrayList<Friend> friendArrayList = friendDAO.getFriendRequestList();
         friendDAO.close();
-        if(friendArrayList != null)
-            setListAdapter(new FriendsListAdapter(getActivity(), friendArrayList));
-        else setListAdapter(null);
+        if(friendArrayList != null) {
+            if (listAdapter != null) listAdapter.updateResult(friendArrayList);
+            else listAdapter = new FriendsListAdapter(getActivity(), friendArrayList);
+
+            setListAdapter(listAdapter);
+        }
+        /*else {
+            setListAdapter(null);
+            getActivity().getFragmentManager().beginTransaction().hide(this).commit();
+        }*/
     }
 
 }

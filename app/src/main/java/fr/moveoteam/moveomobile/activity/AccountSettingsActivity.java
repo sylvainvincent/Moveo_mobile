@@ -1,15 +1,27 @@
 package fr.moveoteam.moveomobile.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -18,7 +30,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.UserDAO;
@@ -30,77 +48,148 @@ import fr.moveoteam.moveomobile.webservice.JSONUser;
 /**
  * Created by Amélie on 12/05/2015.
  */
-public class AccountSettingsActivity extends Activity {
+public class AccountSettingsActivity extends Fragment {
 
+	// ELEMENTS DE VUES
     Button buttonModifyAccount;
+
     EditText modifyLastName;
     EditText modifyFirstName;
     EditText modifyEmail;
-    EditText modifyBirthDate;
     EditText modifyCity;
     EditText modifyCountry;
-    TextView dateEdit;
-    TextView cancel;
-    ImageButton birthdayButton;
-    Toast toast;
-    User user;
-    private ImageView thumbnail;
-    private TextView modifythumbnail;
-    ExecuteThread executeThread;
+    EditText linkPhoto;
+	EditText dateEdit;
+	
+	TextView modifythumbnail;
+	TextView cancel;
+	
+	ImageView thumbnail;
+
+	// Classe metier
+	ImageButton birthdayButton;	
+	User user;
+
+
+    String photoBase64 = null;
+    String oldLastName, oldFirstName, oldBirthday, oldCountry, oldCity;
+
+    String userId = null;
+
+    // Date de naissance par défaut
+    int year = 2014;
+    int month = 0; // janvier
+    int day = 1;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.my_account,container,false);
+        buttonModifyAccount = (Button) view.findViewById(R.id.button_account_settings);
+        modifyLastName = (EditText) view.findViewById(R.id.edit_last_name);
+        modifyFirstName = (EditText) view.findViewById(R.id.edit_first_name);
+        modifyEmail = (EditText) view.findViewById(R.id.edit_email);
+        modifyCity = (EditText) view.findViewById(R.id.edit_city);
+        modifyCountry = (EditText) view.findViewById(R.id.edit_country);
+        dateEdit = (EditText) view.findViewById(R.id.edit_birthday);
+        birthdayButton = (ImageButton) view.findViewById(R.id.birthday_button);
+        thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
+        modifythumbnail = (TextView) view.findViewById(R.id.modify_thumbnail);
+        cancel = (TextView) view.findViewById(R.id.cancel_my_account);
+        linkPhoto = (EditText) view.findViewById(R.id.link_photo);
+        return view;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_account);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowTitleEnabled(false);
-
-        this.initialization();
         this.eventButton();
 
-        UserDAO userDAO = new UserDAO(AccountSettingsActivity.this);
+        UserDAO userDAO = new UserDAO(getActivity());
         userDAO.open();
         user = userDAO.getUserDetails();
         userDAO.close();
+        userId = Integer.toString(user.getId());
+        oldLastName = user.getLastName();
+        oldFirstName = user.getFirstName();
 
-        modifyLastName.setText(user.getLastName());
-        modifyFirstName.setText(user.getFirstName());
+        // Pour les 3 lignes suivantes on affecter une chaîne vide au variable contenant les informations de l'utilisateur
+        // Si la valeur récupérer grâce aux getter est null alors on affecte une chaîne vide
+        oldBirthday = user.getBirthday().equals("null") ? "" : user.getBirthday();
+        oldCountry = user.getCountry().equals("null") ? "" : user.getCountry();
+        oldCity = user.getCity().equals("null") ? "" : user.getCity();
+
+        modifyLastName.setText(oldLastName);
+        modifyFirstName.setText(oldFirstName);
         modifyEmail.setText(user.getEmail());
-        if(user.getCity() != null) modifyCity.setText(user.getCity());
-        if(user.getCountry() != null) modifyCountry.setText(user.getCountry());
+        dateEdit.setText(user.getBirthday());
+        modifyCity.setText(user.getCity());
+        modifyCountry.setText(user.getCountry());
+
         thumbnail.setImageBitmap(Function.decodeBase64(user.getAvatar()));
 
-        cancel.setOnClickListener(new View.OnClickListener() {
+        // Afficher la photo de profil lors de la selection
+        thumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                AlertDialog.Builder print= new AlertDialog.Builder(getActivity());
+                LayoutInflater factory = LayoutInflater.from(getActivity());
+                View photoView = factory.inflate(R.layout.photo, null);
+                ImageView image = (ImageView) photoView.findViewById(R.id.photo);
+                TextView photoDate = (TextView) photoView.findViewById(R.id.photo_publication_date);
+
+                // Recuperation du Bitmap de la photo de profil pour le mettre sur le la nouvelle vue
+                image.setImageBitmap(((BitmapDrawable)thumbnail.getDrawable()).getBitmap());
+                photoDate.setVisibility(View.GONE);
+                print.setView(photoView);
+                //AlertDialog d = print.create();
+                print.show();
             }
         });
 
+
+        // Bouton permettant de sélectionner la date de naissance
         birthdayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               final BirthdayFragment birthdayFragment = new BirthdayFragment(AccountSettingsActivity.this,1,new DatePickerDialog.OnDateSetListener() {
+                // CREATION DE LA BOITE DE DIALOGUE qui étant DatePickerDialog
+                // INITIALISER LA DATE AVEC CELUI DU EDITTEXT DE LA DATE DE NAISSANCE
+                // SI L'EDITTEXT EST VIDE ALORS INITIALISATION A 01/01/2014
+                final BirthdayFragment birthdayFragment = new BirthdayFragment(getActivity(),1,new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
                     }
 
-                },2014,1,1);
+                },year,month,day);
 
+                // configuration du bouton "valider" qui permet de changer le contenu de l'edittext de la date de naissance avec la date sélectionner
                 birthdayFragment.setButton(DatePickerDialog.BUTTON_POSITIVE,"VALIDER", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dateEdit.setText(birthdayFragment.getDatePicker().getDayOfMonth()+"/"
-                                +birthdayFragment.getDatePicker().getMonth()+"/"+
-                                +birthdayFragment.getDatePicker().getYear());
+
+                        day = birthdayFragment.getDatePicker().getDayOfMonth();
+                        month = birthdayFragment.getDatePicker().getMonth();
+                        year = birthdayFragment.getDatePicker().getYear();
+                        dateEdit.setText(day+"/"+(month+ 1)+"/"+year);
 
 
                     }
                 });
 
+                // configuration du bouton "cancel" qui fermer la boite de dialog
+                birthdayFragment.setButton(DatePickerDialog.BUTTON_NEUTRAL,"CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        birthdayFragment.dismiss();
+
+                    }
+                });
+
+                // configuration du bouton "effacer" qui permet d'effacer le contenu de l'edittext de la date de naissance
                 birthdayFragment.setButton(DatePickerDialog.BUTTON_NEGATIVE,"EFFACER", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -110,22 +199,6 @@ public class AccountSettingsActivity extends Activity {
                 birthdayFragment.show();
             }
         });
-
-    }
-
-    // Procédure qui permet d'affecter les elements de l'interface graphique aux objets de la classe
-    public void initialization() {
-        buttonModifyAccount = (Button) findViewById(R.id.button_account_settings);
-        modifyLastName = (EditText) findViewById(R.id.edit_last_name);
-        modifyFirstName = (EditText) findViewById(R.id.edit_first_name);
-        modifyEmail = (EditText) findViewById(R.id.edit_email);
-        modifyCity = (EditText) findViewById(R.id.edit_city);
-        modifyCountry = (EditText) findViewById(R.id.edit_country);
-        dateEdit = (TextView) findViewById(R.id.edit_birthday);
-        birthdayButton = (ImageButton) findViewById(R.id.birthday_button);
-        thumbnail = (ImageView) findViewById(R.id.thumbnail);
-        modifythumbnail = (TextView) findViewById(R.id.modify_thumbnail);
-        cancel = (TextView) findViewById(R.id.cancel_my_account);
     }
 
     // Procédure qui permet déclencher un évènement lorsque l'on clique sur un bouton
@@ -134,42 +207,71 @@ public class AccountSettingsActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         if (modifyLastName.getText().toString().equals("")){
+                            // Nom manquant
                             modifyLastName.setError("Champ obligatoire");
-                        } else if (modifyFirstName.getText().toString().equals("")) {
+                        }
+                        else if (modifyFirstName.getText().toString().equals("")) {
+                            // Prénom manquant
                             modifyFirstName.setError("Champ obligatoire");
-                        } else if (!Function.isString(modifyLastName.getText().toString())){
+                        }
+                        else if (!Function.isString(modifyLastName.getText().toString())){
+                            // Nom avec des chiffres
                             modifyLastName.setError("Champ invalide");
-                        } else if (!Function.isString(modifyFirstName.getText().toString())){
+                        }
+                        else if (!Function.isString(modifyFirstName.getText().toString())){
+                            // Prénom avec des chiffres
                             modifyFirstName.setError("Champ invalide");
-                        } else if (!Function.isString(modifyCity.getText().toString())
+                        }
+                        else if (!Function.isString(modifyCity.getText().toString())
                                     && !modifyCity.getText().toString().equals("")){
+                            // Ville avec des chiffres
                             modifyCity.setError("Champ invalide");
-                        } else if (!Function.isString(modifyCountry.getText().toString())
-                                   && !modifyCity.getText().toString().equals("")){
+                        }
+                        else if (!Function.isString(modifyCountry.getText().toString())
+                                   && !modifyCountry.getText().toString().equals("")){
+                            // Pays avec des chiffres
                             modifyCountry.setError("Champ invalide");
-                        } else {
-                            executeThread = new ExecuteThread();
-                            executeThread.execute();
+                        }
+                        else {
+                            // VERIFICATIONS DES CHAMPS MODIFIÉ
+                            if(!modifyLastName.getText().toString().equals(oldLastName)
+                            || !modifyFirstName.getText().toString().equals(oldFirstName)
+                            || !dateEdit.getText().toString().equals(oldBirthday)
+                            || !modifyCountry.getText().toString().equals(oldCountry)
+                            || !modifyCity.getText().toString().equals(oldCity)
+                            || !linkPhoto.getText().toString().equals("") ){
+                                new ExecuteThread().execute();
+                            }else{
+                                Log.i("AccountSettingsActivity"," Pas de modif");
+                            }
+
                         }
                     }
                 }
         );
-    }
 
-    public void onBackPressed() {
-        this.executeThread.cancel(true);
-    }
+        modifythumbnail.setOnClickListener( new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent,1);
+            }
+
+        });
+
+    }
 
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
-
+        ProgressDialog pDialog;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            ProgressDialog pDialog = new ProgressDialog(AccountSettingsActivity.this);
+            pDialog = new ProgressDialog(getActivity());
             pDialog.setMessage("Chargement...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -178,32 +280,107 @@ public class AccountSettingsActivity extends Activity {
 
         @Override
         protected JSONObject doInBackground(String... params) {
-            String lastName = modifyFirstName.getText().toString();
-            String firstName = modifyFirstName.getText().toString();
-            String avatar = "test";
-            String birthday = dateEdit.toString();
-            Log.e("dateEdit", birthday);
-            String city = modifyCity.getText().toString();
-            String country = modifyCountry.getText().toString();
+
+            user = new User();
+
+                user.setLastName(modifyLastName.getText().toString());
+                user.setFirstName(modifyFirstName.getText().toString());
+                user.setBirthday(Function.dateSqlToDateJava(dateEdit.getText().toString())) ;
+                user.setCountry(modifyCountry.getText().toString());
+                user.setCity(modifyCity.getText().toString());
 
             JSONUser jsonUser = new JSONUser();
-            return jsonUser.modifyUser(Integer.toString(user.getId()), lastName, firstName, avatar, birthday, city, country);
-        }
-        @Override
-        protected void onCancelled() {
-            super.onCancelled();
+            return jsonUser.modifyUser(userId, user.getLastName(), user.getFirstName(), photoBase64, user.getBirthday(), user.getCity(), user.getCountry());
         }
 
-
         @Override
-        protected void onPostExecute(JSONObject jsonObject) {
-            super.onPostExecute(jsonObject);
+        protected void onPostExecute(JSONObject json) {
+            super.onPostExecute(json);
+            pDialog.dismiss();
+            if(json == null){
+                Log.e("test json","null");
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+
+                    }
+                });
+                builder.setMessage("Connexion perdu");
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
+            }else try {
+                if (json.getString("success").equals("1")) {
+                    Log.i("AccountSettingsActivity","update OK");
+                    UserDAO userDAO = new UserDAO(getActivity());
+                    userDAO.open();
+                    userDAO.modifyUser(user);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+
+                        }
+                    });
+                    builder.setMessage("La modification a été réalisé avec succès");
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.show();
+                }else{
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+
+                        }
+                    });
+                    builder.setMessage("Une erreur est survenue lors de l'enregistrement de la photo");
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return true;
+    public String getPhotoBase64() {
+        return photoBase64;
+    }
+
+    public void setPhotoBase64(String photoBase64) {
+        this.photoBase64 = photoBase64;
+    }
+
+    public EditText getLinkPhoto() {
+        return linkPhoto;
+    }
+
+    public void setLinkPhoto(EditText linkPhoto) {
+        this.linkPhoto = linkPhoto;
+    }
+
+    public ImageView getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(ImageView thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

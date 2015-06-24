@@ -59,6 +59,24 @@ public class TripDAO {
     public void close() {
         dbHandler.close();
     }
+	
+	/**
+	 *
+	 */
+	public void addTrip(Trip trip){
+		
+		ContentValues values = new ContentValues();
+		values.put(DataBaseHandler.KEY_TRIP_ID, trip.getId());
+		values.put(DataBaseHandler.KEY_TRIP_NAME, trip.getName());     // NOM
+		values.put(DataBaseHandler.KEY_TRIP_COUNTRY, trip.getCountry());   // PRÉNOM
+		values.put(DataBaseHandler.KEY_TRIP_DESCRIPTION, trip.getDescription());     // DATE DE NAISSANCE
+		values.put(DataBaseHandler.KEY_TRIP_CREATED_AT, String.valueOf(trip.getDate()));
+		values.put(DataBaseHandler.KEY_TRIP_COVER, trip.getCover());
+		
+		database.insert(TABLE_TRIP, null, values);
+	}
+	
+	
 
     /**
      * Fonction qui récupère 10 voyages aléatoirement

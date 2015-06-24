@@ -62,7 +62,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.SendMessage"
+            android:name=".activity.SendMessageActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 

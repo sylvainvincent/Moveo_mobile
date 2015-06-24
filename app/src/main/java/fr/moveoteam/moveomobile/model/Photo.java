@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.util.Date;
 
 /**
+ * Classe métier sur les photos
  * Created by alexMac on 08/04/15.
  */
 public class Photo implements Parcelable {

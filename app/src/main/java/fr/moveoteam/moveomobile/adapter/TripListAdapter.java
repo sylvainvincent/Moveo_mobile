@@ -28,9 +28,11 @@ public class TripListAdapter extends BaseAdapter {
     LayoutInflater layoutInflater;
     ViewHolderTrip viewHolderTrip;
     boolean otherUser;
+    Context context;
     StringBuilder st;
 
     public TripListAdapter(Context context, ArrayList<Trip> tripList, boolean otherUser){
+        this.context = context;
         this.tripList = tripList;
         layoutInflater = LayoutInflater.from(context);
         this.otherUser = otherUser;
@@ -73,19 +75,21 @@ public class TripListAdapter extends BaseAdapter {
             viewHolderTrip.explore_trip_name.setText(tripList.get(position).getName());
             viewHolderTrip.explore_country.setText(tripList.get(position).getCountry());
             Log.e("ExploreList", " " + position);
+            Log.e("Cover", " " + tripList.get(position).getCover());
             if (this.otherUser) {
                 String authorHTML = "<font color=#000>par</font> <i>" + tripList.get(position).getAuthor_first_name() + " " + tripList.get(position).getAuthor_last_name() + "</i>";
                 viewHolderTrip.explore_username.setText(Html.fromHtml(authorHTML));
-                if(!tripList.get(position).getCover().equals("null")) {
-                    Log.e("Cover", " " + tripList.get(position).getCover());
+                if(!tripList.get(position).getCover().equals("null") || !tripList.get(position).getCover().isEmpty()) {
                     viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
+                }else{
+                    viewHolderTrip.imageViewMainPictureTrip.setImageDrawable(context.getResources().getDrawable(R.drawable.default_journey));
                 }
             } else {
                 viewHolderTrip.explore_username.setText(Html.fromHtml("<font color=#000>par</font> <i>moi</i>"));
-                if(tripList.get(position).getCover() != null) {
+                if(tripList.get(position).getCover() != null || !tripList.get(position).getCover().isEmpty()) {
                     viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
                 }else{
-                    viewHolderTrip.imageViewMainPictureTrip.setImageDrawable(null);
+                    viewHolderTrip.imageViewMainPictureTrip.setImageDrawable(context.getResources().getDrawable(R.drawable.default_journey));
                 }
             }
             Log.e("PlaceList", " " + position);

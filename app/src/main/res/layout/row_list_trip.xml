@@ -13,7 +13,7 @@
             android:padding="10dp"
             android:contentDescription="@string/picture"
             android:id="@+id/imageViewMainPictureTrip"
-            android:src="@drawable/journey"/>
+            android:src="@drawable/default_journey"/>
 
         <!-- Information -->
         <LinearLayout

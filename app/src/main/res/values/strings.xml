@@ -9,7 +9,7 @@
     <string name="cancel">Annuler</string>
     <string name="description">Description</string>
     <string name="country">Pays</string>
-    <string name="city">Ville</string>
+    <string name="city">Nom</string>
     <string name="add_trip">Ajouter un voyage</string>
     <string name="save">Enregistrer</string>
 
@@ -172,7 +172,7 @@
     <string name="live_in">Habite à</string>
     <string name="trips_number">12 voyages</string>
     <string name="places_number">12 lieux</string>
-    <string name="trips_user_title">Les voyages de</string>
+    <string name="trips_user_title">Ses voyages :</string>
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
@@ -183,12 +183,13 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_hint">Recherche…</string>
-    <string name="friends_request_title">Nouvelles demandes d\'amis</string>
+    <string name="friends_request_title">nouvelles demandes d\'amis</string>
     <string name="comment_button_text">Publier</string>
     <string name="comment_text">Votre commentaire</string>
-    <string name="comment_hint">Commenter…</string>
-    <string name="birthday_button_description">Date d'anniversaire</string>
+    <string name="comment_hint">commenter…</string>
+    <string name="birthday_button_description">date anniversaire</string>
     <string name="photo_publication_date">Publié le</string>
-    <string name="photo_description">Photo</string>
+    <string name="photo_description">photo</string>
+    <string name="content_description_trip_photo">Avatar</string>
 
 </resources>

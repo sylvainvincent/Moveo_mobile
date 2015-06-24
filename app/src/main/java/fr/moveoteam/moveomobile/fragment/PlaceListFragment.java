@@ -15,6 +15,7 @@ import fr.moveoteam.moveomobile.adapter.PlacesListAdapter;
 import fr.moveoteam.moveomobile.model.Place;
 
 /**
+ * Listes des lieux du catégories sélectionnés 
  * Created by Amélie on 08/05/2015.
  */
 public class PlaceListFragment extends ListFragment {
@@ -31,6 +32,7 @@ public class PlaceListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         if(getArguments().getParcelableArrayList("placeList") != null) {
+			// Récupération du la liste des lieux
             placeArrayList = getArguments().getParcelableArrayList("placeList");
             Log.e("array", placeArrayList.toString());
         }
@@ -41,11 +43,11 @@ public class PlaceListFragment extends ListFragment {
 
     }
 
-    @Override
+    @Override // Ouvre une nouvelle activité "PlaceActivity" avec les informations du lieu
     public void onListItemClick(ListView l, View v, int position, long id) {
-
+		
         super.onListItemClick(l, v, position, id);
-        Place place = placeArrayList.get(position);
+        Place place = placeArrayList.get(position); 
         Log.e("Recuperation", ""+place.getId());
         Intent intent = new Intent(getActivity(), PlaceActivity.class);
         intent.putExtra("placeName",place.getName());

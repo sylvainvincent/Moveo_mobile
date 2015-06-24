@@ -34,6 +34,7 @@ public class PlaceActivity extends Activity{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+		// TEMPORAIRE ? 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place);
 

@@ -1,6 +1,7 @@
 package fr.moveoteam.moveomobile.model;
 
 /**
+ * Classe métier sur les messages
  * Created by Sylvain on 12/05/15.
  */
 public class Dialog {

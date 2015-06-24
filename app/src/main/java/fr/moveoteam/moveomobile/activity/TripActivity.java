@@ -44,6 +44,13 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
  */
 public class TripActivity extends Activity implements HomeCategoryFragment.OnInformationListener{
 
+	private TextView tripName;
+    private TextView tripCountry;
+    private TextView tripAuthor;
+    private TextView tripDate;
+    private TextView tripDescription;
+    private  LinearLayout tripHome;
+	
     int id;
 
     RelativeLayout layout;
@@ -53,12 +60,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     ArrayList<Comment> commentArrayList;
 
     AlertDialog.Builder alertDialog;
-    private TextView tripName;
-    private TextView tripCountry;
-    private TextView tripAuthor;
-    private TextView tripDate;
-    private TextView tripDescription;
-    private  LinearLayout tripHome;
+  
 
     Bundle bundle;
 
@@ -84,7 +86,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     FragmentTransaction ft;
 
     private static final String HOME_FRAGMENT_TAG = "HOME";
-    private FrameLayout tripcontent;
+    private LinearLayout tripcontent;
 
 
     @Override
@@ -97,7 +99,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         getActionBar().setDisplayShowTitleEnabled(false);
 
         id = getIntent().getExtras().getInt("id",0);
-
+        tripcontent.setClickable(false);
         new ExecuteThread().execute();
 
     }
@@ -116,7 +118,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         commentsCategory = (ImageView) findViewById(R.id.comments_category);
         picturesCategory = (ImageView) findViewById(R.id.pictures_category);
         imageCover = (ImageView) findViewById(R.id.image_cover);
-        tripcontent = (FrameLayout) findViewById(R.id.trip_content);
+        tripcontent = (LinearLayout) findViewById(R.id.trip_content);
 
     }
 
@@ -166,7 +168,22 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
             pDialog.dismiss();
             try {
                 if(json == null){
-                    finish();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TripActivity.this);
+                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            finish();
+                        }
+                    });
+                    builder.setMessage("Récupération du voyage échoué");
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+                    builder.show();
+
                 }else if (json.getString("error").equals("0")) {
 
                     trip = new Trip();
@@ -245,21 +262,23 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
                     bundle = new Bundle();
                     bundle.putParcelableArrayList("placeList",placeArrayList);
                     leisurePlaceListFragment.setArguments(bundle);
-                    leisurePlaceListFragmentTag = leisurePlaceListFragment.getTag();
+                    //leisurePlaceListFragmentTag = leisurePlaceListFragment.getTag();
 
                     shoppingPlaceListFragment = new PlaceListFragment();
                     bundle = new Bundle();
                     bundle.putParcelableArrayList("placeList",placeArrayList);
                     shoppingPlaceListFragment.setArguments(bundle);
-                    shoppingPlaceListFragmentTag = shoppingPlaceListFragment.getTag();
+                    //shoppingPlaceListFragmentTag = shoppingPlaceListFragment.getTag();
 
                     photoGalleryFragment = new PhotoGalleryFragment();
+                    bundle = new Bundle();
                     bundle.putInt("tripId",id);
                     photoGalleryFragment.setArguments(bundle);
 
                     commentCategoryFragment = new CommentCategoryFragment();
                     bundle = new Bundle();
-                    bundle.putParcelableArrayList("commentList",commentArrayList);
+                    bundle.putInt("tripId",id);
+                    bundle.putParcelableArrayList("commentList",commentArrayList); // A enlever
                     commentCategoryFragment.setArguments(bundle);
 
                     homeCategoryFragment = new HomeCategoryFragment();
@@ -309,7 +328,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
         commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category));
         ft = getFragmentManager().beginTransaction();
-        //ft = getFragmentManager().beginTransaction();
+        // ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.trip_content, homeCategoryFragment);
         ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
         // ft.addToBackStack(null);
@@ -385,6 +404,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         this.finish();
     }
 
-
-
+    public int getId() {
+        return id;
+    }
 }

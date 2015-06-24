@@ -1,6 +1,7 @@
 package fr.moveoteam.moveomobile.activity;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
+import fr.moveoteam.moveomobile.fragment.TripListFragment;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Trip;
@@ -33,8 +34,7 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
  */
 public class UserProfile extends Activity {
 
-    ListView listViewUserTrips;
-    String[] trips = {"Reykjavik", "Londres", "Perth"};
+	// Elements de vue
     private ImageView useravatar;
     private TextView usernameprofile;
     private TextView livein;
@@ -44,53 +44,77 @@ public class UserProfile extends Activity {
     private ImageView addfriend;
     private ImageView tripsuser;
     private TextView tripsusertitle;
-    private ListView listviewusertrips;
     private LinearLayout userinfos;
     private RelativeLayout userprofile;
-
-    int id;
-
+	
+	// Manipulation de la table friend (Base de données)
+    FriendDAO friendDAO;
+	
     ArrayList<Trip> tripArrayList;
 
+	// FRAGMENT
+    TripListFragment tripListFragment;
+
+	// CLASSE METIER 
     Friend friend;
+	
+	// AUTRES
+	int id;
+    boolean isFriend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_profile);
         id = getIntent().getExtras().getInt("id",0);
-
+        isFriend = getIntent().getExtras().getInt("friend", 0) == 1;
         initialize();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowTitleEnabled(false);
 
-        FriendDAO friendDAO = new FriendDAO(UserProfile.this);
-        friendDAO.open();
+        tripListFragment = new TripListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("otherUserId",id);
+        tripListFragment.setArguments(bundle);
+        android.app.FragmentManager fm= getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.trip_list_content,tripListFragment);
+        ft.commit();
+
+        if (isFriend) {
+            friendDAO = new FriendDAO(UserProfile.this);
+            friendDAO.open();
+        }
 
 
 
-        friend = friendDAO.getFriend(id);
-        Log.i("info friend",""+id);
-        if(!friend.getAvatarBase64().equals(""))
-            useravatar.setImageBitmap(Function.decodeBase64(friend.getAvatarBase64()));
+        if (isFriend) {
+            friend = friendDAO.getFriend(id);
+            Log.i("info friend", "" + id);
+            if (!friend.getAvatarBase64().equals(""))
+                useravatar.setImageBitmap(Function.decodeBase64(friend.getAvatarBase64()));
 
-        usernameprofile.setText(friend.getFirstName()+" "+friend.getLastName().toUpperCase());
+            usernameprofile.setText(friend.getFirstName() + " " + friend.getLastName().toUpperCase());
+           // addfriend.setImageDrawable(getResources().getDrawable(R.drawable.refuse_friend));
 
-        // Affichage du lieu de l'utilisateur
-        if(friend.getCity() != null && friend.getCountry() != null)
-            livein.setText(livein.getText()+" en "+friend.getCountry());
-        else if (friend.getCountry() == null)
-            livein.setText(livein.getText()+" "+friend.getCity());
-        else
-            livein.setText("lieu non renseigné");
-
+            // Affichage du lieu de l'utilisateur
+            if (friend.getCity() != null && friend.getCountry() != null)
+                livein.setText(livein.getText() + " " + friend.getCity() + " en " + friend.getCountry());
+            else if (friend.getCountry() == null)
+                livein.setText(livein.getText() + " " + friend.getCity());
+            else
+                livein.setText("lieu non renseigné");
+        }
 
         sendmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserProfile.this,SendMessage.class);
-                intent.putExtra("id",id);
-                intent.putExtra("name",friend.getFirstName()+" "+friend.getLastName());
+                Intent intent = new Intent(UserProfile.this,SendMessageActivity.class);
+
+                if (isFriend) {
+                    intent.putExtra("friendId",""+id);
+                    intent.putExtra("name",friend.getFirstName()+" "+friend.getLastName());
+                }
                 startActivity(intent);
             }
         });
@@ -124,7 +148,6 @@ public class UserProfile extends Activity {
         addfriend = (ImageView) findViewById(R.id.add_friend);
         tripsuser = (ImageView) findViewById(R.id.trips_user);
         tripsusertitle = (TextView) findViewById(R.id.trips_user_title);
-        listviewusertrips = (ListView) findViewById(R.id.list_view_user_trips);
         userinfos = (LinearLayout) findViewById(R.id.user_infos);
         userprofile = (RelativeLayout) findViewById(R.id.user_profile);
     }
@@ -172,6 +195,7 @@ public class UserProfile extends Activity {
                                 tripList.getJSONObject(i).getInt("photo_count")
                         ));
                     }
+
                     if(tripArrayList != null) {
                         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                         //      R.layout.element_menu,R.id.title,values);
@@ -183,11 +207,9 @@ public class UserProfile extends Activity {
                     }
                 }
 
-            } catch (ParseException e1) {
+            } catch (ParseException | JSONException e1) {
                 e1.printStackTrace();
 
-            } catch (JSONException e1) {
-                e1.printStackTrace();
             }
 
         }

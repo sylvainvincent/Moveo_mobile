@@ -22,16 +22,22 @@ import fr.moveoteam.moveomobile.dao.FriendDAO;
  */
 public class FriendCategoryFragment extends Fragment {
 
-
+    // Elements de la vue
     private TextView friendcounter;
     private TextView friendsrequesttitle;
+
+    // Fragments de la vue
     FriendRequestFragment friendRequestFragment;
     FriendListFragment friendListFragment;
+
+
     View view;
 
+    FragmentTransaction ft;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.e("FriendCategoryFragment","onCreateView");
         if (view != null) {
             ViewGroup parent = (ViewGroup) view.getParent();
             if (parent != null)
@@ -39,9 +45,8 @@ public class FriendCategoryFragment extends Fragment {
         }
         try {
             view = inflater.inflate(R.layout.friend, container, false);
-            friendRequestFragment = (FriendRequestFragment) getFragmentManager().findFragmentById(R.id.fragment_friend_list_request);
-            friendListFragment = (FriendListFragment) getFragmentManager().findFragmentById(R.id.fragment_friend_list);
-
+            friendRequestFragment = (FriendRequestFragment) getActivity().getFragmentManager().findFragmentById(R.id.fragment_friend_list_request);
+            friendListFragment = (FriendListFragment) getActivity().getFragmentManager().findFragmentById(R.id.fragment_friend_list);
             friendcounter = (TextView) view.findViewById(R.id.friend_counter);
             friendsrequesttitle = (TextView) view.findViewById(R.id.friends_request_title);
         } catch (InflateException e) {
@@ -64,8 +69,11 @@ public class FriendCategoryFragment extends Fragment {
         friendDAO.close();
 
         // Affichage du nombre de demande d'amis
-        if(friendRequestSize == 0)
-            friendsrequesttitle.setText(friendRequestSize+" "+"nouvelles demandes d'amis");
+        if(friendRequestSize == 0) {
+            friendsrequesttitle.setText(friendRequestSize + " " + "nouvelle demande d'ami");
+            if(ft != null)
+                ft.hide(friendRequestFragment);
+        }
         else if(friendRequestSize == 1)
             friendsrequesttitle.setText(friendRequestSize+" "+"nouvelle demande d'ami");
         else
@@ -75,6 +83,25 @@ public class FriendCategoryFragment extends Fragment {
         if(friendSize == 0 || friendSize == 1)
             friendcounter.setText(friendSize+" contact");
         else friendcounter.setText(friendSize+" "+" contacts");
+
+        // On actualise les ListFragments lors d'une mise à jour (accepter/refuser/supprimer un ami)
+        if(friendListFragment != null) {
+            Log.e("FriendCat","friendListFragment non null");
+            //Si FriendListFragment existe déjà on l'actualise en le détachant et en le réatachant
+            ft = getFragmentManager().beginTransaction();
+            ft.detach(friendListFragment);
+            ft.attach(friendListFragment);
+            ft.commit();
+        }
+
+        if(friendRequestFragment != null) {
+            Log.e("FriendCat","friendListFragment non null");
+            //Si friendRequestFragment existe déjà on l'actualise en le détachant et en le réatachant
+            ft = getFragmentManager().beginTransaction();
+            ft.detach(friendRequestFragment);
+            ft.attach(friendRequestFragment);
+            ft.commit();
+        }
     }
 
     @Override // onDestroy est appelé lorsque l'activity est stoppé (onStop)
@@ -88,13 +115,14 @@ public class FriendCategoryFragment extends Fragment {
 
     @Override
     public void onAttach(Activity activity) {
-        Log.i("FriendCat","onAttach");
+        Log.e("FriendCat","onAttach");
+
         super.onAttach(activity);
     }
 
     @Override
     public void onDetach() {
-        Log.i("FriendCat","onDetach");
+        Log.e("FriendCat","onDetach");
         super.onDetach();
     }
 }

@@ -9,7 +9,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 
@@ -36,22 +41,26 @@ import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
 import fr.moveoteam.moveomobile.menu.MenuAdapter;
 import fr.moveoteam.moveomobile.menu.MenuItems;
 import fr.moveoteam.moveomobile.dao.UserDAO;
+import fr.moveoteam.moveomobile.model.Function;
 
 
 /**
  * Created by alexMac on 07/04/15.
  */
 public class HomeActivity extends Activity {
-
+	
+	// ELEMENTS DE VUE
     private TextView exploreTitle;
     private ListView listView;
     private DrawerLayout drawerLayout;
     private ListView listSliderMenu;
     private ActionBarDrawerToggle mDrawerToggle;
 
+	// FRAGMENTS
     Fragment fragment = null;
     Fragment fragment2 = null;
     FriendCategoryFragment friendCategoryFragment;
+    FragmentTransaction ft;
 
     // Titre dans l'action bar
     private CharSequence mDrawerTitle;
@@ -72,6 +81,7 @@ public class HomeActivity extends Activity {
 
     AlertDialog.Builder alertDialog;
 
+	// LE COMPTEUR (Nombre de message non lue, demande d'amis)
     String tripCounter = "0";
     String friendRequestCounter = "0";
     boolean friendRequestDisplay = false;
@@ -236,7 +246,7 @@ public class HomeActivity extends Activity {
     private void displayView(int position) {
         // Mettre à jour le contenu principal par un nouveau fragment
         FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft = fragmentManager.beginTransaction();
         if(fragment2 != null)ft.remove(fragment2);
         if(fragment != null)ft.remove(fragment);
         switch (position) {
@@ -251,13 +261,13 @@ public class HomeActivity extends Activity {
                 ft.add(R.id.frame_container, fragment);
                 break;
             case 2:
-                fragment = new ExploreFragment();
+                //fragment = new ExploreFragment();
                 Intent intent = new Intent(this,AccountSettingsActivity.class);
                 startActivity(intent);
                 break;
             case 3:
-                fragment = new FriendCategoryFragment();
-                ft.add(R.id.frame_container, friendCategoryFragment);
+                fragment = friendCategoryFragment;
+                ft.add(R.id.frame_container, fragment);
                 break;
             case 4:
                 fragment = new ExploreFragment();
@@ -271,7 +281,7 @@ public class HomeActivity extends Activity {
             case 7:
                 userDAO = new UserDAO(HomeActivity.this);
                 userDAO.logoutUser(HomeActivity.this);
-                intent = new Intent(HomeActivity.this,LoginActivity.class);
+                intent = new Intent(HomeActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -362,5 +372,49 @@ public class HomeActivity extends Activity {
         exploreTitle = (TextView) findViewById(R.id.explore_title);
         listView = (ListView) findViewById(R.id.listViewExploreTrip);
     }
+
+    /*
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            // Récupération des informations d'une photo sélectionné dans l'album
+            if (requestCode == 1) {
+
+                // RECUPERATION DE L'ADRESSE DE LA PHOTO
+                Uri selectedImage = data.getData();
+
+                String[] filePath = {MediaStore.Images.Media.DATA};
+
+                Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
+
+                c.moveToFirst();
+
+                int columnIndex = c.getColumnIndex(filePath[0]);
+
+                String picturePath = c.getString(columnIndex);
+                // FIN DE LA RECUPERATION
+                c.close();
+
+                Bitmap thumbnail2 = (BitmapFactory.decodeFile(picturePath));
+                Log.w("path de l'image", picturePath + "");
+                // Remplir le champ en dessous de la photo avec le chemin de la nouvelle
+                linkPhoto.setText(picturePath);
+
+                // Stoker la photo en base64 dans une variable
+                photoBase64 = Function.encodeBase64(thumbnail2);
+
+                // Changer la photo actuel avec la nouvelle
+                thumbnail.setImageBitmap(thumbnail2);
+            }
+        }
+    }*/
+	
+	public void refreshFragment(){
+        ft = getFragmentManager().beginTransaction();
+        Log.e("HomeActivity",fragment.toString());
+		ft.detach(fragment);
+		ft.attach(fragment);
+        ft.commit();
+	}
 
 }
