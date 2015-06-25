@@ -56,34 +56,19 @@ public class DialogDAO {
 
     /**
      *
-     * @param inboxList ArrayList contenant les messages reçus
+     * @param dialogArrayList ArrayList contenant les messages reçus et envoyés
      */
-    public void addInboxList(ArrayList<Dialog> inboxList) {
+    public void addDialogList(ArrayList<Dialog> dialogArrayList) {
         ContentValues values;
-        for(Dialog dialog : inboxList) {
+        for(Dialog dialog : dialogArrayList) {
             values = new ContentValues();
             values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_ID, dialog.getRecipientId());
             values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_LASTNAME, dialog.getRecipientLastName());     // NOM
             values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_FIRSTNAME, dialog.getRecipientFirstName());   // PRÉNOM
             values.put(DataBaseHandler.KEY_DIALOG_MESSAGE, dialog.getMessage());
             values.put(DataBaseHandler.KEY_DIALOG_DATE, dialog.getDate());
-            values.put(DataBaseHandler.KEY_DIALOG_READ, dialog.isRead());
-            values.put(DataBaseHandler.KEY_DIALOG_IS_INBOX, 1);
-            // Insérer la ligne
-            database.insert(TABLE_DIALOG, null, values);
-        }
-    }
-
-    public void addSendboxList(ArrayList<Dialog> sendboxList) {
-        ContentValues values;
-        for(Dialog dialog : sendboxList) {
-            values = new ContentValues();
-            values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_ID, dialog.getRecipientId());
-            values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_LASTNAME, dialog.getRecipientLastName());     // NOM
-            values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_FIRSTNAME, dialog.getRecipientFirstName());   // PRÉNOM
-            values.put(DataBaseHandler.KEY_DIALOG_MESSAGE, dialog.getMessage());
-            values.put(DataBaseHandler.KEY_DIALOG_DATE, dialog.getDate());
-            values.put(DataBaseHandler.KEY_DIALOG_IS_INBOX, dialog.isInbox());
+            values.put(DataBaseHandler.KEY_DIALOG_READ, dialog.isRead()?1:0);
+            values.put(DataBaseHandler.KEY_DIALOG_IS_INBOX, dialog.isInbox()?1:0);
             // Insérer la ligne
             database.insert(TABLE_DIALOG, null, values);
         }
@@ -120,7 +105,6 @@ public class DialogDAO {
 		cursor.close();
 		return cursor.getCount();
 	}
-	
 	
 
     public ArrayList<Dialog> getSendboxList(){

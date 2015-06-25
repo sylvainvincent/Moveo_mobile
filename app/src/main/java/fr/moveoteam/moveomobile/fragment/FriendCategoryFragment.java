@@ -45,8 +45,8 @@ public class FriendCategoryFragment extends Fragment {
         }
         try {
             view = inflater.inflate(R.layout.friend, container, false);
-            friendRequestFragment = (FriendRequestFragment) getActivity().getFragmentManager().findFragmentById(R.id.fragment_friend_list_request);
-            friendListFragment = (FriendListFragment) getActivity().getFragmentManager().findFragmentById(R.id.fragment_friend_list);
+            friendRequestFragment = (FriendRequestFragment) getFragmentManager().findFragmentById(R.id.fragment_friend_list_request);
+            friendListFragment = (FriendListFragment) getFragmentManager().findFragmentById(R.id.fragment_friend_list);
             friendcounter = (TextView) view.findViewById(R.id.friend_counter);
             friendsrequesttitle = (TextView) view.findViewById(R.id.friends_request_title);
         } catch (InflateException e) {

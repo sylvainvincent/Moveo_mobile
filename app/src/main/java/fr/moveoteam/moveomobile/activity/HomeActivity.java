@@ -37,6 +37,8 @@ import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.fragment.AddTripFragment;
 import fr.moveoteam.moveomobile.fragment.ExploreFragment;
 import fr.moveoteam.moveomobile.fragment.FriendCategoryFragment;
+import fr.moveoteam.moveomobile.fragment.InboxListFragment;
+import fr.moveoteam.moveomobile.fragment.MessagingFragment;
 import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
 import fr.moveoteam.moveomobile.menu.MenuAdapter;
 import fr.moveoteam.moveomobile.menu.MenuItems;
@@ -60,6 +62,7 @@ public class HomeActivity extends Activity {
     Fragment fragment = null;
     Fragment fragment2 = null;
     FriendCategoryFragment friendCategoryFragment;
+    MessagingFragment messagingFragment;
     FragmentTransaction ft;
 
     // Titre dans l'action bar
@@ -206,6 +209,7 @@ public class HomeActivity extends Activity {
         }
 
         friendCategoryFragment = new FriendCategoryFragment();
+        messagingFragment = new MessagingFragment();
 
     }
 
@@ -270,7 +274,8 @@ public class HomeActivity extends Activity {
                 ft.add(R.id.frame_container, fragment);
                 break;
             case 4:
-                fragment = new ExploreFragment();
+                fragment = messagingFragment;
+                ft.add(R.id.frame_container, fragment);
                 break;
             case 5:
                 fragment = new ExploreFragment();
@@ -298,7 +303,7 @@ public class HomeActivity extends Activity {
             ft.addToBackStack(null);
             ft.commit();
 
-            // update selected item and title, then close the drawer
+            // Mettre à jour le titre et fermer le menu
             listSliderMenu.setItemChecked(position, true);
             listSliderMenu.setSelection(position);
             this.setTitle(listMenuTitles[position]);
@@ -351,7 +356,7 @@ public class HomeActivity extends Activity {
         alertDialog = new AlertDialog.Builder(
                 HomeActivity.this);
         alertDialog.setCancelable(true);
-        alertDialog.setMessage("Êtes vous sûr de vouloir l'application ?");
+        alertDialog.setMessage("Êtes vous sûr de vouloir quitter l'application ?");
         alertDialog.setPositiveButton("oui",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -373,10 +378,17 @@ public class HomeActivity extends Activity {
         listView = (ListView) findViewById(R.id.listViewExploreTrip);
     }
 
-    /*
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("HomeActivity", "onActivity");
+
         if (resultCode == RESULT_OK) {
+            if(requestCode == 2){
+                this.refreshFragment();
+            }
+        }
+            /*
             // Récupération des informations d'une photo sélectionné dans l'album
             if (requestCode == 1) {
 
@@ -406,8 +418,8 @@ public class HomeActivity extends Activity {
                 // Changer la photo actuel avec la nouvelle
                 thumbnail.setImageBitmap(thumbnail2);
             }
-        }
-    }*/
+        }*/
+    }
 	
 	public void refreshFragment(){
         ft = getFragmentManager().beginTransaction();
@@ -416,5 +428,17 @@ public class HomeActivity extends Activity {
 		ft.attach(fragment);
         ft.commit();
 	}
+
+    public void linkToInbox(View view) {
+        FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+        ft.replace(R.id.messaging_content, ((MessagingFragment) fragment).getInboxListFragment());
+        ft.commit();
+    }
+
+    public void linkToSendbox(View view) {
+        FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
+        ft.replace(R.id.messaging_content,((MessagingFragment) fragment).getSendboxListFragment());
+        ft.commit();
+    }
 
 }

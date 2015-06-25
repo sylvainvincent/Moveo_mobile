@@ -20,11 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.DataBaseHandler;
@@ -255,18 +252,20 @@ public class DashboardActivity extends Activity {
                         ArrayList<Dialog> inboxArrayList = new ArrayList<>(inbox.length());
                         for (int i = 0; i < inbox.length(); i++) {
                             inboxArrayList.add(new Dialog(
-                                    inbox.getJSONObject(i).getInt("recipient_id"),
+                                    inbox.getJSONObject(i).getInt("user_id"),
                                     inbox.getJSONObject(i).getString("recipient_last_name"),
                                     inbox.getJSONObject(i).getString("recipient_first_name"),
                                     inbox.getJSONObject(i).getString("message"),
                                     inbox.getJSONObject(i).getString("sent_datetime"),
-                                    inbox.getJSONObject(i).getBoolean("read_by_recipient"),
+                                    inbox.getJSONObject(i).getInt("read_by_recipient") == 1,
                                     true
                             ));
+                            Log.e("Dashboard",inbox.getJSONObject(i).getString("message"));
                         }
                         DialogDAO dialogDAO = new DialogDAO(DashboardActivity.this);
                         dialogDAO.open();
-                        dialogDAO.addInboxList(inboxArrayList);
+                        dialogDAO.addDialogList(inboxArrayList);
+                        dialogDAO.close();
                     }
 
                     // L'utilisateur est envoyé vers le DASHBOARDACTIVITY

@@ -109,6 +109,7 @@ public class AddTrip extends Activity {
         cancelAddPlace = (TextView) findViewById(R.id.cancelAddPlace);
         addplace = (RelativeLayout) findViewById(R.id.add_place);
         linkPhoto = (EditText) findViewById(R.id.link_photo_trip);
+        image = (ImageView) findViewById(R.id.trip_image);
     }
 
 
@@ -159,7 +160,18 @@ public class AddTrip extends Activity {
                 }
 
                 else if(json.getString("success").equals("1")) {
+                    Trip trip = new Trip();
+                    trip.setName(editTripName.getText().toString());
+                    trip.setCountry(editCountry.getText().toString());
+                    if(photoBase64 != null)trip.setCover(photoBase64);
+                    if(!editdescriptiontrip.getText().toString().equals(""))trip.setDescription(editdescriptiontrip.getText().toString());
+                    trip.setDate(json.getString("date"));
+                    TripDAO tripDAO = new TripDAO(AddTrip.this);
+                    tripDAO.open();
+                    tripDAO.addTrip(trip);
+                    tripDAO.close();
 
+                    setResult(RESULT_OK,getIntent().putExtra("addTrip",1));
                     finish();
                 }
 

@@ -51,7 +51,31 @@ public class PhotoDAO {
     public void close() {
         dbHandler.close();
     }
+    
+    /**
+     * Supprime une photo de la base de données SQLite
+     *
+     */
+    public boolean removePhoto(int photoId){
 
+		return database.delete(TABLE_PHOTO, DataBaseHandler.KEY_PHOTO_ID+" = "+photoId, null)>0;
+	}
+    
+    /**
+     * Ajouter une photo
+     *
+     */
+    public void addPhoto(Photo photo) {
+        ContentValues values = new ContentValues();
+        values.put(DataBaseHandler.KEY_PHOTO_ID, photo.getId());                   // ID
+        values.put(DataBaseHandler.KEY_PHOTO_BASE64, photo.getPhotoBase64());        // PHOTO EN BASE 64
+        values.put(DataBaseHandler.KEY_PHOTO_DATE, photo.getPublicationDate()); // DATE DE PUBLICATION
+        values.put(DataBaseHandler.KEY_PHOTO_TRIP_ID, photo.getTripId());          // ID D'UN VOYAGE
+        // Insérer la ligne
+        database.insert(TABLE_PHOTO, null, values);
+        
+    }
+    
     /**
      * Recupere la liste des photos d'un voyage
      * @param tripId l'identifiant du lieu

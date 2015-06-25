@@ -131,6 +131,7 @@
                 android:id="@+id/link_photo_trip"
                 />
             <ImageView
+                android:id="@+id/trip_image"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:contentDescription="@string/content_description_trip_photo" />

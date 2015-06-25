@@ -63,15 +63,16 @@ public class TripListFragment extends ListFragment {
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
-        /*
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Chargement ...");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
+            pDialog.setCancelable(false);
             pDialog.show();
-        }*/
+        }
         @Override
         protected JSONObject doInBackground(String... args) {
             JSONTrip jsonTrip = new JSONTrip();
@@ -80,7 +81,7 @@ public class TripListFragment extends ListFragment {
 
         @Override
         protected void onPostExecute(JSONObject json) {
-           // pDialog.dismiss();
+            pDialog.dismiss();
             try {
                 // Log.e("ExploreFragment",json.getString("message"));
                 // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
@@ -118,7 +119,9 @@ public class TripListFragment extends ListFragment {
                         // setListAdapter(new TripListAdapter(getActivity(), tripArrayList, true));
                         Log.e("Message ", "" + tripArrayList.get(0).getName() + "" + tripArrayList.get(0).getName());
                         Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDate());
-                    }else setListAdapter(null);
+                    }else {
+                        setListAdapter(null);
+                    }
                 }
 
             } catch (ParseException | JSONException e1) {
