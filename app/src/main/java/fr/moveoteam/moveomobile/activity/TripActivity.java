@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -37,6 +38,7 @@ import fr.moveoteam.moveomobile.model.Comment;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Place;
 import fr.moveoteam.moveomobile.model.Trip;
+import fr.moveoteam.moveomobile.others.CustomScrollView;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**
@@ -49,14 +51,17 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     private TextView tripAuthor;
     private TextView tripDate;
     private TextView tripDescription;
-    private  LinearLayout tripHome;
 	
     int id;
 
     RelativeLayout layout;
 
     Trip trip;
-    ArrayList<Place> placeArrayList;
+
+    ArrayList<Place> foodingArrayList;
+    ArrayList<Place> shoppingArrayList;
+    ArrayList<Place> leisureArrayList;
+
     ArrayList<Comment> commentArrayList;
 
     AlertDialog.Builder alertDialog;
@@ -88,6 +93,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     private static final String HOME_FRAGMENT_TAG = "HOME";
     private LinearLayout tripcontent;
 
+    CustomScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +105,6 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         getActionBar().setDisplayShowTitleEnabled(false);
 
         id = getIntent().getExtras().getInt("id",0);
-        tripcontent.setClickable(false);
         new ExecuteThread().execute();
 
     }
@@ -111,15 +116,15 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         tripAuthor = (TextView) findViewById(R.id.trip_author);
         tripDate = (TextView) findViewById(R.id.trip_date);
         tripDescription = (TextView) findViewById(R.id.trip_description);
-        tripHome = (LinearLayout) findViewById(R.id.trip_home);
         homeCategory = (ImageView) findViewById(R.id.home_category);
         foodingCategory = (ImageView) findViewById(R.id.fooding_category);
         hobbiesCategory = (ImageView) findViewById(R.id.hobbies_category);
         commentsCategory = (ImageView) findViewById(R.id.comments_category);
         picturesCategory = (ImageView) findViewById(R.id.pictures_category);
+        shoppingCategory = (ImageView) findViewById(R.id.shopping_category);
         imageCover = (ImageView) findViewById(R.id.image_cover);
         tripcontent = (LinearLayout) findViewById(R.id.trip_content);
-
+        scrollView = (CustomScrollView) findViewById(R.id.cover);
     }
 
     @Override
@@ -142,10 +147,13 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         return true;
     }
 
+
+
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
         private FragmentManager fragmentManager;
         private FragmentTransaction ft;
+        JSONArray placeList;
 
         @Override
         protected void onPreExecute() {
@@ -153,14 +161,20 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
             pDialog = new ProgressDialog(TripActivity.this);
             pDialog.setMessage("Chargement...");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
+            pDialog.setCancelable(true);
             pDialog.show();
         }
 
         @Override
         protected JSONObject doInBackground(String... args) {
             JSONTrip jsonTrip = new JSONTrip();
+
             return jsonTrip.getTrip(Integer.toString(id));
+        }
+
+        @Override
+        protected void onCancelled() {
+            finish();
         }
 
         @Override
@@ -184,7 +198,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
                     });
                     builder.show();
 
-                }else if (json.getString("error").equals("0")) {
+                }else if (json.getString("success").equals("1")) {
 
                     trip = new Trip();
                     trip.setId(Integer.parseInt(json.getJSONObject("trip").getString("trip_id")));
@@ -197,22 +211,53 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
                     trip.setAuthor_first_name(json.getJSONObject("trip").getString("user_first_name"));
                     trip.setUserId(Integer.parseInt(json.getJSONObject("trip").getString("user_id")));
                     Log.e("Trip", trip.toString());
-                    if((json.getString("success").equals("1")) || (json.getString("success").equals("2"))){
-                        JSONArray placeList = json.getJSONArray("place");
-                        placeArrayList = new ArrayList<>(placeList.length());
+
+                    if(!json.getString("fooding").equals("0")){
+                        JSONArray placeList = json.getJSONArray("fooding");
+                        foodingArrayList = new ArrayList<>(placeList.length());
                         for (int i = 0; i < placeList.length(); i++) {
-                            placeArrayList.add(new Place(
+                            foodingArrayList.add(new Place(
                                     placeList.getJSONObject(i).getInt("place_id"),
                                     placeList.getJSONObject(i).getString("place_name"),
                                     placeList.getJSONObject(i).getString("place_address"),
                                     placeList.getJSONObject(i).getString("place_description"),
                                     placeList.getJSONObject(i).getInt("category_id")
                             ));
-                            Log.e("Place", placeArrayList.get(i).toString());
+                            Log.e("fooding", foodingArrayList.get(i).toString());
                         }
                     }
 
-                    if((json.getString("success").equals("1")) || (json.getString("success").equals("3"))){
+                    if(!json.getString("shopping").equals("0")){
+                        placeList = json.getJSONArray("shopping");
+                        shoppingArrayList = new ArrayList<>(placeList.length());
+                        for (int i = 0; i < placeList.length(); i++) {
+                            shoppingArrayList.add(new Place(
+                                    placeList.getJSONObject(i).getInt("place_id"),
+                                    placeList.getJSONObject(i).getString("place_name"),
+                                    placeList.getJSONObject(i).getString("place_address"),
+                                    placeList.getJSONObject(i).getString("place_description"),
+                                    placeList.getJSONObject(i).getInt("category_id")
+                            ));
+                            Log.e("shopping", shoppingArrayList.get(i).toString());
+                        }
+                    }
+
+                    if(!json.getString("leisure").equals("0")){
+                        JSONArray placeList = json.getJSONArray("leisure");
+                        leisureArrayList = new ArrayList<>(placeList.length());
+                        for (int i = 0; i < placeList.length(); i++) {
+                            leisureArrayList.add(new Place(
+                                    placeList.getJSONObject(i).getInt("place_id"),
+                                    placeList.getJSONObject(i).getString("place_name"),
+                                    placeList.getJSONObject(i).getString("place_address"),
+                                    placeList.getJSONObject(i).getString("place_description"),
+                                    placeList.getJSONObject(i).getInt("category_id")
+                            ));
+                            Log.e("leisure", leisureArrayList.get(i).toString());
+                        }
+                    }
+
+                    /*if(json.getString("comment").equals("1")){
                         JSONArray commentList = json.getJSONArray("comment");
                         commentArrayList = new ArrayList<>(commentList.length());
                         for (int i = 0; i < commentList.length(); i++) {
@@ -237,12 +282,12 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            */
+
                         }
 
 
 
-                    }
+                    }*/
 
                     homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category_blue));
                     imageCover.setImageBitmap(Function.decodeBase64(trip.getCover()));
@@ -253,20 +298,20 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
 
                     gastronomyPlaceListFragment = new PlaceListFragment();
                     bundle = new Bundle();
-                    bundle.putParcelableArrayList("placeList", placeArrayList);
+                    bundle.putParcelableArrayList("placeList", foodingArrayList);
                     gastronomyPlaceListFragment.setArguments(bundle);
                     //ft.add(gastronomyPlaceListFragment, "gastronomy");
 
 
                     leisurePlaceListFragment = new PlaceListFragment();
                     bundle = new Bundle();
-                    bundle.putParcelableArrayList("placeList",placeArrayList);
+                    bundle.putParcelableArrayList("placeList",leisureArrayList);
                     leisurePlaceListFragment.setArguments(bundle);
                     //leisurePlaceListFragmentTag = leisurePlaceListFragment.getTag();
 
                     shoppingPlaceListFragment = new PlaceListFragment();
                     bundle = new Bundle();
-                    bundle.putParcelableArrayList("placeList",placeArrayList);
+                    bundle.putParcelableArrayList("placeList",shoppingArrayList);
                     shoppingPlaceListFragment.setArguments(bundle);
                     //shoppingPlaceListFragmentTag = shoppingPlaceListFragment.getTag();
 
@@ -278,7 +323,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
                     commentCategoryFragment = new CommentCategoryFragment();
                     bundle = new Bundle();
                     bundle.putInt("tripId",id);
-                    bundle.putParcelableArrayList("commentList",commentArrayList); // A enlever
+                   // bundle.putParcelableArrayList("commentList",commentArrayList); // A enlever
                     commentCategoryFragment.setArguments(bundle);
 
                     homeCategoryFragment = new HomeCategoryFragment();
@@ -293,6 +338,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
                     ft.replace(R.id.trip_content, homeCategoryFragment, HOME_FRAGMENT_TAG);
                     ft.commit();
                     tripcontent.setVisibility(View.VISIBLE);
+                    scrollView.setEnableScrolling(true);
 
 
                     /*tripName.setText(trip.getName());
@@ -327,6 +373,8 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category));
         hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
         commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category));
+        shoppingCategory.setImageDrawable(getResources().getDrawable(R.drawable.shopping_category));
+
         ft = getFragmentManager().beginTransaction();
         // ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.trip_content, homeCategoryFragment);
@@ -341,6 +389,8 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
         hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
         commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category));
+        shoppingCategory.setImageDrawable(getResources().getDrawable(R.drawable.shopping_category));
+
         ft = getFragmentManager().beginTransaction();
         //ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.trip_content, photoGalleryFragment);
@@ -351,11 +401,14 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
 
     public void linkToGastronomyFragment(View view){
         Log.e("id de la vue",""+view.getId());
+
         foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category_blue));
         homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
         hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
         commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category));
         picturesCategory.setImageDrawable(getResources().getDrawable(R.drawable.pictures_category));
+        shoppingCategory.setImageDrawable(getResources().getDrawable(R.drawable.shopping_category));
+
 
         ft = getFragmentManager().beginTransaction();
         //ft = getFragmentManager().beginTransaction();
@@ -372,9 +425,26 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
         commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category));
         picturesCategory.setImageDrawable(getResources().getDrawable(R.drawable.pictures_category));
+        shoppingCategory.setImageDrawable(getResources().getDrawable(R.drawable.shopping_category));
 
         ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.trip_content, gastronomyPlaceListFragment);
+        ft.replace(R.id.trip_content, leisurePlaceListFragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+    public void linkToShoppingFragment(View view) {
+        Log.e("id de la vue",""+view.getId());
+        shoppingCategory.setImageDrawable(getResources().getDrawable(R.drawable.shopping_category_blue));
+        hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
+        foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category));
+        homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
+        commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category));
+        picturesCategory.setImageDrawable(getResources().getDrawable(R.drawable.pictures_category));
+
+        ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.trip_content, shoppingPlaceListFragment);
         ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
         ft.addToBackStack(null);
         ft.commit();
@@ -382,11 +452,13 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
 
     public void linkToCommentsFragment(View view){
         Log.e("id de la vue",""+view.getId());
+        scrollView.setEnableScrolling(false);
         commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category_blue));
         hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
         foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category));
         homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
         picturesCategory.setImageDrawable(getResources().getDrawable(R.drawable.pictures_category));
+        shoppingCategory.setImageDrawable(getResources().getDrawable(R.drawable.shopping_category));
 
         //ft = getFragmentManager().beginTransaction();
         ft = getFragmentManager().beginTransaction();
@@ -401,6 +473,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     }
     @Override // Fermer l'activity lorsque l'on appuie sur le bouton "back"
     public void onBackPressed() {
+
         this.finish();
     }
 

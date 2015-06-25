@@ -86,10 +86,9 @@ public class UserProfile extends Activity {
             friendDAO.open();
         }
 
-
-
         if (isFriend) {
             friend = friendDAO.getFriend(id);
+            friendDAO.close();
             Log.i("info friend", "" + id);
             if (!friend.getAvatarBase64().equals(""))
                 useravatar.setImageBitmap(Function.decodeBase64(friend.getAvatarBase64()));
@@ -98,9 +97,9 @@ public class UserProfile extends Activity {
            // addfriend.setImageDrawable(getResources().getDrawable(R.drawable.refuse_friend));
 
             // Affichage du lieu de l'utilisateur
-            if (friend.getCity() != null && friend.getCountry() != null)
+            if (friend.getCity() != "null" && friend.getCountry() != "null")
                 livein.setText(livein.getText() + " " + friend.getCity() + " en " + friend.getCountry());
-            else if (friend.getCountry() == null)
+            else if (friend.getCountry() == "null")
                 livein.setText(livein.getText() + " " + friend.getCity());
             else
                 livein.setText("lieu non renseigné");
@@ -149,7 +148,7 @@ public class UserProfile extends Activity {
         tripsuser = (ImageView) findViewById(R.id.trips_user);
         tripsusertitle = (TextView) findViewById(R.id.trips_user_title);
         userinfos = (LinearLayout) findViewById(R.id.user_infos);
-        userprofile = (RelativeLayout) findViewById(R.id.user_profile);
+        //userprofile = (RelativeLayout) findViewById(R.id.user_profile);
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {

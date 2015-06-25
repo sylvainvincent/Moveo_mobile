@@ -5,13 +5,20 @@
     android:padding="20dp"
     android:background="#f6f6f6">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/message_information"
+        android:orientation="horizontal">
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/receive_messages_icon"
         android:contentDescription="@string/receive_messages"
         android:layout_marginRight="10dp"
-        android:src="@drawable/receive_messages" />
+        android:src="@drawable/receive_messages"
+        android:onClick="linkToInbox"/>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -21,7 +28,8 @@
         android:contentDescription="@string/send_messages"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/receive_messages_icon"
-        android:layout_toEndOf="@+id/receive_messages_icon" />
+        android:layout_toEndOf="@+id/receive_messages_icon"
+        android:onClick="linkToSendbox"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,6 +41,12 @@
         android:textSize="12sp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+    </LinearLayout>
 
+    <FrameLayout
+        android:layout_below="@id/message_information"
+        android:id="@+id/messaging_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

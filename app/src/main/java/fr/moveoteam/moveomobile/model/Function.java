@@ -100,12 +100,17 @@ public class Function {
 
     public static Bitmap decodeBase64(String input)
     {
-        Bitmap bitmap;
+        Bitmap bitmap = null;
 
         if(input != null){
             Log.e("Image64", "taille : " + input.length());
             byte[] bytes = Base64.decode(input, Base64.DEFAULT);
-            bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            try{
+                bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            }catch (OutOfMemoryError e){
+                e.getMessage();
+                bitmap = null;
+            }
         }else bitmap = null;
         return bitmap;
     }

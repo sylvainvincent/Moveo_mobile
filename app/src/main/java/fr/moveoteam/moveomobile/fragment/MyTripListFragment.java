@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import fr.moveoteam.moveomobile.activity.HomeActivity;
 import fr.moveoteam.moveomobile.activity.MyTripActivity;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.adapter.TripListAdapter;
@@ -20,7 +21,7 @@ import fr.moveoteam.moveomobile.model.Trip;
 public class MyTripListFragment extends ListFragment {
 
     ArrayList<Trip> tripArrayList;
-
+    TripListAdapter tripListAdapter;
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -28,9 +29,11 @@ public class MyTripListFragment extends ListFragment {
         TripDAO tripDAO = new TripDAO(getActivity());
         tripDAO.open();
         tripArrayList = tripDAO.getTripList();
-        if(tripArrayList != null)
-            setListAdapter(new TripListAdapter(getActivity(), tripArrayList, false));
-        else setListAdapter(null);
+        if(tripArrayList != null) {
+            if (tripListAdapter != null) tripListAdapter.updateResult(tripArrayList);
+            else tripListAdapter = new TripListAdapter(getActivity(), tripArrayList, false);
+            setListAdapter(tripListAdapter);
+        }else setListAdapter(null);
     }
 
     @Override
@@ -41,7 +44,8 @@ public class MyTripListFragment extends ListFragment {
         Intent intent = new Intent(getActivity(), MyTripActivity.class);
         intent.putExtra("id",trip.getId());
         Log.e("id trip frag",""+trip.getId());
-        startActivity(intent);
+        getActivity().startActivityForResult(intent,2);
+        //startActivity(intent);
     }
 
     @Override
@@ -50,5 +54,15 @@ public class MyTripListFragment extends ListFragment {
         Log.e("test","resume");
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("MyTripListFragment","Add success 1");
 
+        if (resultCode == -1) {
+            if (requestCode == 1) {
+                ((HomeActivity) getActivity()).refreshFragment();
+                Log.e("MyTripListFragment","Add success 2");
+            }
+        }
+    }
 }

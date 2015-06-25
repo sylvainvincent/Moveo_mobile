@@ -52,7 +52,30 @@ public class PlaceDAO {
     public void close() {
         dbHandler.close();
     }
+    
+    /**
+     * Ajoute un nouveau lieu à la base de données
+     * @param place le lieu
+     * 
+     */
+    public void addPlace(Place place) {
+        ContentValues values = new ContentValues();
+        values.put(DataBaseHandler.KEY_PLACE_ID, place.getId());
+        values.put(DataBaseHandler.KEY_PLACE_NAME, place.getName());     // NOM
+        values.put(DataBaseHandler.KEY_PLACE_ADDRESS, place.getAddress());   // PRÉNOM
+        values.put(DataBaseHandler.KEY_PLACE_DESCRIPTION, place.getDescription());     // DATE DE NAISSANCE
+        values.put(DataBaseHandler.KEY_PLACE_CATEGORY, place.getCategory()); // CATEGORIE
+        values.put(DataBaseHandler.KEY_PLACE_TRIP_ID, place.getTripId()); // ID DU LIEU
+        // Insérer la ligne
+        database.insert(TABLE_PLACE, null, values);
+        
+    }
+    
+    public boolean removePlace(int placeId){
 
+		return database.delete(TABLE_PLACE, DataBaseHandler.KEY_PLACE_ID+" = "+placeId, null)>0;
+	}
+    
     /**
      * Recupere la liste des lieux d'un voyage
      * @param tripId l'identifiant du lieu
@@ -90,8 +113,8 @@ public class PlaceDAO {
             values.put(DataBaseHandler.KEY_PLACE_NAME, place.getName());     // NOM
             values.put(DataBaseHandler.KEY_PLACE_ADDRESS, place.getAddress());   // PRÉNOM
             values.put(DataBaseHandler.KEY_PLACE_DESCRIPTION, place.getDescription());     // DATE DE NAISSANCE
-            values.put(DataBaseHandler.KEY_PLACE_CATEGORY, place.getCategory());
-            values.put(DataBaseHandler.KEY_PLACE_TRIP_ID, place.getTripId());
+            values.put(DataBaseHandler.KEY_PLACE_CATEGORY, place.getCategory()); // CATEGORIE
+            values.put(DataBaseHandler.KEY_PLACE_TRIP_ID, place.getTripId()); // ID DU LIEU
             // Insérer la ligne
             database.insert(TABLE_PLACE, null, values);
         }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Trip;
 
@@ -36,6 +37,11 @@ public class TripListAdapter extends BaseAdapter {
         this.tripList = tripList;
         layoutInflater = LayoutInflater.from(context);
         this.otherUser = otherUser;
+    }
+
+    public void updateResult(ArrayList<Trip> tripList){
+        this.tripList = tripList;
+        notifyDataSetChanged();
     }
 
     @Override

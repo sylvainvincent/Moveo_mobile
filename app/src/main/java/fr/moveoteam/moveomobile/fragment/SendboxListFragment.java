@@ -16,7 +16,7 @@ import fr.moveoteam.moveomobile.model.Dialog;
 /**
  * Created by Sylvain on 31/05/15.
  */
-public class InboxListFragment extends ListFragment {
+public class SendboxListFragment extends ListFragment {
 
     ArrayList<Dialog> dialogArrayList;
 
@@ -26,16 +26,13 @@ public class InboxListFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
         DialogDAO dialogDAO = new DialogDAO(getActivity());
         dialogDAO.open();
-        dialogArrayList = dialogDAO.getInboxList();
+        dialogArrayList = dialogDAO.getSendboxList();
 		dialogDAO.close();
 
-        Log.e("Inbox"," ok ");
+        Log.e("Sendbox"," ok ");
 
-        if(dialogArrayList != null) {
-            setListAdapter(new MessageListAdapter(getActivity(), dialogArrayList));
-            Log.e("Inbox"," ok2 ");
-        } else setListAdapter(null);
+        if(dialogArrayList != null)
+		  setListAdapter(new MessageListAdapter(getActivity(), dialogArrayList));
+        else setListAdapter(null);
     }
-
-
 }
