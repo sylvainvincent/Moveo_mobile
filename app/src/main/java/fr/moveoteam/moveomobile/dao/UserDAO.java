@@ -95,6 +95,12 @@ public class UserDAO {
 	 }
 
 
+    public int modifyPassword(String password){
+        ContentValues values = new ContentValues();
+        values.put(KEY_USER_PASSWORD, password);
+        return database.update(TABLE_LOGIN, values, null, null);
+    }
+
     public User getUserDetails(){
 
         User user = new User();

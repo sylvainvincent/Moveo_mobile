@@ -23,8 +23,8 @@ import fr.moveoteam.moveomobile.dao.FriendDAO;
 public class FriendCategoryFragment extends Fragment {
 
     // Elements de la vue
-    private TextView friendcounter;
-    private TextView friendsrequesttitle;
+    TextView friendcounter;
+    TextView friendsrequesttitle;
 
     // Fragments de la vue
     FriendRequestFragment friendRequestFragment;
@@ -50,9 +50,8 @@ public class FriendCategoryFragment extends Fragment {
             friendcounter = (TextView) view.findViewById(R.id.friend_counter);
             friendsrequesttitle = (TextView) view.findViewById(R.id.friends_request_title);
         } catch (InflateException e) {
-        /* map is already there, just return view as it is */
+            e.getMessage();
         }
-
 
         return view;
     }

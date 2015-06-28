@@ -81,7 +81,7 @@ public class JSONTrip {
         return jsonParser.getJSONFromUrl(tripURL,commentRequest);
     }
 	
-	  public JSONObject addComment(String userId, String tripId, String message){
+	public JSONObject addComment(String userId, String tripId, String message){
 
         List<NameValuePair> commentForm = new ArrayList<>();
         commentForm.add(new BasicNameValuePair("tag","addComment"));
@@ -89,6 +89,14 @@ public class JSONTrip {
         commentForm.add(new BasicNameValuePair("trip_id",tripId));
         commentForm.add(new BasicNameValuePair("comment_message",message));
         return jsonParser.getJSONFromUrl(tripURL,commentForm);
+    }
+
+    public JSONObject deleteTrip(String tripId){
+
+        List<NameValuePair> tripForm = new ArrayList<>();
+        tripForm.add(new BasicNameValuePair("tag","deleteTrip"));
+        tripForm.add(new BasicNameValuePair("trip_id",tripId));
+        return jsonParser.getJSONFromUrl(tripURL,tripForm);
     }
 
 }

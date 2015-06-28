@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,8 +81,17 @@ public class AddTrip extends Activity {
         buttonAddPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!editTripName.getText().toString().equals("") && !editCountry.getText().toString().equals(""))
-                    new ExecuteThread().execute();
+               int count = 0;
+                if(editTripName.getText().toString().equals("")){
+                    editTripName.setError("Champ obligatoire");
+                }else count++;
+
+                if (editCountry.getText().toString().equals("")) {
+                    editCountry.setError("Champ obligatoire");
+                }else count++;
+
+
+                if(count == 2)new ExecuteThread().execute();
             }
         });
 
@@ -134,7 +144,7 @@ public class AddTrip extends Activity {
             String description = editdescriptiontrip.getText().toString();
 
             JSONTrip jsonTrip = new JSONTrip();
-            return jsonTrip.addTrip(id,name,country,photoBase64,description);
+            return jsonTrip.addTrip(id,name,country,description,photoBase64);
         }
 
         @Override
@@ -189,7 +199,7 @@ public class AddTrip extends Activity {
         if (resultCode == RESULT_OK) {
 			// Récupération des informations d'une photo sélectionné dans l'album
             if (requestCode == 1) {
-
+                Bitmap photo = null;
                 // RECUPERATION DE L'ADRESSE DE LA PHOTO
                 Uri selectedImage = data.getData();
 
@@ -205,16 +215,22 @@ public class AddTrip extends Activity {
                 // FIN DE LA RECUPERATION
                 c.close();
 
-                Bitmap photo = (BitmapFactory.decodeFile(picturePath));
-                Log.w("path de l'image", picturePath + "");
-				// Remplir le champ en dessous de la photo avec le chemin de la nouvelle
-                linkPhoto.setText(picturePath);
-				
-				// Stoker la photo en base64 dans une variable
-                photoBase64 = Function.encodeBase64(photo);
-				
-				// Changer la photo actuel avec la nouvelle
-                image.setImageBitmap(photo);
+                try{
+                    photo = (BitmapFactory.decodeFile(picturePath));
+                    Log.w("path de l'image", picturePath + "");
+                    // Remplir le champ en dessous de la photo avec le chemin de la nouvelle
+                    linkPhoto.setText(picturePath);
+
+                    // Stoker la photo en base64 dans une variable
+                    photoBase64 = Function.encodeBase64(photo);
+
+                    // Changer la photo actuel avec la nouvelle
+                    image.setImageBitmap(photo);
+                }catch (OutOfMemoryError e){
+                    e.getMessage();
+                    Toast.makeText(AddTrip.this,"Photo trop lourd",Toast.LENGTH_LONG).show();
+                }
+
             }
         }
     }

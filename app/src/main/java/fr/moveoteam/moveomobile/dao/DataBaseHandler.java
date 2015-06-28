@@ -79,6 +79,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final String KEY_FRIEND_IS_ACCEPTED = "friend_is_accepted";
 
         // Dialog
+
+        public static final String KEY_DIALOG_ID = "dialog_id";
         public static final String KEY_DIALOG_RECIPIENT_ID = "dialog_recipient_id";
         public static final String KEY_DIALOG_RECIPIENT_LASTNAME = "dialog_recipient_lastname";
         public static final String KEY_DIALOG_RECIPIENT_FIRSTNAME = "dialog_recipient_firstname";
@@ -132,13 +134,14 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
 
     // Dialog
-        public static final int POSITION_DIALOG_RECIPIENT_ID = 0;
-        public static final int POSITION_DIALOG_RECIPIENT_LASTNAME = 1;
-        public static final int POSITION_DIALOG_RECIPIENT_FIRSTNAME = 2;
-        public static final int POSITION_DIALOG_MESSAGE = 3;
-        public static final int POSITION_DIALOG_DATE = 4;
-        public static final int POSITION_DIALOG_READ = 5;
-        public static final int POSITION_DIALOG_IS_INBOX = 6;
+        public static final int POSITION_DIALOG_ID = 0;
+        public static final int POSITION_DIALOG_RECIPIENT_ID = 1;
+        public static final int POSITION_DIALOG_RECIPIENT_LASTNAME = 2;
+        public static final int POSITION_DIALOG_RECIPIENT_FIRSTNAME = 3;
+        public static final int POSITION_DIALOG_MESSAGE = 4;
+        public static final int POSITION_DIALOG_DATE = 5;
+        public static final int POSITION_DIALOG_READ = 6;
+        public static final int POSITION_DIALOG_IS_INBOX = 7;
 
     // CREATION DES TABLES
 
@@ -200,7 +203,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_FRIEND_IS_ACCEPTED + " INTEGER" + ")";
         // Dialog
         private static final String CREATE_DIALOG_TABLE = "CREATE TABLE "+ TABLE_DIALOG + "("
-                + KEY_DIALOG_RECIPIENT_ID + " INTEGER PRIMARY KEY,"
+                + KEY_DIALOG_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                + KEY_DIALOG_RECIPIENT_ID + " INTEGER,"
                 + KEY_DIALOG_RECIPIENT_LASTNAME + " TEXT,"
                 + KEY_DIALOG_RECIPIENT_FIRSTNAME + " TEXT,"
                 + KEY_DIALOG_MESSAGE + " TEXT,"

@@ -3,10 +3,14 @@ package fr.moveoteam.moveomobile.adapter;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,6 +32,7 @@ public class MessageListAdapter extends BaseAdapter {
     public MessageListAdapter(Context context, ArrayList<Dialog> dialogArrayList){
         this.dialogArrayList = dialogArrayList;
         this.context = context;
+        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -50,13 +55,14 @@ public class MessageListAdapter extends BaseAdapter {
 
         if(convertView == null){
 
-            layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(R.layout.row_list_messages, null);
             viewHolderMessage = new ViewHolderMessage();
             viewHolderMessage.userName = (TextView) convertView.findViewById(R.id.message_username);
             viewHolderMessage.content = (TextView) convertView.findViewById(R.id.message_content);
             viewHolderMessage.date = (TextView) convertView.findViewById(R.id.date_message);
             viewHolderMessage.reply = (TextView) convertView.findViewById(R.id.reply_text);
+            viewHolderMessage.replyIcon = (ImageView) convertView.findViewById(R.id.reply);
+            viewHolderMessage.row = (RelativeLayout) convertView.findViewById(R.id.message_row);
 			convertView.setTag(viewHolderMessage);
         }else{
             viewHolderMessage = (ViewHolderMessage) convertView.getTag();
@@ -65,16 +71,24 @@ public class MessageListAdapter extends BaseAdapter {
         viewHolderMessage.userName.setText(dialogArrayList.get(position).getRecipientFirstName()+" "+dialogArrayList.get(position).getRecipientLastName());
         viewHolderMessage.content.setText(dialogArrayList.get(position).getMessage());
         viewHolderMessage.date.setText(dialogArrayList.get(position).getDate());
-        viewHolderMessage.reply.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(context, SendMessageActivity.class);
-						intent.putExtra("name",dialogArrayList.get(position).getRecipientFirstName()+" "+dialogArrayList.get(position).getRecipientLastName());
-						intent.putExtra("friendId",Integer.toString(dialogArrayList.get(position).getRecipientId()));
-                        context.startActivity(intent);
-						
-                    }
-                });
+        if(dialogArrayList.get(position).isInbox()) {
+            viewHolderMessage.reply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, SendMessageActivity.class);
+                    intent.putExtra("name", dialogArrayList.get(position).getRecipientFirstName() + " " + dialogArrayList.get(position).getRecipientLastName());
+                    intent.putExtra("friendId", Integer.toString(dialogArrayList.get(position).getRecipientId()));
+                    context.startActivity(intent);
+
+                }
+            });
+			if(dialogArrayList.get(position).isRead()){
+				viewHolderMessage.row.setBackgroundColor(Color.parseColor("#BBBBBB"));
+			}
+        }else{
+             viewHolderMessage.reply.setVisibility(View.GONE);
+            viewHolderMessage.replyIcon.setVisibility(View.GONE);
+        }
         return convertView;
     }
 
@@ -83,5 +97,7 @@ public class MessageListAdapter extends BaseAdapter {
         TextView content;
         TextView date;
         TextView reply;
+        ImageView replyIcon;
+        RelativeLayout row;
     }
 }

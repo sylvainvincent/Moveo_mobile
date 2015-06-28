@@ -40,6 +40,7 @@ import fr.moveoteam.moveomobile.fragment.FriendCategoryFragment;
 import fr.moveoteam.moveomobile.fragment.InboxListFragment;
 import fr.moveoteam.moveomobile.fragment.MessagingFragment;
 import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
+import fr.moveoteam.moveomobile.fragment.SettingsFragment;
 import fr.moveoteam.moveomobile.menu.MenuAdapter;
 import fr.moveoteam.moveomobile.menu.MenuItems;
 import fr.moveoteam.moveomobile.dao.UserDAO;
@@ -238,10 +239,11 @@ public class HomeActivity extends Activity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        // Handle action bar actions click
+        // Lors de la selection d'un element du menu
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
+            case R.id.action_search:
+                Intent intent = new Intent(this,SearchActivity.class);
+                startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -265,9 +267,10 @@ public class HomeActivity extends Activity {
                 ft.add(R.id.frame_container, fragment);
                 break;
             case 2:
-                //fragment = new ExploreFragment();
-                Intent intent = new Intent(this,AccountSettingsActivity.class);
-                startActivity(intent);
+                fragment = new AccountSettingsActivity();
+                ft.add(R.id.frame_container, fragment);
+                /*Intent intent = new Intent(this,AccountSettingsActivity.class);
+                startActivity(intent);*/
                 break;
             case 3:
                 fragment = friendCategoryFragment;
@@ -278,15 +281,16 @@ public class HomeActivity extends Activity {
                 ft.add(R.id.frame_container, fragment);
                 break;
             case 5:
-                fragment = new ExploreFragment();
+                fragment = new SettingsFragment();
+                ft.add(R.id.frame_container, fragment);
                 break;
             case 6:
-                fragment = new ExploreFragment();
+
                 break;
             case 7:
                 userDAO = new UserDAO(HomeActivity.this);
                 userDAO.logoutUser(HomeActivity.this);
-                intent = new Intent(HomeActivity.this, LoginActivity.class);
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
                 break;

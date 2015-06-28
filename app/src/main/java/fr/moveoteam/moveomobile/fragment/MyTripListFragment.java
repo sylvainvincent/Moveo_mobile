@@ -44,8 +44,7 @@ public class MyTripListFragment extends ListFragment {
         Intent intent = new Intent(getActivity(), MyTripActivity.class);
         intent.putExtra("id",trip.getId());
         Log.e("id trip frag",""+trip.getId());
-        getActivity().startActivityForResult(intent,2);
-        //startActivity(intent);
+        startActivity(intent);
     }
 
     @Override
@@ -54,15 +53,4 @@ public class MyTripListFragment extends ListFragment {
         Log.e("test","resume");
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e("MyTripListFragment","Add success 1");
-
-        if (resultCode == -1) {
-            if (requestCode == 1) {
-                ((HomeActivity) getActivity()).refreshFragment();
-                Log.e("MyTripListFragment","Add success 2");
-            }
-        }
-    }
 }

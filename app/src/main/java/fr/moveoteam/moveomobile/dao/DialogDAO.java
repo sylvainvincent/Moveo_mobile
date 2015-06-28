@@ -25,7 +25,9 @@ public class DialogDAO {
     private static final String TABLE_DIALOG = "dialog";
 
     // LES COLONNES
-    private String[] allColumns = { DataBaseHandler.KEY_DIALOG_RECIPIENT_ID,
+    private String[] allColumns = {
+            DataBaseHandler.KEY_DIALOG_ID,
+            DataBaseHandler.KEY_DIALOG_RECIPIENT_ID,
             DataBaseHandler.KEY_DIALOG_RECIPIENT_LASTNAME,
             DataBaseHandler.KEY_DIALOG_RECIPIENT_FIRSTNAME,
             DataBaseHandler.KEY_DIALOG_MESSAGE,
@@ -109,9 +111,8 @@ public class DialogDAO {
 
     public ArrayList<Dialog> getSendboxList(){
         ArrayList<Dialog> sendboxArrayList = null;
-        // String selectQuery = "SELECT  * FROM " + TABLE_FRIEND+ "WHERE "+ KEY_FRIEND_IS_ACCEPTED+" = 1";
 
-        Cursor cursor = database.query(TABLE_DIALOG, allColumns, DataBaseHandler.POSITION_DIALOG_RECIPIENT_FIRSTNAME+" = 0", null, null, null, null);
+        Cursor cursor = database.query(TABLE_DIALOG, allColumns, DataBaseHandler.KEY_DIALOG_IS_INBOX+" = 0", null, null, null, null);
         if(cursor.getCount()>0) {
             sendboxArrayList = new ArrayList<>(cursor.getCount());
         }
@@ -140,12 +141,13 @@ public class DialogDAO {
     protected Dialog cursorToDialog(Cursor cursor, boolean isInbox){
 
         Dialog dialog = new Dialog() ;
-        dialog.setRecipientId(cursor.getInt(DataBaseHandler.POSITION_FRIEND_ID));
-        dialog.setRecipientLastName(cursor.getString(DataBaseHandler.POSITION_FRIEND_LASTNAME));
-        dialog.setRecipientFirstName(cursor.getString(DataBaseHandler.POSITION_FRIEND_FIRSTNAME));
+        dialog.setRecipientId(cursor.getInt(DataBaseHandler.POSITION_DIALOG_RECIPIENT_ID));
+        dialog.setRecipientLastName(cursor.getString(DataBaseHandler.POSITION_DIALOG_RECIPIENT_LASTNAME));
+        dialog.setRecipientFirstName(cursor.getString(DataBaseHandler.POSITION_DIALOG_RECIPIENT_FIRSTNAME));
         dialog.setMessage(cursor.getString(DataBaseHandler.POSITION_DIALOG_MESSAGE));
         dialog.setDate(cursor.getString(DataBaseHandler.POSITION_DIALOG_DATE));
         if(isInbox) dialog.setRead(cursor.getInt(DataBaseHandler.POSITION_DIALOG_READ)==1);
+        else dialog.setRead(cursor.getInt(DataBaseHandler.POSITION_DIALOG_READ)==0);
         dialog.setInbox(isInbox);
 
         return dialog;

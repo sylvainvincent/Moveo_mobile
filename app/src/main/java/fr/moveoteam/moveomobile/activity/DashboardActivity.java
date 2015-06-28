@@ -234,8 +234,8 @@ public class DashboardActivity extends Activity {
                                     tripList.getJSONObject(i).getString("trip_name"),
                                     tripList.getJSONObject(i).getString("trip_country"),
                                     tripList.getJSONObject(i).getString("trip_description"),
-                                    tripList.getJSONObject(i).getString("trip_cover"),
                                     tripList.getJSONObject(i).getString("trip_created_at"),
+                                    tripList.getJSONObject(i).getString("trip_cover"),
                                     tripList.getJSONObject(i).getInt("comment_count"),
                                     tripList.getJSONObject(i).getInt("photo_count")
                             ));
@@ -265,6 +265,26 @@ public class DashboardActivity extends Activity {
                         DialogDAO dialogDAO = new DialogDAO(DashboardActivity.this);
                         dialogDAO.open();
                         dialogDAO.addDialogList(inboxArrayList);
+                        dialogDAO.close();
+                    }
+
+                    if (!json.getString("sendbox").equals("0")) {
+                        JSONArray sendbox = json.getJSONArray("sendbox");
+                        ArrayList<Dialog> sendboxArrayList = new ArrayList<>(sendbox.length());
+                        for (int i = 0; i < sendbox.length(); i++) {
+                            sendboxArrayList.add(new Dialog(
+                                    sendbox.getJSONObject(i).getInt("recipient_id"),
+                                    sendbox.getJSONObject(i).getString("recipient_last_name"),
+                                    sendbox.getJSONObject(i).getString("recipient_first_name"),
+                                    sendbox.getJSONObject(i).getString("message"),
+                                    sendbox.getJSONObject(i).getString("sent_datetime"),
+                                    false
+                            ));
+                            Log.e("Dashboard",sendbox.getJSONObject(i).getString("message"));
+                        }
+                        DialogDAO dialogDAO = new DialogDAO(DashboardActivity.this);
+                        dialogDAO.open();
+                        dialogDAO.addDialogList(sendboxArrayList);
                         dialogDAO.close();
                     }
 
