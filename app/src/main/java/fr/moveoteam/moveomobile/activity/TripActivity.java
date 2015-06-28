@@ -11,26 +11,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.fragment.CommentCategoryFragment;
-import fr.moveoteam.moveomobile.fragment.CommentListFragment;
 import fr.moveoteam.moveomobile.fragment.HomeCategoryFragment;
 import fr.moveoteam.moveomobile.fragment.PhotoGalleryFragment;
 import fr.moveoteam.moveomobile.fragment.PlaceListFragment;

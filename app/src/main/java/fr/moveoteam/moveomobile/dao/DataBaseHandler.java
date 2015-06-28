@@ -37,8 +37,10 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final String KEY_USER_PASSWORD = "user_password";
         public static final String KEY_USER_COUNTRY = "user_country";
         public static final String KEY_USER_CITY = "user_city";
+        private static final String KEY_USER_ACCESS = "user_access";
 
-        // Trip
+
+    // Trip
         public static final String KEY_TRIP_ID = "trip_id";
         public static final String KEY_TRIP_NAME = "trip_name";
         public static final String KEY_TRIP_COUNTRY = "trip_country";
@@ -100,6 +102,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final int POSITION_TRIP_COVER= 5;
         public static final int POSITION_TRIP_USER= 6;
 
+
         // Place
         public static final int POSITION_PLACE_ID = 0;
         public static final int POSITION_PLACE_NAME = 1;
@@ -155,7 +158,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_USER_EMAIL + " TEXT,"
                 + KEY_USER_PASSWORD + " TEXT,"
                 + KEY_USER_COUNTRY + " TEXT,"
-                + KEY_USER_CITY + " TEXT" + ")";
+                + KEY_USER_CITY + " TEXT,"
+                + KEY_USER_ACCESS+ " INTEGER" + ")";
 
         // TRIP
         private static final String CREATE_TRIP_TABLE = "CREATE TABLE "+ TABLE_TRIP + "("

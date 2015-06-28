@@ -19,12 +19,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import fr.moveoteam.moveomobile.activity.MyTripActivity;
 import fr.moveoteam.moveomobile.activity.TripActivity;
-import fr.moveoteam.moveomobile.activity.UserProfile;
+import fr.moveoteam.moveomobile.activity.FriendProfileActivity;
 import fr.moveoteam.moveomobile.adapter.CommentListAdapter;
 import fr.moveoteam.moveomobile.model.Comment;
-import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**
@@ -60,7 +58,7 @@ public class CommentListFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
         Comment comment = commentArrayList.get(position);
         Log.e("Recuperation", ""+comment.getId());
-        Intent intent = new Intent(getActivity(), UserProfile.class);
+        Intent intent = new Intent(getActivity(), FriendProfileActivity.class);
         intent.putExtra("id",comment.getIdUser());
         intent.putExtra("friend",0);
         startActivity(intent);

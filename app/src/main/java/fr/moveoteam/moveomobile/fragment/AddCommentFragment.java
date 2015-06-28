@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,6 @@ import android.widget.EditText;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.zip.Inflater;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.activity.TripActivity;
@@ -100,7 +97,7 @@ public class AddCommentFragment extends Fragment{
                 } else if (json.getString("success").equals("1")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                    builder.setMessage("Connexion perdu");
+                    builder.setMessage("Votre commentaire a été ajouté avec succès");
                     builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

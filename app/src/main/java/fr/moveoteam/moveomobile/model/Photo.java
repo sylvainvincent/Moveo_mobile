@@ -3,8 +3,6 @@ package fr.moveoteam.moveomobile.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Date;
-
 /**
  * Classe métier sur les photos
  * Created by alexMac on 08/04/15.

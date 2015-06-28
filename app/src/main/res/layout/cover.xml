@@ -2,6 +2,7 @@
 <fr.moveoteam.moveomobile.others.CustomScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:id="@+id/cover">
 
     <RelativeLayout
@@ -81,9 +82,10 @@
     <LinearLayout
         android:layout_below="@id/trip_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:visibility="invisible"
         android:id="@+id/trip_content"
         android:orientation="vertical"/>
+
     </RelativeLayout>
 </fr.moveoteam.moveomobile.others.CustomScrollView>

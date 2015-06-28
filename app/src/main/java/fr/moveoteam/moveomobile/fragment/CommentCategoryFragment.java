@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import fr.moveoteam.moveomobile.R;
-import fr.moveoteam.moveomobile.adapter.CommentListAdapter;
-import fr.moveoteam.moveomobile.model.Comment;
 
 /**
  * Created by Sylvain on 23/05/15.

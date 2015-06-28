@@ -7,19 +7,22 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.activity.HomeActivity;
 import fr.moveoteam.moveomobile.dao.UserDAO;
-import fr.moveoteam.moveomobile.model.User;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
@@ -31,8 +34,12 @@ public class SettingsFragment extends Fragment {
     EditText newPassword;
     EditText checkNewPassword;
     Button saveButton;
+    Switch informationVisibility;
     private String passwordSave;
+    private int accessSave;
     private String id;
+
+    int access;
 
     @Nullable
     @Override
@@ -42,6 +49,7 @@ public class SettingsFragment extends Fragment {
         newPassword = (EditText) view.findViewById(R.id.settings_new_password);
         checkNewPassword = (EditText) view.findViewById(R.id.settings_check_new_password);
         saveButton = (Button) view.findViewById(R.id.save_settings);
+        informationVisibility = (Switch) view.findViewById(R.id.set_informations_visible);
         return view;
     }
 
@@ -52,6 +60,7 @@ public class SettingsFragment extends Fragment {
         final UserDAO userDAO = new UserDAO(getActivity());
         userDAO.open();
         passwordSave = userDAO.getUserDetails().getPassword();
+        accessSave = userDAO.getUserDetails().getAccess();
         id = Integer.toString(userDAO.getUserDetails().getId());
         userDAO.close();
 
@@ -95,6 +104,17 @@ public class SettingsFragment extends Fragment {
                     }
 
                 }
+            }
+        });
+
+        if(accessSave == 2)informationVisibility.setChecked(false);
+        else informationVisibility.setChecked(true);
+
+        informationVisibility.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) access = 3;
+                else  access = 2;
+                new ExecuteInformationVisibilityThread().execute();
             }
         });
     }
@@ -172,4 +192,68 @@ public class SettingsFragment extends Fragment {
             }
         }
     }
+
+    private class ExecuteInformationVisibilityThread extends AsyncTask<String, String, JSONObject>{
+        ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Chargement...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            JSONUser jsonUser = new JSONUser();
+            Log.e("access",""+access);
+            return jsonUser.changeAccess(id, Integer.toString(access), passwordSave);
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+            if(json == null){
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        ((HomeActivity) getActivity()).refreshFragment();
+                    }
+                });
+                builder.setMessage("Connexion perdu");
+                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ((HomeActivity) getActivity()).refreshFragment();
+                    }
+                });
+                builder.show();
+            }else try {
+                if(json.getString("success").equals("1")){
+                    UserDAO userDAO = new UserDAO(getActivity());
+                    userDAO.open();
+                    userDAO.modifyAccess(access);
+                    userDAO.close();
+                    ((HomeActivity) getActivity()).refreshFragment();
+                }else{
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Une erreur est survenue lors du changement de visibilité des informations");
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ((HomeActivity) getActivity()).refreshFragment();
+                        }
+                    });
+                    builder.show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

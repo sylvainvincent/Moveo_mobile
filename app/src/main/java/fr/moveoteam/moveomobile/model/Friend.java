@@ -13,6 +13,7 @@ public class Friend {
     String avatarBase64;
     String country;
     String city;
+    int accessId;
     boolean isFriend;
 
     public Friend(){}
@@ -25,7 +26,7 @@ public class Friend {
         this.isFriend = isFriend;
     }
 
-    public Friend(int id, String firstName, String lastName, String birthday, String avatarBase64, String country, String city, boolean isFriend) {
+    public Friend(int id, String firstName, String lastName, String birthday, String avatarBase64, String country, String city, boolean isFriend,int accessId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,6 +35,7 @@ public class Friend {
         this.country = country;
         this.city = city;
         this.isFriend = isFriend;
+        this.accessId = accessId;
     }
 
     public int getId() {
@@ -112,5 +114,13 @@ public class Friend {
                 ", isFriend=" + isFriend + '\'' +
                 ", avatarBase64='" + avatarBase64 +
                 '}';
+    }
+
+    public int getAccessId() {
+        return accessId;
+    }
+
+    public void setAccessId(int accessId) {
+        this.accessId = accessId;
     }
 }

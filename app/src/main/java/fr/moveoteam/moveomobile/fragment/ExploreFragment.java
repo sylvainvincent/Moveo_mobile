@@ -98,6 +98,7 @@ public class ExploreFragment extends ListFragment {
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
+        int id;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -111,9 +112,10 @@ public class ExploreFragment extends ListFragment {
         @Override
         protected JSONObject doInBackground(String... args) {
             userDAO.open();
+            id = userDAO.getUserDetails().getId();
             JSONTrip jsonTrip = new JSONTrip();
-            Log.e("ID",Integer.toString(userDAO.getUserDetails().getId()));
-            return jsonTrip.getExploreTrips(Integer.toString(userDAO.getUserDetails().getId()));
+            //Log.e("ID",Integer.toString(userDAO.getUserDetails().getId()));
+            return jsonTrip.getExploreTrips(Integer.toString(id));
         }
 
         @Override

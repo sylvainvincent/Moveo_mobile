@@ -9,6 +9,7 @@ import java.util.Date;
 public class User {
     int id;
     String firstName, lastName, birthday, email, password, country, city, avatar;
+    int access;
     Date register, lastConnexion;
 
     public User() {
@@ -181,4 +182,12 @@ public class User {
     public String getAvatar() {return avatar;}
 
     public void setAvatar(String avatar) {this.avatar = avatar;}
+
+    public int getAccess() {
+        return access;
+    }
+
+    public void setAccess(int access) {
+        this.access = access;
+    }
 }

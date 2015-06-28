@@ -9,10 +9,8 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Photo;
-import fr.moveoteam.moveomobile.model.Trip;
 
 /**
  * Created by Sylvain on 31/05/15.

@@ -2,7 +2,6 @@ package fr.moveoteam.moveomobile.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.ImageView;
 
 /**
  * Classe métier sur les lieux

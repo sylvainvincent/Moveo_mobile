@@ -1,10 +1,8 @@
 package fr.moveoteam.moveomobile.fragment;
 
 import android.app.DatePickerDialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.widget.Button;
-import android.widget.DatePicker;
 
 /**
  * Classe permettant de créer une liste déroulant avec jour, mois et année dans une boite de dialogue

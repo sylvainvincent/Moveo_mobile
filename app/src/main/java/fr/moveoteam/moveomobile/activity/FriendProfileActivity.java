@@ -34,7 +34,7 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
 /**
  * Created by Amélie on 27/04/2015.
  */
-public class UserProfile extends Activity {
+public class FriendProfileActivity extends Activity {
 
 	// Elements de vue
     private ImageView useravatar;
@@ -62,14 +62,12 @@ public class UserProfile extends Activity {
 	
 	// AUTRES
 	int id;
-    boolean isFriend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_profile);
         id = getIntent().getExtras().getInt("id",0);
-        isFriend = getIntent().getExtras().getInt("friend", 0) == 1;
         initialize();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowTitleEnabled(false);
@@ -83,39 +81,41 @@ public class UserProfile extends Activity {
         ft.replace(R.id.trip_list_content,tripListFragment);
         ft.commit();
 
-        if (isFriend) {
-            friendDAO = new FriendDAO(UserProfile.this);
-            friendDAO.open();
+
+        friendDAO = new FriendDAO(FriendProfileActivity.this);
+        friendDAO.open();
+
+        friend = friendDAO.getFriend(id);
+        friendDAO.close();
+        Log.i("info friend", "" + id);
+        if (!friend.getAvatarBase64().equals(""))
+            useravatar.setImageBitmap(Function.decodeBase64(friend.getAvatarBase64()));
+
+        usernameprofile.setText(friend.getFirstName() + " " + friend.getLastName().toUpperCase());
+       // addfriend.setImageDrawable(getResources().getDrawable(R.drawable.refuse_friend));
+
+        // Affichage du lieu de l'utilisateur
+        if (!friend.getCity().equals("null") && !friend.getCountry().equals("null"))
+            livein.setText(livein.getText() + " " + friend.getCity() + " en " + friend.getCountry());
+        else if (friend.getCountry().equals("null") && !friend.getCity().equals("null"))
+            livein.setText(livein.getText() + " " + friend.getCity());
+        else if (friend.getCity().equals("null") && !friend.getCountry().equals("null"))
+            livein.setText(livein.getText() + " " + friend.getCountry());
+
+        if(tripArrayList != null){
+            if(tripArrayList.size() == 1)tripsnumber.setText(tripArrayList.size()+" voyage");
+            else tripsnumber.setText(tripArrayList.size()+" voyages");
         }
 
-        if (isFriend) {
-            friend = friendDAO.getFriend(id);
-            friendDAO.close();
-            Log.i("info friend", "" + id);
-            if (!friend.getAvatarBase64().equals(""))
-                useravatar.setImageBitmap(Function.decodeBase64(friend.getAvatarBase64()));
 
-            usernameprofile.setText(friend.getFirstName() + " " + friend.getLastName().toUpperCase());
-           // addfriend.setImageDrawable(getResources().getDrawable(R.drawable.refuse_friend));
 
-            // Affichage du lieu de l'utilisateur
-            if (friend.getCity() != "null" && friend.getCountry() != "null")
-                livein.setText(livein.getText() + " " + friend.getCity() + " en " + friend.getCountry());
-            else if (friend.getCountry() == "null")
-                livein.setText(livein.getText() + " " + friend.getCity());
-            else
-                livein.setText("lieu non renseigné");
-        }
 
         sendmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserProfile.this,SendMessageActivity.class);
-
-                if (isFriend) {
-                    intent.putExtra("friendId",""+id);
-                    intent.putExtra("name",friend.getFirstName()+" "+friend.getLastName());
-                }
+                Intent intent = new Intent(FriendProfileActivity.this,SendMessageActivity.class);
+                intent.putExtra("friendId",""+id);
+                intent.putExtra("name",friend.getFirstName()+" "+friend.getLastName());
                 startActivity(intent);
             }
         });
@@ -144,7 +144,7 @@ public class UserProfile extends Activity {
         usernameprofile = (TextView) findViewById(R.id.username_profile);
         livein = (TextView) findViewById(R.id.live_in);
         tripsnumber = (TextView) findViewById(R.id.trips_number);
-        placesnumber = (TextView) findViewById(R.id.places_number);
+        //placesnumber = (TextView) findViewById(R.id.places_number);
         sendmail = (ImageView) findViewById(R.id.send_mail);
         addfriend = (ImageView) findViewById(R.id.add_friend);
         tripsuser = (ImageView) findViewById(R.id.trips_user);
@@ -158,7 +158,7 @@ public class UserProfile extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(UserProfile.this);
+            pDialog = new ProgressDialog(FriendProfileActivity.this);
             pDialog.setMessage("Récupération des voyages...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -175,7 +175,7 @@ public class UserProfile extends Activity {
             pDialog.dismiss();
             try {
                 if(json == null) {
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(UserProfile.this);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(FriendProfileActivity.this);
                     builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override
                         public void onCancel(DialogInterface dialog) {

@@ -3,11 +3,9 @@ package fr.moveoteam.moveomobile.fragment;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,17 +19,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import fr.moveoteam.moveomobile.R;
-import fr.moveoteam.moveomobile.activity.LoginActivity;
-import fr.moveoteam.moveomobile.activity.PhotoActivity;
 import fr.moveoteam.moveomobile.adapter.ImageAdapter;
-import fr.moveoteam.moveomobile.model.Dialog;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Photo;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
-import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
  * Catégorie galerie photo d'un voyage avec vue en gridView

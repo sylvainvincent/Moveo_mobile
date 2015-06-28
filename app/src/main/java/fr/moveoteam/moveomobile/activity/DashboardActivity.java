@@ -194,6 +194,7 @@ public class DashboardActivity extends Activity {
                     user.setPassword(password);
                     user.setCountry(json.getJSONObject("user").getString("user_country"));
                     user.setCity(json.getJSONObject("user").getString("user_city"));
+                    user.setAccess(Integer.parseInt(json.getJSONObject("user").getString("access_id")));
                     Log.e("Test","test");
                     Log.e("Avatar",user.getAvatar());
 
@@ -214,7 +215,8 @@ public class DashboardActivity extends Activity {
                                     friendList.getJSONObject(i).getString("friend_avatar"),
                                     friendList.getJSONObject(i).getString("friend_country"),
                                     friendList.getJSONObject(i).getString("friend_city"),
-                                    ((friendList.getJSONObject(i).getInt("is_accepted")) != 0)
+                                    ((friendList.getJSONObject(i).getInt("is_accepted")) != 0),
+                                    2
                             ));
                         }
                         Log.i("Json",friendList.getJSONObject(0).getString("friend_avatar"));

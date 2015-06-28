@@ -2,7 +2,6 @@ package fr.moveoteam.moveomobile.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import fr.moveoteam.moveomobile.R;
-import fr.moveoteam.moveomobile.adapter.FriendsListAdapter;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 
 /**
