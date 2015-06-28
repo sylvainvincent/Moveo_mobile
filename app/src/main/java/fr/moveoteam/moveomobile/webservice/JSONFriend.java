@@ -16,7 +16,7 @@ public class JSONFriend {
 
     // Il faut utiliser l'adresse http://10.0.2.2/ pour se connecter au localhost : http://localhost/
     // 10.0.3.2 pour genymotion
-    private static String userURL = "http://moveo.besaba.com/friend.php";
+    private static String friendURL = "http://moveo.besaba.com/friend.php";
 
     // constructeur
     public JSONFriend(){
@@ -35,7 +35,7 @@ public class JSONFriend {
         registerForm.add(new BasicNameValuePair("user_id", userId));
         registerForm.add(new BasicNameValuePair("friend_id", friendId));
 
-        return jsonParser.getJSONFromUrl(userURL, registerForm);
+        return jsonParser.getJSONFromUrl(friendURL, registerForm);
     }
 
     public JSONObject acceptFriend(String userId, String friendId){
@@ -46,7 +46,7 @@ public class JSONFriend {
         registerForm.add(new BasicNameValuePair("user_id", userId));
         registerForm.add(new BasicNameValuePair("friend_id", friendId));
 
-        return jsonParser.getJSONFromUrl(userURL, registerForm);
+        return jsonParser.getJSONFromUrl(friendURL, registerForm);
     }
 
 }

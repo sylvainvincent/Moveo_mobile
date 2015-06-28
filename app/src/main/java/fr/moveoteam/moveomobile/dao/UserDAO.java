@@ -32,6 +32,7 @@ public class UserDAO {
     private static final String KEY_USER_PASSWORD = "user_password";
     private static final String KEY_USER_COUNTRY = "user_country";
     private static final String KEY_USER_CITY = "user_city";
+    private static final String KEY_USER_ACCESS = "user_access";
 
     // POSITION DES COLONNES
     private static final int POSITION_USER_ID = 0;
@@ -43,6 +44,7 @@ public class UserDAO {
     private static final int POSITION_USER_PASSWORD = 6;
     private static final int POSITION_USER_COUNTRY = 7;
     private static final int POSITION_USER_CITY = 8;
+    private static final int POSITION_USER_ACCESS = 9;
 
     public UserDAO(Context context){
         dbHandler = new DataBaseHandler(context);
@@ -72,10 +74,9 @@ public class UserDAO {
         values.put(KEY_USER_PASSWORD, user.getPassword());     // PASSWORD
         values.put(KEY_USER_COUNTRY, user.getCountry());       // PAYS
         values.put(KEY_USER_CITY, user.getCity());             // VILLE
-        Log.e("avat", values.get(KEY_USER_AVATAR).toString());
+        values.put(KEY_USER_ACCESS, user.getAccess());             // VILLE
         // Insérer la ligne
         database.insert(TABLE_LOGIN, null, values);
-        // database.close(); // Fermer la connexion vers la base de données
     }
 	
 	/**
@@ -101,6 +102,12 @@ public class UserDAO {
         return database.update(TABLE_LOGIN, values, null, null);
     }
 
+    public int modifyAccess(int access){
+        ContentValues values = new ContentValues();
+        values.put(KEY_USER_ACCESS, access);
+        return database.update(TABLE_LOGIN, values, null, null);
+    }
+
     public User getUserDetails(){
 
         User user = new User();
@@ -119,6 +126,7 @@ public class UserDAO {
             user.setPassword(cursor.getString(POSITION_USER_PASSWORD));
             user.setCountry(cursor.getString(POSITION_USER_COUNTRY));
             user.setCity(cursor.getString(POSITION_USER_CITY));
+            user.setAccess(cursor.getInt(POSITION_USER_ACCESS));
         }
         cursor.close();
         // database.close();

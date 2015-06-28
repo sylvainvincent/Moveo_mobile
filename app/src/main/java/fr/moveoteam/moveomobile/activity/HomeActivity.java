@@ -9,12 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 
@@ -37,14 +32,12 @@ import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.fragment.AddTripFragment;
 import fr.moveoteam.moveomobile.fragment.ExploreFragment;
 import fr.moveoteam.moveomobile.fragment.FriendCategoryFragment;
-import fr.moveoteam.moveomobile.fragment.InboxListFragment;
 import fr.moveoteam.moveomobile.fragment.MessagingFragment;
 import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
 import fr.moveoteam.moveomobile.fragment.SettingsFragment;
 import fr.moveoteam.moveomobile.menu.MenuAdapter;
 import fr.moveoteam.moveomobile.menu.MenuItems;
 import fr.moveoteam.moveomobile.dao.UserDAO;
-import fr.moveoteam.moveomobile.model.Function;
 
 
 /**
@@ -206,7 +199,7 @@ public class HomeActivity extends Activity {
         drawerLayout.setDrawerListener(mDrawerToggle);
         if (savedInstanceState == null) {
             // La premiere page par défaut lors du lancement de l'application est "Explorer"
-            displayView(0);
+            if(fragment != null)displayView(0);
         }
 
         friendCategoryFragment = new FriendCategoryFragment();
@@ -297,6 +290,7 @@ public class HomeActivity extends Activity {
 
             default:
                 fragment = new ExploreFragment();
+                ft.add(R.id.frame_container, fragment);
                 break;
         }
 

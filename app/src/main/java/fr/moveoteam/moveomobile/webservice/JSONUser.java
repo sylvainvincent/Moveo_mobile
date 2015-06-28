@@ -128,4 +128,14 @@ public class JSONUser {
 
         return jsonParser.getJSONFromUrl(userURL,passwordForm);
     }
+
+    public JSONObject changeAccess (String userId, String access, String password){
+        List<NameValuePair> passwordForm = new ArrayList<>();
+        passwordForm.add(new BasicNameValuePair("tag", "changeAccess"));
+        passwordForm.add(new BasicNameValuePair("userId", userId));
+        passwordForm.add(new BasicNameValuePair("access", access));
+        passwordForm.add(new BasicNameValuePair("password", password));
+
+        return jsonParser.getJSONFromUrl(userURL,passwordForm);
+    }
 }

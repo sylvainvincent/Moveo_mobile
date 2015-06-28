@@ -48,13 +48,7 @@
                 android:id="@+id/trips_number"
                 android:layout_gravity="center_horizontal" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/places_number"
-                android:id="@+id/places_number"
-                android:layout_gravity="center_horizontal" />
+
 
             <LinearLayout
                 android:orientation="horizontal"

@@ -58,7 +58,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.UserProfile"
+            android:name=".activity.FriendProfileActivity"
             android:screenOrientation="portrait"/>
 
         <activity
@@ -93,6 +93,9 @@
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".activity.OtherUserProfileActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
 
     </application>
 

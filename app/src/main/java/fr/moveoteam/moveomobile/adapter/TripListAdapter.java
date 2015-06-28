@@ -1,10 +1,7 @@
 package fr.moveoteam.moveomobile.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.text.Html;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +13,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
-import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Trip;
 
@@ -35,7 +31,6 @@ public class TripListAdapter extends BaseAdapter {
     public TripListAdapter(Context context, ArrayList<Trip> tripList, boolean otherUser){
         this.context = context;
         this.tripList = tripList;
-        layoutInflater = LayoutInflater.from(context);
         this.otherUser = otherUser;
     }
 
@@ -64,6 +59,7 @@ public class TripListAdapter extends BaseAdapter {
 
         if(tripList != null) {
             if (convertView == null) {
+                this.layoutInflater = LayoutInflater.from(context);
                 convertView = layoutInflater.inflate(R.layout.row_list_trip, null);
                 viewHolderTrip = new ViewHolderTrip();
                 viewHolderTrip.explore_trip_name = (TextView) convertView.findViewById(R.id.explore_trip_name);

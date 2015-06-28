@@ -31,7 +31,6 @@ import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.model.Comment;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Place;
-import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**

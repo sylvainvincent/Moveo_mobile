@@ -6,12 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import fr.moveoteam.moveomobile.activity.UserProfile;
+import fr.moveoteam.moveomobile.activity.FriendProfileActivity;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.adapter.FriendsListAdapter;
@@ -27,18 +26,12 @@ public class FriendListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-/*
+
         FriendDAO friendDAO = new FriendDAO(getActivity());
         friendDAO.open();
-        if(friendDAO.getFriendList() != null) {
-            for(int i = 0;i<friendDAO.getFriendList().size();i++){
-                        Log.e("FriendListFragment","name :"+friendDAO.getFriendList().get(i).getLastName());
-                    }
-        }
-
         friendArrayList = friendDAO.getFriendList();
         friendDAO.close();
-*/
+
 
         if(friendArrayList != null) {
             if(listAdapter != null) listAdapter.updateResult(friendArrayList);
@@ -54,7 +47,7 @@ public class FriendListFragment extends ListFragment {
         super.onListItemClick(l, v, position, id);
         Friend friend = friendArrayList.get(position);
         Log.e("Recuperation", friend.getFirstName());
-        Intent intent = new Intent(getActivity(), UserProfile.class);
+        Intent intent = new Intent(getActivity(), FriendProfileActivity.class);
         intent.putExtra("id",friend.getId());
         intent.putExtra("friend",1);
         startActivity(intent);

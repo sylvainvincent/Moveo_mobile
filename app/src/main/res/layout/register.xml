@@ -204,8 +204,7 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#056b83"
-                android:clickable="true"
-                android:onClick="linkToLogin"/>
+                android:clickable="true"/>
         </LinearLayout>
 
     </RelativeLayout>

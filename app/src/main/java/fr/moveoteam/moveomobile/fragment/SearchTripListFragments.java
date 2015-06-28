@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,77 +21,76 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.activity.TripActivity;
 import fr.moveoteam.moveomobile.adapter.TripListAdapter;
+import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Trip;
-import fr.moveoteam.moveomobile.webservice.JSONTrip;
+import fr.moveoteam.moveomobile.webservice.JSONSearch;
 
 /**
- * Created by Sylvain on 16/06/15.
+ * Created by Sylvain on 28/06/15.
  */
-public class TripListFragment extends ListFragment {
+public class SearchTripListFragments extends ListFragment {
+
+    String query;
+    String userId;
 
     ArrayList<Trip> tripArrayList;
-    int id;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        id = getArguments().getInt("otherUserId",0);
-        Log.e("id : ", "" + id);
+        query = getArguments().getString("query");
+        Log.e("Test Search",query);
+        UserDAO userDAO = new UserDAO(getActivity());
+        userDAO.open();
+        userId = Integer.toString(userDAO.getUserDetails().getId());
+        userDAO.close();
         new ExecuteThread().execute();
-        /*
-        TripDAO tripDAO = new TripDAO(getActivity());
-        tripDAO.open();
-        tripArrayList = tripDAO.getTripList();
-        if(tripArrayList != null)
-            setListAdapter(new TripListAdapter(getActivity(), tripArrayList, false));
-        else setListAdapter(null);
-    */}
+    }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         Trip trip = tripArrayList.get(position);
-        Log.e("Recuperation", trip.getName());
+        Log.e("Recuperation",trip.getName());
         Intent intent = new Intent(getActivity(), TripActivity.class);
         intent.putExtra("id",trip.getId());
-        Log.e("id trip frag",""+trip.getId());
         startActivity(intent);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e("test","resume");
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
 
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Chargement ...");
+            pDialog.setMessage("Recherche en cours...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
         }
+
         @Override
         protected JSONObject doInBackground(String... args) {
-            JSONTrip jsonTrip = new JSONTrip();
-            return jsonTrip.getTripList(Integer.toString(id));
+            JSONSearch jsonSearch = new JSONSearch();
+            return jsonSearch.searchTrip(userId, query);
         }
 
         @Override
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                // Log.e("ExploreFragment",json.getString("message"));
-                // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
-                if(json.getString("success").equals("1")) {
-
-                    // Recuperation des voyages sous la forme d'un JSONArray
+                if (json == null) {
+                    Log.e("test json", "null");
+                   Toast.makeText(getActivity(), "Une erreur est survenue lors de la recherche", Toast.LENGTH_SHORT).show();
+                } else if (json.getString("success").equals("1")) {
                     JSONArray tripList = json.getJSONArray("trip");
-
                     tripArrayList = new ArrayList<>(tripList.length());
 
                     for (int i = 0; i < tripList.length(); i++) {
@@ -99,36 +101,23 @@ public class TripListFragment extends ListFragment {
                                 tripList.getJSONObject(i).getString("trip_description"),
                                 tripList.getJSONObject(i).getString("trip_created_at"),
                                 tripList.getJSONObject(i).getString("trip_cover"),
+                                tripList.getJSONObject(i).getString("user_last_name"),
+                                tripList.getJSONObject(i).getString("user_first_name"),
                                 tripList.getJSONObject(i).getInt("comment_count"),
                                 tripList.getJSONObject(i).getInt("photo_count")
                         ));
+
+                        setListAdapter(new TripListAdapter(getActivity(), tripArrayList, true));
+
                     }
 
-                    if(tripArrayList != null) {
-
-
-                            setListAdapter(new TripListAdapter(getActivity(), tripArrayList, false));
-
-
-
-                        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                        //      R.layout.element_menu,R.id.title,values);
-
-//                        Log.e("afficher list", tripArrayList.get(1).getName());
-                        // setListAdapter(new TripListAdapter(getActivity(), tripArrayList, true));
-                        Log.e("Message ", "" + tripArrayList.get(0).getName() + "" + tripArrayList.get(0).getName());
-                        Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDate());
-                    }else {
-                        setListAdapter(null);
-                    }
+                }else{
+                    setListAdapter(null);
                 }
 
-            } catch (ParseException | JSONException e1) {
-                e1.printStackTrace();
-
+            } catch (ParseException | JSONException e) {
+                e.printStackTrace();
             }
-
         }
     }
-
 }

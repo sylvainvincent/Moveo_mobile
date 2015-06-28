@@ -2,7 +2,6 @@ package fr.moveoteam.moveomobile.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import fr.moveoteam.moveomobile.R;
-import fr.moveoteam.moveomobile.adapter.FriendsListAdapter;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 
 /**
@@ -70,8 +68,11 @@ public class FriendCategoryFragment extends Fragment {
         // Affichage du nombre de demande d'amis
         if(friendRequestSize == 0) {
             friendsrequesttitle.setText(friendRequestSize + " " + "nouvelle demande d'ami");
-            if(ft != null)
-                ft.hide(friendRequestFragment);
+
+            ft = getFragmentManager().beginTransaction();
+            ft.hide(friendRequestFragment);
+            ft.commit();
+
         }
         else if(friendRequestSize == 1)
             friendsrequesttitle.setText(friendRequestSize+" "+"nouvelle demande d'ami");
