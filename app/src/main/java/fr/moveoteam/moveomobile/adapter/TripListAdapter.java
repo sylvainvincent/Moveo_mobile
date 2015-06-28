@@ -85,17 +85,20 @@ public class TripListAdapter extends BaseAdapter {
             if (this.otherUser) {
                 String authorHTML = "<font color=#000>par</font> <i>" + tripList.get(position).getAuthor_first_name() + " " + tripList.get(position).getAuthor_last_name() + "</i>";
                 viewHolderTrip.explore_username.setText(Html.fromHtml(authorHTML));
-                if(!tripList.get(position).getCover().equals("null") || !tripList.get(position).getCover().isEmpty()) {
+
+                if(!tripList.get(position).getCover().equals("null") && !tripList.get(position).getCover().isEmpty()) {
                     viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
                 }else{
                     viewHolderTrip.imageViewMainPictureTrip.setImageDrawable(context.getResources().getDrawable(R.drawable.default_journey));
                 }
+
             } else {
                 viewHolderTrip.explore_username.setText(Html.fromHtml("<font color=#000>par</font> <i>moi</i>"));
-                if(tripList.get(position).getCover() != null || !tripList.get(position).getCover().isEmpty()) {
+                if(!tripList.get(position).getCover().equals("null") && !tripList.get(position).getCover().isEmpty()) {
                     viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
                 }else{
                     viewHolderTrip.imageViewMainPictureTrip.setImageDrawable(context.getResources().getDrawable(R.drawable.default_journey));
+                    viewHolderTrip.imageViewMainPictureTrip.setAlpha((float) 0.8);
                 }
             }
             Log.e("PlaceList", " " + position);

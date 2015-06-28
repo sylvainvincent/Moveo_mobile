@@ -23,7 +23,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/send_messages"
+        android:id="@+id/send_messages_icon"
         android:src="@drawable/send_messages"
         android:contentDescription="@string/send_messages"
         android:layout_centerVertical="true"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/number_of_messages"
-        android:id="@+id/textView"
+        android:id="@+id/message_count"
         android:layout_centerVertical="true"
         android:textSize="12sp"
         android:layout_alignParentRight="true"

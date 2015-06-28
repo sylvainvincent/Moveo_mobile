@@ -27,16 +27,18 @@ public class FriendListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+/*
         FriendDAO friendDAO = new FriendDAO(getActivity());
         friendDAO.open();
-        for(int i = 0;i<friendDAO.getFriendList().size();i++){
-            Log.e("FriendListFragment","name :"+friendDAO.getFriendList().get(i).getLastName());
+        if(friendDAO.getFriendList() != null) {
+            for(int i = 0;i<friendDAO.getFriendList().size();i++){
+                        Log.e("FriendListFragment","name :"+friendDAO.getFriendList().get(i).getLastName());
+                    }
         }
 
         friendArrayList = friendDAO.getFriendList();
         friendDAO.close();
-
+*/
 
         if(friendArrayList != null) {
             if(listAdapter != null) listAdapter.updateResult(friendArrayList);

@@ -1,8 +1,10 @@
 package fr.moveoteam.moveomobile.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -172,9 +174,25 @@ public class UserProfile extends Activity {
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                // Log.e("ExploreFragment",json.getString("message"));
-                // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
-                if(json.getString("success").equals("1")) {
+                if(json == null) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(UserProfile.this);
+                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+
+                        }
+                    });
+                    builder.setMessage("Connexion perdu");
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.show();
+                     }else if(json.getString("success").equals("1")) {
+                     // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
+
                     // Recuperation des voyages sous la forme d'un JSONArray
                     JSONArray tripList = json.getJSONArray("trip");
 

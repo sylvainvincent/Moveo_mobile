@@ -9,7 +9,6 @@
         android:layout_height="wrap_content"
         android:text="@string/friends_request_title"
         android:id="@+id/friends_request_title"
-
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal" />
 

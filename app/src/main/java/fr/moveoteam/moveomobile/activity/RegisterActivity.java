@@ -3,6 +3,7 @@ package fr.moveoteam.moveomobile.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -140,7 +141,23 @@ public class RegisterActivity extends Activity {
             pDialog.dismiss();
 
             try {
-                if (json.getString("success").equals("1")) {
+                if(json == null){
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+
+                        }
+                    });
+                    builder.setMessage("Connexion perdu");
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.show();
+                }else if (json.getString("success").equals("1")) {
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     intent.putExtra("register", 1);
                     startActivity(intent);

@@ -6,6 +6,7 @@ package fr.moveoteam.moveomobile.model;
  */
 public class Dialog {
 
+    int id;
     int recipientId;
     String recipientLastName;
     String recipientFirstName;
@@ -113,4 +114,5 @@ public class Dialog {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
 }

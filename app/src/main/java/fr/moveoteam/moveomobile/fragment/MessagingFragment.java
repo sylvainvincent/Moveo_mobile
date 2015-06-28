@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import fr.moveoteam.moveomobile.R;
 
@@ -17,12 +19,18 @@ public class MessagingFragment extends Fragment {
 
     InboxListFragment inboxListFragment;
     SendboxListFragment sendboxListFragment;
+    ImageView sendIcon;
+    ImageView receiveIcon;
+    TextView messageCount;
     Fragment fragment;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_messages_informations,container,false);
+        messageCount = (TextView) view.findViewById(R.id.message_count);
+        receiveIcon = (ImageView) view.findViewById(R.id.receive_messages_icon);
+        sendIcon = (ImageView) view.findViewById(R.id.send_messages_icon);
         return view;
     }
 
@@ -32,23 +40,11 @@ public class MessagingFragment extends Fragment {
 
         inboxListFragment = new InboxListFragment();
         sendboxListFragment = new SendboxListFragment();
-        fragment = inboxListFragment;
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.messaging_content, inboxListFragment);
         ft.commit();
     }
 
-    public void linkToInbox(View view) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.messaging_content, inboxListFragment);
-        ft.commit();
-    }
-
-    public void linkToSendbox(View view) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.messaging_content,sendboxListFragment);
-        ft.commit();
-    }
 
     public InboxListFragment getInboxListFragment() {
         return inboxListFragment;
@@ -57,4 +53,13 @@ public class MessagingFragment extends Fragment {
     public SendboxListFragment getSendboxListFragment() {
         return sendboxListFragment;
     }
+
+    public void setRecieveIcon(){
+        sendIcon.setImageDrawable(getResources().getDrawable(R.drawable.send_messages));
+    }
+
+    public void setSendIcon(){
+        sendIcon.setImageDrawable(getResources().getDrawable(R.drawable.send_messages));
+    }
+
 }

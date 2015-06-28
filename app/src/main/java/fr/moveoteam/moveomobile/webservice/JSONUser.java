@@ -99,13 +99,33 @@ public class JSONUser {
         return jsonParser.getJSONFromUrl(userURL, otherUserForm);
     }
 
-    public JSONObject sendMessage(String message, String userId, String idRecipient){
+    public JSONObject sendMessage(String message, String userId, String recipientId){
         List<NameValuePair> messageForm = new ArrayList<>();
         messageForm.add(new BasicNameValuePair("tag", "addDialog"));
         messageForm.add(new BasicNameValuePair("message", message));
         messageForm.add(new BasicNameValuePair("userId", userId));
-        messageForm.add(new BasicNameValuePair("recipientId", idRecipient));
+        messageForm.add(new BasicNameValuePair("recipientId", recipientId));
 
         return jsonParser.getJSONFromUrl(userURL,messageForm);
+    }
+	
+	public JSONObject readMessage (String userId, String recipientId, String date){
+		List<NameValuePair> isRead = new ArrayList<>();
+        isRead.add(new BasicNameValuePair("tag", "readDialog"));
+        isRead.add(new BasicNameValuePair("userId", userId));
+		isRead.add(new BasicNameValuePair("recipientId", recipientId));
+        isRead.add(new BasicNameValuePair("date", date));
+        
+		return jsonParser.getJSONFromUrl(userURL,isRead);
+	}
+
+    public JSONObject changePassword (String userId, String password, String newPassword){
+        List<NameValuePair> passwordForm = new ArrayList<>();
+        passwordForm.add(new BasicNameValuePair("tag", "changePassword"));
+        passwordForm.add(new BasicNameValuePair("userId", userId));
+        passwordForm.add(new BasicNameValuePair("password", password));
+        passwordForm.add(new BasicNameValuePair("newPassword", newPassword));
+
+        return jsonParser.getJSONFromUrl(userURL,passwordForm);
     }
 }

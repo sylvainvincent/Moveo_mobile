@@ -111,6 +111,7 @@ public class AccountSettingsActivity extends Fragment {
         user = userDAO.getUserDetails();
         userDAO.close();
         userId = Integer.toString(user.getId());
+        photoBase64 = user.getAvatar();
         oldLastName = user.getLastName();
         oldFirstName = user.getFirstName();
 
@@ -127,7 +128,7 @@ public class AccountSettingsActivity extends Fragment {
         modifyCity.setText(user.getCity());
         modifyCountry.setText(user.getCountry());
 
-        thumbnail.setImageBitmap(Function.decodeBase64(user.getAvatar()));
+        thumbnail.setImageBitmap(Function.decodeBase64(photoBase64));
 
         // Afficher la photo de profil lors de la selection
         thumbnail.setOnClickListener(new View.OnClickListener() {
@@ -288,6 +289,7 @@ public class AccountSettingsActivity extends Fragment {
                 user.setBirthday(Function.dateSqlToDateJava(dateEdit.getText().toString())) ;
                 user.setCountry(modifyCountry.getText().toString());
                 user.setCity(modifyCity.getText().toString());
+                user.setAvatar(photoBase64);
 
             JSONUser jsonUser = new JSONUser();
             return jsonUser.modifyUser(userId, user.getLastName(), user.getFirstName(), photoBase64, user.getBirthday(), user.getCity(), user.getCountry());
@@ -382,5 +384,45 @@ public class AccountSettingsActivity extends Fragment {
 
     public void setThumbnail(ImageView thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("Account","test");
+        /*if (resultCode == RESULT_OK) {
+            if(requestCode == 2){
+                this.refreshFragment();
+            }
+        }*/
+
+            // Récupération des informations d'une photo sélectionné dans l'album
+            if (requestCode == 1) {
+
+                // RECUPERATION DE L'ADRESSE DE LA PHOTO
+                Uri selectedImage = data.getData();
+
+                String[] filePath = {MediaStore.Images.Media.DATA};
+
+                Cursor c = getActivity().getContentResolver().query(selectedImage, filePath, null, null, null);
+
+                c.moveToFirst();
+
+                int columnIndex = c.getColumnIndex(filePath[0]);
+
+                String picturePath = c.getString(columnIndex);
+                // FIN DE LA RECUPERATION
+                c.close();
+
+                Bitmap thumbnail2 = (BitmapFactory.decodeFile(picturePath));
+                Log.w("path de l'image", picturePath + "");
+                // Remplir le champ en dessous de la photo avec le chemin de la nouvelle
+                linkPhoto.setText(picturePath);
+
+                // Stoker la photo en base64 dans une variable
+                photoBase64 = Function.encodeBase64(thumbnail2);
+
+                // Changer la photo actuel avec la nouvelle
+                thumbnail.setImageBitmap(thumbnail2);
+            }
     }
 }

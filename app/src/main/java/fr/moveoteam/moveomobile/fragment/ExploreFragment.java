@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,6 +35,7 @@ public class ExploreFragment extends ListFragment {
     private AdapterView.OnItemSelectedListener listener;
     ArrayList<Trip> tripArrayList;
     UserDAO userDAO;
+    ExecuteThread executeThread;
 
     public  ExploreFragment(){}
 
@@ -45,7 +47,8 @@ public class ExploreFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        new ExecuteThread().execute();
+        executeThread = new ExecuteThread();
+        executeThread.execute();
     }
 
     /*
@@ -78,6 +81,10 @@ public class ExploreFragment extends ListFragment {
         listener = null;
     }
 
+    @Override
+    public void onPause() {
+        this.onDestroy();
+    }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
@@ -121,22 +128,8 @@ public class ExploreFragment extends ListFragment {
             pDialog.dismiss();
             try {
                 if(json == null){
-                    Log.e("test json","null");
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            System.exit(0);
-                        }
-                    });
-                    builder.setMessage("Connexion perdu");
-                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            System.exit(0);
-                        }
-                    });
-                    builder.show();
+                    Log.e("test json", "null");
+                    Toast.makeText(getActivity(),"Les voyages n'ont pas pu être récupérer",Toast.LENGTH_SHORT).show();
                 }
                 // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
                 else if(json.getString("success").equals("1")) {
@@ -175,6 +168,7 @@ public class ExploreFragment extends ListFragment {
                                 tripList.getJSONObject(i).getInt("comment_count"),
                                 tripList.getJSONObject(i).getInt("photo_count")
                         ));
+                        Log.e("ExploreFragment",tripList.getJSONObject(i).getString("trip_cover"));
                     }
                     if(tripArrayList != null) {
                         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),

@@ -200,7 +200,23 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(JSONObject json) {
             pDialog.dismiss();
             try {
-                if (json.getString("error").equals("0")) {
+                if(json == null){
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+
+                        }
+                    });
+                    builder.setMessage("Connexion perdu");
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.show();
+                }else if (json.getString("error").equals("0")) {
                     Log.e("taille",""+json.getJSONObject("user").getString("avatar").length());
                     // Création de l'objet User
                     User user = new User();
@@ -282,6 +298,26 @@ public class LoginActivity extends Activity {
                         DialogDAO dialogDAO = new DialogDAO(LoginActivity.this);
                         dialogDAO.open();
                         dialogDAO.addDialogList(inboxArrayList);
+                        dialogDAO.close();
+                    }
+
+                    if (!json.getString("sendbox").equals("0")) {
+                        JSONArray sendbox = json.getJSONArray("sendbox");
+                        ArrayList<Dialog> sendboxArrayList = new ArrayList<>(sendbox.length());
+                        for (int i = 0; i < sendbox.length(); i++) {
+                            sendboxArrayList.add(new Dialog(
+                                    sendbox.getJSONObject(i).getInt("recipient_id"),
+                                    sendbox.getJSONObject(i).getString("recipient_last_name"),
+                                    sendbox.getJSONObject(i).getString("recipient_first_name"),
+                                    sendbox.getJSONObject(i).getString("message"),
+                                    sendbox.getJSONObject(i).getString("sent_datetime"),
+                                    false
+                            ));
+                            Log.e("Dashboard",sendbox.getJSONObject(i).getString("message"));
+                        }
+                        DialogDAO dialogDAO = new DialogDAO(LoginActivity.this);
+                        dialogDAO.open();
+                        dialogDAO.addDialogList(sendboxArrayList);
                         dialogDAO.close();
                     }
 

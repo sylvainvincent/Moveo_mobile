@@ -1,75 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#e8e8e8"
-        android:padding="10dp"
-        android:weightSum="1">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
+    android:layout_margin="15dp">
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBox"
-        android:layout_weight="0.07"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <RelativeLayout
+            android:id="@+id/message_row"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="#e8e8e8"
+            android:padding="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/username"
-        android:textStyle="bold"
-        android:id="@+id/message_username"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/checkBox"
-        android:layout_toEndOf="@+id/checkBox"
-        android:layout_marginLeft="23dp"
-        android:layout_marginStart="23dp" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox"
+            android:layout_weight="0.07"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/date_message"
-        android:id="@+id/date_message"
-        android:gravity="right"
-        android:layout_alignBottom="@+id/message_username"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/username"
+            android:textStyle="bold"
+            android:id="@+id/message_username"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/checkBox"
+            android:layout_toEndOf="@+id/checkBox"
+            android:layout_marginLeft="23dp"
+            android:layout_marginStart="23dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/message"
-        android:id="@+id/message_content"
-        android:layout_marginBottom="20dp"
-        android:layout_below="@+id/checkBox"
-        android:layout_alignLeft="@+id/message_username"
-        android:layout_alignStart="@+id/message_username" />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/date_message"
+            android:id="@+id/date_message"
+            android:gravity="right"
+            android:layout_alignBottom="@+id/message_username"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/reply"
-        android:src="@drawable/reply"
-        android:layout_marginRight="10dp"
-        android:layout_below="@+id/message_content"
-        android:layout_alignLeft="@+id/message_content"
-        android:layout_alignStart="@+id/message_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/message"
+            android:id="@+id/message_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/message_username"
+            android:layout_alignLeft="@+id/message_username"
+            android:layout_alignStart="@+id/message_username" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/reply"
-        android:id="@+id/reply_text"
-        android:layout_below="@+id/message_content"
-        android:layout_toRightOf="@+id/reply"
-        android:layout_toEndOf="@+id/reply" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/reply"
+            android:src="@drawable/reply"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/message_content"
+            android:layout_alignLeft="@+id/message_content"
+            android:layout_alignStart="@+id/message_content" />
 
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/reply"
+            android:id="@+id/reply_text"
+            android:layout_below="@+id/message_content"
+            android:layout_toRightOf="@+id/reply"
+            android:layout_toEndOf="@+id/reply" />
+
+    </RelativeLayout>
+</LinearLayout>
