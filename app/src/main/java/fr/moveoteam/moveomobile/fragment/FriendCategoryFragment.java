@@ -68,8 +68,11 @@ public class FriendCategoryFragment extends Fragment {
         // Affichage du nombre de demande d'amis
         if(friendRequestSize == 0) {
             friendsrequesttitle.setText(friendRequestSize + " " + "nouvelle demande d'ami");
-            if(ft != null)
-                ft.hide(friendRequestFragment);
+
+            ft = getFragmentManager().beginTransaction();
+            ft.hide(friendRequestFragment);
+            ft.commit();
+
         }
         else if(friendRequestSize == 1)
             friendsrequesttitle.setText(friendRequestSize+" "+"nouvelle demande d'ami");
