@@ -39,7 +39,11 @@ public class FriendListFragment extends ListFragment {
 
             setListAdapter(listAdapter);
 
-        } else setListAdapter(null);
+        } else {
+            if (listAdapter != null) listAdapter.updateResult(friendArrayList);
+            else setListAdapter(null);
+
+        }
 
     }
 

@@ -1,7 +1,9 @@
 package fr.moveoteam.moveomobile.fragment;
 
+import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -84,7 +86,12 @@ public class TripListFragment extends ListFragment {
             try {
                 // Log.e("ExploreFragment",json.getString("message"));
                 // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
-                if(json.getString("success").equals("1")) {
+                if(json == null){
+                    AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+                    alert.setMessage("Les voyages n'ont pas pu être récupérer");
+                    alert.setPositiveButton("OK", null);
+                    alert.show();
+                }else if(json.getString("success").equals("1")) {
 
                     // Recuperation des voyages sous la forme d'un JSONArray
                     JSONArray tripList = json.getJSONArray("trip");

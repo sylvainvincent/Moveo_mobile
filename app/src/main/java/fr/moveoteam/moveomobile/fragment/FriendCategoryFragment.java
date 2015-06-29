@@ -101,6 +101,7 @@ public class FriendCategoryFragment extends Fragment {
             ft.detach(friendRequestFragment);
             ft.attach(friendRequestFragment);
             ft.commit();
+
         }
     }
 
