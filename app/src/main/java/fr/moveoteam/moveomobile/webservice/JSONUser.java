@@ -91,10 +91,11 @@ public class JSONUser {
         return jsonParser.getJSONFromUrl(userURL, modifyUserForm);
     }
 
-    public JSONObject getOtherUser(String id){
+    public JSONObject getOtherUser(String userId, String otherUserId){
         List<NameValuePair> otherUserForm = new ArrayList<>();
         otherUserForm.add(new BasicNameValuePair("tag", "getOtherUser"));
-        otherUserForm.add(new BasicNameValuePair("idOtherUser", id));
+        otherUserForm.add(new BasicNameValuePair("userId", userId));
+        otherUserForm.add(new BasicNameValuePair("otherUserId", otherUserId));
 
         return jsonParser.getJSONFromUrl(userURL, otherUserForm);
     }

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,10 +26,12 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
+import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.fragment.TripListFragment;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Trip;
+import fr.moveoteam.moveomobile.webservice.JSONFriend;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
@@ -61,7 +64,8 @@ public class OtherUserProfileActivity extends Activity {
     Friend friend;
 
     // AUTRES
-    int id;
+    int otherUserId;
+    int userId;
     boolean isFriend;
     int tripCount;
 
@@ -69,21 +73,22 @@ public class OtherUserProfileActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_profile);
-        id = getIntent().getExtras().getInt("id",0);
+
+        otherUserId = getIntent().getExtras().getInt("id",0);
+        UserDAO userDAO = new UserDAO(OtherUserProfileActivity.this);
+        userDAO.open();
+        userId = userDAO.getUserDetails().getId();
         initialize();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowTitleEnabled(false);
 
         new ExecuteThread().execute();
 
-
-
-
         sendmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OtherUserProfileActivity.this,SendMessageActivity.class);
-                intent.putExtra("friendId",""+id);
+                intent.putExtra("friendId",""+otherUserId);
                 intent.putExtra("name", friend.getFirstName() + " " + friend.getLastName());
                 startActivity(intent);
             }
@@ -92,12 +97,9 @@ public class OtherUserProfileActivity extends Activity {
         addfriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new ExecuteSendInvitationThread().execute();
             }
         });
-
-
-
 
     }
 
@@ -138,7 +140,7 @@ public class OtherUserProfileActivity extends Activity {
         @Override
         protected JSONObject doInBackground(String... args) {
             JSONUser jsonUser = new JSONUser();
-            return jsonUser.getOtherUser(Integer.toString(id));
+            return jsonUser.getOtherUser(Integer.toString(userId), Integer.toString(otherUserId));
         }
 
         @Override
@@ -165,7 +167,7 @@ public class OtherUserProfileActivity extends Activity {
 
                     tripListFragment = new TripListFragment();
                     Bundle bundle = new Bundle();
-                    bundle.putInt("otherUserId",id);
+                    bundle.putInt("otherUserId",otherUserId);
                     tripListFragment.setArguments(bundle);
                     android.app.FragmentManager fm= getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
@@ -204,9 +206,67 @@ public class OtherUserProfileActivity extends Activity {
                     }
 
 
-                        if (tripCount == 1)
-                            tripsnumber.setText(tripCount + " voyage");
-                        else tripsnumber.setText(tripCount + " voyages");
+                    if (tripCount == 1)
+                        tripsnumber.setText(tripCount + " voyage");
+                    else tripsnumber.setText(tripCount + " voyages");
+
+                    friendDAO = new FriendDAO(OtherUserProfileActivity.this);
+                    friendDAO.open();
+
+                    // VERIFICATION DU STATUT DE LA PERSONNE (Amis, demande d'amis ou simple personne)
+                       Log.e("invitation",json.getString("invitation"));
+                    if(json.getString("invitation").equals("1")){
+                        addfriend.setImageDrawable(getResources().getDrawable(R.drawable.trips_user));
+                        addfriend.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(OtherUserProfileActivity.this,3);
+                                alertDialog.setMessage("Demande en attente");
+                                alertDialog.setPositiveButton("OK", null);
+                                alertDialog.show();
+                            }
+                        });
+                    }else if(friendDAO.getFriendList() != null) {
+                       boolean bool = false;
+                       int i = 0;
+                        Log.e("Test id :","id1 :"+friendDAO.getFriendList().get(i).getId()+" id2 :"+otherUserId);
+                       while(i < friendDAO.getFriendList().size() || !bool){
+                           Log.e("Test id :","id1 :"+friendDAO.getFriendList().get(i).getId()+" id2 :"+otherUserId);
+                           if(friendDAO.getFriendList().get(i).getId() == otherUserId){
+                                addfriend.setImageDrawable(getResources().getDrawable(R.drawable.delete_app));
+                                addfriend.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        AlertDialog.Builder alert = new AlertDialog.Builder(OtherUserProfileActivity.this);
+                                        alert.setMessage("Êtes vous sûr de retirer cette personne de vos amis ?");
+                                        alert.setPositiveButton("oui", new DialogInterface.OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                new ExecuteDeleteFriendThread().execute();
+                                            }
+                                        });
+                                        alert.setNegativeButton("non", null);
+                                        alert.show();
+
+                                    }
+                                });
+                                bool = true;
+                            }
+                           i++;
+                       }
+
+                    }else{
+                        addfriend.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                new ExecuteSendInvitationThread().execute();
+                            }
+                        });
+                    }
+
+                    friendDAO.close();
 
                 }
 
@@ -217,4 +277,127 @@ public class OtherUserProfileActivity extends Activity {
 
 
     }
+
+    private class ExecuteSendInvitationThread extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(OtherUserProfileActivity.this);
+            pDialog.setMessage("Envoi de l'invitation...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... args) {
+            JSONFriend jsonFriend = new JSONFriend();
+            return jsonFriend.sendInvitation(Integer.toString(userId),Integer.toString(otherUserId));
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+            try {
+                if (json == null) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(OtherUserProfileActivity.this);
+                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+
+                        }
+                    });
+                    builder.setMessage("Connexion perdu");
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    builder.show();
+                } else if (json.getString("success").equals("1")) {
+
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(OtherUserProfileActivity.this);
+                    builder.setMessage("L'invitation a bien été envoyé");
+                    builder.setPositiveButton("ok", null);
+                    builder.show();
+
+                    addfriend.setImageDrawable(getResources().getDrawable(R.drawable.trips_user));
+                    addfriend.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(OtherUserProfileActivity.this,2);
+                            alertDialog.setMessage("Demande en attente");
+                            alertDialog.setPositiveButton("OK", null);
+                            alertDialog.show();
+                        }
+                    });
+                }else{
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(OtherUserProfileActivity.this,2);
+                    alertDialog.setMessage("Un erreur s'est produite lors de l'envoi de l'invitation");
+                    alertDialog.setPositiveButton("OK", null);
+                    alertDialog.show();
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+    private class ExecuteDeleteFriendThread extends AsyncTask<String, String, JSONObject>{
+        ProgressDialog pDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(OtherUserProfileActivity.this);
+            pDialog.setMessage("Chargement...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            JSONFriend jsonFriend = new JSONFriend();
+            return jsonFriend.removeFriend(Integer.toString(userId),Integer.toString(otherUserId));
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+            super.onPostExecute(json);
+
+            if (json == null) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(OtherUserProfileActivity.this);
+                alert.setMessage("Connexion perdu");
+                alert.setPositiveButton("OK",null);
+                alert.show();
+            } else try {
+                if (json.getString("success").equals("1")) {
+                    FriendDAO friendDAO = new FriendDAO(OtherUserProfileActivity.this);
+                    friendDAO.open();
+                    friendDAO.removeFriend(otherUserId);
+                    friendDAO.close();
+
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+
+                }else{
+                    AlertDialog.Builder alert = new AlertDialog.Builder(OtherUserProfileActivity.this);
+                    alert.setMessage("Une erreur s'est produite lors de la suppression de l'ami");
+                    alert.setPositiveButton("OK",null);
+                    alert.show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

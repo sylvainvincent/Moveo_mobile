@@ -49,4 +49,15 @@ public class JSONFriend {
         return jsonParser.getJSONFromUrl(friendURL, registerForm);
     }
 
+    public JSONObject sendInvitation(String userId, String friendId){
+
+        //ArrayList sous la forme <clé,valeur> contenant les informations du formulaire d'inscription
+        List<NameValuePair> registerForm = new ArrayList<>();
+        registerForm.add(new BasicNameValuePair("tag", "addFriend"));
+        registerForm.add(new BasicNameValuePair("user_id", userId));
+        registerForm.add(new BasicNameValuePair("friend_id", friendId));
+
+        return jsonParser.getJSONFromUrl(friendURL, registerForm);
+    }
+
 }

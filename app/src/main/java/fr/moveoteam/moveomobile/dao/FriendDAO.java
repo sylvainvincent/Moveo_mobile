@@ -31,7 +31,7 @@ public class FriendDAO {
                                     DataBaseHandler.KEY_FRIEND_AVATAR,
                                     DataBaseHandler.KEY_FRIEND_COUNTRY,
                                     DataBaseHandler.KEY_FRIEND_CITY,
-                                    DataBaseHandler.KEY_FRIEND_IS_ACCEPTED};
+                                    DataBaseHandler.KEY_FRIEND_IS_ACCEPTED };
 
     public FriendDAO(Context context){
         dbHandler = new DataBaseHandler(context);

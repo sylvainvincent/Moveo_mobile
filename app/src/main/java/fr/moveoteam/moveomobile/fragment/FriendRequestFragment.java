@@ -31,8 +31,8 @@ public class FriendRequestFragment extends ListFragment {
 
             setListAdapter(listAdapter);
         }else{
-            Log.e("null", "null");
-            setListAdapter(null);
+            if (listAdapter != null) listAdapter.updateResult(friendArrayList);
+            else setListAdapter(null);
         }
         /*else {
             setListAdapter(null);

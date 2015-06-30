@@ -37,7 +37,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final String KEY_USER_PASSWORD = "user_password";
         public static final String KEY_USER_COUNTRY = "user_country";
         public static final String KEY_USER_CITY = "user_city";
-        private static final String KEY_USER_ACCESS = "user_access";
+        public static final String KEY_USER_ACCESS = "user_access";
 
 
     // Trip

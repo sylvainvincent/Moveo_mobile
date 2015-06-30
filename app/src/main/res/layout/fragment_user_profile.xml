@@ -68,15 +68,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/add_friend"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginRight="5dp"
                     android:id="@+id/add_friend" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/trips_user"
-                    android:id="@+id/trips_user" />
+
 
             </LinearLayout>
 

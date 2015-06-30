@@ -48,7 +48,7 @@ public class JSONParser {
         int timeout;
 
         try {
-            timeout = 15000; // 20 secondes
+            timeout = 10000; // 10 secondes
             // defaultHttpClient
             DefaultHttpClient httpClient = new DefaultHttpClient();
             // Pour créer une requête POST nous allons créer un objet HttpPost avec comme paramètre l'URL du web service

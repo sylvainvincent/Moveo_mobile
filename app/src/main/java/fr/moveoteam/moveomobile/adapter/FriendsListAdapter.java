@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -202,19 +203,35 @@ public class FriendsListAdapter extends BaseAdapter {
         }
 
         @Override
-        protected void onPostExecute(JSONObject jsonObject) {
-            super.onPostExecute(jsonObject);
-			FriendDAO friendDAO = new FriendDAO(context);
-			friendDAO.open();
-			if(accepted)
-				friendDAO.acceptFriend(Integer.parseInt(friendId));
-			
-			if(!accepted)
-				friendDAO.removeFriend(Integer.parseInt(friendId));
-			
-            pDialog.dismiss();
+        protected void onPostExecute(JSONObject json) {
+            super.onPostExecute(json);
+            if (json == null) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                alert.setMessage("Connexion perdu");
+                alert.setPositiveButton("OK",null);
+                alert.show();
+            } else try {
+                if (json.getString("success").equals("1")) {
+                    FriendDAO friendDAO = new FriendDAO(context);
+                    friendDAO.open();
+                    if (accepted)
+                        friendDAO.acceptFriend(Integer.parseInt(friendId));
 
-            ((HomeActivity) context).refreshFragment();
+                    if (!accepted)
+                        friendDAO.removeFriend(Integer.parseInt(friendId));
+
+                    pDialog.dismiss();
+
+                    ((HomeActivity) context).refreshFragment();
+                }else{
+                    AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                    alert.setMessage("Erreur lors de la suppression de l'amis");
+                    alert.setPositiveButton("OK",null);
+                    alert.show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
         }
     }
