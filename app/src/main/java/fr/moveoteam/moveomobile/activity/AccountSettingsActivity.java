@@ -108,16 +108,16 @@ public class AccountSettingsActivity extends Fragment {
 
         // Pour les 3 lignes suivantes on affecter une chaîne vide au variable contenant les informations de l'utilisateur
         // Si la valeur récupérer grâce aux getter est null alors on affecte une chaîne vide
-        oldBirthday = user.getBirthday().equals("null") ? "" : user.getBirthday();
+        oldBirthday = user.getBirthday().equals("null") ? "" : Function.dateSqlToDateJava(user.getBirthday());
         oldCountry = user.getCountry().equals("null") ? "" : user.getCountry();
         oldCity = user.getCity().equals("null") ? "" : user.getCity();
 
         modifyLastName.setText(oldLastName);
         modifyFirstName.setText(oldFirstName);
         modifyEmail.setText(user.getEmail());
-        dateEdit.setText(user.getBirthday());
-        modifyCity.setText(user.getCity());
-        modifyCountry.setText(user.getCountry());
+        dateEdit.setText(oldBirthday);
+        modifyCity.setText(oldCity);
+        modifyCountry.setText(oldCountry);
 
         thumbnail.setImageBitmap(Function.decodeBase64(photoBase64));
 
@@ -277,7 +277,7 @@ public class AccountSettingsActivity extends Fragment {
 
                 user.setLastName(modifyLastName.getText().toString());
                 user.setFirstName(modifyFirstName.getText().toString());
-                user.setBirthday(Function.dateSqlToDateJava(dateEdit.getText().toString())) ;
+                user.setBirthday(Function.dateJavaToDateSql(dateEdit.getText().toString())) ;
                 user.setCountry(modifyCountry.getText().toString());
                 user.setCity(modifyCity.getText().toString());
                 user.setAvatar(photoBase64);

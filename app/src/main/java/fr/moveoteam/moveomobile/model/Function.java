@@ -149,7 +149,7 @@ public class Function {
                 " nest " + (diff / (1000*60*60*24)) + " jours.";
     }
 
-    public static String dateSqlToDateJava (String date) {
+    public static String dateJavaToDateSql (String date) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Log.i("Function",sdf.toString());
@@ -164,6 +164,24 @@ public class Function {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
        // String newDate = sdf.format(convertedCurrentDate);
+        return dateFormat.format(convertedDate);
+    }
+
+    public static String dateSqlToDateJava (String date) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Log.i("Function",sdf.toString());
+        Date convertedDate = null;
+        try {
+            convertedDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.i("Function",convertedDate.toString());
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        // String newDate = sdf.format(convertedCurrentDate);
         return dateFormat.format(convertedDate);
     }
 

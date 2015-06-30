@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import fr.moveoteam.moveomobile.activity.OtherUserProfileActivity;
 import fr.moveoteam.moveomobile.activity.TripActivity;
 import fr.moveoteam.moveomobile.activity.FriendProfileActivity;
 import fr.moveoteam.moveomobile.adapter.CommentListAdapter;
@@ -57,27 +58,24 @@ public class CommentListFragment extends ListFragment {
 
         super.onListItemClick(l, v, position, id);
         Comment comment = commentArrayList.get(position);
-        Log.e("Recuperation", ""+comment.getId());
-        Intent intent = new Intent(getActivity(), FriendProfileActivity.class);
+        Intent intent = new Intent(getActivity(), OtherUserProfileActivity.class);
         intent.putExtra("id",comment.getIdUser());
-        intent.putExtra("friend",0);
         startActivity(intent);
 
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
+       // private ProgressDialog pDialog;
 
-        @Override //Procedure appelée avant le traitement (optionnelle)
+       /* @Override //Procedure appelée avant le traitement (optionnelle)
         protected void onPreExecute() {
             super.onPreExecute();
 
             pDialog = new ProgressDialog(getActivity());
-            pDialog.setMessage("Recuperation des commentaires...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
-        }
+        }*/
 
         @Override
         //Méthode appelée pendant le traitement (obligatoire)
@@ -90,7 +88,7 @@ public class CommentListFragment extends ListFragment {
         @Override
         //Procedure appelée après le traitement (optionnelle)
         protected void onPostExecute(JSONObject json) {
-            pDialog.dismiss();
+            //pDialog.dismiss();
 
             try {
                 if(json == null){
@@ -102,12 +100,7 @@ public class CommentListFragment extends ListFragment {
                         }
                     });
                     builder.setMessage("Récupération des commentaires échoué");
-                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
+                    builder.setPositiveButton("OK", null);
                     builder.show();
 
                 }else if (json.getString("success").equals("1")) {
@@ -128,6 +121,8 @@ public class CommentListFragment extends ListFragment {
 
                     setListAdapter(new CommentListAdapter(getActivity(), commentArrayList));
 
+                }else{
+                    setListAdapter(null);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
