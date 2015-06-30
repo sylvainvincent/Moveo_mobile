@@ -25,10 +25,12 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
+import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.fragment.TripListFragment;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Trip;
+import fr.moveoteam.moveomobile.webservice.JSONFriend;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**
@@ -61,20 +63,26 @@ public class FriendProfileActivity extends Activity {
     Friend friend;
 	
 	// AUTRES
-	int id;
+    int friendId;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_profile);
-        id = getIntent().getExtras().getInt("id",0);
+        friendId = getIntent().getExtras().getInt("id",0);
+
+        UserDAO userDAO = new UserDAO(FriendProfileActivity.this);
+        userDAO.open();
+        id = userDAO.getUserDetails().getId();
+        userDAO.close();
         initialize();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowTitleEnabled(false);
 
         tripListFragment = new TripListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("otherUserId",id);
+        bundle.putInt("otherUserId",friendId);
         tripListFragment.setArguments(bundle);
         android.app.FragmentManager fm= getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -85,9 +93,9 @@ public class FriendProfileActivity extends Activity {
         friendDAO = new FriendDAO(FriendProfileActivity.this);
         friendDAO.open();
 
-        friend = friendDAO.getFriend(id);
+        friend = friendDAO.getFriend(friendId);
         friendDAO.close();
-        Log.i("info friend", "" + id);
+        Log.i("info friend", "" + friendId);
         if (!friend.getAvatarBase64().equals(""))
             useravatar.setImageBitmap(Function.decodeBase64(friend.getAvatarBase64()));
 
@@ -110,25 +118,36 @@ public class FriendProfileActivity extends Activity {
 
 
 
+
         sendmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FriendProfileActivity.this,SendMessageActivity.class);
-                intent.putExtra("friendId",""+id);
+                intent.putExtra("friendId",""+friendId);
                 intent.putExtra("name",friend.getFirstName()+" "+friend.getLastName());
                 startActivity(intent);
             }
         });
 
+        addfriend.setImageDrawable(getResources().getDrawable(R.drawable.delete_app));
         addfriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                AlertDialog.Builder alert = new AlertDialog.Builder(FriendProfileActivity.this);
+                alert.setMessage("Êtes vous sûr de retirer cette personne de vos amis ?");
+                alert.setPositiveButton("oui", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new ExecuteDeleteFriendThread().execute();
+                    }
+                });
+                alert.setNegativeButton("non", null);
+                alert.show();
+
             }
         });
-
-
-
 
     }
 
@@ -147,7 +166,7 @@ public class FriendProfileActivity extends Activity {
         //placesnumber = (TextView) findViewById(R.id.places_number);
         sendmail = (ImageView) findViewById(R.id.send_mail);
         addfriend = (ImageView) findViewById(R.id.add_friend);
-        tripsuser = (ImageView) findViewById(R.id.trips_user);
+
         tripsusertitle = (TextView) findViewById(R.id.trips_user_title);
         userinfos = (LinearLayout) findViewById(R.id.user_infos);
         //userprofile = (RelativeLayout) findViewById(R.id.user_profile);
@@ -167,7 +186,7 @@ public class FriendProfileActivity extends Activity {
         @Override
         protected JSONObject doInBackground(String... args) {
             JSONTrip jsonTrip = new JSONTrip();
-            return jsonTrip.getTripList(Integer.toString(id));
+            return jsonTrip.getTripList(Integer.toString(friendId));
         }
 
         @Override
@@ -232,6 +251,55 @@ public class FriendProfileActivity extends Activity {
         }
     }
 
+    private class ExecuteDeleteFriendThread extends AsyncTask<String, String, JSONObject>{
+        ProgressDialog pDialog;
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(FriendProfileActivity.this);
+            pDialog.setMessage("Chargement...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
 
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            JSONFriend jsonFriend = new JSONFriend();
+            return jsonFriend.removeFriend(Integer.toString(id),Integer.toString(friendId));
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+            super.onPostExecute(json);
+
+            if (json == null) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(FriendProfileActivity.this);
+                alert.setMessage("Connexion perdu");
+                alert.setPositiveButton("OK",null);
+                alert.show();
+            } else try {
+                if (json.getString("success").equals("1")) {
+                    FriendDAO friendDAO = new FriendDAO(FriendProfileActivity.this);
+                    friendDAO.open();
+                    friendDAO.removeFriend(friendId);
+                    friendDAO.close();
+
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+
+                }else{
+                    AlertDialog.Builder alert = new AlertDialog.Builder(FriendProfileActivity.this);
+                    alert.setMessage("Une erreur s'est produite lors de la suppression de l'ami");
+                    alert.setPositiveButton("OK",null);
+                    alert.show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

@@ -35,13 +35,16 @@ public class FriendListFragment extends ListFragment {
 
         if(friendArrayList != null) {
             if(listAdapter != null) listAdapter.updateResult(friendArrayList);
-            else listAdapter = new FriendsListAdapter(getActivity(), friendArrayList);
+            else {
+                listAdapter = new FriendsListAdapter(getActivity(), friendArrayList);
+                listAdapter.updateResult(friendArrayList);
+            }
 
             setListAdapter(listAdapter);
 
         } else {
             if (listAdapter != null) listAdapter.updateResult(friendArrayList);
-            else setListAdapter(null);
+            else setListAdapter(listAdapter);
 
         }
 

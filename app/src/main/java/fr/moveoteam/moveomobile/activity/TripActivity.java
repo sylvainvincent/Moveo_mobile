@@ -2,6 +2,7 @@ package fr.moveoteam.moveomobile.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -65,6 +66,9 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     PlaceListFragment gastronomyPlaceListFragment;
     PlaceListFragment leisurePlaceListFragment;
     PlaceListFragment shoppingPlaceListFragment;
+
+    Fragment fragment;
+
     PhotoGalleryFragment photoGalleryFragment;
     CommentCategoryFragment commentCategoryFragment;
     String gastronomyPlaceListFragmentTag;
@@ -140,8 +144,6 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         return true;
     }
 
-
-
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
         private FragmentManager fragmentManager;
@@ -154,7 +156,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
             pDialog = new ProgressDialog(TripActivity.this);
             pDialog.setMessage("Chargement...");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
+            pDialog.setCancelable(false);
             pDialog.show();
         }
 
@@ -328,6 +330,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
                     bundle.putString("country",trip.getCountry());
                     bundle.putString("author", trip.getAuthor_first_name() + " " + trip.getAuthor_last_name());
                     homeCategoryFragment.setArguments(bundle);
+                    fragment = homeCategoryFragment;
                     ft.replace(R.id.trip_content, homeCategoryFragment, HOME_FRAGMENT_TAG);
                     ft.commit();
                     tripcontent.setVisibility(View.VISIBLE);
@@ -369,8 +372,9 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         shoppingCategory.setImageDrawable(getResources().getDrawable(R.drawable.shopping_category));
 
         ft = getFragmentManager().beginTransaction();
+        fragment = homeCategoryFragment;
         // ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.trip_content, homeCategoryFragment);
+        ft.replace(R.id.trip_content, fragment);
         ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
         // ft.addToBackStack(null);
         ft.commit();
@@ -385,15 +389,15 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         shoppingCategory.setImageDrawable(getResources().getDrawable(R.drawable.shopping_category));
 
         ft = getFragmentManager().beginTransaction();
+        fragment = photoGalleryFragment;
         //ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.trip_content, photoGalleryFragment);
+        ft.replace(R.id.trip_content, fragment);
         ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
         // ft.addToBackStack(null);
         ft.commit();
     }
 
     public void linkToGastronomyFragment(View view){
-        Log.e("id de la vue",""+view.getId());
 
         foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category_blue));
         homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
@@ -404,15 +408,18 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
 
 
         ft = getFragmentManager().beginTransaction();
+        //if(fragment != null)ft.remove(fragment);
+
+        fragment = gastronomyPlaceListFragment;
         //ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.trip_content, gastronomyPlaceListFragment);
+        ft.replace(R.id.trip_content, fragment);
         ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
         // ft.addToBackStack(null);
         ft.commit();
     }
 
     public void linkToLeisureFragment(View view){
-        Log.e("id de la vue",""+view.getId());
+
         hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category_blue));
         foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category));
         homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category));
@@ -421,14 +428,16 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         shoppingCategory.setImageDrawable(getResources().getDrawable(R.drawable.shopping_category));
 
         ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.trip_content, leisurePlaceListFragment);
+        //if(fragment != null)ft.remove(fragment);
+        fragment = leisurePlaceListFragment;
+        ft.replace(R.id.trip_content, fragment);
         ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
         ft.addToBackStack(null);
         ft.commit();
     }
 
     public void linkToShoppingFragment(View view) {
-        Log.e("id de la vue",""+view.getId());
+
         shoppingCategory.setImageDrawable(getResources().getDrawable(R.drawable.shopping_category_blue));
         hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
         foodingCategory.setImageDrawable(getResources().getDrawable(R.drawable.fooding_category));
@@ -437,14 +446,16 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         picturesCategory.setImageDrawable(getResources().getDrawable(R.drawable.pictures_category));
 
         ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.trip_content, shoppingPlaceListFragment);
+        //if(fragment != null)ft.remove(fragment);
+        fragment = shoppingPlaceListFragment;
+        ft.replace(R.id.trip_content, fragment);
         ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
         ft.addToBackStack(null);
         ft.commit();
     }
 
     public void linkToCommentsFragment(View view){
-        Log.e("id de la vue",""+view.getId());
+
         scrollView.setEnableScrolling(false);
         commentsCategory.setImageDrawable(getResources().getDrawable(R.drawable.comments_category_blue));
         hobbiesCategory.setImageDrawable(getResources().getDrawable(R.drawable.hobbies_category));
@@ -455,15 +466,13 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
 
         //ft = getFragmentManager().beginTransaction();
         ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.trip_content, commentCategoryFragment);
+        fragment = commentCategoryFragment;
+        ft.replace(R.id.trip_content, fragment);
         ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
         ft.addToBackStack(null);
         ft.commit();
     }
 
-    private void ChangeIcon(View view){
-
-    }
     @Override // Fermer l'activity lorsque l'on appuie sur le bouton "back"
     public void onBackPressed() {
 
@@ -472,5 +481,12 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
 
     public int getId() {
         return id;
+    }
+
+    public void refreshFragment(){
+        ft = getFragmentManager().beginTransaction();
+        ft.detach(fragment);
+        ft.attach(fragment);
+        ft.commit();
     }
 }

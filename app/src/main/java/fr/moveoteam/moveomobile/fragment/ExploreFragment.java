@@ -97,9 +97,9 @@ public class ExploreFragment extends ListFragment {
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
+       // private ProgressDialog pDialog;
         int id;
-        @Override
+        /*@Override
         protected void onPreExecute() {
             super.onPreExecute();
             userDAO = new UserDAO(getActivity());
@@ -108,11 +108,13 @@ public class ExploreFragment extends ListFragment {
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
-        }
+        }*/
         @Override
         protected JSONObject doInBackground(String... args) {
+            userDAO = new UserDAO(getActivity());
             userDAO.open();
             id = userDAO.getUserDetails().getId();
+            userDAO.close();
             JSONTrip jsonTrip = new JSONTrip();
             //Log.e("ID",Integer.toString(userDAO.getUserDetails().getId()));
             return jsonTrip.getExploreTrips(Integer.toString(id));
@@ -127,34 +129,16 @@ public class ExploreFragment extends ListFragment {
 
         @Override
         protected void onPostExecute(JSONObject json) {
-            pDialog.dismiss();
+            //pDialog.dismiss();
             try {
                 if(json == null){
-                    Log.e("test json", "null");
+                    setListAdapter(null);
                     Toast.makeText(getActivity(),"Les voyages n'ont pas pu être récupérer",Toast.LENGTH_SHORT).show();
                 }
                 // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
                 else if(json.getString("success").equals("1")) {
                     // Recuperation des voyages sous la forme d'un JSONArray
                     JSONArray tripList = json.getJSONArray("trip");
-                    if(tripList == null){
-                        Log.e("test jsonarray","null");
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                            @Override
-                            public void onCancel(DialogInterface dialog) {
-                                System.exit(0);
-                            }
-                        });
-                        builder.setMessage("Connexion perdu");
-                        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                System.exit(0);
-                            }
-                        });
-                        builder.show();
-                    }
                     tripArrayList = new ArrayList<>(tripList.length());
 
                     for (int i = 0; i < tripList.length(); i++) {
@@ -181,6 +165,8 @@ public class ExploreFragment extends ListFragment {
                         Log.e("Message ", "" + tripArrayList.get(0).getName() + "" + tripArrayList.get(0).getName());
                         Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDate());
                     }
+                }else{
+                    setListAdapter(null);
                 }
 
             } catch (ParseException e1) {

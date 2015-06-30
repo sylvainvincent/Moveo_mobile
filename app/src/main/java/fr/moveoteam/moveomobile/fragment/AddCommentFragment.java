@@ -31,6 +31,7 @@ public class AddCommentFragment extends Fragment{
     String userId;
     Button addCommentButton;
     EditText message;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class AddCommentFragment extends Fragment{
             pDialog = new ProgressDialog(getActivity());
             pDialog.setMessage("Patientez...");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
+            pDialog.setCancelable(false);
             pDialog.show();
         }
 
@@ -101,9 +102,7 @@ public class AddCommentFragment extends Fragment{
                     builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = getActivity().getIntent();
-                            getActivity().finish();
-                            startActivity(intent);
+                            ((TripActivity) getActivity()).refreshFragment();
                         }
                     });
                     builder.show();

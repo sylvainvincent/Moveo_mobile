@@ -118,7 +118,7 @@ public class OtherUserProfileActivity extends Activity {
         //placesnumber = (TextView) findViewById(R.id.places_number);
         sendmail = (ImageView) findViewById(R.id.send_mail);
         addfriend = (ImageView) findViewById(R.id.add_friend);
-        tripsuser = (ImageView) findViewById(R.id.trips_user);
+        //tripsuser = (ImageView) findViewById(R.id.trips_user);
         tripsusertitle = (TextView) findViewById(R.id.trips_user_title);
         userinfos = (LinearLayout) findViewById(R.id.user_infos);
         //userprofile = (RelativeLayout) findViewById(R.id.user_profile);

@@ -199,7 +199,10 @@ public class HomeActivity extends Activity {
         drawerLayout.setDrawerListener(mDrawerToggle);
         if (savedInstanceState == null) {
             // La premiere page par défaut lors du lancement de l'application est "Explorer"
-            if(fragment != null)displayView(0);
+            /*if(fragment != null){
+
+                displayView(0);
+            }*/
         }
 
         friendCategoryFragment = new FriendCategoryFragment();
