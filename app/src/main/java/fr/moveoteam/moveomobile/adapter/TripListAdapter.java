@@ -79,7 +79,7 @@ public class TripListAdapter extends BaseAdapter {
             Log.e("ExploreList", " " + position);
             Log.e("Cover", " " + tripList.get(position).getCover());
             if (this.otherUser) {
-                String authorHTML = "<font color=#000>par</font> <i>" + tripList.get(position).getAuthor_first_name() + " " + tripList.get(position).getAuthor_last_name() + "</i>";
+                String authorHTML = "<font color=#000>par</font> " + tripList.get(position).getAuthor_first_name() + " " + tripList.get(position).getAuthor_last_name();
                 viewHolderTrip.explore_username.setText(Html.fromHtml(authorHTML));
 
                 if(!tripList.get(position).getCover().equals("null") && !tripList.get(position).getCover().isEmpty()) {

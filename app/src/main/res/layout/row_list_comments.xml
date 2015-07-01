@@ -5,7 +5,6 @@
     android:baselineAligned="false"
     android:layout_margin="20dp">
 
-
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -15,7 +14,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="213dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
@@ -24,6 +23,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/username_comment"
             android:textStyle="bold"
+            android:textSize="14sp"
             android:id="@+id/username_comment" />
 
         <TextView
@@ -31,26 +31,28 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/comment_content"
-            android:textSize="15sp"
-            android:layout_marginTop="5dp"
+            android:textSize="13sp"
             android:id="@+id/comment_content" />
 
         <TextView
-            android:layout_width="191dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/time_comment"
-            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:textStyle="italic"
             android:id="@+id/time_comment" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/modify_comment"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:textColor="#999"
+            android:id="@+id/modify_text" />
+
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/modify_comment"
-        android:id="@+id/modify_text" />
-
 
 </LinearLayout>

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/fragment_button_add_trip">
+    android:id="@+id/fragment_button_add_trip"
+    android:layout_marginTop="10dp">
 
     <ImageView
         android:id="@+id/add_picture"
@@ -14,7 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Ajouter un voyage"
+        android:text="@string/add_trip"
+        android:textSize="16sp"
         android:id="@+id/add_trip_text"
         android:layout_gravity="center_vertical"
         android:textColor="@color/label_color" />

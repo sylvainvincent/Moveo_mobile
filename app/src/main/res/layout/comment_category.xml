@@ -3,28 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:baselineAligned="false">
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="fr.moveoteam.moveomobile.fragment.AddCommentFragment"
-        tools:layout="@layout/fragment_add_comment"
-        android:id="@+id/comment_input">
-    </fragment>
 
-    <fragment
-        android:id="@+id/CommentListFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="fr.moveoteam.moveomobile.fragment.CommentListFragment"
-        tools:layout="@layout/row_list_comments">
-    </fragment>
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="fr.moveoteam.moveomobile.fragment.AddCommentFragment"
+            tools:layout="@layout/fragment_add_comment"
+            android:id="@+id/comment_input">
+        </fragment>
 
-
+        <fragment
+            android:id="@+id/CommentListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="fr.moveoteam.moveomobile.fragment.CommentListFragment"
+            tools:layout="@layout/row_list_comments">
+        </fragment>
 
     </LinearLayout>
 

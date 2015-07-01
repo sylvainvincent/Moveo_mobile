@@ -177,6 +177,8 @@
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="title_activity_send_message">SendMessage</string>
+    <string name="user_icon">Image de profil</string>
+    <string name="plane">Nombre de voyages</string>
 
     <string name="hello_world">Hello world!</string>
 
@@ -186,10 +188,13 @@
     <string name="friends_request_title">nouvelles demandes d\'amis</string>
     <string name="comment_button_text">Publier</string>
     <string name="comment_text">Votre commentaire</string>
-    <string name="comment_hint">commenter…</string>
+    <string name="comment_hint">Saisir un commentaire...</string>
     <string name="birthday_button_description">date anniversaire</string>
     <string name="photo_publication_date">Publié le</string>
     <string name="photo_description">photo</string>
     <string name="content_description_trip_photo">Avatar</string>
+
+    <!-- Row Users -->
+    <string name="user_trip_count">25</string>
 
 </resources>
