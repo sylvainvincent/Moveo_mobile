@@ -59,19 +59,18 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:src="@drawable/send_mail"
                     android:id="@+id/send_mail" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:src="@drawable/add_friend"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="5dp"
                     android:id="@+id/add_friend" />
-
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -86,6 +85,7 @@
                     android:text="@string/trips_user_title"
                     android:textColor="#3bb1cc"
                     android:textAllCaps="true"
+                    android:layout_marginLeft="20dp"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:id="@+id/trips_user_title" />
@@ -99,7 +99,5 @@
                 android:orientation="vertical" />
 
         </LinearLayout>
-
-
 
 </LinearLayout>

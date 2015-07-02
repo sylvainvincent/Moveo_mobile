@@ -11,9 +11,11 @@
 
     <Button
         android:id="@+id/dialogButtonOK"
-        android:layout_width="100px"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Ok"
+        android:text="@string/ok_message"
+        android:background="@drawable/submit_button"
+        android:textColor="#fff"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:layout_below="@+id/dialogBoxText" />

@@ -126,7 +126,7 @@
     <string name="my_password">Mon mot de passe</string>
     <string name="new_password">Nouveau mot de passe</string>
     <string name="check_new_password">Vérification du mot de passe</string>
-    <string name="notifications">Activer / désactiver les notifications</string>
+    <string name="notifications">Activer les notifications</string>
     <string name="informations">Rendre ma date de naissance, mon pays et ma ville visibles par tous (Visible par vos amis par défaut[NON])</string>
 
     <!-- Les éléments du menu -->
@@ -193,6 +193,9 @@
     <string name="photo_publication_date">Publié le</string>
     <string name="photo_description">photo</string>
     <string name="content_description_trip_photo">Avatar</string>
+
+    <!-- Custom Dialog -->
+    <string name="ok_message">OK</string>
 
     <!-- Row Users -->
     <string name="user_trip_count">25</string>

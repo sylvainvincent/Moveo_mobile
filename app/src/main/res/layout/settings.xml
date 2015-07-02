@@ -44,7 +44,6 @@
                 android:text="@string/my_password"
                 android:layout_marginBottom="5dp"
                 android:textColor="#666"
-                android:textAllCaps="true"
                 android:id="@+id/my_password_label" />
 
             <EditText
@@ -66,7 +65,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="#666"
-                android:textAllCaps="true"
                 android:id="@+id/new_password_label" />
 
             <EditText
@@ -88,7 +86,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="#666"
-                android:textAllCaps="true"
                 android:id="@+id/check_new_password_label" />
 
             <EditText
@@ -110,7 +107,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="#666"
-                android:textAllCaps="true"
                 android:id="@+id/notifications_label" />
 
             <Switch
