@@ -190,7 +190,8 @@ public class HomeActivity extends Activity {
 
             public void onDrawerOpened(View drawerView) {
                 // Affiche le nom et prenom de l'utilisateur
-                getActionBar().setTitle(userDAO.getUserDetails().getFirstName().toUpperCase()+" "+userDAO.getUserDetails().getLastName());
+                getActionBar().setTitle(Character.toUpperCase(userDAO.getUserDetails().getFirstName().charAt(0)) + userDAO.getUserDetails().getFirstName().substring(1, userDAO.getUserDetails().getFirstName().length()) + " " +
+                                        Character.toUpperCase(userDAO.getUserDetails().getLastName().charAt(0)) + userDAO.getUserDetails().getLastName().substring(1, userDAO.getUserDetails().getLastName().length()));
                 // Appel onPrepareOptionsMenu() pour caher les icônes de l'action bar
                 invalidateOptionsMenu();
             }

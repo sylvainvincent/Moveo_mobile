@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/home"
-            android:contentDescription="@string/modify_cover"
+            android:contentDescription="@string/modify"
             android:id="@+id/home_category"
             android:maxWidth="150dp"
             android:onClick="linkToHomeFragment"/>

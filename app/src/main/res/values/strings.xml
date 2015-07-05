@@ -89,15 +89,14 @@
 
     <!-- MY TRIP -->
     <string name="my_trip_title">Mon voyage</string>
-    <string name="delete_trip">Supprimer</string>
+    <string name="delete_trip">Supprimer le voyage</string>
     <string name="delete_trip_icon">Icône suppression</string>
     <string name="my_trip_city_title">City And Country</string>
     <string name="add_trip_date">Voyage ajouté le</string>
     <string name="cover_title">Image de couverture</string>
-    <string name="modify_cover">Modifier l\'image de couverture</string>
+    <string name="modify">Modifier</string>
     <string name="description_title">Description</string>
     <string name="trip_description">Description du voyage</string>
-    <string name="modify_description">Modifier la description</string>
     <string name="categories_title">Catégories</string>
     <string name="last_comments">Derniers commentaires</string>
     <string name="fooding_icon">Fooding</string>
@@ -161,7 +160,7 @@
     <string name="lost_password_hint_message">Entrez votre adresse mail</string>
     <string name="lost_password_send_email">ENVOYER</string>
     <string name="lost_password_cancel">ANNULER</string>
-    <string name="lost_password_text">Entrez votre adresse mail lié à votre compte afin de récupérer votre mot de passe.</string>
+    <string name="lost_password_text">Entrez votre adresse mail liée à votre compte afin de récupérer votre mot de passe.</string>
     <string name="send_lost_password">Envoyer</string>
 
     <!-- SEND MESSAGE -->

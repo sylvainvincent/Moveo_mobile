@@ -30,14 +30,14 @@
             android:text="@string/my_trip_city_title"
             android:id="@+id/my_trip_city_title"
             android:textAllCaps="true"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:layout_marginTop="5dp"
             android:text="@string/add_trip_date"
             android:id="@+id/add_trip_date" />
@@ -52,9 +52,8 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/delete_trip_icon"
-                android:src="@drawable/delete_app"
-                android:id="@+id/delete_app" />
+                android:src="@drawable/delete_trip"
+                android:id="@+id/delete_app"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,10 +61,10 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/delete_trip"
                 android:textAllCaps="true"
-                android:textSize="15sp"
-                android:layout_marginTop="2dp"
+                android:textSize="13sp"
                 android:layout_marginLeft="5dp"
-                android:textColor="#6f6f6f"
+                android:textColor="#ff003c"
+                android:textStyle="bold"
                 android:id="@+id/delete_trip" />
         </LinearLayout>
 
@@ -76,8 +75,18 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/cover_title"
             android:textAllCaps="true"
-            android:textSize="15sp"
-            android:layout_marginBottom="5dp"/>
+            android:textStyle="bold"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/modify"
+            android:id="@+id/modify_cover"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#767574" />
 
         <ImageView
             android:id="@+id/my_trip_cover"
@@ -92,27 +101,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/modify_cover"
-                android:layout_gravity="left"
-                android:id="@+id/modify_cover"
-                android:layout_marginTop="5dp"
-                android:textColor="#767574" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/validate"
-                android:layout_gravity="right"
                 android:id="@+id/validate_cover"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:textColor="#36b940" />
+                android:textSize="13sp"
+                android:layout_marginTop="5dp"/>
         </LinearLayout>
+
         <!-- DESCRIPTION -->
         <TextView
             android:layout_width="wrap_content"
@@ -121,6 +120,7 @@
             android:text="@string/description_title"
             android:textAllCaps="true"
             android:textSize="15sp"
+            android:textStyle="bold"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp" />
 
@@ -136,7 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/modify_description"
+            android:text="@string/modify"
             android:id="@+id/modify_description"
             android:layout_marginTop="5dp"
             android:textColor="#767574" />
@@ -149,6 +149,7 @@
             android:text="@string/categories_title"
             android:textAllCaps="true"
             android:textSize="15sp"
+            android:textStyle="bold"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp" />
 
@@ -199,6 +200,7 @@
             android:text="@string/last_comments"
             android:textAllCaps="true"
             android:textSize="15sp"
+            android:textStyle="bold"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp" />
 
