@@ -43,7 +43,6 @@ public class JSONTrip {
         loginForm.add(new BasicNameValuePair("tag","getTenTrips"));
         loginForm.add(new BasicNameValuePair("user_id",userId));
         return jsonParser.getJSONFromUrl(tripURL,loginForm);
-
     }
 
     public JSONObject getTrip(String id){
@@ -97,6 +96,14 @@ public class JSONTrip {
         descriptionForm.add(new BasicNameValuePair("trip_id", tripId));
         descriptionForm.add(new BasicNameValuePair("description", description));
         return jsonParser.getJSONFromUrl(tripURL, descriptionForm);
+    }
+
+    public JSONObject updateCoverImage(String tripId, String cover) {
+        List<NameValuePair> coverRequest = new ArrayList<>();
+        coverRequest.add(new BasicNameValuePair("tag", "modifyCover"));
+        coverRequest.add(new BasicNameValuePair("trip_id", tripId));
+        coverRequest.add(new BasicNameValuePair("cover", cover));
+        return jsonParser.getJSONFromUrl(tripURL, coverRequest);
     }
 
 }

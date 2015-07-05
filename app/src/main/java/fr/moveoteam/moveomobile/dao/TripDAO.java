@@ -179,11 +179,21 @@ public class TripDAO {
     }
 
     /**
-     * Fonction update la description du voyage
+     * Fonction qui mzt à jour la description du voyage
      */
     public void updateTripDescription(int tripId, String trip_description){
         ContentValues values = new ContentValues();
         values.put(KEY_TRIP_DESCRIPTION, trip_description);
         database.update(TABLE_TRIP, values, KEY_TRIP_ID + " = " + tripId, null);
     }
+
+    /**
+     * Fonction qui mzt à jour l'image couverture du voyage
+     */
+    public void updateCover(int tripId, String trip_description){
+        ContentValues values = new ContentValues();
+        values.put(KEY_TRIP_DESCRIPTION, trip_description);
+        database.update(TABLE_TRIP, values, KEY_TRIP_ID + " = " + tripId, null);
+    }
+
 }
