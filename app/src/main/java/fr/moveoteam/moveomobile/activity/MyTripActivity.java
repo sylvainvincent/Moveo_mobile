@@ -146,7 +146,7 @@ public class MyTripActivity extends Activity {
                     tripdescription.setText(json.getJSONObject("trip").getString("trip_description"));
                     cover.setImageBitmap(Function.decodeBase64(json.getJSONObject("trip").getString("trip_cover")));
 
-                    addtripdate.setText(addtripdate.getText() + " " + json.getJSONObject("trip").getString("trip_created_at"));
+                    addtripdate.setText(addtripdate.getText() + " " + Function.dateSqlToFullDateJava(json.getJSONObject("trip").getString("trip_created_at")));
 
 
                     if((json.getString("success").equals("1")) || (json.getString("success").equals("2"))){

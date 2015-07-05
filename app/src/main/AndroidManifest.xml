@@ -15,10 +15,10 @@
             android:name=".activity.DashboardActivity"
             android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeWithNoTitleBar" >
+            android:theme="@style/AppThemeWithNoTitleBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
@@ -38,7 +38,7 @@
             android:theme="@style/AppThemeWithNoTitleBar"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
-            android:noHistory="true" />
+            android:noHistory="true"/>
 
         <activity
             android:name=".activity.AddPlaceActivity"
@@ -76,7 +76,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.AccountSettingsActivity"
+            android:name=".fragment.AccountSettingsFragment"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 
@@ -86,7 +86,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.AddTrip"
+            android:name=".activity.AddTripActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 

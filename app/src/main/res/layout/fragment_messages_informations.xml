@@ -17,7 +17,7 @@
         android:id="@+id/receive_messages_icon"
         android:contentDescription="@string/receive_messages"
         android:layout_marginRight="10dp"
-        android:src="@drawable/receive_messages"
+        android:src="@drawable/receive_messages_hover"
         android:onClick="linkToInbox"/>
 
     <ImageView

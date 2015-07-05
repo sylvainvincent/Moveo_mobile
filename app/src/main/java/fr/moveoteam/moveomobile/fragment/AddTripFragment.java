@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import fr.moveoteam.moveomobile.R;
-import fr.moveoteam.moveomobile.activity.AddTrip;
+import fr.moveoteam.moveomobile.activity.AddTripActivity;
 import fr.moveoteam.moveomobile.activity.HomeActivity;
 
 /**
@@ -35,7 +35,7 @@ public class AddTripFragment extends Fragment{
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddTrip.class);
+                Intent intent = new Intent(getActivity(), AddTripActivity.class);
                 startActivityForResult(intent,1);
             }
         });

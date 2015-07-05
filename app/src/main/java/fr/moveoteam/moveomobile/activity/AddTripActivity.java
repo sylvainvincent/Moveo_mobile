@@ -34,7 +34,7 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
 /**
  * Created by Sylvain on 11/06/15.
  */
-public class AddTrip extends Activity {
+public class AddTripActivity extends Activity {
 
     private TextView addtriptitle;
     private TextView city;
@@ -65,7 +65,7 @@ public class AddTrip extends Activity {
 
         initialize();
 
-        UserDAO userDAO = new UserDAO(AddTrip.this);
+        UserDAO userDAO = new UserDAO(AddTripActivity.this);
         userDAO.open();
         userId = userDAO.getUserDetails().getId();
 
@@ -122,7 +122,7 @@ public class AddTrip extends Activity {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            pDialog = new ProgressDialog(AddTrip.this);
+            pDialog = new ProgressDialog(AddTripActivity.this);
             pDialog.setMessage("Chargement...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -145,7 +145,7 @@ public class AddTrip extends Activity {
             pDialog.dismiss();
             try {
                 if(json == null){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(AddTrip.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(AddTripActivity.this);
                     builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override
                         public void onCancel(DialogInterface dialog) {
@@ -169,7 +169,7 @@ public class AddTrip extends Activity {
                     if(photoBase64 != null)trip.setCover(photoBase64);
                     if(!editdescriptiontrip.getText().toString().equals(""))trip.setDescription(editdescriptiontrip.getText().toString());
                     trip.setDate(json.getString("date"));
-                    TripDAO tripDAO = new TripDAO(AddTrip.this);
+                    TripDAO tripDAO = new TripDAO(AddTripActivity.this);
                     tripDAO.open();
                     tripDAO.addTrip(trip);
                     tripDAO.close();
@@ -221,7 +221,7 @@ public class AddTrip extends Activity {
                     image.setImageBitmap(photo);
                 }catch (OutOfMemoryError e){
                     e.getMessage();
-                    Toast.makeText(AddTrip.this,"Photo trop lourd",Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddTripActivity.this,"Photo trop lourd",Toast.LENGTH_LONG).show();
                 }
 
             }

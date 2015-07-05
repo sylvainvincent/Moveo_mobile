@@ -29,6 +29,7 @@ import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.DialogDAO;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
+import fr.moveoteam.moveomobile.fragment.AccountSettingsFragment;
 import fr.moveoteam.moveomobile.fragment.AddTripFragment;
 import fr.moveoteam.moveomobile.fragment.ExploreFragment;
 import fr.moveoteam.moveomobile.fragment.FriendCategoryFragment;
@@ -161,7 +162,6 @@ public class HomeActivity extends Activity {
 
        // drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
-        // enabling action bar app icon and behaving it as toggle button
 
         /*try{
             getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -178,19 +178,20 @@ public class HomeActivity extends Activity {
 
 
         mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-                t, //nav menu toggle icon
-                R.string.app_name, // nav drawer open - description for accessibility
-                R.string.app_name // nav drawer close - description for accessibility
+                t, // ToolBar
+                R.string.app_name, // Description à l'ouverture du DrawerToggle
+                R.string.app_name // Description à la fermeture du DrawerToggle
         ) {
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
-                // calling onPrepareOptionsMenu() to show action bar icons
+                // Appel onPrepareOptionsMenu() pour afficher les icônes de l'action bar
                 invalidateOptionsMenu();
             }
 
             public void onDrawerOpened(View drawerView) {
+                // Affiche le nom et prenom de l'utilisateur
                 getActionBar().setTitle(userDAO.getUserDetails().getFirstName().toUpperCase()+" "+userDAO.getUserDetails().getLastName());
-                // calling onPrepareOptionsMenu() to hide action bar icons
+                // Appel onPrepareOptionsMenu() pour caher les icônes de l'action bar
                 invalidateOptionsMenu();
             }
         };
@@ -263,7 +264,7 @@ public class HomeActivity extends Activity {
                 ft.add(R.id.frame_container, fragment);
                 break;
             case 2:
-                fragment = new AccountSettingsActivity();
+                fragment = new AccountSettingsFragment();
                 ft.add(R.id.frame_container, fragment);
                 /*Intent intent = new Intent(this,AccountSettingsActivity.class);
                 startActivity(intent);*/
@@ -432,13 +433,17 @@ public class HomeActivity extends Activity {
 
     public void linkToInbox(View view) {
         FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-        ft.replace(R.id.messaging_content, ((MessagingFragment) fragment).getInboxListFragment());
+        messagingFragment = ((MessagingFragment) fragment);
+        messagingFragment.setRecieveIcon();
+        ft.replace(R.id.messaging_content, messagingFragment.getInboxListFragment());
         ft.commit();
     }
 
     public void linkToSendbox(View view) {
         FragmentTransaction ft = fragment.getFragmentManager().beginTransaction();
-        ft.replace(R.id.messaging_content,((MessagingFragment) fragment).getSendboxListFragment());
+        messagingFragment = ((MessagingFragment) fragment);
+        messagingFragment.setSendIcon();
+        ft.replace(R.id.messaging_content,messagingFragment.getSendboxListFragment());
         ft.commit();
     }
 

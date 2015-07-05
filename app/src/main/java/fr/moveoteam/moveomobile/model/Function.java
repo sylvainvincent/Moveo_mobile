@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -179,10 +180,48 @@ public class Function {
         }
         Log.i("Function",convertedDate.toString());
 
+
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         // String newDate = sdf.format(convertedCurrentDate);
         return dateFormat.format(convertedDate);
     }
 
+    public static String dateSqlToFullDateJava (String date) {
+
+        Locale locale = Locale.getDefault();
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Log.i("Function",sdf.toString());
+        Date convertedDate = null;
+        try {
+            convertedDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.i("Function",convertedDate.toString());
+        // Date sous le format complet (1 janvier 2015)
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, locale);
+
+        return dateFormat.format(convertedDate);
+    }
+
+    public static String differenceDate(String date){
+
+        Date actualyDate = new Date();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        Log.i("Function",sdf.toString());
+        Date convertedDate = null;
+        try {
+            convertedDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        assert convertedDate != null;
+        long ecartEnMinutes = actualyDate.getTime() - convertedDate.getTime();
+        return (ecartEnMinutes / (1000*60*60*24) )+" minutes "+actualyDate.getHours()+" "+actualyDate.getMinutes()+" et "+convertedDate.getHours();
+    }
 }

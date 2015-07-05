@@ -166,12 +166,6 @@ public class DashboardActivity extends Activity {
                 if(json == null){
                     Log.e("test json","null");
                     AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
-                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            System.exit(0);
-                        }
-                    });
                     builder.setMessage("Connexion perdu");
                     builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override

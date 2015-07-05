@@ -21,20 +21,21 @@ public class CommentCategoryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         if (view != null) {
             ViewGroup parent = (ViewGroup) view.getParent();
             if (parent != null)
                 parent.removeView(view);
         }
+
         try{
             view = inflater.inflate(R.layout.comment_category,container,false);
             commentListFragment = (CommentListFragment) getFragmentManager().findFragmentById(R.id.CommentListFragment);
-
         }catch (InflateException e){
             e.getMessage();
         }
-        return view;
 
+        return view;
     }
 
 

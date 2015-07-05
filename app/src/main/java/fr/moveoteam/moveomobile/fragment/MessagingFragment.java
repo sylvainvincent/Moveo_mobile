@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.dao.DialogDAO;
 
 /**
  * Created by Sylvain on 25/06/15.
@@ -23,6 +24,9 @@ public class MessagingFragment extends Fragment {
     ImageView receiveIcon;
     TextView messageCount;
     Fragment fragment;
+
+    int inboxCount;
+    int sendboxCount;
 
     @Nullable
     @Override
@@ -37,6 +41,17 @@ public class MessagingFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        DialogDAO dialogDAO= new DialogDAO(getActivity());
+        dialogDAO.open();
+
+        if(dialogDAO.getInboxList() != null) inboxCount = dialogDAO.getInboxList().size();
+        else inboxCount = 0;
+        if(dialogDAO.getSendboxList() != null) sendboxCount = dialogDAO.getSendboxList().size();
+        else sendboxCount = 0;
+        dialogDAO.close();
+
+        messageCount.setText(inboxCount+ " messages");
 
         inboxListFragment = new InboxListFragment();
         sendboxListFragment = new SendboxListFragment();
@@ -55,11 +70,16 @@ public class MessagingFragment extends Fragment {
     }
 
     public void setRecieveIcon(){
+        receiveIcon.setImageDrawable(getResources().getDrawable(R.drawable.receive_messages_hover));
         sendIcon.setImageDrawable(getResources().getDrawable(R.drawable.send_messages));
+        messageCount.setText(inboxCount+ " messages");
     }
 
     public void setSendIcon(){
-        sendIcon.setImageDrawable(getResources().getDrawable(R.drawable.send_messages));
+        sendIcon.setImageDrawable(getResources().getDrawable(R.drawable.send_messages_hover));
+        receiveIcon.setImageDrawable(getResources().getDrawable(R.drawable.receive_messages));
+        messageCount.setText(sendboxCount+" messages");
+
     }
 
 }

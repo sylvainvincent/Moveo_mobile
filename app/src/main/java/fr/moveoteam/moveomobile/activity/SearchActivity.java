@@ -137,4 +137,5 @@ public class SearchActivity extends Activity {
         finish();
         return true;
     }
+
 }

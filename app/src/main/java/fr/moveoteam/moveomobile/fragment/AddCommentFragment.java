@@ -102,7 +102,9 @@ public class AddCommentFragment extends Fragment{
                     builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ((TripActivity) getActivity()).refreshFragment();
+                            Intent intent = getActivity().getIntent();
+                            getActivity().finish();
+                            startActivity(intent);
                         }
                     });
                     builder.show();

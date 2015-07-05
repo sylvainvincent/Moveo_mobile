@@ -92,6 +92,7 @@ public class CommentListFragment extends ListFragment {
 
             try {
                 if(json == null){
+                    setListAdapter(null);
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override

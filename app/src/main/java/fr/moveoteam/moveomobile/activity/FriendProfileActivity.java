@@ -110,15 +110,6 @@ public class FriendProfileActivity extends Activity {
         else if (friend.getCity().equals("null") && !friend.getCountry().equals("null"))
             livein.setText(livein.getText() + " " + friend.getCountry());
 
-        if(tripArrayList != null){
-            if(tripArrayList.size() == 1)tripsnumber.setText(tripArrayList.size()+" voyage");
-            else tripsnumber.setText(tripArrayList.size()+" voyages");
-        }
-
-
-
-
-
         sendmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,10 +227,11 @@ public class FriendProfileActivity extends Activity {
                         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                         //      R.layout.element_menu,R.id.title,values);
 
-                        Log.e("afficher list", tripArrayList.get(1).getName());
-                        // setListAdapter(new TripListAdapter(getActivity(), tripArrayList, true));
-                        Log.e("Message ", "" + tripArrayList.get(0).getName() + "" + tripArrayList.get(0).getName());
-                        Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDate());
+                        if(tripArrayList != null){
+                            if(tripArrayList.size() == 1)tripsnumber.setText(tripArrayList.size()+" voyage");
+                            else tripsnumber.setText(tripArrayList.size()+" voyages");
+                        }
+
                     }
                 }
 

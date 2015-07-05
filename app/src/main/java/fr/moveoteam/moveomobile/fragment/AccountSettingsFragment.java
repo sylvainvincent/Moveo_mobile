@@ -1,4 +1,4 @@
-package fr.moveoteam.moveomobile.activity;
+package fr.moveoteam.moveomobile.fragment;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -39,7 +39,7 @@ import fr.moveoteam.moveomobile.webservice.JSONUser;
 /**
  * Created by Amélie on 12/05/2015.
  */
-public class AccountSettingsActivity extends Fragment {
+public class AccountSettingsFragment extends Fragment {
 
 	// ELEMENTS DE VUES
     Button buttonModifyAccount;
