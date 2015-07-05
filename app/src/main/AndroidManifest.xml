@@ -46,6 +46,7 @@
 
         <activity
             android:name=".activity.HomeActivity"
+            android:icon="@drawable/ic_launcher"
             android:screenOrientation="portrait"/>
 
         <activity

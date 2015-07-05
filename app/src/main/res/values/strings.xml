@@ -128,17 +128,18 @@
     <string name="check_new_password">Vérification du mot de passe</string>
     <string name="notifications">Activer les notifications</string>
     <string name="informations">Rendre ma date de naissance, mon pays et ma ville visibles par tous (Visible par vos amis par défaut[NON])</string>
+    <string name="validate">Valider</string>
 
     <!-- Les éléments du menu -->
     <string-array name="nav_drawer_items">
-        <item>EXPLORER</item>
-        <item>MES VOYAGES</item>
-        <item>MON PROFIL</item>
-        <item>MES AMIS</item>
-        <item>MESSAGERIE</item>
-        <item>PARAMÈTRES</item>
-        <item>À PROPOS</item>
-        <item>DÉCONNEXION</item>
+        <item>Explorer</item>
+        <item>Mes voyages</item>
+        <item>Mon profil</item>
+        <item>Mes amis</item>
+        <item>Messagerie</item>
+        <item>Paramètres</item>
+        <item>À propos</item>
+        <item>Déconnexion</item>
     </string-array>
 
     <!-- Les icônes des elements du menu -->
@@ -156,7 +157,7 @@
 
     <!-- POPUP LOST PASSWORD -->
     <string name="lost_password_label">MOT DE PASSE OUBLIÉ ?</string>
-    <string name="lost_password_description">Entrez l\'adresse email lié à votre compte afin de récupérer un nouveau mot de passe</string>
+    <string name="lost_password_description">Entrez l\'adresse email liée à votre compte afin de récupérer un nouveau mot de passe</string>
     <string name="lost_password_hint_message">Entrez votre adresse mail</string>
     <string name="lost_password_send_email">ENVOYER</string>
     <string name="lost_password_cancel">ANNULER</string>

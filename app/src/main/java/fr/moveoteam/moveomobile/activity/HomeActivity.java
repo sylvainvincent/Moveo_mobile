@@ -189,7 +189,7 @@ public class HomeActivity extends Activity {
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(userDAO.getUserDetails().getFirstName().toUpperCase()+" "+userDAO.getUserDetails().getLastName().toUpperCase());
+                getActionBar().setTitle(userDAO.getUserDetails().getFirstName().toUpperCase()+" "+userDAO.getUserDetails().getLastName());
                 // calling onPrepareOptionsMenu() to hide action bar icons
                 invalidateOptionsMenu();
             }
