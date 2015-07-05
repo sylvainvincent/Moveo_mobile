@@ -76,17 +76,8 @@
             android:text="@string/cover_title"
             android:textAllCaps="true"
             android:textStyle="bold"
-            android:textSize="15sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/modify"
-            android:id="@+id/modify_cover"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:textColor="#767574" />
+            android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/my_trip_cover"
@@ -95,21 +86,25 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/cover"
             android:scaleType="centerCrop"
-            android:src="@drawable/cover" />
+            android:src="@drawable/big_default_journey" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <Button
+                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/validate"
-                android:id="@+id/validate_cover"
-                android:textSize="13sp"
-                android:layout_marginTop="5dp"/>
+                android:layout_height="25dp"
+                android:text="@string/modify"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="#fff"
+                android:id="@+id/modify_cover"
+                android:layout_marginTop="5dp"
+                android:background="#3cb2cc" />
+
         </LinearLayout>
 
         <!-- DESCRIPTION -->
@@ -124,22 +119,28 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/trip_description"
+            android:gravity="top|left"
+            android:padding="5dp"
+            android:background="@drawable/edit_text_style"
             android:id="@+id/trip_description"
             android:textSize="13sp" />
 
-        <TextView
+        <Button
+            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_height="25dp"
             android:text="@string/modify"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="#fff"
             android:id="@+id/modify_description"
             android:layout_marginTop="5dp"
-            android:textColor="#767574" />
+            android:background="#3cb2cc" />
 
         <!-- CATEGORIES -->
         <TextView

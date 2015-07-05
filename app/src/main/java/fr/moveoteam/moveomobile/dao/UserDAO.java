@@ -74,7 +74,7 @@ public class UserDAO {
         values.put(KEY_USER_PASSWORD, user.getPassword());     // PASSWORD
         values.put(KEY_USER_COUNTRY, user.getCountry());       // PAYS
         values.put(KEY_USER_CITY, user.getCity());             // VILLE
-        values.put(KEY_USER_ACCESS, user.getAccess());             // VILLE
+        values.put(KEY_USER_ACCESS, user.getAccess());         // VILLE
         // Insérer la ligne
         database.insert(TABLE_LOGIN, null, values);
     }

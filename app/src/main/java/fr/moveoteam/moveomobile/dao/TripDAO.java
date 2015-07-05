@@ -161,7 +161,6 @@ public class TripDAO {
      * @return un voyage (Trip)
      */
     protected Trip cursorToTrip(Cursor cursor){
-
         Trip trip = new Trip();
         trip.setId(cursor.getInt(DataBaseHandler.POSITION_FRIEND_ID));
         trip.setName(cursor.getString(DataBaseHandler.POSITION_TRIP_NAME));
@@ -169,8 +168,22 @@ public class TripDAO {
         trip.setDescription(cursor.getString(DataBaseHandler.POSITION_TRIP_DESCRIPTION));
         trip.setInsert(cursor.getString(DataBaseHandler.POSITION_TRIP_CREATED_AT));
         trip.setCover(cursor.getString(DataBaseHandler.POSITION_TRIP_COVER));
-
         return trip;
     }
 
+    /**
+     * Fonction qui supprime un voyage
+     */
+    public boolean removeTrip(int tripId){
+        return database.delete(TABLE_TRIP, DataBaseHandler.KEY_TRIP_ID + " = " + tripId, null) > 0;
+    }
+
+    /**
+     * Fonction update la description du voyage
+     */
+    public void updateTripDescription(int tripId, String trip_description){
+        ContentValues values = new ContentValues();
+        values.put(KEY_TRIP_DESCRIPTION, trip_description);
+        database.update(TABLE_TRIP, values, KEY_TRIP_ID + " = " + tripId, null);
+    }
 }

@@ -26,7 +26,6 @@ public class JSONTrip {
     }
 
     public JSONObject addTrip(String userId, String name, String country, String description, String photoBase64){
-
         List<NameValuePair> tripForm = new ArrayList<>();
         tripForm.add(new BasicNameValuePair("tag","addTrip"));
         tripForm.add(new BasicNameValuePair("user_id",userId));
@@ -34,14 +33,12 @@ public class JSONTrip {
         tripForm.add(new BasicNameValuePair("trip_country",country));
         tripForm.add(new BasicNameValuePair("description",description));
         tripForm.add(new BasicNameValuePair("cover",photoBase64));
-
         return jsonParser.getJSONFromUrl(tripURL,tripForm);
 
     }
 
 
     public JSONObject getExploreTrips(String userId){
-
         List<NameValuePair> loginForm = new ArrayList<>();
         loginForm.add(new BasicNameValuePair("tag","getTenTrips"));
         loginForm.add(new BasicNameValuePair("user_id",userId));
@@ -50,7 +47,6 @@ public class JSONTrip {
     }
 
     public JSONObject getTrip(String id){
-
         List<NameValuePair> tripRequest = new ArrayList<>();
         tripRequest.add(new BasicNameValuePair("tag","getTrip"));
         tripRequest.add(new BasicNameValuePair("trip_id",id));
@@ -58,7 +54,6 @@ public class JSONTrip {
     }
 
     public JSONObject getTripList(String otherUserId){
-
         List<NameValuePair> tripRequest = new ArrayList<>();
         tripRequest.add(new BasicNameValuePair("tag","getTripList"));
         tripRequest.add(new BasicNameValuePair("user_id",otherUserId));
@@ -66,7 +61,6 @@ public class JSONTrip {
     }
 
     public JSONObject getPhotoGallery(String tripId){
-
         List<NameValuePair> photoRequest = new ArrayList<>();
         photoRequest.add(new BasicNameValuePair("tag","getPhotoGallery"));
         photoRequest.add(new BasicNameValuePair("trip_id",tripId));
@@ -74,7 +68,6 @@ public class JSONTrip {
     }
 
     public JSONObject getComments(String tripId){
-
         List<NameValuePair> commentRequest = new ArrayList<>();
         commentRequest.add(new BasicNameValuePair("tag","getCommentList"));
         commentRequest.add(new BasicNameValuePair("trip_id",tripId));
@@ -82,7 +75,6 @@ public class JSONTrip {
     }
 	
 	public JSONObject addComment(String userId, String tripId, String message){
-
         List<NameValuePair> commentForm = new ArrayList<>();
         commentForm.add(new BasicNameValuePair("tag","addComment"));
         commentForm.add(new BasicNameValuePair("user_id",userId));
@@ -91,12 +83,20 @@ public class JSONTrip {
         return jsonParser.getJSONFromUrl(tripURL,commentForm);
     }
 
-    public JSONObject deleteTrip(String tripId){
-
+    public JSONObject deleteTrip(String tripId, String userId) {
         List<NameValuePair> tripForm = new ArrayList<>();
         tripForm.add(new BasicNameValuePair("tag","deleteTrip"));
         tripForm.add(new BasicNameValuePair("trip_id",tripId));
+        tripForm.add(new BasicNameValuePair("user_id", userId));
         return jsonParser.getJSONFromUrl(tripURL,tripForm);
+    }
+
+    public JSONObject updateDescription(String tripId, String description) {
+        List<NameValuePair> descriptionForm = new ArrayList<>();
+        descriptionForm.add(new BasicNameValuePair("tag", "modifyDescription"));
+        descriptionForm.add(new BasicNameValuePair("trip_id", tripId));
+        descriptionForm.add(new BasicNameValuePair("description", description));
+        return jsonParser.getJSONFromUrl(tripURL, descriptionForm);
     }
 
 }

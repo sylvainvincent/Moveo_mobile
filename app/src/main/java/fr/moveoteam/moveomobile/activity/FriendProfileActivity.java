@@ -277,12 +277,11 @@ public class FriendProfileActivity extends Activity {
                     friendDAO.open();
                     friendDAO.removeFriend(friendId);
                     friendDAO.close();
-
                     Intent intent = getIntent();
                     finish();
                     startActivity(intent);
 
-                }else{
+                } else {
                     AlertDialog.Builder alert = new AlertDialog.Builder(FriendProfileActivity.this);
                     alert.setMessage("Une erreur s'est produite lors de la suppression de l'ami");
                     alert.setPositiveButton("OK",null);

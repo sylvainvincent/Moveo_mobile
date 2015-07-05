@@ -42,8 +42,8 @@ public class MyTripListFragment extends ListFragment {
         Log.e("Recuperation", trip.getName());
         Intent intent = new Intent(getActivity(), MyTripActivity.class);
         intent.putExtra("id",trip.getId());
-        Log.e("id trip frag",""+trip.getId());
-        startActivity(intent);
+        Log.e("id trip frag","" + trip.getId());
+        getActivity().startActivityForResult(intent, 2);
     }
 
     @Override
