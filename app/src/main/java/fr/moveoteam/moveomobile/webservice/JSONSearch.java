@@ -37,4 +37,14 @@ public class JSONSearch {
         return jsonParser.getJSONFromUrl(searchURL, searchForm);
     }
 
+    public JSONObject searchUser(String userId, String query){
+
+        List<NameValuePair> searchForm = new ArrayList<>();
+        searchForm.add(new BasicNameValuePair("tag", "searchUser"));
+        searchForm.add(new BasicNameValuePair("userId", userId));
+        searchForm.add(new BasicNameValuePair("query", query));
+
+        return jsonParser.getJSONFromUrl(searchURL, searchForm);
+    }
+
 }

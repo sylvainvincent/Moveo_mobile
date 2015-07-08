@@ -28,10 +28,7 @@
             android:noHistory="true"
             android:theme="@style/AppThemeWithNoTitleBar"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" >
-            <meta-data android:name="android.app.searchable"
-                android:resource="@layout/searchable" />
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name=".activity.RegisterActivity"
@@ -95,6 +92,10 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.OtherUserProfileActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.CategoryActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 

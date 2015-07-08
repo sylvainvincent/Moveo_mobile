@@ -146,8 +146,6 @@ public class ExploreFragment extends ListFragment {
                                 tripList.getJSONObject(i).getInt("trip_id"),
                                 tripList.getJSONObject(i).getString("trip_name"),
                                 tripList.getJSONObject(i).getString("trip_country"),
-                                tripList.getJSONObject(i).getString("trip_description"),
-                                tripList.getJSONObject(i).getString("trip_created_at"),
                                 tripList.getJSONObject(i).getString("trip_cover"),
                                 tripList.getJSONObject(i).getString("user_last_name"),
                                 tripList.getJSONObject(i).getString("user_first_name"),

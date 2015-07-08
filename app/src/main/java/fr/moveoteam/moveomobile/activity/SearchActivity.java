@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
 import fr.moveoteam.moveomobile.fragment.SearchTripListFragments;
+import fr.moveoteam.moveomobile.fragment.SearchUserListFragment;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**
@@ -32,6 +33,7 @@ public class SearchActivity extends Activity {
 
     EditText searchBar;
     SearchTripListFragments searchTripListFragments;
+    SearchUserListFragment searchUserListFragment;
     String query;
 
     @Override
@@ -55,19 +57,21 @@ public class SearchActivity extends Activity {
         searchBar.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // Si l'utilisateur appui sur entrer la recherche est lancé
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
                     query = searchBar.getText().toString();
                    /* Toast.makeText(SearchActivity.this,spin.getSelectedItem().toString()+
                             " YOU CLICKED ENTER KEY " + searchBar.getText().toString(),
                             Toast.LENGTH_LONG).show();*/
+                    // permet de cacher le clavier
                     InputMethodManager imm = (InputMethodManager) SearchActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    searchTripListFragments = new SearchTripListFragments();
+                    searchUserListFragment = new SearchUserListFragment();
                     Bundle bundle = new Bundle();
                     bundle.putString("query",query);
-                    searchTripListFragments.setArguments(bundle);
+                    searchUserListFragment.setArguments(bundle);
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.search_content, searchTripListFragments,"search");
+                    ft.replace(R.id.search_content, searchUserListFragment,"search");
                     ft.commit();
                 }
                 return true;

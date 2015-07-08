@@ -105,5 +105,32 @@ public class JSONTrip {
         coverRequest.add(new BasicNameValuePair("cover", cover));
         return jsonParser.getJSONFromUrl(tripURL, coverRequest);
     }
+    
+    public JSONObject addPlace(String placeId, String placeName, String placeAddress, String placeDescription, String categorie, String tripId){
+    
+        List<NameValuePair> placeRequest = new ArrayList<>();
+        placeRequest.add(new BasicNameValuePair("tag", "addPlace"));
+        placeRequest.add(new BasicNameValuePair("place_id", placeId));
+        placeRequest.add(new BasicNameValuePair("place_name", placeName));
+        placeRequest.add(new BasicNameValuePair("place_address", placeAddress));
+        placeRequest.add(new BasicNameValuePair("place_description", placeDescription));
+        placeRequest.add(new BasicNameValuePair("categorie", categorie));
+        placeRequest.add(new BasicNameValuePair("trip_id", tripId));
+        return jsonParser.getJSONFromUrl(tripURL, placeRequest);
+    
+    }
+    
+      public JSONObject updatePlace(String placeId, String placeName, String placeAddress, String placeDescription){
+    
+        List<NameValuePair> placeRequest = new ArrayList<>();
+        placeRequest.add(new BasicNameValuePair("tag", "modifyPlace"));
+        placeRequest.add(new BasicNameValuePair("place_id", placeId));
+        placeRequest.add(new BasicNameValuePair("place_name", placeName));
+        placeRequest.add(new BasicNameValuePair("place_address", placeAddress));
+        placeRequest.add(new BasicNameValuePair("place_description", placeDescription));
+
+        return jsonParser.getJSONFromUrl(tripURL, placeRequest);
+    
+    }
 
 }

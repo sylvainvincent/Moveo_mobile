@@ -18,7 +18,7 @@
             <ImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:id="@+id/friend_avatar"
+                android:id="@+id/other_user_avatar"
                 android:padding="5dp"
                 android:contentDescription="@string/user_icon"
                 android:src="@drawable/default_avatar" />
@@ -31,7 +31,7 @@
                 android:textAllCaps="true"
                 android:textSize="15sp"
                 android:layout_marginTop="25dp"
-                android:id="@+id/friend_name" />
+                android:id="@+id/other_user_name" />
         </LinearLayout>
 
         <LinearLayout

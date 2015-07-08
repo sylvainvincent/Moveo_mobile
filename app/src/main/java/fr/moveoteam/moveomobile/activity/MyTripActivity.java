@@ -31,7 +31,9 @@ import java.util.ArrayList;
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
+import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
 import fr.moveoteam.moveomobile.model.Comment;
+import fr.moveoteam.moveomobile.model.Dialog;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Place;
 import fr.moveoteam.moveomobile.model.User;
@@ -106,6 +108,14 @@ public class MyTripActivity extends Activity {
                 new ExecuteDeleteTripThread().execute();
             }
         });
+
+        fooding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyTripActivity.this,CategoryActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initialize() {
@@ -121,6 +131,7 @@ public class MyTripActivity extends Activity {
         mytriptitle = (TextView) findViewById(R.id.my_trip_title);
         modifydescription = (Button) findViewById(R.id.modify_description);
         deletetrip = (TextView) findViewById(R.id.delete_trip);
+        fooding = (ImageView) findViewById(R.id.fooding);
 
     }
 
@@ -243,7 +254,7 @@ public class MyTripActivity extends Activity {
         @Override
         protected JSONObject doInBackground(String... params) {
             JSONTrip jsonTrip = new JSONTrip();
-            return jsonTrip.updateDescription(Integer.toString(id), tripdescription.getText().toString());
+            return jsonTrip.updateDescription(Integer.toString(id), "éclat");
         }
 
         @Override
@@ -252,6 +263,10 @@ public class MyTripActivity extends Activity {
             if(jsonObject != null) {
                 try {
                     if (jsonObject.getString("success").equals("1")) {
+                        AlertDialog.Builder ad = new AlertDialog.Builder(MyTripActivity.this);
+                        ad.setMessage("La description a été modifié avec succès");
+                        ad.create();
+                        ad.show();
                         TripDAO tripDAO = new TripDAO(MyTripActivity.this);
                         tripDAO.open();
                         tripDAO.updateTripDescription(id, tripdescription.getText().toString());

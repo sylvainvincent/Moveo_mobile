@@ -60,10 +60,10 @@ public class PlaceDAO {
     public void addPlace(Place place) {
         ContentValues values = new ContentValues();
         values.put(DataBaseHandler.KEY_PLACE_ID, place.getId());
-        values.put(DataBaseHandler.KEY_PLACE_NAME, place.getName());     // NOM
-        values.put(DataBaseHandler.KEY_PLACE_ADDRESS, place.getAddress());   // PRÉNOM
-        values.put(DataBaseHandler.KEY_PLACE_DESCRIPTION, place.getDescription());     // DATE DE NAISSANCE
-        values.put(DataBaseHandler.KEY_PLACE_CATEGORY, place.getCategory()); // CATEGORIE
+        values.put(DataBaseHandler.KEY_PLACE_NAME, place.getName());     // Nom
+        values.put(DataBaseHandler.KEY_PLACE_ADDRESS, place.getAddress());   // Adresse
+        values.put(DataBaseHandler.KEY_PLACE_DESCRIPTION, place.getDescription());     // Description
+        values.put(DataBaseHandler.KEY_PLACE_CATEGORY, place.getCategory()); // Categorie
         values.put(DataBaseHandler.KEY_PLACE_TRIP_ID, place.getTripId()); // ID DU LIEU
         // Insérer la ligne
         database.insert(TABLE_PLACE, null, values);
@@ -135,6 +135,14 @@ public class PlaceDAO {
         place.setTripId(cursor.getInt(DataBaseHandler.POSITION_PLACE_TRIP_ID));
 
         return place;
+    }
+    
+    public void updatePlace(Place place){
+        ContentValues values = new ContentValues();
+        values.put(DataBaseHandler.KEY_PLACE_NAME, place.getName());     // Nom
+        values.put(DataBaseHandler.KEY_PLACE_ADDRESS, place.getAddress());   // Adresse
+        values.put(DataBaseHandler.KEY_PLACE_DESCRIPTION, place.getDescription());  // Description
+        database.update(TABLE_TRIP, values, KEY_PLACE_ID + " = " + place.getId(), null);
     }
 
 }

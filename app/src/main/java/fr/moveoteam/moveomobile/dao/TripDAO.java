@@ -179,7 +179,7 @@ public class TripDAO {
     }
 
     /**
-     * Fonction qui mzt à jour la description du voyage
+     * Fonction qui met à jour la description du voyage
      */
     public void updateTripDescription(int tripId, String trip_description){
         ContentValues values = new ContentValues();
@@ -188,7 +188,7 @@ public class TripDAO {
     }
 
     /**
-     * Fonction qui mzt à jour l'image couverture du voyage
+     * Fonction qui met à jour l'image couverture du voyage
      */
     public void updateCover(int tripId, String trip_description){
         ContentValues values = new ContentValues();

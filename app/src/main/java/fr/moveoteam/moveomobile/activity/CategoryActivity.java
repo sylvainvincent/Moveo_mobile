@@ -24,6 +24,7 @@ public class CategoryActivity extends Activity {
         setContentView(R.layout.category);
 
         listView = (ListView) findViewById(R.id.list_category);
+        placeArrayList = new ArrayList<>();
         Place place = new Place();
         place.setName("A");
         place.setAddress("test");

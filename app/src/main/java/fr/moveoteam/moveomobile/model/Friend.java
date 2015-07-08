@@ -13,6 +13,7 @@ public class Friend {
     String avatarBase64;
     String country;
     String city;
+    int tripCount;
     int accessId;
     boolean isFriend;
 
@@ -24,6 +25,14 @@ public class Friend {
         this.lastName = lastName;
         this.avatarBase64 = avatarBase64;
         this.isFriend = isFriend;
+    }
+
+    public Friend(int id, String firstName, String lastName, String avatarBase64, int tripCount){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.avatarBase64 = avatarBase64;
+        this.tripCount = tripCount;
     }
 
     public Friend(int id, String firstName, String lastName, String birthday, String avatarBase64, String country, String city, boolean isFriend,int accessId) {
@@ -122,5 +131,13 @@ public class Friend {
 
     public void setAccessId(int accessId) {
         this.accessId = accessId;
+    }
+
+    public int getTripCount() {
+        return tripCount;
+    }
+
+    public void setTripCount(int tripCount) {
+        this.tripCount = tripCount;
     }
 }
