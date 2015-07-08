@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import java.util.ArrayList;
 
@@ -75,12 +76,12 @@ public class CommentListAdapter extends BaseAdapter {
         else {
             if (commentArrayList.get(position).getUserAvatarBase64() != null)
                 viewHolderComment.avatarComment.setImageBitmap(Function.decodeBase64(commentArrayList.get(position).getUserAvatarBase64()));
-            viewHolderComment.userNameComment.setText(commentArrayList.get(position).getUserFirstName() + " " + commentArrayList.get(position).getUserLastName());
-            viewHolderComment.commentContent.setText(commentArrayList.get(position).getMessage());
-            viewHolderComment.timeComment.setText("Il y a " + Function.differenceDate(commentArrayList.get(position).getDate()));
-            Log.e("position comment", position + "");
-            UserDAO userDAO = new UserDAO(context);
-            userDAO.open();
+                viewHolderComment.userNameComment.setText(commentArrayList.get(position).getUserFirstName() + " " + commentArrayList.get(position).getUserLastName());
+                viewHolderComment.commentContent.setText(commentArrayList.get(position).getMessage());
+                viewHolderComment.timeComment.setText("Il y a " + Function.differenceDate(commentArrayList.get(position).getDate()));
+                Log.e("position comment", position + "");
+                UserDAO userDAO = new UserDAO(context);
+                userDAO.open();
             if (commentArrayList.get(position).getIdUser() != userDAO.getUserDetails().getId())
                 viewHolderComment.modifyText.setVisibility(View.INVISIBLE);
             userDAO.close();
@@ -92,7 +93,6 @@ public class CommentListAdapter extends BaseAdapter {
         ImageView avatarComment;
         TextView userNameComment, commentContent, timeComment;
         TextView modifyText;
-
     }
 
 }

@@ -15,11 +15,11 @@
             android:id="@+id/user_infos">
 
             <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:id="@+id/user_avatar"
                 android:src="@drawable/default_avatar"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="center_horizontal" />
 
@@ -29,6 +29,7 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/username"
                     android:textStyle="bold"
+                    android:textSize="17sp"
                     android:id="@+id/username_profile"
                     android:layout_gravity="center_horizontal" />
 
@@ -89,7 +90,6 @@
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:id="@+id/trips_user_title" />
-
             </LinearLayout>
 
             <LinearLayout

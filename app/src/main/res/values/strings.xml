@@ -11,6 +11,7 @@
     <string name="country">Pays</string>
     <string name="city">Nom</string>
     <string name="add_trip">Ajouter un voyage</string>
+    <string name="add_place">Ajouter un lieu</string>
     <string name="save">Enregistrer</string>
 
     <!-- REGISTER -->
@@ -44,9 +45,11 @@
     <string name="shopping">Shopping</string>
     <string name="place">Lieu</string>
     <string name="address">Adresse</string>
+    <string name="created_by">Voyage créé par</string>
 
     <!-- PLACES LIST -->
     <string name="place_address">Address</string>
+    <string name="view_place">Voir le lieu</string>
 
     <!-- FRIENDS LIST -->
     <string name="friends_title">Mes amis</string>

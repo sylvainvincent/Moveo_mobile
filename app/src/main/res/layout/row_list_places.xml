@@ -4,25 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:baselineAligned="false"
-    android:layout_margin="10dp">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/view_place"
-        android:layout_marginRight="10dp"
-        android:id="@+id/view_place_icon" />
+    android:padding="10dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/view_place"
+            android:layout_gravity="center"
+            android:contentDescription="@string/view_place"
+            android:id="@+id/view_place_icon" />
+     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/place_name"
+            android:textSize="15sp"
             android:id="@+id/place_list_name" />
 
         <TextView

@@ -210,10 +210,6 @@ public class Function {
     public static String differenceDate(String date){
 
         Date actualyDate = new Date();
-        Calendar calStr1 = Calendar.getInstance();
-        calStr1.setTime(actualyDate);
-        Calendar calStr2 = Calendar.getInstance();
-
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         Log.i("Function",sdf.toString());
@@ -223,10 +219,9 @@ public class Function {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        calStr2.setTime(convertedDate);
+
         assert convertedDate != null;
-        long dif = (calStr1.getTimeInMillis() - calStr2.getTimeInMillis())/86400000;
         long ecartEnMinutes = actualyDate.getTime() - convertedDate.getTime();
-        return dif +" minutes ";
+        return (ecartEnMinutes / (1000*60*60*24) )+" minutes "+actualyDate.getHours()+" "+actualyDate.getMinutes()+" et "+convertedDate.getHours();
     }
 }

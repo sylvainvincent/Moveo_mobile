@@ -26,13 +26,27 @@
             android:textSize="14sp"
             android:id="@+id/username_comment" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/comment_content"
-            android:textSize="13sp"
-            android:id="@+id/comment_content" />
+        <ViewSwitcher
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/my_switcher"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/comment_content"
+                android:textSize="13sp"
+                android:id="@+id/comment_content" />
+
+            <EditText
+                android:id="@+id/hidden_comment_content"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Value"/>
+
+        </ViewSwitcher>
 
         <TextView
             android:layout_width="wrap_content"
@@ -51,6 +65,7 @@
             android:layout_marginTop="5dp"
             android:textSize="12sp"
             android:textColor="#999"
+            android:onClick="editComment"
             android:id="@+id/modify_text" />
 
     </LinearLayout>
