@@ -20,4 +20,5 @@
         android:id="@+id/add_trip_text"
         android:layout_gravity="center_vertical"
         android:textColor="@color/label_color" />
+
 </LinearLayout>

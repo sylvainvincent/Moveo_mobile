@@ -55,17 +55,6 @@ public class Trip {
         this.photoCount = photoCount;
     }
 
-    public Trip(int id, String name, String country, String description, String date, String cover, int commentCount, int photoCount) throws ParseException {
-        this.id = id;
-        this.country = country;
-        this.name = name;
-        this.description = description;
-        this.date = date;
-        this.cover = cover;
-        this.commentCount = commentCount;
-        this.photoCount = photoCount;
-    }
-
     public int getId() {
         return id;
     }

@@ -31,8 +31,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/settings_title">
 
@@ -123,13 +123,37 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="5dp"
                 android:textColor="#666"
-                android:textAllCaps="true"
                 android:id="@+id/set_informations_visible_label" />
 
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/set_informations_visible" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/delete_account"
+                    android:layout_marginRight="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/delete_account"
+                    android:textSize="12sp"
+                    android:textColor="#FF0000"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:id="@+id/delete_account_button" />
+
+            </LinearLayout>
 
             <!-- Submit Button -->
             <Button
@@ -141,7 +165,7 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:textAllCaps="true"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="30dp"
                 android:textSize="@dimen/text_size_button_form"
                 android:background="@drawable/submit_login_button"
                 android:layout_gravity="center_horizontal" />

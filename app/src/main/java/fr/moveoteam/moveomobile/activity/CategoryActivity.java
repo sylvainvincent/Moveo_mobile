@@ -21,7 +21,7 @@ public class CategoryActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.category);
+        setContentView(R.layout.fragment_button_add_place);
 
         listView = (ListView) findViewById(R.id.list_category);
         placeArrayList = new ArrayList<>();

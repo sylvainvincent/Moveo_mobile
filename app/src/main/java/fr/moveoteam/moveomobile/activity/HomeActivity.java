@@ -160,12 +160,10 @@ public class HomeActivity extends Activity {
                 listMenuItems);
         listSliderMenu.setAdapter(menuAdapter);
 
-       // drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-
-
+        // drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         /*try{
             getActionBar().setDisplayHomeAsUpEnabled(true);
-        }catch (Exception e){
+        } catch (Exception e){
 
         }*/
         //getActionBar().setIcon(R.drawable.ic_drawer);
@@ -209,7 +207,6 @@ public class HomeActivity extends Activity {
 
         friendCategoryFragment = new FriendCategoryFragment();
         messagingFragment = new MessagingFragment();
-
     }
 
     /**
@@ -218,8 +215,7 @@ public class HomeActivity extends Activity {
     private class SlideMenuClickListener implements
             ListView.OnItemClickListener {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                                long id) {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             // Afficher la vue correspondant à la position
             displayView(position);
         }

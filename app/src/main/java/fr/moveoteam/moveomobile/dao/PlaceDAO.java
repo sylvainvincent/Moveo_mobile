@@ -104,6 +104,34 @@ public class PlaceDAO {
         return placeList;
     }
 
+    /**
+     * Recupere la liste des lieux d'un voyage par catégori
+     * @return une arrayList de lieu
+
+    public ArrayList<Place> getPlaceListByCategory(int tripId, int categoryId){
+        ArrayList<Place> placeList = null;
+
+        Cursor cursor = database.rawQuery("select " + allColumns + " from " + TABLE_PLACE + "where" + DataBaseHandler.KEY_PLACE_TRIP_ID + " = ?");
+        if(cursor.getCount()>0) {
+            placeList = new ArrayList<>(cursor.getCount());
+        }
+        // Se déplacer à la première ligne
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            assert placeList != null;
+            placeList.add(this.cursorToPlace(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        // database.close();
+        if(placeList != null) {
+            Log.i("Verification taille ", "" + placeList.size());
+            Log.i("Verification nom ", "" + placeList.get(0).getName());
+            Log.i("Verification nom ", "" + placeList.get(1).getName());
+        }
+        return placeList;
+    }*/
+
     public void addPlaceList(ArrayList<Place> placeList) {
         ContentValues values;
         for(Place place : placeList) {
@@ -142,7 +170,7 @@ public class PlaceDAO {
         values.put(DataBaseHandler.KEY_PLACE_NAME, place.getName());     // Nom
         values.put(DataBaseHandler.KEY_PLACE_ADDRESS, place.getAddress());   // Adresse
         values.put(DataBaseHandler.KEY_PLACE_DESCRIPTION, place.getDescription());  // Description
-        database.update(TABLE_TRIP, values, KEY_PLACE_ID + " = " + place.getId(), null);
+        database.update(TABLE_PLACE, values, DataBaseHandler.KEY_PLACE_ID + " = " + place.getId(), null);
     }
 
 }

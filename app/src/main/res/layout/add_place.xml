@@ -23,7 +23,7 @@
             android:textSize="@dimen/title_size"
             android:id="@+id/explore_title"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp" />
+            android:layout_marginTop="60dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/cancel"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:textSize="13sp"
                 android:id="@+id/cancelAddPlace"
                 android:layout_gravity="center_horizontal" />

@@ -11,8 +11,8 @@
     <string name="country">Pays</string>
     <string name="city">Nom</string>
     <string name="add_trip">Ajouter un voyage</string>
-    <string name="add_place">Ajouter un lieu</string>
     <string name="save">Enregistrer</string>
+    <string name="delete_account">Supprimer mon compte</string>
 
     <!-- REGISTER -->
     <string name="register_button">Créer un compte</string>
@@ -129,7 +129,7 @@
     <string name="new_password">Nouveau mot de passe</string>
     <string name="check_new_password">Vérification du mot de passe</string>
     <string name="notifications">Activer les notifications</string>
-    <string name="informations">Rendre ma date de naissance, mon pays et ma ville visibles par tous (Visible par vos amis par défaut[NON])</string>
+    <string name="informations">Rendre mes informations visibles par tous</string>
     <string name="validate">Valider</string>
 
     <!-- Les éléments du menu -->

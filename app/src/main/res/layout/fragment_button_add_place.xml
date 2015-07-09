@@ -20,4 +20,11 @@
         android:id="@+id/add_place_text"
         android:layout_gravity="center_vertical"
         android:textColor="@color/label_color" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_places"/>
+
 </LinearLayout>
