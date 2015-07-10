@@ -144,6 +144,7 @@ public class TripDAO {
         Trip trip = null;
         Cursor cursor = database.query(TABLE_TRIP, allColumns, DataBaseHandler.KEY_TRIP_ID+ " = " + tripId, null, null, null, null);
         if(cursor.getCount()>0) {
+            cursor.moveToFirst();
             trip = cursorToTrip(cursor);
         }
         cursor.close();
@@ -162,7 +163,7 @@ public class TripDAO {
      */
     protected Trip cursorToTrip(Cursor cursor){
         Trip trip = new Trip();
-        trip.setId(cursor.getInt(DataBaseHandler.POSITION_FRIEND_ID));
+        trip.setId(cursor.getInt(DataBaseHandler.POSITION_TRIP_ID));
         trip.setName(cursor.getString(DataBaseHandler.POSITION_TRIP_NAME));
         trip.setCountry(cursor.getString(DataBaseHandler.POSITION_TRIP_COUNTRY));
         trip.setDescription(cursor.getString(DataBaseHandler.POSITION_TRIP_DESCRIPTION));

@@ -27,11 +27,13 @@ import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.DataBaseHandler;
 import fr.moveoteam.moveomobile.dao.DialogDAO;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
+import fr.moveoteam.moveomobile.dao.PlaceDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Dialog;
+import fr.moveoteam.moveomobile.model.Place;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.model.User;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
@@ -177,6 +179,7 @@ public class DashboardActivity extends Activity {
                 } else if (json.getString("error").equals("0")) {
                     DataBaseHandler db = new DataBaseHandler(DashboardActivity.this);
                     db.resetTables();
+                    
                     // Création de l'objet User
                     User user = new User();
                     user.setId(Integer.parseInt(json.getJSONObject("user").getString("user_id")));
@@ -196,7 +199,8 @@ public class DashboardActivity extends Activity {
                     UserDAO userDAO = new UserDAO(DashboardActivity.this);
                     userDAO.open();
                     userDAO.addUser(user);
-
+                    
+                    // AJOUT DE LA LISTE D'AMIS SUR SQLITE
                     if(!json.getString("friend").equals("0")) {
                         JSONArray friendList = json.getJSONArray("friend");
                         ArrayList<Friend> friendArrayList = new ArrayList<>(friendList.length());
@@ -220,7 +224,8 @@ public class DashboardActivity extends Activity {
                         friendDAO.open();
                         friendDAO.addFriendList(friendArrayList);
                     }
-
+                        
+                    // AJOUT DE LA LISTE DES VOYAGES
                     if (!json.getString("trip").equals("0")) {
                         JSONArray tripList = json.getJSONArray("trip");
                         ArrayList<Trip> tripArrayList = new ArrayList<>(tripList.length());
@@ -235,13 +240,39 @@ public class DashboardActivity extends Activity {
                                     tripList.getJSONObject(i).getInt("comment_count"),
                                     tripList.getJSONObject(i).getInt("photo_count")
                             ));
-
                         }
+                        Log.e("Dashboard","list trip : "+tripList.toString());
 
                         TripDAO tripDAO = new TripDAO(DashboardActivity.this);
                         tripDAO.open();
                         tripDAO.addTripListUser(tripArrayList);
+                        tripDAO.close();
                     }
+                    
+                    // AJOUT DES LIEUX 
+                    if (!json.getString("place").equals("0")) {
+                        JSONArray placeList = json.getJSONArray("place");
+                        ArrayList<Place> placeArrayList = new ArrayList<>(placeList.length());
+                        for (int i = 0; i < placeList.length(); i++) {
+                            placeArrayList.add(new Place(
+                                    placeList.getJSONObject(i).getInt("place_id"),
+                                    placeList.getJSONObject(i).getString("place_name"),
+                                    placeList.getJSONObject(i).getString("place_address"),
+                                    placeList.getJSONObject(i).getString("place_description"),
+                                    placeList.getJSONObject(i).getInt("category_id"),
+                                    placeList.getJSONObject(i).getInt("trip_id")
+                            ));
+                        }
+
+                        PlaceDAO placeDAO = new PlaceDAO(DashboardActivity.this);
+                        placeDAO.open();
+                        placeDAO.addPlaceList(placeArrayList);
+                        placeDAO.close();
+                        
+                    }
+
+                    Log.e("Dashboard","trip id : "+json.getString("place"));
+
 
                     if (!json.getString("inbox").equals("0")) {
                         JSONArray inbox = json.getJSONArray("inbox");
@@ -337,7 +368,7 @@ public class DashboardActivity extends Activity {
                     finish();
                 }
 
-            } catch (JSONException | ParseException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }

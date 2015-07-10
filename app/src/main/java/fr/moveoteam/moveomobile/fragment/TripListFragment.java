@@ -113,10 +113,7 @@ public class TripListFragment extends ListFragment {
 
                     if(tripArrayList != null) {
 
-
-                            setListAdapter(new TripListAdapter(getActivity(), tripArrayList, false));
-
-
+                        setListAdapter(new TripListAdapter(getActivity(), tripArrayList, false));
 
                         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                         //      R.layout.element_menu,R.id.title,values);
@@ -130,7 +127,7 @@ public class TripListFragment extends ListFragment {
                     }
                 }
 
-            } catch (ParseException | JSONException e1) {
+            } catch (JSONException e1) {
                 e1.printStackTrace();
 
             }

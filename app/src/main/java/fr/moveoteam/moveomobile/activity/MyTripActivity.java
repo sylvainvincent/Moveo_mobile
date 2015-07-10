@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.dao.PlaceDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
@@ -36,6 +37,7 @@ import fr.moveoteam.moveomobile.model.Comment;
 import fr.moveoteam.moveomobile.model.Dialog;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Place;
+import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.model.User;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
@@ -82,8 +84,23 @@ public class MyTripActivity extends Activity {
 
         tripDAO = new TripDAO(MyTripActivity.this);
 
-        new ExecuteThread().execute();
         initialize();
+
+        tripDAO.open();
+        Trip trip = tripDAO.getTrip(id);
+
+        mytriptitle.setText(trip.getName());
+        mytripcitytitle.setText(trip.getCountry());
+        tripdescription.setText(trip.getDescription());
+
+        if(trip.getCover() != null) {
+            cover.setImageBitmap(Function.decodeBase64(trip.getCover()));
+        }
+        if(trip.getDate() != null)
+            addtripdate.setText(addtripdate.getText() + " " + Function.dateSqlToFullDateJava(trip.getDate()));
+
+
+        //new ExecuteThread().execute();
 
         cover.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +130,28 @@ public class MyTripActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MyTripActivity.this,CategoryActivity.class);
+                intent.putExtra("tripId",id);
+                intent.putExtra("categoryId",1);
+                startActivity(intent);
+            }
+        });
+
+        shopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyTripActivity.this,CategoryActivity.class);
+                intent.putExtra("tripId",id);
+                intent.putExtra("categoryId",2);
+                startActivity(intent);
+            }
+        });
+
+        hobbies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyTripActivity.this,CategoryActivity.class);
+                intent.putExtra("tripId",id);
+                intent.putExtra("categoryId",3);
                 startActivity(intent);
             }
         });
@@ -132,11 +171,14 @@ public class MyTripActivity extends Activity {
         modifydescription = (Button) findViewById(R.id.modify_description);
         deletetrip = (TextView) findViewById(R.id.delete_trip);
         fooding = (ImageView) findViewById(R.id.fooding);
+        shopping = (ImageView) findViewById(R.id.shopping);
+        hobbies = (ImageView) findViewById(R.id.hobbies);
 
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
+        JSONArray placeList;
 
         @Override
         protected void onPreExecute() {
@@ -177,21 +219,59 @@ public class MyTripActivity extends Activity {
                     addtripdate.setText(addtripdate.getText() + " " + Function.dateSqlToFullDateJava(json.getJSONObject("trip").getString("trip_created_at")));
 
 
-                    if((json.getString("success").equals("1")) || (json.getString("success").equals("2"))){
-                        JSONArray placeList = json.getJSONArray("place");
-                        placeArrayList = new ArrayList<>(placeList.length());
-                        for (int i = 0; i < placeList.length(); i++) {
-                            placeArrayList.add(new Place(
-                                    placeList.getJSONObject(i).getInt("place_id"),
-                                    placeList.getJSONObject(i).getString("place_name"),
-                                    placeList.getJSONObject(i).getString("place_address"),
-                                    placeList.getJSONObject(i).getString("place_description"),
-                                    placeList.getJSONObject(i).getInt("category_id"),
-                                    placeList.getJSONObject(i).getInt("trip_id")
-                            ));
-                            Log.e("Place", placeArrayList.get(i).toString());
+                    /*if((json.getString("success").equals("1")) || (json.getString("success").equals("2"))){
+
+                        placeArrayList = new ArrayList<>();
+
+                        if(!json.getString("fooding").equals("0")){
+                            placeList = json.getJSONArray("fooding");
+                            for (int i = 0; i < placeList.length(); i++) {
+                                placeArrayList.add(new Place(
+                                        placeList.getJSONObject(i).getInt("place_id"),
+                                        placeList.getJSONObject(i).getString("place_name"),
+                                        placeList.getJSONObject(i).getString("place_address"),
+                                        placeList.getJSONObject(i).getString("place_description"),
+                                        placeList.getJSONObject(i).getInt("category_id")
+                                ));
+                                Log.e("fooding", placeArrayList.get(i).toString());
+                            }
                         }
-                    }
+
+                        if(!json.getString("shopping").equals("0")){
+                            placeList = json.getJSONArray("shopping");
+                            for (int i = 0; i < placeList.length(); i++) {
+                                placeArrayList.add(new Place(
+                                        placeList.getJSONObject(i).getInt("place_id"),
+                                        placeList.getJSONObject(i).getString("place_name"),
+                                        placeList.getJSONObject(i).getString("place_address"),
+                                        placeList.getJSONObject(i).getString("place_description"),
+                                        placeList.getJSONObject(i).getInt("category_id")
+                                ));
+                                Log.e("shopping", placeArrayList.get(i).toString());
+                            }
+                        }
+
+                        if(!json.getString("leisure").equals("0")){
+                            JSONArray placeList = json.getJSONArray("leisure");
+                            placeArrayList = new ArrayList<>(placeList.length());
+                            for (int i = 0; i < placeList.length(); i++) {
+                                placeArrayList.add(new Place(
+                                        placeList.getJSONObject(i).getInt("place_id"),
+                                        placeList.getJSONObject(i).getString("place_name"),
+                                        placeList.getJSONObject(i).getString("place_address"),
+                                        placeList.getJSONObject(i).getString("place_description"),
+                                        placeList.getJSONObject(i).getInt("category_id")
+
+                                ));
+                                Log.e("leisure", placeArrayList.get(i).toString());
+                            }
+                        }
+
+                        PlaceDAO placeDAO = new PlaceDAO(MyTripActivity.this);
+                        placeDAO.open();
+                        placeDAO.addPlaceList(placeArrayList);
+                        placeDAO.close();
+                    }*/
 
                     if((json.getString("success").equals("1")) || (json.getString("success").equals("3"))){
                         JSONArray commentList = json.getJSONArray("comment");

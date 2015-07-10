@@ -26,11 +26,19 @@ public class AddPlaceActivity extends Activity{
     private TextView cancelAddPlace;
     private RelativeLayout addplace;
 
+    int categoryId;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_place);
 
         this.initialization();
+        categoryId = getIntent().getIntExtra("categoryId",0);
+        if(categoryId == 1) category.setText("Gastronomie");
+        if(categoryId == 2) category.setText("Shopping");
+        if(categoryId == 3) category.setText("Loisir");
+
+
     }
 
     // Procedure qui permet d'affecter les elements de l'interface graphique aux objets de la classe

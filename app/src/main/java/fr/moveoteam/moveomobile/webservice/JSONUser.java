@@ -139,5 +139,15 @@ public class JSONUser {
 
         return jsonParser.getJSONFromUrl(userURL,passwordForm);
     }
+    
+    public JSONObject deleteAccount(String userId, String password){
+        List<NameValuePair> accountRequest = new ArrayList<>();
+        accountRequest.add(new BasicNameValuePair("tag", "deleteAccount"));
+        accountRequest.add(new BasicNameValuePair("userId", userId));
+        accountRequest.add(new BasicNameValuePair("password", password));
+
+        return jsonParser.getJSONFromUrl(userURL,accountRequest);
+    }
+        
 
 }

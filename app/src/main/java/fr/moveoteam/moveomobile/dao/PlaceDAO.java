@@ -70,11 +70,6 @@ public class PlaceDAO {
         
     }
     
-    public boolean removePlace(int placeId){
-
-		return database.delete(TABLE_PLACE, DataBaseHandler.KEY_PLACE_ID+" = "+placeId, null)>0;
-	}
-    
     /**
      * Recupere la liste des lieux d'un voyage
      * @param tripId l'identifiant du lieu
@@ -105,16 +100,19 @@ public class PlaceDAO {
     }
 
     /**
-     * Recupere la liste des lieux d'un voyage par catégori
+     * Recupere la liste des lieux d'un voyage
+     * @param tripId l'identifiant du lieu
      * @return une arrayList de lieu
-
+     */
     public ArrayList<Place> getPlaceListByCategory(int tripId, int categoryId){
         ArrayList<Place> placeList = null;
 
-        Cursor cursor = database.rawQuery("select " + allColumns + " from " + TABLE_PLACE + "where" + DataBaseHandler.KEY_PLACE_TRIP_ID + " = ?");
+        Cursor cursor = database.query(TABLE_PLACE, allColumns, DataBaseHandler.KEY_PLACE_TRIP_ID + " = " + tripId+ " AND "+DataBaseHandler.KEY_PLACE_CATEGORY+" = "+categoryId, null, null, null, null);
+
         if(cursor.getCount()>0) {
             placeList = new ArrayList<>(cursor.getCount());
         }
+
         // Se déplacer à la première ligne
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
@@ -127,19 +125,19 @@ public class PlaceDAO {
         if(placeList != null) {
             Log.i("Verification taille ", "" + placeList.size());
             Log.i("Verification nom ", "" + placeList.get(0).getName());
-            Log.i("Verification nom ", "" + placeList.get(1).getName());
+//            Log.i("Verification nom ", "" + placeList.get(1).getName());
         }
         return placeList;
-    }*/
+    }
 
     public void addPlaceList(ArrayList<Place> placeList) {
         ContentValues values;
         for(Place place : placeList) {
             values = new ContentValues();
             values.put(DataBaseHandler.KEY_PLACE_ID, place.getId());
-            values.put(DataBaseHandler.KEY_PLACE_NAME, place.getName());     // NOM
-            values.put(DataBaseHandler.KEY_PLACE_ADDRESS, place.getAddress());   // PRÉNOM
-            values.put(DataBaseHandler.KEY_PLACE_DESCRIPTION, place.getDescription());     // DATE DE NAISSANCE
+            values.put(DataBaseHandler.KEY_PLACE_NAME, place.getName()); // NOM
+            values.put(DataBaseHandler.KEY_PLACE_ADDRESS, place.getAddress()); // PRÉNOM
+            values.put(DataBaseHandler.KEY_PLACE_DESCRIPTION, place.getDescription()); // DATE DE NAISSANCE
             values.put(DataBaseHandler.KEY_PLACE_CATEGORY, place.getCategory()); // CATEGORIE
             values.put(DataBaseHandler.KEY_PLACE_TRIP_ID, place.getTripId()); // ID DU LIEU
             // Insérer la ligne
@@ -147,6 +145,23 @@ public class PlaceDAO {
         }
     }
 
+    public void updatePlace(Place place){
+        ContentValues values = new ContentValues();
+        if(place.getName() != null)values.put(DataBaseHandler.KEY_PLACE_NAME, place.getName());     // Nom
+        if(place.getAddress() != null)values.put(DataBaseHandler.KEY_PLACE_ADDRESS, place.getAddress());   // Adresse
+        if(place.getDescription() != null)values.put(DataBaseHandler.KEY_PLACE_DESCRIPTION, place.getDescription());  // Description
+        database.update(TABLE_PLACE, values, DataBaseHandler.KEY_PLACE_ID + " = " + place.getId(), null);
+    }
+    
+    
+    /**
+     * Supprime un lieu de la base de données
+     *
+     */
+    public boolean removePlace(int placeId){
+		return database.delete(TABLE_PLACE, DataBaseHandler.KEY_PLACE_ID+" = "+placeId, null)>0;
+	}
+    
     /**
      * Récupere les informations du curseur pour les mettre dans la classe Place
      * @param cursor un curseur
@@ -165,12 +180,14 @@ public class PlaceDAO {
         return place;
     }
     
-    public void updatePlace(Place place){
-        ContentValues values = new ContentValues();
-        values.put(DataBaseHandler.KEY_PLACE_NAME, place.getName());     // Nom
-        values.put(DataBaseHandler.KEY_PLACE_ADDRESS, place.getAddress());   // Adresse
-        values.put(DataBaseHandler.KEY_PLACE_DESCRIPTION, place.getDescription());  // Description
-        database.update(TABLE_PLACE, values, DataBaseHandler.KEY_PLACE_ID + " = " + place.getId(), null);
+    public int getRowCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_PLACE;
+        Cursor cursor = database.rawQuery(countQuery, null);
+        int rowCount = cursor.getCount();
+        // database.close();
+        cursor.close();
+
+        return rowCount ;
     }
 
 }

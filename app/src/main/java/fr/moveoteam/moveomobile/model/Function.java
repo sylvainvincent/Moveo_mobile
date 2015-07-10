@@ -207,6 +207,25 @@ public class Function {
         return dateFormat.format(convertedDate);
     }
 
+    public static String dateJavaToFullDateJava (String date) {
+
+        Locale locale = Locale.getDefault();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Log.i("Function",sdf.toString());
+        Date convertedDate = null;
+        try {
+            convertedDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.i("Function",convertedDate.toString());
+        // Date sous le format complet (1 janvier 2015)
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, locale);
+
+        return dateFormat.format(convertedDate);
+    }
+
     public static String differenceDate(String date){
 
         Date actualyDate = new Date();

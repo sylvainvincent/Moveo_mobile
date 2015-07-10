@@ -90,20 +90,14 @@ public class TripListAdapter extends BaseAdapter {
 
             } else {
                 viewHolderTrip.explore_username.setText(Html.fromHtml("<font color=#000>par</font> <i>moi</i>"));
-                if(tripList.get(position).getCover() != null) {
-                    if(!tripList.get(position).getCover().isEmpty() && !tripList.get(position).getCover().equals("null")) {
-                        viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
-                    }else{
-                        viewHolderTrip.imageViewMainPictureTrip.setImageDrawable(context.getResources().getDrawable(R.drawable.default_journey));
-                        viewHolderTrip.imageViewMainPictureTrip.setAlpha((float) 0.8);
-                    }
+                if(!tripList.get(position).getCover().equals("null") && !tripList.get(position).getCover().isEmpty()) {
+                    viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
                 }else{
                     viewHolderTrip.imageViewMainPictureTrip.setImageDrawable(context.getResources().getDrawable(R.drawable.default_journey));
                     viewHolderTrip.imageViewMainPictureTrip.setAlpha((float) 0.8);
                 }
             }
             Log.e("PlaceList", " " + position);
-            Log.e("PlaceList", tripList.get(position).getName());
             viewHolderTrip.number_of_comments.setText((Integer.toString(tripList.get(position).getCommentCount())));
             viewHolderTrip.number_of_pictures.setText(Integer.toString(tripList.get(position).getPhotoCount()));
         }/*else{

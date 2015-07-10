@@ -28,10 +28,12 @@ import java.util.ArrayList;
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.DialogDAO;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
+import fr.moveoteam.moveomobile.dao.PlaceDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.model.Dialog;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
+import fr.moveoteam.moveomobile.model.Place;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.model.User;
 import fr.moveoteam.moveomobile.dao.UserDAO;
@@ -281,7 +283,32 @@ public class LoginActivity extends Activity {
                         TripDAO tripDAO = new TripDAO(LoginActivity.this);
                         tripDAO.open();
                         tripDAO.addTripListUser(tripArrayList);
+                        tripDAO.close();
                     }
+                    
+                        // AJOUT DES LIEUX 
+                    if (!json.getString("place").equals("0")) {
+                        JSONArray placeList = json.getJSONArray("place");
+                        ArrayList<Place> placeArrayList = new ArrayList<>(placeList.length());
+                        for (int i = 0; i < placeList.length(); i++) {
+                            placeArrayList.add(new Place(
+                                    placeList.getJSONObject(i).getInt("place_id"),
+                                    placeList.getJSONObject(i).getString("place_name"),
+                                    placeList.getJSONObject(i).getString("place_address"),
+                                    placeList.getJSONObject(i).getString("place_description"),
+                                    placeList.getJSONObject(i).getInt("category_id"),
+                                    placeList.getJSONObject(i).getInt("trip_id")
+                            ));
+
+                        }
+
+                        PlaceDAO placeDAO = new PlaceDAO(LoginActivity.this);
+                        placeDAO.open();
+                        placeDAO.addPlaceList(placeArrayList);
+                        placeDAO.close();
+                        
+                    }
+
 
                     if (!json.getString("inbox").equals("0")) {
                         JSONArray inbox = json.getJSONArray("inbox");
@@ -386,8 +413,6 @@ public class LoginActivity extends Activity {
                 }
 
             } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
                 e.printStackTrace();
             }
         }

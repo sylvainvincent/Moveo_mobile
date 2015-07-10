@@ -167,9 +167,6 @@ public class ExploreFragment extends ListFragment {
                     setListAdapter(null);
                 }
 
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-
             } catch (JSONException e1) {
                 e1.printStackTrace();
             }
