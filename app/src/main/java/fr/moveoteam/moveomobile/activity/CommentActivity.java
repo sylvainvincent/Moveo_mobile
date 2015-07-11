@@ -1,16 +1,13 @@
-package fr.moveoteam.moveomobile.fragment;
+package fr.moveoteam.moveomobile.activity;
 
-import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListFragment;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -18,88 +15,65 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import fr.moveoteam.moveomobile.activity.OtherUserProfileActivity;
-import fr.moveoteam.moveomobile.activity.TripActivity;
-import fr.moveoteam.moveomobile.activity.FriendProfileActivity;
+import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.adapter.CommentListAdapter;
+import fr.moveoteam.moveomobile.fragment.CommentListFragment;
 import fr.moveoteam.moveomobile.model.Comment;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**
- * Created by Sylvain on 23/05/15.
+ * Created by Sylvain on 11/07/15.
  */
-public class CommentListFragment extends ListFragment {
+public class CommentActivity extends Activity {
 
+    ListView listView;
+    int id;
     ArrayList<Comment> commentArrayList;
-    int tripId;
-
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        /*if(getArguments().getParcelableArrayList("commentList") != null) {
-
-            commentArrayList = getArguments().getParcelableArrayList("commentList");
-            Log.e("array", commentArrayList.toString());
-        }
-        else */ //commentArrayList = null;
-        tripId = ((TripActivity) getActivity()).getId();
-        // tripId = getArguments().getInt("tripId");
-        ExecuteThread executeThread = new ExecuteThread();
-        executeThread.execute();
-
-    }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        id = getIntent().getIntExtra("tripId",0);
+        setContentView(R.layout.my_comment_list);
+        listView = (ListView) findViewById(R.id.my_comment_list);
 
-        super.onListItemClick(l, v, position, id);
-        Comment comment = commentArrayList.get(position);
-        Intent intent = new Intent(getActivity(), OtherUserProfileActivity.class);
-        intent.putExtra("id",comment.getIdUser());
-        startActivity(intent);
+        new ExecuteThread().execute();
 
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
-       // private ProgressDialog pDialog;
+         private ProgressDialog pDialog;
 
-       /* @Override //Procedure appelée avant le traitement (optionnelle)
+        @Override //Procedure appelée avant le traitement (optionnelle)
         protected void onPreExecute() {
             super.onPreExecute();
 
-            pDialog = new ProgressDialog(getActivity());
+            pDialog = new ProgressDialog(CommentActivity.this);
+            pDialog.setMessage("Chargement...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
-        }*/
+        }
 
         @Override
         //Méthode appelée pendant le traitement (obligatoire)
         protected JSONObject doInBackground(String... args) {
 
             JSONTrip jsonTrip = new JSONTrip();
-            return jsonTrip.getComments(Integer.toString(tripId));
+            return jsonTrip.getComments(Integer.toString(id));
         }
 
         @Override
         //Procedure appelée après le traitement (optionnelle)
         protected void onPostExecute(JSONObject json) {
-            //pDialog.dismiss();
-
+            pDialog.dismiss();
             try {
                 if(json == null){
-                    setListAdapter(null);
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
 
-                        }
-                    });
-                    builder.setMessage("Récupération des commentaires échoué");
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(CommentActivity.this);
+                    builder.setMessage("Connexion perdue");
                     builder.setPositiveButton("OK", null);
                     builder.show();
 
@@ -119,10 +93,13 @@ public class CommentListFragment extends ListFragment {
                         Log.e("comment", commentArrayList.get(i).toString());
                     }
 
-                    setListAdapter(new CommentListAdapter(getActivity(), commentArrayList));
+                    listView.setAdapter(new CommentListAdapter(CommentActivity.this, commentArrayList));
 
                 }else{
-                    setListAdapter(null);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(CommentActivity.this);
+                    builder.setMessage("Récupération des commentaires échoué");
+                    builder.setPositiveButton("OK", null);
+                    builder.show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.model.Place;
+import fr.moveoteam.moveomobile.model.User;
 
 /**
  * Created by Sylvain on 18/04/15.
@@ -63,13 +64,26 @@ public class PlaceDAO {
         values.put(DataBaseHandler.KEY_PLACE_NAME, place.getName());     // Nom
         values.put(DataBaseHandler.KEY_PLACE_ADDRESS, place.getAddress());   // Adresse
         values.put(DataBaseHandler.KEY_PLACE_DESCRIPTION, place.getDescription());     // Description
-        values.put(DataBaseHandler.KEY_PLACE_CATEGORY, place.getCategory()); // Categorie
+        values.put(DataBaseHandler.KEY_PLACE_CATEGORY, place.getCategory()); // Catégorie
         values.put(DataBaseHandler.KEY_PLACE_TRIP_ID, place.getTripId()); // ID DU LIEU
         // Insérer la ligne
         database.insert(TABLE_PLACE, null, values);
         
     }
-    
+
+    public Place getPlace(int placeId){
+        Place place = null;
+
+        Cursor cursor = database.query(TABLE_PLACE, allColumns, DataBaseHandler.KEY_PLACE_ID+ " = " + placeId, null, null, null, null);
+        if(cursor.getCount()>0) {
+            cursor.moveToFirst();
+            place = cursorToPlace(cursor);
+        }
+        cursor.close();
+
+        return place;
+    }
+
     /**
      * Recupere la liste des lieux d'un voyage
      * @param tripId l'identifiant du lieu

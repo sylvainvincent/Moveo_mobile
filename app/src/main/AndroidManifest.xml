@@ -39,6 +39,7 @@
 
         <activity
             android:name=".activity.AddPlaceActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 
         <activity
@@ -66,14 +67,11 @@
 
         <activity
             android:name=".activity.TripActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.MyTripActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name=".fragment.AccountSettingsFragment"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 
@@ -96,6 +94,14 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.CategoryActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.MyPlaceActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.CommentActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 

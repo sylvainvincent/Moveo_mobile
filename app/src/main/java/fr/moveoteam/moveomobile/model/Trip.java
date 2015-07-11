@@ -29,20 +29,31 @@ public class Trip {
         this.insert = insert;
     }
 
-    public Trip(int id, String name, String country, String description, String date, String cover, String author_last_name, String author_first_name, int commentCount, int photoCount) throws ParseException {
+    // Voyage d'un ami
+    public Trip(int id, String name, String country, String cover, int commentCount, int photoCount)  {
+
+        this.id = id;
+        this.name = name;
+        this.country = country;
+        this.cover = cover;
+        this.commentCount = commentCount;
+        this.photoCount = photoCount;
+    }
+
+    // Voyage d'un autre utilisateur
+    public Trip(int id, int commentCount, int photoCount, String name, String country, String cover, String author_last_name, String author_first_name) {
 
         this.id = id;
         this.country = country;
         this.name = name;
-        this.description = description;
-        this.date = date;
         this.cover = cover;
         this.author_first_name = author_first_name;
         this.author_last_name =  author_last_name;
         this.commentCount = commentCount;
         this.photoCount = photoCount;
     }
-	
+
+    // Voyage de l'utilisateur
 	public Trip(int id, String name, String country, String description, String date, String cover, int commentCount, int photoCount)  {
 
         this.id = id;

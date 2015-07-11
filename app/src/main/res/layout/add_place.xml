@@ -56,7 +56,7 @@
                     android:text="@string/place"
                     android:layout_marginBottom="5dp"
                     android:textColor="#666"
-                    android:id="@+id/place" />
+                    android:id="@+id/text_place" />
 
                 <EditText
                     android:layout_width="fill_parent"
@@ -65,7 +65,7 @@
                     android:textColor="@color/input_color"
                     android:textSize="@dimen/input_text_size"
                     android:background="@color/input_background"
-                    android:id="@+id/editPlace" />
+                    android:id="@+id/edit_place" />
 
             <!-- Adress -->
             <TextView

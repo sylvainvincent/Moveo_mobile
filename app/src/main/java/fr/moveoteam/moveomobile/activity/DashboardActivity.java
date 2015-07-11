@@ -263,7 +263,6 @@ public class DashboardActivity extends Activity {
                                     placeList.getJSONObject(i).getInt("trip_id")
                             ));
                         }
-
                         PlaceDAO placeDAO = new PlaceDAO(DashboardActivity.this);
                         placeDAO.open();
                         placeDAO.addPlaceList(placeArrayList);

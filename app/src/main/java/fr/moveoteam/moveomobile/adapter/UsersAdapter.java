@@ -25,13 +25,10 @@ public class UsersAdapter extends BaseAdapter {
     LayoutInflater layoutInflater;
     ViewHolderFriend viewHolderFriend;
     Context context;
-    String friendId;
-    boolean accepted;
 
     public UsersAdapter(Context context, ArrayList<Friend> friendsList) {
         this.friendsList = friendsList;
         this.context = context;
-        this.layoutInflater = LayoutInflater.from(context);
     }
 
     public void updateResult(ArrayList<Friend> friendsList){
@@ -58,6 +55,7 @@ public class UsersAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         if(friendsList != null) {
             if (convertView == null) {
+                this.layoutInflater = LayoutInflater.from(context);
                 convertView = layoutInflater.inflate(R.layout.row_users, null);
                 viewHolderFriend = new ViewHolderFriend();
                 viewHolderFriend.otherUserName = (TextView) convertView.findViewById(R.id.other_user_name);
@@ -68,7 +66,7 @@ public class UsersAdapter extends BaseAdapter {
                 viewHolderFriend = (ViewHolderFriend) convertView.getTag();
             }
             viewHolderFriend.otherUserName.setText(friendsList.get(position).getFirstName() + " " + friendsList.get(position).getLastName());
-            viewHolderFriend.tripCount.setText(friendsList.get(position).getTripCount());
+            viewHolderFriend.tripCount.setText(""+friendsList.get(position).getTripCount());
             Log.i("test friend", friendsList.get(position).toString());
 
             if (!friendsList.get(position).getAvatarBase64().equals("") || !friendsList.get(position).getAvatarBase64().isEmpty())

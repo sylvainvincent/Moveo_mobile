@@ -96,15 +96,13 @@ public class SearchTripListFragments extends ListFragment {
                     for (int i = 0; i < tripList.length(); i++) {
                         tripArrayList.add(new Trip(
                                 tripList.getJSONObject(i).getInt("trip_id"),
+                                tripList.getJSONObject(i).getInt("comment_count"),
+                                tripList.getJSONObject(i).getInt("photo_count"),
                                 tripList.getJSONObject(i).getString("trip_name"),
                                 tripList.getJSONObject(i).getString("trip_country"),
-                                tripList.getJSONObject(i).getString("trip_description"),
-                                tripList.getJSONObject(i).getString("trip_created_at"),
                                 tripList.getJSONObject(i).getString("trip_cover"),
                                 tripList.getJSONObject(i).getString("user_last_name"),
-                                tripList.getJSONObject(i).getString("user_first_name"),
-                                tripList.getJSONObject(i).getInt("comment_count"),
-                                tripList.getJSONObject(i).getInt("photo_count")
+                                tripList.getJSONObject(i).getString("user_first_name")
                         ));
 
                         setListAdapter(new TripListAdapter(getActivity(), tripArrayList, true));
@@ -115,7 +113,7 @@ public class SearchTripListFragments extends ListFragment {
                     setListAdapter(null);
                 }
 
-            } catch (ParseException | JSONException e) {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }

@@ -1,5 +1,6 @@
 package fr.moveoteam.moveomobile.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
@@ -380,11 +381,7 @@ public class AccountSettingsFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e("Account","test");
-        /*if (resultCode == RESULT_OK) {
-            if(requestCode == 2){
-                this.refreshFragment();
-            }
-        }*/
+        if (resultCode == Activity.RESULT_OK) {
 
             // Récupération des informations d'une photo sélectionné dans l'album
             if (requestCode == 1) {
@@ -415,5 +412,6 @@ public class AccountSettingsFragment extends Fragment {
                 // Changer la photo actuel avec la nouvelle
                 thumbnail.setImageBitmap(thumbnail2);
             }
+        }
     }
 }

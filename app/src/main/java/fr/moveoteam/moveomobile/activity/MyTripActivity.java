@@ -52,10 +52,8 @@ public class MyTripActivity extends Activity {
 
     AlertDialog.Builder alertDialog;
 
-    ArrayList<Place> placeArrayList;
     ArrayList<Comment> commentArrayList;
     private TextView modifycover;
-    private ImageView pictures;
     private TextView mytripcitytitle;
     private TextView mytriptitle;
     private ScrollView mytrip;
@@ -68,12 +66,16 @@ public class MyTripActivity extends Activity {
     private ImageView hobbies;
     private ImageView fooding;
     private ImageView cover;
+    private ImageView comment;
+
     String photoBase64;
+    String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_trip);
+        initialize();
 
         id = getIntent().getExtras().getInt("id",0);
 
@@ -84,14 +86,14 @@ public class MyTripActivity extends Activity {
 
         tripDAO = new TripDAO(MyTripActivity.this);
 
-        initialize();
 
         tripDAO.open();
         Trip trip = tripDAO.getTrip(id);
+        description = trip.getDescription();
 
         mytriptitle.setText(trip.getName());
         mytripcitytitle.setText(trip.getCountry());
-        tripdescription.setText(trip.getDescription());
+        tripdescription.setText(description);
 
         if(trip.getCover() != null) {
             cover.setImageBitmap(Function.decodeBase64(trip.getCover()));
@@ -100,7 +102,7 @@ public class MyTripActivity extends Activity {
             addtripdate.setText(addtripdate.getText() + " " + Function.dateSqlToFullDateJava(trip.getDate()));
 
 
-        //new ExecuteThread().execute();
+        modifycover.setVisibility(View.INVISIBLE);
 
         cover.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +116,8 @@ public class MyTripActivity extends Activity {
         modifydescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ExecuteUpdateTripThread().execute();
+                if(!description.equals(tripdescription.getText().toString()))
+                    new ExecuteUpdateTripThread().execute();
             }
         });
 
@@ -155,16 +158,31 @@ public class MyTripActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyTripActivity.this,CommentActivity.class);
+                intent.putExtra("tripId",id);
+                startActivity(intent);
+            }
+        });
+
+        modifycover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ExecuteUpdateCoverThread().execute();
+
+            }
+        });
     }
 
     private void initialize() {
 
         cover = (ImageView) findViewById(R.id.my_trip_cover);
         modifycover = (TextView) findViewById(R.id.modify_cover);
-        pictures = (ImageView) findViewById(R.id.pictures);
         mytripcitytitle = (TextView) findViewById(R.id.my_trip_city_title);
         mytrip = (ScrollView) findViewById(R.id.my_trip);
-        listView = (ListView) findViewById(R.id.listView);
         tripdescription = (EditText) findViewById(R.id.trip_description);
         addtripdate = (TextView) findViewById(R.id.add_trip_date);
         mytriptitle = (TextView) findViewById(R.id.my_trip_title);
@@ -173,6 +191,7 @@ public class MyTripActivity extends Activity {
         fooding = (ImageView) findViewById(R.id.fooding);
         shopping = (ImageView) findViewById(R.id.shopping);
         hobbies = (ImageView) findViewById(R.id.hobbies);
+        comment = (ImageView) findViewById(R.id.comment);
 
     }
 
@@ -334,7 +353,7 @@ public class MyTripActivity extends Activity {
         @Override
         protected JSONObject doInBackground(String... params) {
             JSONTrip jsonTrip = new JSONTrip();
-            return jsonTrip.updateDescription(Integer.toString(id), "éclat");
+            return jsonTrip.updateDescription(Integer.toString(id), tripdescription.getText().toString());
         }
 
         @Override
@@ -366,6 +385,17 @@ public class MyTripActivity extends Activity {
     }
 
     private class ExecuteDeleteTripThread extends AsyncTask<String, String, JSONObject> {
+
+        ProgressDialog dialog;
+
+        protected void onPreExecute() {
+            dialog = new ProgressDialog(MyTripActivity.this);
+            dialog.setMessage("Suppression en cours...");
+            dialog.setCancelable(false);
+            dialog.setIndeterminate(false);
+            dialog.show();
+        }
+
         @Override
         protected JSONObject doInBackground(String... params) {
             JSONTrip jsonTrip = new JSONTrip();
@@ -374,6 +404,7 @@ public class MyTripActivity extends Activity {
 
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
+            dialog.dismiss();
             if(jsonObject != null) {
                 try {
                     if (jsonObject.getString("success").equals("1")) {
@@ -383,13 +414,70 @@ public class MyTripActivity extends Activity {
                         tripDAO.close();
                         setResult(Activity.RESULT_OK);
                         finish();
+                    }else{
+                        AlertDialog.Builder alert = new AlertDialog.Builder(MyTripActivity.this);
+                        alert.setMessage("Une erreur s'est produite lors de la suppression du voyage");
+                        alert.setPositiveButton("OK",null);
+                        alert.show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             } else {
                 AlertDialog.Builder alert = new AlertDialog.Builder(MyTripActivity.this);
-                alert.setMessage("Une erreur s'est produite lors de la suppression du voyage");
+                alert.setMessage("Connexion perdue");
+                alert.setPositiveButton("OK",null);
+                alert.show();
+            }
+        }
+    }
+
+    private class ExecuteUpdateCoverThread extends AsyncTask<String, String, JSONObject> {
+
+        ProgressDialog dialog;
+
+        protected void onPreExecute() {
+            dialog = new ProgressDialog(MyTripActivity.this);
+            dialog.setMessage("Mise à jour...");
+            dialog.setCancelable(false);
+            dialog.setIndeterminate(false);
+            dialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            JSONTrip jsonTrip = new JSONTrip();
+            return  jsonTrip.updateCoverImage(Integer.toString(id),photoBase64) ;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            dialog.dismiss();
+            if(jsonObject != null) {
+                try {
+                    if (jsonObject.getString("success").equals("1")) {
+                        AlertDialog.Builder ad = new AlertDialog.Builder(MyTripActivity.this);
+                        ad.setMessage("La photo a été modifié avec succès");
+                        ad.create();
+                        ad.show();
+
+                        TripDAO tripDAO = new TripDAO(MyTripActivity.this);
+                        tripDAO.open();
+                        tripDAO.updateCover(id,photoBase64);
+                        tripDAO.close();
+                        setResult(RESULT_OK);
+                    }else {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(MyTripActivity.this);
+                        alert.setMessage("Une erreur s'est produite lors de la mise à jour de la page de couverture");
+                        alert.setPositiveButton("OK", null);
+                        alert.show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                AlertDialog.Builder alert = new AlertDialog.Builder(MyTripActivity.this);
+                alert.setMessage("Connexion perdue");
                 alert.setPositiveButton("OK",null);
                 alert.show();
             }
@@ -426,6 +514,7 @@ public class MyTripActivity extends Activity {
 
                     // Changer la photo actuel avec la nouvelle
                     cover.setImageBitmap(photo);
+                    modifycover.setVisibility(View.VISIBLE);
                 }catch (OutOfMemoryError e){
                     e.getMessage();
                     Toast.makeText(MyTripActivity.this, "Photo trop lourd", Toast.LENGTH_LONG).show();

@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import fr.moveoteam.moveomobile.activity.HomeActivity;
 import fr.moveoteam.moveomobile.activity.MyTripActivity;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.adapter.TripListAdapter;
@@ -44,12 +45,6 @@ public class MyTripListFragment extends ListFragment {
         intent.putExtra("id",trip.getId());
         Log.e("id trip frag","" + trip.getId());
         getActivity().startActivityForResult(intent, 2);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e("test","resume");
     }
 
 }

@@ -38,7 +38,9 @@ public class TripDAO {
                                     DataBaseHandler.KEY_TRIP_COUNTRY,
                                     DataBaseHandler.KEY_TRIP_DESCRIPTION,
                                     DataBaseHandler.KEY_TRIP_CREATED_AT,
-                                    DataBaseHandler.KEY_TRIP_COVER };
+                                    DataBaseHandler.KEY_TRIP_COVER,
+                                    DataBaseHandler.KEY_TRIP_COMMENT_COUNT,
+                                    DataBaseHandler.KEY_TRIP_PHOTO_COUNT};
 
     public TripDAO(Context context){
         dbHandler = new DataBaseHandler(context);
@@ -71,34 +73,12 @@ public class TripDAO {
         if(trip.getCountry() != null)values.put(DataBaseHandler.KEY_TRIP_COUNTRY, trip.getCountry());   // PRÉNOM
         if(trip.getDescription() != null)values.put(DataBaseHandler.KEY_TRIP_DESCRIPTION, trip.getDescription());     // DATE DE NAISSANCE
         if(trip.getDate() != null)values.put(DataBaseHandler.KEY_TRIP_CREATED_AT, String.valueOf(trip.getDate()));
+        values.put(DataBaseHandler.KEY_TRIP_COMMENT_COUNT, String.valueOf(trip.getCommentCount()));
+        values.put(DataBaseHandler.KEY_TRIP_PHOTO_COUNT, String.valueOf(trip.getPhotoCount()));
         if(trip.getCover() != null)values.put(DataBaseHandler.KEY_TRIP_COVER, trip.getCover());
 		
 		database.insert(TABLE_TRIP, null, values);
 	}
-	
-	
-
-    /**
-     * Fonction qui récupère 10 voyages aléatoirement
-     * @return une collection contenant 10 voyages
-     */
-    public ArrayList<Trip> getExploreTripList(){
-
-        ArrayList<Trip> tripList = new ArrayList<>(10);
-
-        String selectQuery = "SELECT  * FROM " + TABLE_TRIP;
-
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        // Se déplacer à la première ligne
-        cursor.moveToFirst();
-        while(cursor.moveToNext()){
-            tripList.add(this.cursorToTrip(cursor));
-        }
-        cursor.close();
-        // database.close();
-
-        return tripList;
-    }
 
     public ArrayList<Trip> getTripList(){
         ArrayList<Trip> tripList = null;
@@ -134,6 +114,8 @@ public class TripDAO {
             values.put(DataBaseHandler.KEY_TRIP_COUNTRY, trip.getCountry());   // PRÉNOM
             values.put(DataBaseHandler.KEY_TRIP_DESCRIPTION, trip.getDescription());     // DATE DE NAISSANCE
             values.put(DataBaseHandler.KEY_TRIP_CREATED_AT, String.valueOf(trip.getDate()));
+            values.put(DataBaseHandler.KEY_TRIP_COMMENT_COUNT, String.valueOf(trip.getCommentCount()));
+            values.put(DataBaseHandler.KEY_TRIP_PHOTO_COUNT, String.valueOf(trip.getPhotoCount()));
             values.put(DataBaseHandler.KEY_TRIP_COVER, trip.getCover());
             // Insérer la ligne
             database.insert(TABLE_TRIP, null, values);
@@ -169,6 +151,8 @@ public class TripDAO {
         trip.setDescription(cursor.getString(DataBaseHandler.POSITION_TRIP_DESCRIPTION));
         trip.setInsert(cursor.getString(DataBaseHandler.POSITION_TRIP_CREATED_AT));
         trip.setCover(cursor.getString(DataBaseHandler.POSITION_TRIP_COVER));
+        trip.setCommentCount(cursor.getInt(DataBaseHandler.POSITION_TRIP_COMMENT_COUNT));
+        trip.setPhotoCount(cursor.getInt(DataBaseHandler.POSITION_TRIP_PHOTO_COUNT));
         return trip;
     }
 
@@ -191,9 +175,9 @@ public class TripDAO {
     /**
      * Fonction qui met à jour l'image couverture du voyage
      */
-    public void updateCover(int tripId, String trip_description){
+    public void updateCover(int tripId, String photo){
         ContentValues values = new ContentValues();
-        values.put(KEY_TRIP_DESCRIPTION, trip_description);
+        values.put(KEY_TRIP_COVER, photo);
         database.update(TABLE_TRIP, values, KEY_TRIP_ID + " = " + tripId, null);
     }
 

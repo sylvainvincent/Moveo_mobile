@@ -202,5 +202,7 @@
 
     <!-- Row Users -->
     <string name="user_trip_count">25</string>
+    <string name="comment_description">commentaire</string>
+    <string name="hint_description_trip">Votre description</string>
 
 </resources>

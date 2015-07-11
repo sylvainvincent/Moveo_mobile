@@ -164,6 +164,7 @@ public class AddTripActivity extends Activity {
 
                 else if(json.getString("success").equals("1")) {
                     Trip trip = new Trip();
+                    trip.setId(Integer.parseInt(json.getString("trip_id")));
                     trip.setName(editTripName.getText().toString());
                     trip.setCountry(editCountry.getText().toString());
                     if(photoBase64 != null)trip.setCover(photoBase64);

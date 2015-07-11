@@ -115,15 +115,14 @@ public class JSONTrip {
 
     // LIEUX -------------------------------
     
-    public JSONObject addPlace(String placeId, String placeName, String placeAddress, String placeDescription, String categorie, String tripId){
+    public JSONObject addPlace(String placeName, String placeAddress, String placeDescription, String category, String tripId){
     
         List<NameValuePair> placeRequest = new ArrayList<>();
         placeRequest.add(new BasicNameValuePair("tag", "addPlace"));
-        placeRequest.add(new BasicNameValuePair("place_id", placeId));
         placeRequest.add(new BasicNameValuePair("place_name", placeName));
         placeRequest.add(new BasicNameValuePair("place_address", placeAddress));
         placeRequest.add(new BasicNameValuePair("place_description", placeDescription));
-        placeRequest.add(new BasicNameValuePair("categorie", categorie));
+        placeRequest.add(new BasicNameValuePair("category_id", category));
         placeRequest.add(new BasicNameValuePair("trip_id", tripId));
         return jsonParser.getJSONFromUrl(tripURL, placeRequest);
     
@@ -146,7 +145,7 @@ public class JSONTrip {
 
         List<NameValuePair> placeRequest = new ArrayList<>();
         placeRequest.add(new BasicNameValuePair("tag","deletePlace"));
-        placeRequest.add(new BasicNameValuePair("trip_id",placeId));
+        placeRequest.add(new BasicNameValuePair("place_id",placeId));
         return jsonParser.getJSONFromUrl(tripURL,placeRequest);
     }
 

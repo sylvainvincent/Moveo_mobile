@@ -53,7 +53,7 @@ public class MessageListAdapter extends BaseAdapter {
 
         if(convertView == null){
 
-            convertView = layoutInflater.inflate(R.layout.row_list_messages, parent);
+            convertView = layoutInflater.inflate(R.layout.row_list_messages, null);
             viewHolderMessage = new ViewHolderMessage();
             viewHolderMessage.userName = (TextView) convertView.findViewById(R.id.message_username);
             viewHolderMessage.content = (TextView) convertView.findViewById(R.id.message_content);

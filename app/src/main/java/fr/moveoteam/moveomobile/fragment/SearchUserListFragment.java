@@ -2,6 +2,7 @@ package fr.moveoteam.moveomobile.fragment;
 
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import fr.moveoteam.moveomobile.activity.OtherUserProfileActivity;
 import fr.moveoteam.moveomobile.activity.TripActivity;
 import fr.moveoteam.moveomobile.adapter.TripListAdapter;
 import fr.moveoteam.moveomobile.adapter.UsersAdapter;
@@ -33,6 +35,7 @@ public class SearchUserListFragment extends ListFragment {
 
         String query;
         String userId;
+        Context context;
 
         ArrayList<Friend> userArrayList;
 
@@ -50,6 +53,7 @@ public class SearchUserListFragment extends ListFragment {
             userDAO.open();
             userId = Integer.toString(userDAO.getUserDetails().getId());
             userDAO.close();
+            context = getActivity();
             new ExecuteThread().execute();
         }
 
@@ -58,15 +62,14 @@ public class SearchUserListFragment extends ListFragment {
             super.onListItemClick(l, v, position, id);
             Friend friend = userArrayList.get(position);
             Log.e("Recuperation",friend.getFirstName());
-            Intent intent = new Intent(getActivity(), TripActivity.class);
+            Intent intent = new Intent(getActivity(), OtherUserProfileActivity.class);
             intent.putExtra("id",friend.getId());
             startActivity(intent);
         }
 
         private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
             private ProgressDialog pDialog;
-
-
+/*
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -75,7 +78,7 @@ public class SearchUserListFragment extends ListFragment {
                 pDialog.setIndeterminate(false);
                 pDialog.setCancelable(false);
                 pDialog.show();
-            }
+            }*/
 
             @Override
             protected JSONObject doInBackground(String... args) {
@@ -85,7 +88,7 @@ public class SearchUserListFragment extends ListFragment {
 
             @Override
             protected void onPostExecute(JSONObject json) {
-                pDialog.dismiss();
+             //   pDialog.dismiss();
                 try {
                     if (json == null) {
                         Log.e("test json", userId+' '+ query);
@@ -104,9 +107,7 @@ public class SearchUserListFragment extends ListFragment {
                             ));
 
                             setListAdapter(new UsersAdapter(getActivity(), userArrayList));
-
                         }
-
                     }else{
                         setListAdapter(null);
                     }

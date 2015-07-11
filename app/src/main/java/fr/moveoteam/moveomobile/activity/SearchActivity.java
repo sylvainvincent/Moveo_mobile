@@ -59,20 +59,37 @@ public class SearchActivity extends Activity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // Si l'utilisateur appui sur entrer la recherche est lancé
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                    query = searchBar.getText().toString();
+                    if(spin.getSelectedItem().toString().equals("Voyage")) {
+                        query = searchBar.getText().toString();
                    /* Toast.makeText(SearchActivity.this,spin.getSelectedItem().toString()+
                             " YOU CLICKED ENTER KEY " + searchBar.getText().toString(),
                             Toast.LENGTH_LONG).show();*/
-                    // permet de cacher le clavier
-                    InputMethodManager imm = (InputMethodManager) SearchActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                    searchUserListFragment = new SearchUserListFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("query",query);
-                    searchUserListFragment.setArguments(bundle);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.search_content, searchUserListFragment,"search");
-                    ft.commit();
+                        // permet de cacher le clavier
+                        InputMethodManager imm = (InputMethodManager) SearchActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        searchTripListFragments = new SearchTripListFragments();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("query", query);
+                        searchTripListFragments.setArguments(bundle);
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.search_content, searchTripListFragments, "search");
+                        ft.commit();
+                    }else{
+                        query = searchBar.getText().toString();
+                   /* Toast.makeText(SearchActivity.this,spin.getSelectedItem().toString()+
+                            " YOU CLICKED ENTER KEY " + searchBar.getText().toString(),
+                            Toast.LENGTH_LONG).show();*/
+                        // permet de cacher le clavier
+                        InputMethodManager imm = (InputMethodManager) SearchActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                        searchUserListFragment = new SearchUserListFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("query", query);
+                        searchUserListFragment.setArguments(bundle);
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        ft.replace(R.id.search_content, searchUserListFragment, "search");
+                        ft.commit();
+                    }
                 }
                 return true;
             }

@@ -229,8 +229,8 @@ public class OtherUserProfileActivity extends Activity {
                     }else if(friendDAO.getFriendList() != null) {
                        boolean bool = false;
                        int i = 0;
-                        Log.e("Test id :","id1 :"+friendDAO.getFriendList().get(i).getId()+" id2 :"+otherUserId);
-                       while(i < friendDAO.getFriendList().size() || !bool){
+                        Log.e("Test size :",""+friendDAO.getFriendList().size());
+                       while(i < friendDAO.getFriendList().size() && !bool){
                            Log.e("Test id :","id1 :"+friendDAO.getFriendList().get(i).getId()+" id2 :"+otherUserId);
                            if(friendDAO.getFriendList().get(i).getId() == otherUserId){
                                 addfriend.setImageDrawable(getResources().getDrawable(R.drawable.delete_app));

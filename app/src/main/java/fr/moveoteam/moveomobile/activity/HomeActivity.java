@@ -383,9 +383,9 @@ public class HomeActivity extends Activity {
         Log.e("HomeActivity", "onActivity");
 
         if (resultCode == RESULT_OK) {
-            if(requestCode == 2){
+
                 this.refreshFragment();
-            }
+
         }
             /*
             // Récupération des informations d'une photo sélectionné dans l'album
