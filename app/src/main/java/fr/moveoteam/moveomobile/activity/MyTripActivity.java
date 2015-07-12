@@ -84,7 +84,6 @@ public class MyTripActivity extends Activity {
 
         tripDAO = new TripDAO(MyTripActivity.this);
 
-
         tripDAO.open();
         Trip trip = tripDAO.getTrip(id);
         description = trip.getDescription();

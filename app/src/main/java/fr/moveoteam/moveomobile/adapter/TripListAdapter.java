@@ -91,14 +91,9 @@ public class TripListAdapter extends BaseAdapter {
                 viewHolderTrip.explore_username.setText(Html.fromHtml(authorHTML));
 
                 if(!tripList.get(position).getCover().equals("null") && !tripList.get(position).getCover().isEmpty()) {
-                    try {
-                        Bitmap b = new DownloadImage().execute(tripList.get(position).getCover()).get();
-                        viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(b);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
+                    viewHolderTrip.imageUrl = tripList.get(position).getCover();
+                    new DownloadImage().execute(viewHolderTrip);
+
                 }else{
                     viewHolderTrip.imageViewMainPictureTrip.setImageDrawable(context.getResources().getDrawable(R.drawable.default_journey));
                 }
@@ -123,35 +118,40 @@ public class TripListAdapter extends BaseAdapter {
         TextView explore_trip_name, explore_country, explore_username,number_of_comments,number_of_pictures;
         ImageView imageViewMainPictureTrip;
          ImageView imageButtonComments, imageButtonPictures;
+        Bitmap bitmap;
+        String imageUrl;
     }
 
-    private class DownloadImage extends AsyncTask<String, String, Bitmap> {
+    private class DownloadImage extends AsyncTask<ViewHolderTrip, Void, ViewHolderTrip> {
 
         String url;
         URL urlImage;
         HttpURLConnection connection = null;
         InputStream inputStream = null;
 
-
         @Override
-        protected Bitmap doInBackground(String... args) {
-            this.url = args[0];
+        protected ViewHolderTrip doInBackground(ViewHolderTrip... args) {
+            ViewHolderTrip viewHolderTripImage = args[0];
             try {
-                urlImage = new URL("http://moveo.besaba.com/"+url);
+                urlImage = new URL("http://moveo.besaba.com/"+viewHolderTripImage.imageUrl);
                 connection = (HttpURLConnection) urlImage.openConnection();
                 if (connection != null) {
                     inputStream = connection.getInputStream();
+                    viewHolderTripImage.bitmap = BitmapFactory.decodeStream(inputStream);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            return BitmapFactory.decodeStream(inputStream);
+            return viewHolderTripImage;
         }
 
         @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
+        protected void onPostExecute(ViewHolderTrip result) {
+            if (result.bitmap == null) {
+                result.imageViewMainPictureTrip.setImageResource(R.drawable.default_journey);
+            } else {
+                result.imageViewMainPictureTrip.setImageBitmap(result.bitmap);
+            }
         }
     }
 
