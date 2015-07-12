@@ -19,8 +19,8 @@ import fr.moveoteam.moveomobile.model.Trip;
  */
 public class MyTripListFragment extends ListFragment {
 
-    ArrayList<Trip> tripArrayList;
-    TripListAdapter tripListAdapter;
+    private ArrayList<Trip> tripArrayList;
+    private TripListAdapter tripListAdapter;
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

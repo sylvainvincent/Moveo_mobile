@@ -5,17 +5,19 @@ package fr.moveoteam.moveomobile.model;
  * Created by alexMac on 07/04/15.
  */
 public class Trip {
-    int id;
-    String country, name, description;
-    String insert;
-    User user;
-    String author_last_name;
-    String author_first_name;
-    int commentCount;
-    int photoCount;
-    String date;
-    String cover;
-    int userId;
+    private int id;
+    private String country;
+    private String name;
+    private String description;
+    private String insert;
+    private User user;
+    private String author_last_name;
+    private String author_first_name;
+    private int commentCount;
+    private int photoCount;
+    private String date;
+    private String cover;
+    private int userId;
 
     public Trip() {
     }

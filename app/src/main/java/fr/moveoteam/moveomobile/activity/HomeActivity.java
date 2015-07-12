@@ -54,11 +54,11 @@ public class HomeActivity extends Activity {
     private ActionBarDrawerToggle mDrawerToggle;
 
 	// FRAGMENTS
-    Fragment fragment = null;
-    Fragment fragment2 = null;
-    FriendCategoryFragment friendCategoryFragment;
-    MessagingFragment messagingFragment;
-    FragmentTransaction ft;
+    private Fragment fragment = null;
+    private Fragment fragment2 = null;
+    private FriendCategoryFragment friendCategoryFragment;
+    private MessagingFragment messagingFragment;
+    private FragmentTransaction ft;
 
     // Titre dans l'action bar
     private CharSequence mDrawerTitle;
@@ -73,19 +73,19 @@ public class HomeActivity extends Activity {
     private ArrayList<MenuItems> listMenuItems;
     private MenuAdapter menuAdapter;
 
-    UserDAO userDAO;
+    private UserDAO userDAO;
 
     Toast toast;
 
-    AlertDialog.Builder alertDialog;
+    private AlertDialog.Builder alertDialog;
 
 	// LE COMPTEUR (Nombre de message non lue, demande d'amis)
-    String tripCounter = "0";
-    String friendRequestCounter = "0";
-    boolean friendRequestDisplay = false;
-    String inboxRequestCounter = "0";
-    boolean inboxRequestDisplay = false;
-    String friendCounter = "0";
+    private String tripCounter = "0";
+    private String friendRequestCounter = "0";
+    private boolean friendRequestDisplay = false;
+    private String inboxRequestCounter = "0";
+    private boolean inboxRequestDisplay = false;
+    private String friendCounter = "0";
 
     Bundle bundle;
 
@@ -372,7 +372,7 @@ public class HomeActivity extends Activity {
     }
 
     // Procedure qui permet d'affecter les éléments de l'interface graphique aux objets de la classe
-    public void initialization() {
+    void initialization() {
         exploreTitle = (TextView) findViewById(R.id.explore_title);
         listView = (ListView) findViewById(R.id.listViewExploreTrip);
     }

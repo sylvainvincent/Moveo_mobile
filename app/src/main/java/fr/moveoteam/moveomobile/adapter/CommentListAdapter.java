@@ -21,10 +21,10 @@ import fr.moveoteam.moveomobile.model.Function;
  */
 public class CommentListAdapter extends BaseAdapter {
 
-    ArrayList<Comment> commentArrayList;
-    LayoutInflater layoutInflater;
-    ViewHolderComment viewHolderComment;
-    Context context;
+    private ArrayList<Comment> commentArrayList;
+    private LayoutInflater layoutInflater;
+    private ViewHolderComment viewHolderComment;
+    private Context context;
 
     public CommentListAdapter(Context context, ArrayList<Comment> commentArrayList){
         this.commentArrayList = commentArrayList;

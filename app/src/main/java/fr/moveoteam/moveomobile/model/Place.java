@@ -8,15 +8,17 @@ import android.os.Parcelable;
  * Created by alexMac on 15/04/15.
  */
 public class Place implements Parcelable{
-    int id;
-    String name, address, description;
-    int category;
-    int tripId;
+    private int id;
+    private String name;
+    private String address;
+    private String description;
+    private int category;
+    private int tripId;
 
     public Place() {
     }
 
-    public Place(Parcel parcel){
+    private Place(Parcel parcel){
         super();
         readFromParcel(parcel);
     }
@@ -125,7 +127,7 @@ public class Place implements Parcelable{
 
     }
 
-    public void readFromParcel(Parcel in) {
+    void readFromParcel(Parcel in) {
         this.id = in.readInt();
         this.name = in.readString();
         this.address = in.readString();

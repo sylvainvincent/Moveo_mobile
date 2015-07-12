@@ -25,11 +25,11 @@ import fr.moveoteam.moveomobile.webservice.JSONUser;
  */
 public class InboxListFragment extends ListFragment {
 
-    ArrayList<Dialog> dialogArrayList;
-	int position;
-	int id;
-	int recipientId;
-	String date;
+    private ArrayList<Dialog> dialogArrayList;
+	private int position;
+	private int id;
+	private int recipientId;
+	private String date;
 
 
     @Override

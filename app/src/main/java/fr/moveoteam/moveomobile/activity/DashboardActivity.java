@@ -44,14 +44,14 @@ import fr.moveoteam.moveomobile.webservice.JSONUser;
 public class DashboardActivity extends Activity {
 
     private Menu m = null;
-	UserDAO userDAO;
-    Boolean internet = false;
+	private UserDAO userDAO;
+    private Boolean internet = false;
     Toast toast;
     RelativeLayout layout;
     AlertDialog.Builder alertDialog;
 
-    String password;
-    ImageView logo;
+    private String password;
+    private ImageView logo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +93,7 @@ public class DashboardActivity extends Activity {
     }
 
     // Boite de dialogue d'alerte activé si internet n'est pas activé
-    public AlertDialog.Builder buildDialog(Context context) {
+    AlertDialog.Builder buildDialog(Context context) {
         internet = true;
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setOnCancelListener(new DialogInterface.OnCancelListener() {

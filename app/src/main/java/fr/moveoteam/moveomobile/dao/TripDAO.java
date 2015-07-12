@@ -25,12 +25,12 @@ public class TripDAO {
     private static final String TABLE_TRIP = "trip";
 
     // LES CHAMPS
-    public static final String KEY_TRIP_ID = "trip_id";
+    private static final String KEY_TRIP_ID = "trip_id";
     public static final String KEY_TRIP_NAME = "trip_name";
     public static final String KEY_TRIP_COUNTRY = "trip_country";
-    public static final String KEY_TRIP_DESCRIPTION = "trip_description";
+    private static final String KEY_TRIP_DESCRIPTION = "trip_description";
     public static final String KEY_TRIP_CREATED_AT = "trip_created_at";
-    public static final String KEY_TRIP_COVER = "trip_cover";
+    private static final String KEY_TRIP_COVER = "trip_cover";
 
     // LES COLONNES
     private String[] allColumns = { DataBaseHandler.KEY_TRIP_ID,
@@ -143,7 +143,7 @@ public class TripDAO {
      * @param cursor un curseur
      * @return un voyage (Trip)
      */
-    protected Trip cursorToTrip(Cursor cursor){
+    Trip cursorToTrip(Cursor cursor){
         Trip trip = new Trip();
         trip.setId(cursor.getInt(DataBaseHandler.POSITION_TRIP_ID));
         trip.setName(cursor.getString(DataBaseHandler.POSITION_TRIP_NAME));

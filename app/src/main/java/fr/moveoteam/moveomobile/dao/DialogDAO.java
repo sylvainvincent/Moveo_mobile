@@ -138,7 +138,7 @@ public class DialogDAO {
      * @param cursor un curseur
      * @return un voyage (Trip)
      */
-    protected Dialog cursorToDialog(Cursor cursor, boolean isInbox){
+    Dialog cursorToDialog(Cursor cursor, boolean isInbox){
 
         Dialog dialog = new Dialog() ;
         dialog.setRecipientId(cursor.getInt(DataBaseHandler.POSITION_DIALOG_RECIPIENT_ID));

@@ -112,6 +112,22 @@ public class JSONTrip {
         return jsonParser.getJSONFromUrl(tripURL,commentRequest);
     }
 
+    public JSONObject deleteComment(String commentId) {
+        List<NameValuePair> commentRequest = new ArrayList<>();
+        commentRequest.add(new BasicNameValuePair("tag","deleteComment"));
+        commentRequest.add(new BasicNameValuePair("comment_id",commentId));
+        return jsonParser.getJSONFromUrl(tripURL,commentRequest);
+    }
+
+    public JSONObject modifyComment(String commentId, String message){
+        List<NameValuePair> commentRequest = new ArrayList<>();
+        commentRequest.add(new BasicNameValuePair("tag","modifyComment"));
+        commentRequest.add(new BasicNameValuePair("comment_id",commentId));
+        commentRequest.add(new BasicNameValuePair("message",message));
+        return jsonParser.getJSONFromUrl(tripURL,commentRequest);
+    }
+
+
 
     // LIEUX -------------------------------
     

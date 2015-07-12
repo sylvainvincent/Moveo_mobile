@@ -41,13 +41,13 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
  */
 public class MyTripActivity extends Activity {
 
-    TripDAO tripDAO;
-    int id;
-    int userId;
+    private TripDAO tripDAO;
+    private int id;
+    private int userId;
 
-    AlertDialog.Builder alertDialog;
+    private AlertDialog.Builder alertDialog;
 
-    ArrayList<Comment> commentArrayList;
+    private ArrayList<Comment> commentArrayList;
     private TextView modifycover;
     private TextView mytripcitytitle;
     private TextView mytriptitle;
@@ -63,8 +63,8 @@ public class MyTripActivity extends Activity {
     private ImageView cover;
     private ImageView comment;
 
-    String photoBase64;
-    String description;
+    private String photoBase64;
+    private String description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +93,8 @@ public class MyTripActivity extends Activity {
         mytripcitytitle.setText(trip.getCountry());
         tripdescription.setText(description);
 
-        if(trip.getCover() != null) {
+        if(trip.getCover() != null ) {
+            if(!trip.getCover().equals("") && !trip.getCover().equals("null"))
             cover.setImageBitmap(Function.decodeBase64(trip.getCover()));
         }
         if(trip.getDate() != null)

@@ -15,7 +15,7 @@ import fr.moveoteam.moveomobile.model.Dialog;
  */
 public class SendboxListFragment extends ListFragment {
 
-    ArrayList<Dialog> dialogArrayList;
+    private ArrayList<Dialog> dialogArrayList;
 
 
     @Override

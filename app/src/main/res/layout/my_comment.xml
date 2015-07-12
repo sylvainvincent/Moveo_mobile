@@ -33,7 +33,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/modify_comment"
+        android:id="@+id/delete_comment"
         android:text="@string/delete"
         android:layout_marginTop="20dp"
         android:background="#b3414b"
@@ -49,7 +49,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/delete_comment"
+        android:id="@+id/modify_comment"
         android:text="@string/modify"
         android:layout_marginTop="20dp"
         android:background="#43b1cb"

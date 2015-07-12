@@ -25,13 +25,13 @@ import fr.moveoteam.moveomobile.webservice.JSONUser;
 public class SendMessageActivity extends Activity {
 
     // ELEMENTS DE VUE
-    TextView receiveName;
-    EditText messageContent;
-    Button buttonSendMessage;
+    private TextView receiveName;
+    private EditText messageContent;
+    private Button buttonSendMessage;
 
     // BUNDLE
-    String userId;
-    String recipientId;
+    private String userId;
+    private String recipientId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

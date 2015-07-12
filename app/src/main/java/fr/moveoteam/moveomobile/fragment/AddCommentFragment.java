@@ -27,10 +27,10 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
  */
 public class AddCommentFragment extends Fragment{
 
-    String tripId;
-    String userId;
-    Button addCommentButton;
-    EditText message;
+    private String tripId;
+    private String userId;
+    private Button addCommentButton;
+    private EditText message;
 
     @Nullable
     @Override

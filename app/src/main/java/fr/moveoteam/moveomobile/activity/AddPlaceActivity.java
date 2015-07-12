@@ -42,8 +42,8 @@ public class AddPlaceActivity extends Activity{
     private RelativeLayout addplace;
 
     // AUTRES
-    int categoryId;
-    int tripId;
+    private int categoryId;
+    private int tripId;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

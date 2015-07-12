@@ -26,13 +26,13 @@ import fr.moveoteam.moveomobile.webservice.JSONUser;
 public class RegisterActivity extends Activity {
 
     // DECLARATION DES VARIABLES
-    Button buttonRegister;
-    EditText editMail;
-    EditText editPassword;
-    EditText editName;
-    EditText editFirstName;
-    AlertDialog.Builder alertDialog;
-    Toast toast;
+    private Button buttonRegister;
+    private EditText editMail;
+    private EditText editPassword;
+    private EditText editName;
+    private EditText editFirstName;
+    private AlertDialog.Builder alertDialog;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class RegisterActivity extends Activity {
     }
 
     // Procedure qui permet d'affecter les elements de l'interface graphique aux objets de la classe
-    public void initialization() {
+    void initialization() {
         buttonRegister = (Button) findViewById(R.id.button_register);
         editMail = (EditText) findViewById(R.id.edit_email_register);
         editPassword = (EditText) findViewById(R.id.edit_password_register);
@@ -58,7 +58,7 @@ public class RegisterActivity extends Activity {
     }
 
     // Procedure qui permet déclencher un évènement lorsque l'on clique sur un bouton
-    public void eventButton() {
+    void eventButton() {
         // on sélectionne le bouton créer un compte
         buttonRegister.setOnClickListener(
                 new View.OnClickListener() {

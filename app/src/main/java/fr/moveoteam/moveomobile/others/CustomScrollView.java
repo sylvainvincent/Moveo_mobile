@@ -13,7 +13,7 @@ public class CustomScrollView extends ScrollView {
 
     private boolean enableScrolling = true;
 
-    public boolean isEnableScrolling() {
+    boolean isEnableScrolling() {
         return enableScrolling;
     }
 

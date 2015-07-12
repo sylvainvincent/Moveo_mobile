@@ -39,10 +39,10 @@ public class MyPlaceActivity extends Activity {
     private RelativeLayout addplace;
 
     //AUTRES
-    int placeId;
-    int categoryId;
+    private int placeId;
+    private int categoryId;
     Trip trip;
-    Place place;
+    private Place place;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

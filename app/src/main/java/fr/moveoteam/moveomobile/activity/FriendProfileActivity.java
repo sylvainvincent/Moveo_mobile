@@ -52,18 +52,18 @@ public class FriendProfileActivity extends Activity {
     private RelativeLayout userprofile;
 	
 	// Manipulation de la table friend (Base de données)
-    FriendDAO friendDAO;
+    private FriendDAO friendDAO;
 
 
 	// FRAGMENT
-    TripListFragment tripListFragment;
+    private TripListFragment tripListFragment;
 
 	// CLASSE METIER 
-    Friend friend;
+    private Friend friend;
 	
 	// AUTRES
-    int friendId;
-    int id;
+    private int friendId;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

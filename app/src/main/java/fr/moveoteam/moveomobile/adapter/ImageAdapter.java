@@ -19,7 +19,7 @@ import fr.moveoteam.moveomobile.model.Photo;
 public class ImageAdapter extends BaseAdapter {
 
     private Context mContext;
-    ArrayList<Photo> tripArrayList;
+    private ArrayList<Photo> tripArrayList;
 
     public ImageAdapter(Context c, ArrayList<Photo> tripArrayList) {
         mContext = c;

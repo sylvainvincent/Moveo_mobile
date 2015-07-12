@@ -7,10 +7,18 @@ import java.util.Date;
  * Created by alexMac on 07/04/15.
  */
 public class User {
-    int id;
-    String firstName, lastName, birthday, email, password, country, city, avatar;
-    int access;
-    Date register, lastConnexion;
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String birthday;
+    private String email;
+    private String password;
+    private String country;
+    private String city;
+    private String avatar;
+    private int access;
+    private Date register;
+    private Date lastConnexion;
 
     public User() {
 

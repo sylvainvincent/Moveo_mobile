@@ -9,17 +9,17 @@ import android.os.Parcelable;
  */
 public class Comment implements Parcelable{
 
-    int id;
-    String message;
-    String date;
-    int idUser;
-    String userLastName;
-    String userFirstName;
-    String userAvatarBase64;
+    private int id;
+    private String message;
+    private String date;
+    private int idUser;
+    private String userLastName;
+    private String userFirstName;
+    private String userAvatarBase64;
 
     public Comment(){}
 
-    public Comment(Parcel parcel){
+    private Comment(Parcel parcel){
         super();
         readFromParcel(parcel);
     }
@@ -120,7 +120,7 @@ public class Comment implements Parcelable{
         return 0;
     }
 
-    public void readFromParcel(Parcel in) {
+    void readFromParcel(Parcel in) {
         this.id = in.readInt();
         this.message = in.readString();
         this.date = in.readString();

@@ -22,10 +22,10 @@ import fr.moveoteam.moveomobile.model.Dialog;
  */
 public class MessageListAdapter extends BaseAdapter {
 
-    LayoutInflater layoutInflater;
-    ArrayList<Dialog> dialogArrayList;
-    ViewHolderMessage viewHolderMessage;
-    Context context;
+    private LayoutInflater layoutInflater;
+    private ArrayList<Dialog> dialogArrayList;
+    private ViewHolderMessage viewHolderMessage;
+    private Context context;
 
     public MessageListAdapter(Context context, ArrayList<Dialog> dialogArrayList){
         this.dialogArrayList = dialogArrayList;

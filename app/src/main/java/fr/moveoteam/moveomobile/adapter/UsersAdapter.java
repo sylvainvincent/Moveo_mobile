@@ -19,10 +19,10 @@ import fr.moveoteam.moveomobile.model.Function;
  * Created by Sylvain on 07/07/15.
  */
 public class UsersAdapter extends BaseAdapter {
-    ArrayList<Friend> friendsList;
-    LayoutInflater layoutInflater;
-    ViewHolderFriend viewHolderFriend;
-    Context context;
+    private ArrayList<Friend> friendsList;
+    private LayoutInflater layoutInflater;
+    private ViewHolderFriend viewHolderFriend;
+    private Context context;
 
     public UsersAdapter(Context context, ArrayList<Friend> friendsList) {
         this.friendsList = friendsList;

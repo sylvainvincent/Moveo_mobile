@@ -27,7 +27,7 @@ public class HomeCategoryFragment extends Fragment {
     private TextView tripDate;
     private TextView tripDescription;
     private  LinearLayout tripHome;
-    OnInformationListener information;
+    private OnInformationListener information;
     Trip trip;
 
     // L'activity doit implémenté cette interface

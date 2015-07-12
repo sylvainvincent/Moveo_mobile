@@ -27,9 +27,9 @@ public class PlaceActivity extends Activity{
 
     private LinearLayout tripplace;
 
-    String placeName;
-    String placeAddress;
-    String placeDescription;
+    private String placeName;
+    private String placeAddress;
+    private String placeDescription;
     private ScrollView placescrollview;
 
     @Override

@@ -21,11 +21,11 @@ import fr.moveoteam.moveomobile.model.Place;
  */
 public class CategoryActivity extends Activity {
 
-    ListView listView;
-    ArrayList<Place> placeArrayList;
-    int tripId;
-    int categoryId;
-    TextView addPlaceLink;
+    private ListView listView;
+    private ArrayList<Place> placeArrayList;
+    private int tripId;
+    private int categoryId;
+    private TextView addPlaceLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

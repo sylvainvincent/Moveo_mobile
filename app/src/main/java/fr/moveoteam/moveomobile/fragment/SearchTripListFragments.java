@@ -27,10 +27,10 @@ import fr.moveoteam.moveomobile.webservice.JSONSearch;
  */
 public class SearchTripListFragments extends ListFragment {
 
-    String query;
-    String userId;
+    private String query;
+    private String userId;
 
-    ArrayList<Trip> tripArrayList;
+    private ArrayList<Trip> tripArrayList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

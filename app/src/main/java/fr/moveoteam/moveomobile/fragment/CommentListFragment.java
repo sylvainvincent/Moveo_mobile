@@ -3,6 +3,7 @@ package fr.moveoteam.moveomobile.fragment;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.ListFragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -37,10 +38,15 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
  */
 public class CommentListFragment extends ListFragment {
 
-    ArrayList<Comment> commentArrayList;
-    int tripId;
-    int userId;
-    EditText editComment;
+    //Element de vue
+    private EditText editComment;
+
+
+    private ArrayList<Comment> commentArrayList;
+    private int tripId;
+    private int userId;
+    private int commentId;
+    private String commentMessage;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -59,17 +65,17 @@ public class CommentListFragment extends ListFragment {
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
+    public void onListItemClick(ListView l, View v, final int position, long id) {
 
         super.onListItemClick(l, v, position, id);
-        Comment comment = commentArrayList.get(position);
+        final Comment comment = commentArrayList.get(position);
         if(comment.getIdUser() != userId) {
             Intent intent = new Intent(getActivity(), OtherUserProfileActivity.class);
             intent.putExtra("id", comment.getIdUser());
             startActivity(intent);
         }else{
-            LayoutInflater lostPassword = LayoutInflater.from(getActivity());
-            final View alertDialogView = lostPassword.inflate(R.layout.my_comment, null);
+            LayoutInflater commentView = LayoutInflater.from(getActivity());
+            final View alertDialogView = commentView.inflate(R.layout.my_comment, null);
 
             AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
 
@@ -81,7 +87,12 @@ public class CommentListFragment extends ListFragment {
             modifyButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if(!editComment.getText().toString().equals(comment.getMessage()) && !editComment.getText().toString().equals("")){
+                        commentId = commentArrayList.get(position).getId();
+                        commentMessage =  editComment.getText().toString();
+                        Log.e("comment", "id : "+commentId+" message : "+commentMessage);
+                        new ExecuteModifyCommentThread().execute();
+                    }
                 }
             });
 
@@ -122,13 +133,7 @@ public class CommentListFragment extends ListFragment {
                 if(json == null){
                     setListAdapter(null);
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-
-                        }
-                    });
-                    builder.setMessage("Récupération des commentaires échoué");
+                    builder.setMessage("Connexion perdue");
                     builder.setPositiveButton("OK", null);
                     builder.show();
 
@@ -152,6 +157,10 @@ public class CommentListFragment extends ListFragment {
 
                 }else{
                     setListAdapter(null);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Récupération des commentaires échoué");
+                    builder.setPositiveButton("OK", null);
+                    builder.show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -160,4 +169,66 @@ public class CommentListFragment extends ListFragment {
 
 
     }
+
+    private class ExecuteModifyCommentThread extends AsyncTask<String, String, JSONObject> {
+         private ProgressDialog pDialog;
+
+        @Override //Procedure appelée avant le traitement (optionnelle)
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Mise à jour ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        //Méthode appelée pendant le traitement (obligatoire)
+        protected JSONObject doInBackground(String... args) {
+
+            JSONTrip jsonTrip = new JSONTrip();
+            return jsonTrip.modifyComment(Integer.toString(commentId), commentMessage);
+        }
+
+        @Override
+        //Procedure appelée après le traitement (optionnelle)
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+
+            try {
+                if(json == null){
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Connexion perdue");
+                    builder.setPositiveButton("OK", null);
+                    builder.show();
+                }else if (json.getString("success").equals("1")) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Votre commentaire a été modifié");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            /*startActivity(getActivity().getIntent());
+                            getActivity().finish();*/
+                            ((TripActivity)getActivity()).refreshFragment();
+                        }
+                    });
+                    builder.show();
+
+                }else{
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Modification du commentaire échoué");
+                    builder.setPositiveButton("OK", null);
+                    builder.show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+
 }

@@ -50,21 +50,21 @@ public class OtherUserProfileActivity extends Activity {
     private RelativeLayout userprofile;
 
     // Manipulation de la table friend (Base de données)
-    FriendDAO friendDAO;
+    private FriendDAO friendDAO;
 
     ArrayList<Trip> tripArrayList;
 
     // FRAGMENT
-    TripListFragment tripListFragment;
+    private TripListFragment tripListFragment;
 
     // CLASSE METIER
-    Friend friend;
+    private Friend friend;
 
     // AUTRES
-    int otherUserId;
-    int userId;
+    private int otherUserId;
+    private int userId;
     boolean isFriend;
-    int tripCount;
+    private int tripCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

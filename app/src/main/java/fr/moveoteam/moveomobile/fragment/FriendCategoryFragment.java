@@ -21,16 +21,16 @@ import fr.moveoteam.moveomobile.dao.FriendDAO;
 public class FriendCategoryFragment extends Fragment {
 
     // Elements de la vue
-    TextView friendcounter;
-    TextView friendsrequesttitle;
+    private TextView friendcounter;
+    private TextView friendsrequesttitle;
 
     // Fragments de la vue
-    FriendRequestFragment friendRequestFragment;
-    FriendListFragment friendListFragment;
+    private FriendRequestFragment friendRequestFragment;
+    private FriendListFragment friendListFragment;
 
-    View view;
+    private View view;
 
-    FragmentTransaction ft;
+    private FragmentTransaction ft;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

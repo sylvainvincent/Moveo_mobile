@@ -18,15 +18,15 @@ import fr.moveoteam.moveomobile.dao.DialogDAO;
  */
 public class MessagingFragment extends Fragment {
 
-    InboxListFragment inboxListFragment;
-    SendboxListFragment sendboxListFragment;
-    ImageView sendIcon;
-    ImageView receiveIcon;
-    TextView messageCount;
+    private InboxListFragment inboxListFragment;
+    private SendboxListFragment sendboxListFragment;
+    private ImageView sendIcon;
+    private ImageView receiveIcon;
+    private TextView messageCount;
     Fragment fragment;
 
-    int inboxCount;
-    int sendboxCount;
+    private int inboxCount;
+    private int sendboxCount;
 
     @Nullable
     @Override

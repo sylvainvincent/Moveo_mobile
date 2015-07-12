@@ -46,35 +46,35 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     private TextView tripDate;
     private TextView tripDescription;
 	
-    int id;
+    private int id;
 
     RelativeLayout layout;
 
-    Trip trip;
+    private Trip trip;
 
-    ArrayList<Place> foodingArrayList;
-    ArrayList<Place> shoppingArrayList;
-    ArrayList<Place> leisureArrayList;
+    private ArrayList<Place> foodingArrayList;
+    private ArrayList<Place> shoppingArrayList;
+    private ArrayList<Place> leisureArrayList;
 
     ArrayList<Comment> commentArrayList;
 
-    AlertDialog.Builder alertDialog;
+    private AlertDialog.Builder alertDialog;
   
 
-    Bundle bundle;
+    private Bundle bundle;
 
-    PlaceListFragment gastronomyPlaceListFragment;
-    PlaceListFragment leisurePlaceListFragment;
-    PlaceListFragment shoppingPlaceListFragment;
+    private PlaceListFragment gastronomyPlaceListFragment;
+    private PlaceListFragment leisurePlaceListFragment;
+    private PlaceListFragment shoppingPlaceListFragment;
 
-    Fragment fragment;
+    private Fragment fragment;
 
-    PhotoGalleryFragment photoGalleryFragment;
-    CommentCategoryFragment commentCategoryFragment;
+    private PhotoGalleryFragment photoGalleryFragment;
+    private CommentCategoryFragment commentCategoryFragment;
     String gastronomyPlaceListFragmentTag;
     String leisurePlaceListFragmentTag;
     String shoppingPlaceListFragmentTag;
-    HomeCategoryFragment homeCategoryFragment;
+    private HomeCategoryFragment homeCategoryFragment;
     String  tripHomeFragmentTag;
     private ImageView homeCategory;
     private ImageView foodingCategory;
@@ -85,12 +85,12 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
     private ImageView imageCover;
 
     FragmentManager fragmentManager;
-    FragmentTransaction ft;
+    private FragmentTransaction ft;
 
     private static final String HOME_FRAGMENT_TAG = "HOME";
     private LinearLayout tripcontent;
 
-    CustomScrollView scrollView;
+    private CustomScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -408,7 +408,6 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
 
 
         ft = getFragmentManager().beginTransaction();
-        //if(fragment != null)ft.remove(fragment);
 
         fragment = gastronomyPlaceListFragment;
         //ft = getFragmentManager().beginTransaction();
@@ -467,6 +466,7 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         //ft = getFragmentManager().beginTransaction();
         ft = getFragmentManager().beginTransaction();
         fragment = commentCategoryFragment;
+
         ft.replace(R.id.trip_content, fragment);
         ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
         ft.addToBackStack(null);

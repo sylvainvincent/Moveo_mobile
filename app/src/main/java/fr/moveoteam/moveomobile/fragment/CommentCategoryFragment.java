@@ -15,8 +15,8 @@ import fr.moveoteam.moveomobile.R;
  */
 public class CommentCategoryFragment extends Fragment {
 
-    View view;
-    CommentListFragment commentListFragment;
+    private View view;
+    private CommentListFragment commentListFragment;
 
     @Nullable
     @Override

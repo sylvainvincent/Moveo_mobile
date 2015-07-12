@@ -32,9 +32,9 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
  */
 public class PhotoGalleryFragment  extends Fragment{
 
-    GridView gridview;
-    ArrayList<Photo> photoArrayList;
-    int tripId;
+    private GridView gridview;
+    private ArrayList<Photo> photoArrayList;
+    private int tripId;
 
     @Nullable
     @Override

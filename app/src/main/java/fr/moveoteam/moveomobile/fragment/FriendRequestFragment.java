@@ -14,8 +14,8 @@ import fr.moveoteam.moveomobile.adapter.FriendsListAdapter;
  */
 public class FriendRequestFragment extends ListFragment {
 
-    FriendsListAdapter listAdapter;
-    ArrayList<Friend> friendArrayList;
+    private FriendsListAdapter listAdapter;
+    private ArrayList<Friend> friendArrayList;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

@@ -51,9 +51,9 @@ public class AddTripActivity extends Activity {
     private EditText linkPhoto;
     private ImageView image;
 
-    String photoBase64;
+    private String photoBase64;
 
-    int userId;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

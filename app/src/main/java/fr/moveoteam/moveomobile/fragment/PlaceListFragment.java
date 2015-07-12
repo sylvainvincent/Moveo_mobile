@@ -19,7 +19,7 @@ import fr.moveoteam.moveomobile.model.Place;
  */
 public class PlaceListFragment extends ListFragment {
 
-    ArrayList<Place> placeArrayList;
+    private ArrayList<Place> placeArrayList;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

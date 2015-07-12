@@ -43,35 +43,39 @@ import fr.moveoteam.moveomobile.webservice.JSONUser;
 public class AccountSettingsFragment extends Fragment {
 
 	// ELEMENTS DE VUES
-    Button buttonModifyAccount;
+    private Button buttonModifyAccount;
 
-    EditText modifyLastName;
-    EditText modifyFirstName;
-    EditText modifyEmail;
-    EditText modifyCity;
-    EditText modifyCountry;
-    EditText linkPhoto;
-	EditText dateEdit;
+    private EditText modifyLastName;
+    private EditText modifyFirstName;
+    private EditText modifyEmail;
+    private EditText modifyCity;
+    private EditText modifyCountry;
+    private EditText linkPhoto;
+	private EditText dateEdit;
 	
-	TextView modifythumbnail;
-	TextView cancel;
+	private TextView modifythumbnail;
+	private TextView cancel;
 	
-	ImageView thumbnail;
+	private ImageView thumbnail;
 
 	// Classe metier
-	ImageButton birthdayButton;	
-	User user;
+    private ImageButton birthdayButton;
+	private User user;
 
 
-    String photoBase64 = null;
-    String oldLastName, oldFirstName, oldBirthday, oldCountry, oldCity;
+    private String photoBase64 = null;
+    private String oldLastName;
+    private String oldFirstName;
+    private String oldBirthday;
+    private String oldCountry;
+    private String oldCity;
 
-    String userId = null;
+    private String userId = null;
 
     // Date de naissance par défaut
-    int year = 2014;
-    int month = 0; // janvier
-    int day = 1;
+    private int year = 2014;
+    private int month = 0; // janvier
+    private int day = 1;
 
     @Nullable
     @Override
@@ -199,7 +203,7 @@ public class AccountSettingsFragment extends Fragment {
     } // </onCreate>
 
     // Procédure qui permet déclencher un évènement lorsque l'on clique sur un bouton
-    public void eventButton() {
+    void eventButton() {
         buttonModifyAccount.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

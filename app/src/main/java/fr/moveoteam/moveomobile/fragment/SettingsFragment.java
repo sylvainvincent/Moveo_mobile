@@ -30,16 +30,16 @@ import fr.moveoteam.moveomobile.webservice.JSONUser;
  */
 public class SettingsFragment extends Fragment {
 
-    EditText password;
-    EditText newPassword;
-    EditText checkNewPassword;
-    Button saveButton;
-    Switch informationVisibility;
+    private EditText password;
+    private EditText newPassword;
+    private EditText checkNewPassword;
+    private Button saveButton;
+    private Switch informationVisibility;
     private String passwordSave;
     private int accessSave;
     private String id;
 
-    int access;
+    private int access;
 
     @Nullable
     @Override

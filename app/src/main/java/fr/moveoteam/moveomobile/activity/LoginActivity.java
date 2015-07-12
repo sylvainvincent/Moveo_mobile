@@ -43,19 +43,19 @@ import fr.moveoteam.moveomobile.webservice.JSONUser;
  */
 public class LoginActivity extends Activity {
 
-    EditText editMail;
-    EditText editPassword;
-    TextView linkRegistration;
-    Button buttonLogin;
+    private EditText editMail;
+    private EditText editPassword;
+    private TextView linkRegistration;
+    private Button buttonLogin;
     EditText editMailForgetPassword;
-    EditText editLostPassword;
-    Toast toast;
-    ScrollView layout;
+    private EditText editLostPassword;
+    private Toast toast;
+    private ScrollView layout;
 
-    String email;
-    String password;
+    private String email;
+    private String password;
 
-    AlertDialog.Builder alertDialog;
+    private AlertDialog.Builder alertDialog;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +111,7 @@ public class LoginActivity extends Activity {
     }
 	
 	// Permet d'initialiser tous les elements du layout
-    public void initialization(){
+    void initialization(){
 
         linkRegistration = (TextView) findViewById(R.id.link_registration);
         buttonLogin = (Button) findViewById(R.id.button_login);

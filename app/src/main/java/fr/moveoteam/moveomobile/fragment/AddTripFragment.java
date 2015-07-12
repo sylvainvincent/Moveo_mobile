@@ -20,7 +20,7 @@ import fr.moveoteam.moveomobile.activity.HomeActivity;
 public class AddTripFragment extends Fragment{
 
 
-    TextView textView;
+    private TextView textView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

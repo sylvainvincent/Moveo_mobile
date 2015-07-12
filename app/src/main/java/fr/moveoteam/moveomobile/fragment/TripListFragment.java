@@ -26,8 +26,8 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
  */
 public class TripListFragment extends ListFragment {
 
-    ArrayList<Trip> tripArrayList;
-    int id;
+    private ArrayList<Trip> tripArrayList;
+    private int id;
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

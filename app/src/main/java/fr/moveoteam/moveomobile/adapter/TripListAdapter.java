@@ -1,6 +1,9 @@
 package fr.moveoteam.moveomobile.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +13,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.model.Function;
@@ -21,11 +29,11 @@ import fr.moveoteam.moveomobile.model.Trip;
  */
 public class TripListAdapter extends BaseAdapter {
 
-    ArrayList<Trip> tripList;
-    LayoutInflater layoutInflater;
-    ViewHolderTrip viewHolderTrip;
-    boolean otherUser;
-    Context context;
+    private ArrayList<Trip> tripList;
+    private LayoutInflater layoutInflater;
+    private ViewHolderTrip viewHolderTrip;
+    private boolean otherUser;
+    private Context context;
     StringBuilder st;
 
     public TripListAdapter(Context context, ArrayList<Trip> tripList, boolean otherUser){
@@ -83,7 +91,14 @@ public class TripListAdapter extends BaseAdapter {
                 viewHolderTrip.explore_username.setText(Html.fromHtml(authorHTML));
 
                 if(!tripList.get(position).getCover().equals("null") && !tripList.get(position).getCover().isEmpty()) {
-                    viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
+                    try {
+                        Bitmap b = new DownloadImage().execute(tripList.get(position).getCover()).get();
+                        viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(b);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
                 }else{
                     viewHolderTrip.imageViewMainPictureTrip.setImageDrawable(context.getResources().getDrawable(R.drawable.default_journey));
                 }
@@ -100,23 +115,7 @@ public class TripListAdapter extends BaseAdapter {
             Log.e("PlaceList", " " + position);
             viewHolderTrip.number_of_comments.setText((Integer.toString(tripList.get(position).getCommentCount())));
             viewHolderTrip.number_of_pictures.setText(Integer.toString(tripList.get(position).getPhotoCount()));
-        }/*else{
-            if (convertView == null) {
-                convertView = layoutInflater.inflate(R.layout.fragment_button_add_trip, null);
-                viewHolderTrip = new ViewHolderTrip();
-                viewHolderTrip.explore_trip_name = (TextView) convertView.findViewById(R.id.explore_trip_name);
-                viewHolderTrip.explore_country = (TextView) convertView.findViewById(R.id.explore_country);
-                viewHolderTrip.explore_username = (TextView) convertView.findViewById(R.id.explore_username);
-                viewHolderTrip.imageViewMainPictureTrip = (ImageView) convertView.findViewById(R.id.imageViewMainPictureTrip);
-                viewHolderTrip.imageButtonComments = (ImageView) convertView.findViewById(R.id.image_button_comments);
-                viewHolderTrip.imageButtonPictures = (ImageView) convertView.findViewById(R.id.image_button_pictures);
-                viewHolderTrip.number_of_comments = (TextView) convertView.findViewById(R.id.number_of_comments);
-                viewHolderTrip.number_of_pictures = (TextView) convertView.findViewById(R.id.number_of_picture);
-                convertView.setTag(viewHolderTrip);
-            } else {
-                viewHolderTrip = (ViewHolderTrip) convertView.getTag();
-            }
-        } */
+        }
         return convertView;
     }
 
@@ -124,6 +123,36 @@ public class TripListAdapter extends BaseAdapter {
         TextView explore_trip_name, explore_country, explore_username,number_of_comments,number_of_pictures;
         ImageView imageViewMainPictureTrip;
          ImageView imageButtonComments, imageButtonPictures;
+    }
+
+    private class DownloadImage extends AsyncTask<String, String, Bitmap> {
+
+        String url;
+        URL urlImage;
+        HttpURLConnection connection = null;
+        InputStream inputStream = null;
+
+
+        @Override
+        protected Bitmap doInBackground(String... args) {
+            this.url = args[0];
+            try {
+                urlImage = new URL("http://moveo.besaba.com/"+url);
+                connection = (HttpURLConnection) urlImage.openConnection();
+                if (connection != null) {
+                    inputStream = connection.getInputStream();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return BitmapFactory.decodeStream(inputStream);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+        }
     }
 
 }

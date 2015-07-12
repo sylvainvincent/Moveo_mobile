@@ -19,13 +19,13 @@ import fr.moveoteam.moveomobile.model.Place;
  */
 public class PlacesListAdapter extends BaseAdapter {
 
-    public final String LOG = "PlacesListAdapter";
+    private final String LOG = "PlacesListAdapter";
 
     private Context context;
 
-    ArrayList<Place> placesList;
-    LayoutInflater layoutInflater;
-    ViewHolderPlace viewHolderPlace;
+    private ArrayList<Place> placesList;
+    private LayoutInflater layoutInflater;
+    private ViewHolderPlace viewHolderPlace;
 
     public PlacesListAdapter(Context context, ArrayList<Place> placeList) {
         this.context = context;

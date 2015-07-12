@@ -31,12 +31,12 @@ import fr.moveoteam.moveomobile.webservice.JSONFriend;
  */
 public class FriendsListAdapter extends BaseAdapter {
 
-    ArrayList<Friend> friendsList;
-    LayoutInflater layoutInflater;
-    ViewHolderFriend viewHolderFriend;
-    Context context;
-    String friendId;
-    boolean accepted;
+    private ArrayList<Friend> friendsList;
+    private LayoutInflater layoutInflater;
+    private ViewHolderFriend viewHolderFriend;
+    private Context context;
+    private String friendId;
+    private boolean accepted;
 
     public FriendsListAdapter(Context context, ArrayList<Friend> friendsList) {
         this.friendsList = friendsList;

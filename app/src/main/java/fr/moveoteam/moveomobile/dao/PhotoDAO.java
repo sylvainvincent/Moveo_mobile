@@ -13,7 +13,7 @@ import fr.moveoteam.moveomobile.model.Photo;
 /**
  * Created by Sylvain on 18/04/15.
  */
-public class PhotoDAO {
+class PhotoDAO {
 
     // Base de données utilisable
     private SQLiteDatabase database = null;
@@ -120,7 +120,7 @@ public class PhotoDAO {
      * @param cursor un curseur
      * @return une photo (Photo)
      */
-    protected Photo cursorToPhoto(Cursor cursor){
+    Photo cursorToPhoto(Cursor cursor){
 
         Photo photo = new Photo();
         photo.setId(cursor.getInt(DataBaseHandler.POSITION_PHOTO_ID));

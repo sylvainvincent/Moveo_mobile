@@ -155,7 +155,7 @@ public class FriendDAO {
      * @param cursor un curseur
      * @return un voyage (Trip)
      */
-    protected Friend cursorToFriend(Cursor cursor){
+    Friend cursorToFriend(Cursor cursor){
         Friend friend = new Friend() ;
         friend.setId(cursor.getInt(DataBaseHandler.POSITION_FRIEND_ID));
         friend.setFirstName(cursor.getString(DataBaseHandler.POSITION_FRIEND_FIRSTNAME));

@@ -8,14 +8,14 @@ import android.os.Parcelable;
  * Created by alexMac on 08/04/15.
  */
 public class Photo implements Parcelable {
-    int id;
-    String photoBase64;
-    String publicationDate;
-    int tripId;
+    private int id;
+    private String photoBase64;
+    private String publicationDate;
+    private int tripId;
 
     public Photo() {}
 
-    public Photo(Parcel p){
+    private Photo(Parcel p){
         super();
         readFromParcel(p);
     }
@@ -119,7 +119,7 @@ public class Photo implements Parcelable {
         dest.writeInt(this.tripId);
     }
 
-    public void readFromParcel(Parcel in){
+    void readFromParcel(Parcel in){
         this.id = in.readInt();
         this.photoBase64 = in.readString();
         this.publicationDate = in.readString();

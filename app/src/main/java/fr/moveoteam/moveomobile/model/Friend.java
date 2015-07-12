@@ -6,16 +6,16 @@ package fr.moveoteam.moveomobile.model;
  */
 public class Friend {
 
-    int id;
-    String firstName;
-    String lastName;
-    String birthday;
-    String avatarBase64;
-    String country;
-    String city;
-    int tripCount;
-    int accessId;
-    boolean isFriend;
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String birthday;
+    private String avatarBase64;
+    private String country;
+    private String city;
+    private int tripCount;
+    private int accessId;
+    private boolean isFriend;
 
     public Friend(){}
 

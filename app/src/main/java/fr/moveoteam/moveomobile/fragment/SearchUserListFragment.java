@@ -28,11 +28,11 @@ import fr.moveoteam.moveomobile.webservice.JSONSearch;
  */
 public class SearchUserListFragment extends ListFragment {
 
-        String query;
-        String userId;
-        Context context;
+        private String query;
+        private String userId;
+        private Context context;
 
-        ArrayList<Friend> userArrayList;
+        private ArrayList<Friend> userArrayList;
 
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
@@ -101,8 +101,8 @@ public class SearchUserListFragment extends ListFragment {
                             setListAdapter(new UsersAdapter(getActivity(), userArrayList));
                         }
                     }else{
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setMessage("Une erreur s'est produite lors de la recherche");
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setMessage("Aucun résultat");
                         builder.setPositiveButton("ok", null);
                         builder.show();
                         setListAdapter(null);

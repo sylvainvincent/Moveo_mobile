@@ -21,10 +21,10 @@ import fr.moveoteam.moveomobile.fragment.SearchUserListFragment;
  */
 public class SearchActivity extends Activity {
 
-    EditText searchBar;
-    SearchTripListFragments searchTripListFragments;
-    SearchUserListFragment searchUserListFragment;
-    String query;
+    private EditText searchBar;
+    private SearchTripListFragments searchTripListFragments;
+    private SearchUserListFragment searchUserListFragment;
+    private String query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

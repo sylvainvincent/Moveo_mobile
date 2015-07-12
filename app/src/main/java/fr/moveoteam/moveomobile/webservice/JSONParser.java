@@ -27,7 +27,7 @@ import java.util.List;
  * Cette classe est utilisé pour faire des requêtes vers un webService et parser les informations de retour  
  * Created by Sylvain on 04/04/15.
  */
-public class JSONParser {
+class JSONParser {
 
     // constructeur vide
     public JSONParser() {

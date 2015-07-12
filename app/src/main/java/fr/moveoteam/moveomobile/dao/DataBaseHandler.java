@@ -28,16 +28,16 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     // NOM DES COLONNES :
 
         // Login
-        public static final String KEY_USER_ID = "user_id";
-        public static final String KEY_USER_LASTNAME = "user_lastName";
-        public static final String KEY_USER_FIRSTNAME = "user_firstName";
-        public static final String KEY_USER_BIRTHDAY = "user_birthday";
-        public static final String KEY_USER_AVATAR = "user_avatar";
-        public static final String KEY_USER_EMAIL = "user_email";
-        public static final String KEY_USER_PASSWORD = "user_password";
-        public static final String KEY_USER_COUNTRY = "user_country";
-        public static final String KEY_USER_CITY = "user_city";
-        public static final String KEY_USER_ACCESS = "user_access";
+        private static final String KEY_USER_ID = "user_id";
+        private static final String KEY_USER_LASTNAME = "user_lastName";
+        private static final String KEY_USER_FIRSTNAME = "user_firstName";
+        private static final String KEY_USER_BIRTHDAY = "user_birthday";
+        private static final String KEY_USER_AVATAR = "user_avatar";
+        private static final String KEY_USER_EMAIL = "user_email";
+        private static final String KEY_USER_PASSWORD = "user_password";
+        private static final String KEY_USER_COUNTRY = "user_country";
+        private static final String KEY_USER_CITY = "user_city";
+        private static final String KEY_USER_ACCESS = "user_access";
 
 
         // Trip
@@ -59,11 +59,11 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final String KEY_PLACE_TRIP_ID = "trip_id";
 
         // Comment
-        public static final String KEY_COMMENT_ID = "comment_id";
-        public static final String KEY_COMMENT_MESSAGE = "comment_message";
-        public static final String KEY_COMMENT_DATE = "comment_date";
-        public static final String KEY_COMMENT_AUTHOR = "author_id";
-        public static final String KEY_COMMENT_TRIP_ID = "trip_id";
+        private static final String KEY_COMMENT_ID = "comment_id";
+        private static final String KEY_COMMENT_MESSAGE = "comment_message";
+        private static final String KEY_COMMENT_DATE = "comment_date";
+        private static final String KEY_COMMENT_AUTHOR = "author_id";
+        private static final String KEY_COMMENT_TRIP_ID = "trip_id";
 
         // Photo
         public static final String KEY_PHOTO_ID = "photo_id";

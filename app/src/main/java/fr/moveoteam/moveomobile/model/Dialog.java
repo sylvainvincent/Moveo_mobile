@@ -7,13 +7,13 @@ package fr.moveoteam.moveomobile.model;
 public class Dialog {
 
     int id;
-    int recipientId;
-    String recipientLastName;
-    String recipientFirstName;
-    String message;
-    boolean read;
-    String date;
-    boolean inbox;
+    private int recipientId;
+    private String recipientLastName;
+    private String recipientFirstName;
+    private String message;
+    private boolean read;
+    private String date;
+    private boolean inbox;
 
     private boolean selected;
 

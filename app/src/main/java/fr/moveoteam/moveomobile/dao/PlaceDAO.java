@@ -180,7 +180,7 @@ public class PlaceDAO {
      * @param cursor un curseur
      * @return un lieu (Place)
      */
-    protected Place cursorToPlace(Cursor cursor){
+    Place cursorToPlace(Cursor cursor){
 
         Place place = new Place();
         place.setId(cursor.getInt(DataBaseHandler.POSITION_PLACE_ID));

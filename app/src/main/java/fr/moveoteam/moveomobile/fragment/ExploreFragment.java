@@ -29,9 +29,9 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
 public class ExploreFragment extends ListFragment {
 
     private AdapterView.OnItemSelectedListener listener;
-    ArrayList<Trip> tripArrayList;
-    UserDAO userDAO;
-    ExecuteThread executeThread;
+    private ArrayList<Trip> tripArrayList;
+    private UserDAO userDAO;
+    private ExecuteThread executeThread;
 
     public  ExploreFragment(){}
 
@@ -157,7 +157,6 @@ public class ExploreFragment extends ListFragment {
                         Log.e("afficher list", tripArrayList.get(1).getName());
                         setListAdapter(new TripListAdapter(getActivity(), tripArrayList, true));
                         Log.e("Message ", "" + tripArrayList.get(0).getName() + "" + tripArrayList.get(0).getName());
-                        Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDate());
                     }
                 }else{
                     setListAdapter(null);
