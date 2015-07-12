@@ -1,6 +1,7 @@
 package fr.moveoteam.moveomobile.others;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ScrollView;
@@ -33,20 +34,12 @@ public class CustomScrollView extends ScrollView {
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
+    public boolean onInterceptTouchEvent(@NonNull MotionEvent ev) {
 
-        if (isEnableScrolling()) {
-            return super.onInterceptTouchEvent(ev);
-        } else {
-            return false;
-        }
+        return isEnableScrolling() && super.onInterceptTouchEvent(ev);
     }
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        if (isEnableScrolling()) {
-            return super.onInterceptTouchEvent(ev);
-        } else {
-            return false;
-        }
+    public boolean onTouchEvent(@NonNull MotionEvent ev) {
+        return isEnableScrolling() && super.onInterceptTouchEvent(ev);
     }
 }

@@ -1,7 +1,5 @@
 package fr.moveoteam.moveomobile.model;
 
-import java.text.ParseException;
-
 /**
  * Classe métier sur les voyages 
  * Created by alexMac on 07/04/15.

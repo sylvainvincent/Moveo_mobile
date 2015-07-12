@@ -204,5 +204,7 @@
     <string name="user_trip_count">25</string>
     <string name="comment_description">commentaire</string>
     <string name="hint_description_trip">Votre description</string>
+    <string name="text_my_comment">Votre Commentaire</string>
+    <string name="delete">Supprimer</string>
 
 </resources>

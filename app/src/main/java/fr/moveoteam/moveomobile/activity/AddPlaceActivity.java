@@ -17,9 +17,7 @@ import org.json.JSONObject;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.PlaceDAO;
-import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.model.Place;
-import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**

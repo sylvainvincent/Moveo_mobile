@@ -2,7 +2,6 @@ package fr.moveoteam.moveomobile.fragment;
 
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -31,8 +30,8 @@ public class FriendRequestFragment extends ListFragment {
 
             setListAdapter(listAdapter);
         }else{
-            if (listAdapter != null) listAdapter.updateResult(friendArrayList);
-            else setListAdapter(null);
+            //if (listAdapter != null) listAdapter.updateResult(friendArrayList);
+             setListAdapter(null);
         }
         /*else {
             setListAdapter(null);

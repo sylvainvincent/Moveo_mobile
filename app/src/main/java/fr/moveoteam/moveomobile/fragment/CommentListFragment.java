@@ -3,15 +3,19 @@ package fr.moveoteam.moveomobile.fragment;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.ListFragment;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,11 +23,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.activity.OtherUserProfileActivity;
 import fr.moveoteam.moveomobile.activity.TripActivity;
-import fr.moveoteam.moveomobile.activity.FriendProfileActivity;
 import fr.moveoteam.moveomobile.adapter.CommentListAdapter;
+import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Comment;
+import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**
@@ -33,18 +39,18 @@ public class CommentListFragment extends ListFragment {
 
     ArrayList<Comment> commentArrayList;
     int tripId;
+    int userId;
+    EditText editComment;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        /*if(getArguments().getParcelableArrayList("commentList") != null) {
-
-            commentArrayList = getArguments().getParcelableArrayList("commentList");
-            Log.e("array", commentArrayList.toString());
-        }
-        else */ //commentArrayList = null;
+        UserDAO userDAO = new UserDAO(getActivity());
+        userDAO.open();
+        userId = userDAO.getUserDetails().getId();
+        userDAO.close();
         tripId = ((TripActivity) getActivity()).getId();
         // tripId = getArguments().getInt("tripId");
         ExecuteThread executeThread = new ExecuteThread();
@@ -57,9 +63,32 @@ public class CommentListFragment extends ListFragment {
 
         super.onListItemClick(l, v, position, id);
         Comment comment = commentArrayList.get(position);
-        Intent intent = new Intent(getActivity(), OtherUserProfileActivity.class);
-        intent.putExtra("id",comment.getIdUser());
-        startActivity(intent);
+        if(comment.getIdUser() != userId) {
+            Intent intent = new Intent(getActivity(), OtherUserProfileActivity.class);
+            intent.putExtra("id", comment.getIdUser());
+            startActivity(intent);
+        }else{
+            LayoutInflater lostPassword = LayoutInflater.from(getActivity());
+            final View alertDialogView = lostPassword.inflate(R.layout.my_comment, null);
+
+            AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
+
+            adb.setView(alertDialogView);
+
+            Button modifyButton = (Button)alertDialogView.findViewById(R.id.modify_comment);
+            editComment = (EditText)alertDialogView.findViewById(R.id.edit_my_comment);
+            editComment.setText(comment.getMessage());
+            modifyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+            AlertDialog alertDialog = adb.create();
+            alertDialog.show();
+        }
+
 
     }
 

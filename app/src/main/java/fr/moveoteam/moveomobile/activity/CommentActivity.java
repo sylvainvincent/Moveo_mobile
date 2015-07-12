@@ -2,9 +2,7 @@ package fr.moveoteam.moveomobile.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,11 +13,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.adapter.CommentListAdapter;
-import fr.moveoteam.moveomobile.fragment.CommentListFragment;
 import fr.moveoteam.moveomobile.model.Comment;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
@@ -35,6 +31,10 @@ public class CommentActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowTitleEnabled(false);
+
         id = getIntent().getIntExtra("tripId",0);
         setContentView(R.layout.my_comment_list);
         listView = (ListView) findViewById(R.id.my_comment_list);

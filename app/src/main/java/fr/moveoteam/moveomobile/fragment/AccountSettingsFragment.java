@@ -138,6 +138,7 @@ public class AccountSettingsFragment extends Fragment {
                 print.setView(photoView);
                 //AlertDialog d = print.create();
                 print.show();
+
             }
         });
 
@@ -147,7 +148,7 @@ public class AccountSettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                // CREATION DE LA BOITE DE DIALOGUE qui étant DatePickerDialog
+                // CREATION DE LA BOITE DE DIALOGUE qui étend la classe DatePickerDialog
                 // INITIALISER LA DATE AVEC CELUI DU EDITTEXT DE LA DATE DE NAISSANCE
                 // SI L'EDITTEXT EST VIDE ALORS INITIALISATION A 01/01/2014
                 final BirthdayFragment birthdayFragment = new BirthdayFragment(getActivity(),1,new DatePickerDialog.OnDateSetListener() {
@@ -192,7 +193,10 @@ public class AccountSettingsFragment extends Fragment {
                 birthdayFragment.show();
             }
         });
-    }
+
+
+
+    } // </onCreate>
 
     // Procédure qui permet déclencher un évènement lorsque l'on clique sur un bouton
     public void eventButton() {

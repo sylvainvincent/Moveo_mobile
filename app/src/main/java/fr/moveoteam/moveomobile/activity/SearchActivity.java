@@ -1,12 +1,8 @@
 package fr.moveoteam.moveomobile.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -16,15 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import fr.moveoteam.moveomobile.R;
-import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
 import fr.moveoteam.moveomobile.fragment.SearchTripListFragments;
 import fr.moveoteam.moveomobile.fragment.SearchUserListFragment;
-import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**
  * Created by Sylvain on 27/06/15.
@@ -90,6 +80,8 @@ public class SearchActivity extends Activity {
                         ft.replace(R.id.search_content, searchUserListFragment, "search");
                         ft.commit();
                     }
+                }else if(keyCode == KeyEvent.KEYCODE_BACK){
+                    finish();
                 }
                 return true;
             }
@@ -158,5 +150,4 @@ public class SearchActivity extends Activity {
         finish();
         return true;
     }
-
 }

@@ -29,16 +29,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
-import fr.moveoteam.moveomobile.dao.PlaceDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
-import fr.moveoteam.moveomobile.fragment.MyTripListFragment;
 import fr.moveoteam.moveomobile.model.Comment;
-import fr.moveoteam.moveomobile.model.Dialog;
 import fr.moveoteam.moveomobile.model.Function;
-import fr.moveoteam.moveomobile.model.Place;
 import fr.moveoteam.moveomobile.model.Trip;
-import fr.moveoteam.moveomobile.model.User;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**
@@ -76,6 +71,9 @@ public class MyTripActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_trip);
         initialize();
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowTitleEnabled(false);
 
         id = getIntent().getExtras().getInt("id",0);
 
@@ -125,7 +123,16 @@ public class MyTripActivity extends Activity {
         deletetrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ExecuteDeleteTripThread().execute();
+                final AlertDialog.Builder alert = new AlertDialog.Builder(MyTripActivity.this);
+                alert.setMessage("Êtes vous sûr de supprimer ce lieu ?");
+                alert.setPositiveButton("oui", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        new ExecuteDeleteTripThread().execute();
+                    }
+                });
+                alert.setNegativeButton("non", null);
+                alert.show();
             }
         });
 

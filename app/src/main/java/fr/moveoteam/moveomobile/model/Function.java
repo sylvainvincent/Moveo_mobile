@@ -122,9 +122,8 @@ public class Function {
 
     public static String encodeBase64(Bitmap photo)
     {
-        Bitmap image = photo;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 
         byte[] b = baos.toByteArray();
         String imageEncoded = Base64.encodeToString(b,Base64.DEFAULT);
@@ -234,7 +233,7 @@ public class Function {
 
         Date actualyDate = new Date();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Log.i("Function",sdf.toString());
         Date convertedDate = null;
         try {
@@ -244,7 +243,37 @@ public class Function {
         }
 
         assert convertedDate != null;
-        long ecartEnMinutes = actualyDate.getTime() - convertedDate.getTime();
-        return (ecartEnMinutes / (1000*60*60*24) )+" minutes "+actualyDate.getHours()+" "+actualyDate.getMinutes()+" et "+convertedDate.getHours();
+        String dateDisplay;
+        long diffSeconds = (actualyDate.getTime() - convertedDate.getTime()) / 1000;
+        if(diffSeconds > 60){
+            long diffMinutes = (actualyDate.getTime() - convertedDate.getTime()) / (1000*60);
+            if(diffMinutes > 60){
+                long diffHours = (actualyDate.getTime() - convertedDate.getTime()) / (1000*60*60);
+                if(diffHours > 24){
+                    long diffDays = (actualyDate.getTime() - convertedDate.getTime()) / (1000*60*60*24);
+                    if(diffDays > 7){
+                        long diffWeeks = (actualyDate.getTime() - convertedDate.getTime()) /   ((1000 * 60 * 60) * (24 * 7));
+                        if(diffWeeks >4){
+                            long diffMonths = (actualyDate.getTime() - convertedDate.getTime()) / (60000 * 60 * 24 * 7 * 30);
+                            dateDisplay = diffMonths + " mois";
+                        }else{
+                            dateDisplay = diffWeeks + " semaines";
+                        }
+                    }else{
+                        dateDisplay = diffDays + " jours";
+                    }
+
+                }else{
+                    dateDisplay = diffHours + " heures";
+                }
+            }else{
+                dateDisplay = diffMinutes + " minutes";
+            }
+        }else{
+            dateDisplay = diffSeconds + " secondes";
+        }
+        Log.e("test date","date actuel : "+actualyDate.toString()+" commentaire après : "+convertedDate.toString()+" commentaire avant : "+date);
+
+        return dateDisplay;
     }
 }

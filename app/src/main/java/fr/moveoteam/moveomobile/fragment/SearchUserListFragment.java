@@ -1,5 +1,6 @@
 package fr.moveoteam.moveomobile.fragment;
 
+import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -9,23 +10,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.activity.OtherUserProfileActivity;
-import fr.moveoteam.moveomobile.activity.TripActivity;
-import fr.moveoteam.moveomobile.adapter.TripListAdapter;
 import fr.moveoteam.moveomobile.adapter.UsersAdapter;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Friend;
-import fr.moveoteam.moveomobile.model.Trip;
-import fr.moveoteam.moveomobile.model.User;
 import fr.moveoteam.moveomobile.webservice.JSONSearch;
 
 /**
@@ -38,11 +33,6 @@ public class SearchUserListFragment extends ListFragment {
         Context context;
 
         ArrayList<Friend> userArrayList;
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-        }
 
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
@@ -91,8 +81,10 @@ public class SearchUserListFragment extends ListFragment {
              //   pDialog.dismiss();
                 try {
                     if (json == null) {
-                        Log.e("test json", userId+' '+ query);
-//                        Toast.makeText(getActivity(), "Une erreur est survenue lors de la recherche", Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("Connexion perdu");
+                        builder.setPositiveButton("ok", null);
+                        builder.show();
                     } else if (json.getString("success").equals("1")) {
                         JSONArray userList = json.getJSONArray("user");
                         userArrayList = new ArrayList<>(userList.length());
@@ -109,6 +101,10 @@ public class SearchUserListFragment extends ListFragment {
                             setListAdapter(new UsersAdapter(getActivity(), userArrayList));
                         }
                     }else{
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("Une erreur s'est produite lors de la recherche");
+                        builder.setPositiveButton("ok", null);
+                        builder.show();
                         setListAdapter(null);
                     }
 

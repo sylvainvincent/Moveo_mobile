@@ -1,10 +1,7 @@
 package fr.moveoteam.moveomobile.fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ListFragment;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.activity.TripActivity;

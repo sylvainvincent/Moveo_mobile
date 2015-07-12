@@ -20,7 +20,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
@@ -49,12 +48,12 @@ public class FriendProfileActivity extends Activity {
     private ImageView tripsuser;
     private TextView tripsusertitle;
     private LinearLayout userinfos;
+    private LinearLayout page;
     private RelativeLayout userprofile;
 	
 	// Manipulation de la table friend (Base de données)
     FriendDAO friendDAO;
-	
-    ArrayList<Trip> tripArrayList;
+
 
 	// FRAGMENT
     TripListFragment tripListFragment;
@@ -70,13 +69,13 @@ public class FriendProfileActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_profile);
+        initialize();
         friendId = getIntent().getExtras().getInt("id",0);
 
         UserDAO userDAO = new UserDAO(FriendProfileActivity.this);
         userDAO.open();
         id = userDAO.getUserDetails().getId();
         userDAO.close();
-        initialize();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowTitleEnabled(false);
 
@@ -84,11 +83,9 @@ public class FriendProfileActivity extends Activity {
         Bundle bundle = new Bundle();
         bundle.putInt("otherUserId",friendId);
         tripListFragment.setArguments(bundle);
-        android.app.FragmentManager fm= getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.replace(R.id.trip_list_content,tripListFragment);
         ft.commit();
-
 
         friendDAO = new FriendDAO(FriendProfileActivity.this);
         friendDAO.open();
@@ -103,12 +100,17 @@ public class FriendProfileActivity extends Activity {
        // addfriend.setImageDrawable(getResources().getDrawable(R.drawable.refuse_friend));
 
         // Affichage du lieu de l'utilisateur
-        if (!friend.getCity().equals("null") && !friend.getCountry().equals("null"))
+        if ((!friend.getCity().equals("null") && !friend.getCity().equals("")) && (!friend.getCountry().equals("null") && !friend.getCountry().equals("")))
             livein.setText(livein.getText() + " " + friend.getCity() + " en " + friend.getCountry());
-        else if (friend.getCountry().equals("null") && !friend.getCity().equals("null"))
+        else if ((friend.getCountry().equals("") || friend.getCountry().equals("null"))  && !friend.getCity().equals("") && !friend.getCity().equals("null"))
             livein.setText(livein.getText() + " " + friend.getCity());
-        else if (friend.getCity().equals("null") && !friend.getCountry().equals("null"))
-            livein.setText(livein.getText() + " " + friend.getCountry());
+        else if ((friend.getCity().equals("") || friend.getCity().equals("null")) && !friend.getCountry().equals("") && !friend.getCountry().equals("null"))
+            livein.setText("Habite en " + friend.getCountry());
+        else{
+            livein.setText("lieu non renseigné");
+        }
+
+        tripsnumber.setVisibility(View.GONE);
 
         sendmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,89 +156,11 @@ public class FriendProfileActivity extends Activity {
         usernameprofile = (TextView) findViewById(R.id.username_profile);
         livein = (TextView) findViewById(R.id.live_in);
         tripsnumber = (TextView) findViewById(R.id.trips_number);
-        //placesnumber = (TextView) findViewById(R.id.places_number);
         sendmail = (ImageView) findViewById(R.id.send_mail);
         addfriend = (ImageView) findViewById(R.id.add_friend);
-
+        page = (LinearLayout) findViewById(R.id.user_profile);
         tripsusertitle = (TextView) findViewById(R.id.trips_user_title);
         userinfos = (LinearLayout) findViewById(R.id.user_infos);
-        //userprofile = (RelativeLayout) findViewById(R.id.user_profile);
-    }
-
-    private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(FriendProfileActivity.this);
-            pDialog.setMessage("Récupération des voyages...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-        @Override
-        protected JSONObject doInBackground(String... args) {
-            JSONTrip jsonTrip = new JSONTrip();
-            return jsonTrip.getTripList(Integer.toString(friendId));
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject json) {
-            pDialog.dismiss();
-            try {
-                if(json == null) {
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(FriendProfileActivity.this);
-                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-
-                        }
-                    });
-                    builder.setMessage("Connexion perdu");
-                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    builder.show();
-                     }else if(json.getString("success").equals("1")) {
-                     // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
-
-                    // Recuperation des voyages sous la forme d'un JSONArray
-                    JSONArray tripList = json.getJSONArray("trip");
-
-                    tripArrayList = new ArrayList<>(tripList.length());
-
-                    for (int i = 0; i < tripList.length(); i++) {
-                        tripArrayList.add(new Trip(
-                                tripList.getJSONObject(i).getInt("trip_id"),
-                                tripList.getJSONObject(i).getString("trip_name"),
-                                tripList.getJSONObject(i).getString("trip_country"),
-                                tripList.getJSONObject(i).getString("trip_cover"),
-                                tripList.getJSONObject(i).getInt("comment_count"),
-                                tripList.getJSONObject(i).getInt("photo_count")
-                        ));
-                    }
-
-                    if(tripArrayList != null) {
-                        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                        //      R.layout.element_menu,R.id.title,values);
-
-                        if(tripArrayList != null){
-                            if(tripArrayList.size() == 1)tripsnumber.setText(tripArrayList.size()+" voyage");
-                            else tripsnumber.setText(tripArrayList.size()+" voyages");
-                        }
-
-                    }
-                }
-
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-
-            }
-
-        }
     }
 
     private class ExecuteDeleteFriendThread extends AsyncTask<String, String, JSONObject>{

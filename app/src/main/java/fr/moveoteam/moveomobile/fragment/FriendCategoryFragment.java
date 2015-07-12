@@ -28,7 +28,6 @@ public class FriendCategoryFragment extends Fragment {
     FriendRequestFragment friendRequestFragment;
     FriendListFragment friendListFragment;
 
-
     View view;
 
     FragmentTransaction ft;
@@ -114,16 +113,4 @@ public class FriendCategoryFragment extends Fragment {
             getFragmentManager().beginTransaction().remove(f).commit();
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        Log.e("FriendCat","onAttach");
-
-        super.onAttach(activity);
-    }
-
-    @Override
-    public void onDetach() {
-        Log.e("FriendCat","onDetach");
-        super.onDetach();
-    }
 }

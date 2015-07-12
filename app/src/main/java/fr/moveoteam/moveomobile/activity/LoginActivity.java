@@ -22,7 +22,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
@@ -204,19 +203,9 @@ public class LoginActivity extends Activity {
             try {
                 if(json == null){
                     final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
 
-                        }
-                    });
                     builder.setMessage("Connexion perdu");
-                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
+                    builder.setPositiveButton("ok", null);
                     builder.show();
                 }else if (json.getString("error").equals("0")) {
                     Log.e("taille",""+json.getJSONObject("user").getString("avatar").length());

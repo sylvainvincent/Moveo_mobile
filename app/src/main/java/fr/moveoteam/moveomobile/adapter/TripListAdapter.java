@@ -89,7 +89,7 @@ public class TripListAdapter extends BaseAdapter {
                 }
 
             } else {
-                viewHolderTrip.explore_username.setText(Html.fromHtml("<font color=#000>par</font> <i>moi</i>"));
+                viewHolderTrip.explore_username.setVisibility(View.GONE);
                 if(!tripList.get(position).getCover().equals("null") && !tripList.get(position).getCover().isEmpty()) {
                     viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
                 }else{

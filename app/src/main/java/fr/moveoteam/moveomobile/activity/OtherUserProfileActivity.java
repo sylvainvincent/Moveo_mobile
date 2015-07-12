@@ -15,13 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
@@ -32,7 +29,6 @@ import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONFriend;
-import fr.moveoteam.moveomobile.webservice.JSONTrip;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
@@ -40,6 +36,7 @@ import fr.moveoteam.moveomobile.webservice.JSONUser;
  */
 public class OtherUserProfileActivity extends Activity {
     // Elements de vue
+    private LinearLayout page;
     private ImageView useravatar;
     private TextView usernameprofile;
     private TextView livein;
@@ -73,12 +70,12 @@ public class OtherUserProfileActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_user_profile);
-
+        initialize();
+        page.setVisibility(View.INVISIBLE);
         otherUserId = getIntent().getExtras().getInt("id",0);
         UserDAO userDAO = new UserDAO(OtherUserProfileActivity.this);
         userDAO.open();
         userId = userDAO.getUserDetails().getId();
-        initialize();
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowTitleEnabled(false);
 
@@ -111,17 +108,15 @@ public class OtherUserProfileActivity extends Activity {
 
     private void initialize() {
 
+        page = (LinearLayout) findViewById(R.id.user_profile);
         useravatar = (ImageView) findViewById(R.id.user_avatar);
         usernameprofile = (TextView) findViewById(R.id.username_profile);
         livein = (TextView) findViewById(R.id.live_in);
         tripsnumber = (TextView) findViewById(R.id.trips_number);
-        //placesnumber = (TextView) findViewById(R.id.places_number);
         sendmail = (ImageView) findViewById(R.id.send_mail);
         addfriend = (ImageView) findViewById(R.id.add_friend);
-        //tripsuser = (ImageView) findViewById(R.id.trips_user);
         tripsusertitle = (TextView) findViewById(R.id.trips_user_title);
         userinfos = (LinearLayout) findViewById(R.id.user_infos);
-        //userprofile = (RelativeLayout) findViewById(R.id.user_profile);
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
@@ -195,12 +190,15 @@ public class OtherUserProfileActivity extends Activity {
 
                     // Affichage du lieu de l'utilisateur
                     if (friend.getAccessId() == 3) {
-                        if (!friend.getCity().equals("null") && !friend.getCountry().equals("null"))
+                        if ((!friend.getCity().equals("null") && !friend.getCity().equals("")) && (!friend.getCountry().equals("null") && !friend.getCountry().equals("")))
                             livein.setText(livein.getText() + " " + friend.getCity() + " en " + friend.getCountry());
-                        else if (friend.getCountry().equals("null") && !friend.getCity().equals("null"))
+                        else if ((friend.getCountry().equals("") || friend.getCountry().equals("null"))  && !friend.getCity().equals("") && !friend.getCity().equals("null"))
                             livein.setText(livein.getText() + " " + friend.getCity());
-                        else if (friend.getCity().equals("null") && !friend.getCountry().equals("null"))
-                            livein.setText(livein.getText() + " " + friend.getCountry());
+                        else if ((friend.getCity().equals("") || friend.getCity().equals("null")) && !friend.getCountry().equals("") && !friend.getCountry().equals("null"))
+                            livein.setText("Habite en " + friend.getCountry());
+                        else {
+                            livein.setText("lieu non renseigné");
+                        }
                     } else {
                         livein.setVisibility(View.INVISIBLE);
                     }
@@ -267,6 +265,7 @@ public class OtherUserProfileActivity extends Activity {
                     }
 
                     friendDAO.close();
+                    page.setVisibility(View.VISIBLE);
 
                 }
 

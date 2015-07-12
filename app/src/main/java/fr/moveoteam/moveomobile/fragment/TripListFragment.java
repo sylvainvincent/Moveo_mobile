@@ -3,7 +3,6 @@ package fr.moveoteam.moveomobile.fragment;
 import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.activity.TripActivity;
@@ -56,14 +54,8 @@ public class TripListFragment extends ListFragment {
         startActivity(intent);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e("test","resume");
-    }
-
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
+        /*private ProgressDialog pDialog;
 
         @Override
         protected void onPreExecute() {
@@ -73,7 +65,7 @@ public class TripListFragment extends ListFragment {
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
-        }
+        }*/
         @Override
         protected JSONObject doInBackground(String... args) {
             JSONTrip jsonTrip = new JSONTrip();
@@ -82,7 +74,7 @@ public class TripListFragment extends ListFragment {
 
         @Override
         protected void onPostExecute(JSONObject json) {
-            pDialog.dismiss();
+          //  pDialog.dismiss();
             try {
                 // Log.e("ExploreFragment",json.getString("message"));
                 // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
@@ -91,6 +83,7 @@ public class TripListFragment extends ListFragment {
                     alert.setMessage("Les voyages n'ont pas pu être récupérer");
                     alert.setPositiveButton("OK", null);
                     alert.show();
+                    setListAdapter(null);
                 }else if(json.getString("success").equals("1")) {
 
                     // Recuperation des voyages sous la forme d'un JSONArray
@@ -110,16 +103,7 @@ public class TripListFragment extends ListFragment {
                     }
 
                     if(tripArrayList != null) {
-
                         setListAdapter(new TripListAdapter(getActivity(), tripArrayList, false));
-
-                        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                        //      R.layout.element_menu,R.id.title,values);
-
-//                        Log.e("afficher list", tripArrayList.get(1).getName());
-                        // setListAdapter(new TripListAdapter(getActivity(), tripArrayList, true));
-                        Log.e("Message ", "" + tripArrayList.get(0).getName() + "" + tripArrayList.get(0).getName());
-                        Log.e("Date ", "" + tripList.getJSONObject(0).getString("trip_created_at") + " java : " + tripArrayList.get(0).getDate());
                     }else {
                         setListAdapter(null);
                     }

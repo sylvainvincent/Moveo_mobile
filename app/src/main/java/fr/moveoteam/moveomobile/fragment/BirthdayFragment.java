@@ -10,12 +10,6 @@ import android.widget.Button;
  */
 public class BirthdayFragment extends DatePickerDialog {
 
-
-
-    public BirthdayFragment(Context context, OnDateSetListener callBack, int year, int monthOfYear, int dayOfMonth) {
-        super(context, callBack, year, monthOfYear, dayOfMonth);
-    }
-
     public BirthdayFragment(Context context, int theme, OnDateSetListener listener, int year, int monthOfYear, int dayOfMonth) {
         super(context, theme, listener, year, monthOfYear, dayOfMonth);
     }
