@@ -38,7 +38,7 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
 /**
  * Created by Sylvain on 10/05/15.
  */
-public class TripActivity extends Activity implements HomeCategoryFragment.OnInformationListener{
+public class TripActivity extends Activity{
 
 	private TextView tripName;
     private TextView tripCountry;
@@ -122,20 +122,6 @@ public class TripActivity extends Activity implements HomeCategoryFragment.OnInf
         imageCover = (ImageView) findViewById(R.id.image_cover);
         tripcontent = (LinearLayout) findViewById(R.id.trip_content);
         scrollView = (CustomScrollView) findViewById(R.id.cover);
-    }
-
-    @Override
-    public void getInformation(Trip trip) {
-        //if(trip != null) {
-            tripName.setText("Bonjour");
-          /*  tripCountry.setText(trip.getCountry());
-            tripDescription.setText(trip.getDescription());
-            tripAuthor.setText(Html.fromHtml("<font color=#000>par</font> <b>" + trip.getAuthor_last_name() + " " + trip.getAuthor_first_name() + " </b>"));
-            tripDate.setText(tripDate.getText() + " " + trip.getDate());
-            tripHome.setVisibility(View.VISIBLE);
-        /*}else{
-           Log.e("Trip","est a nul");
-        }*/
     }
 
     @Override

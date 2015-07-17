@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -26,12 +27,14 @@ import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.DataBaseHandler;
 import fr.moveoteam.moveomobile.dao.DialogDAO;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
+import fr.moveoteam.moveomobile.dao.PhotoDAO;
 import fr.moveoteam.moveomobile.dao.PlaceDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Dialog;
+import fr.moveoteam.moveomobile.model.Photo;
 import fr.moveoteam.moveomobile.model.Place;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.model.User;
@@ -271,6 +274,25 @@ public class DashboardActivity extends Activity {
 
                     Log.e("Dashboard","trip id : "+json.getString("place"));
 
+                    if (!json.getString("photo").equals("0")) {
+                        JSONArray photoList = json.getJSONArray("photo");
+                        ArrayList<Photo> photoArrayList = new ArrayList<>(photoList.length());
+                        for (int i = 0; i < photoList.length(); i++) {
+                            photoArrayList.add(new Photo(
+                                    photoList.getJSONObject(i).getInt("photo_id"),
+                                    photoList.getJSONObject(i).getString("photo_link"),
+                                    photoList.getJSONObject(i).getString("photo_added_date"),
+                                    photoList.getJSONObject(i).getInt("trip_id")
+                            ));
+
+                        }
+
+                        PhotoDAO photoDAO = new PhotoDAO(DashboardActivity.this);
+                        photoDAO.open();
+                        photoDAO.addPhotoList(photoArrayList);
+                        photoDAO.close();
+
+                    }
 
                     if (!json.getString("inbox").equals("0")) {
                         JSONArray inbox = json.getJSONArray("inbox");

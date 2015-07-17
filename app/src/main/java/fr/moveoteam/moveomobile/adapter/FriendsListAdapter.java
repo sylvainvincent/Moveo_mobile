@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +18,10 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
@@ -83,9 +89,11 @@ public class FriendsListAdapter extends BaseAdapter {
 
             Log.i("test friend", friendsList.get(position).toString());
 
-            if (!friendsList.get(position).getAvatarBase64().equals("") || !friendsList.get(position).getAvatarBase64().isEmpty())
-                viewHolderFriend.avatar.setImageBitmap(Function.decodeBase64(friendsList.get(position).getAvatarBase64()));
-            else {
+            if (!friendsList.get(position).getAvatarBase64().equals("") || !friendsList.get(position).getAvatarBase64().isEmpty()) {
+                //viewHolderFriend.avatar.setImageBitmap(Function.decodeBase64(friendsList.get(position).getAvatarBase64()));
+                viewHolderFriend.imageUrl = friendsList.get(position).getAvatarBase64();
+                new DownloadImage().execute(viewHolderFriend);
+            }else {
                 viewHolderFriend.avatar.setImageDrawable(context.getApplicationContext().getResources().getDrawable(R.drawable.default_avatar));
                 Log.i("FriendListAdapter", "passage image ok");
             }
@@ -177,6 +185,8 @@ public class FriendsListAdapter extends BaseAdapter {
     static class ViewHolderFriend {
         TextView friend_name;
         ImageView avatar,accept_friend,refuse_friend, delete_friend;
+        Bitmap bitmap;
+        String imageUrl;
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject>{
@@ -235,4 +245,38 @@ public class FriendsListAdapter extends BaseAdapter {
 
         }
     }
+
+    private class DownloadImage extends AsyncTask<ViewHolderFriend, Void, ViewHolderFriend> {
+
+        URL urlImage;
+        HttpURLConnection connection = null;
+        InputStream inputStream = null;
+
+        @Override
+        protected ViewHolderFriend doInBackground(ViewHolderFriend... args) {
+            ViewHolderFriend viewHolderTripImage = args[0];
+            try {
+                urlImage = new URL("http://moveo.besaba.com/"+viewHolderTripImage.imageUrl);
+                connection = (HttpURLConnection) urlImage.openConnection();
+                if (connection != null) {
+                    inputStream = connection.getInputStream();
+                    viewHolderTripImage.bitmap = BitmapFactory.decodeStream(inputStream);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return viewHolderTripImage;
+        }
+
+        @Override
+        protected void onPostExecute(ViewHolderFriend result) {
+            if (result.bitmap == null) {
+                result.avatar.setImageResource(R.drawable.default_avatar);
+            } else {
+                result.avatar.setImageBitmap(result.bitmap);
+            }
+        }
+    }
+
+
 }

@@ -27,11 +27,13 @@ import java.util.ArrayList;
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.DialogDAO;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
+import fr.moveoteam.moveomobile.dao.PhotoDAO;
 import fr.moveoteam.moveomobile.dao.PlaceDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.model.Dialog;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
+import fr.moveoteam.moveomobile.model.Photo;
 import fr.moveoteam.moveomobile.model.Place;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.model.User;
@@ -298,6 +300,24 @@ public class LoginActivity extends Activity {
                         
                     }
 
+                    if (!json.getString("photo").equals("0")) {
+                        JSONArray photoList = json.getJSONArray("photo");
+                        ArrayList<Photo> photoArrayList = new ArrayList<>(photoList.length());
+                        for (int i = 0; i < photoList.length(); i++) {
+                            photoArrayList.add(new Photo(
+                                    photoList.getJSONObject(i).getInt("photo_id"),
+                                    photoList.getJSONObject(i).getString("photo_link"),
+                                    photoList.getJSONObject(i).getString("photo_added_date"),
+                                    photoList.getJSONObject(i).getInt("trip_id")
+                            ));
+
+                        }
+
+                        PhotoDAO photoDAO = new PhotoDAO(LoginActivity.this);
+                        photoDAO.open();
+                        photoDAO.addPhotoList(photoArrayList);
+                        photoDAO.close();
+                    }
 
                     if (!json.getString("inbox").equals("0")) {
                         JSONArray inbox = json.getJSONArray("inbox");

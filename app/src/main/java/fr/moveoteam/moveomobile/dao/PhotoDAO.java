@@ -13,7 +13,7 @@ import fr.moveoteam.moveomobile.model.Photo;
 /**
  * Created by Sylvain on 18/04/15.
  */
-class PhotoDAO {
+public class PhotoDAO {
 
     // Base de données utilisable
     private SQLiteDatabase database = null;
@@ -97,7 +97,7 @@ class PhotoDAO {
         // database.close();
         if(photoList != null) {
             Log.i("PhotoDAO size", "" + photoList.size());
-            Log.i("PhotoDAO photo", "" + photoList.get(0).getPhotoBase64());
+            Log.i("PhotoDAO photo", "" + photoList.get(4).getPhotoBase64());
         }
         return photoList;
     }

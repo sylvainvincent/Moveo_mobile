@@ -88,63 +88,6 @@ public class SearchActivity extends Activity {
         });
     }
 
-    /*private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(SearchActivity.this);
-            pDialog.setMessage("Récupération des voyages...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
-        @Override
-        protected JSONObject doInBackground(String... args) {
-            JSONTrip jsonTrip = new JSONTrip();
-            return jsonTrip.getTripList(Integer.toString(1));
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject json) {
-            pDialog.dismiss();
-            try {
-                if(json == null) {
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
-                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-
-                        }
-                    });
-                    builder.setMessage("Connexion perdu");
-                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    builder.show();
-                }else if(json.getString("success").equals("1")) {
-                    // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
-
-                    // Recuperation des voyages sous la forme d'un JSONArray
-                    JSONArray tripList = json.getJSONArray("trip");
-                    MyTripListFragment m = new MyTripListFragment();
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.add(R.id.search_content,m);
-                    ft.commit();
-
-                }
-
-            } catch (JSONException e1) {
-                e1.printStackTrace();
-
-            }
-
-        }
-    }*/
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();

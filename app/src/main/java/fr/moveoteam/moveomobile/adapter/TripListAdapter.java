@@ -101,7 +101,9 @@ public class TripListAdapter extends BaseAdapter {
             } else {
                 viewHolderTrip.explore_username.setVisibility(View.GONE);
                 if(!tripList.get(position).getCover().equals("null") && !tripList.get(position).getCover().isEmpty()) {
-                    viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
+                    //viewHolderTrip.imageViewMainPictureTrip.setImageBitmap(Function.decodeBase64(tripList.get(position).getCover()));
+                    viewHolderTrip.imageUrl = tripList.get(position).getCover();
+                    new DownloadImage().execute(viewHolderTrip);
                 }else{
                     viewHolderTrip.imageViewMainPictureTrip.setImageDrawable(context.getResources().getDrawable(R.drawable.default_journey));
                     viewHolderTrip.imageViewMainPictureTrip.setAlpha((float) 0.8);
@@ -117,7 +119,7 @@ public class TripListAdapter extends BaseAdapter {
     static class ViewHolderTrip {
         TextView explore_trip_name, explore_country, explore_username,number_of_comments,number_of_pictures;
         ImageView imageViewMainPictureTrip;
-         ImageView imageButtonComments, imageButtonPictures;
+        ImageView imageButtonComments, imageButtonPictures;
         Bitmap bitmap;
         String imageUrl;
     }
@@ -128,6 +130,7 @@ public class TripListAdapter extends BaseAdapter {
         URL urlImage;
         HttpURLConnection connection = null;
         InputStream inputStream = null;
+
 
         @Override
         protected ViewHolderTrip doInBackground(ViewHolderTrip... args) {

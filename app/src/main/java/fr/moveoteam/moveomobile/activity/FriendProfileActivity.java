@@ -6,6 +6,8 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
@@ -93,8 +99,10 @@ public class FriendProfileActivity extends Activity {
         friend = friendDAO.getFriend(friendId);
         friendDAO.close();
         Log.i("info friend", "" + friendId);
-        if (!friend.getAvatarBase64().equals(""))
-            useravatar.setImageBitmap(Function.decodeBase64(friend.getAvatarBase64()));
+        if (!friend.getAvatarBase64().equals("")){
+            // useravatar.setImageBitmap(Function.decodeBase64(friend.getAvatarBase64()));
+            new DownloadImage().execute(friend.getAvatarBase64());
+        }
 
         usernameprofile.setText(friend.getFirstName() + " " + friend.getLastName().toUpperCase());
        // addfriend.setImageDrawable(getResources().getDrawable(R.drawable.refuse_friend));
@@ -209,6 +217,40 @@ public class FriendProfileActivity extends Activity {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+
+        String url;
+        URL urlImage;
+        HttpURLConnection connection = null;
+        InputStream inputStream = null;
+        Bitmap bitmap = null;
+
+        @Override
+        protected Bitmap doInBackground(String... args) {
+            url = args[0];
+            try {
+                urlImage = new URL("http://moveo.besaba.com/"+url);
+                connection = (HttpURLConnection) urlImage.openConnection();
+                if (connection != null) {
+                    inputStream = connection.getInputStream();
+                    bitmap = BitmapFactory.decodeStream(inputStream);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            if (result == null) {
+                useravatar.setImageResource(R.drawable.default_journey);
+            } else {
+                useravatar.setImageBitmap(result);
             }
         }
     }

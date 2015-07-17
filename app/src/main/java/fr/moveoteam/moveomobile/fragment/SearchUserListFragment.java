@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,7 +59,6 @@ public class SearchUserListFragment extends ListFragment {
         }
 
         private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
-            private ProgressDialog pDialog;
 /*
             @Override
             protected void onPreExecute() {
@@ -78,13 +78,11 @@ public class SearchUserListFragment extends ListFragment {
 
             @Override
             protected void onPostExecute(JSONObject json) {
-             //   pDialog.dismiss();
                 try {
                     if (json == null) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setMessage("Connexion perdu");
-                        builder.setPositiveButton("ok", null);
-                        builder.show();
+                        setListAdapter(null);
+                        Log.e("test json", "null");
+                        Toast.makeText(context, "Connexion perdu", Toast.LENGTH_SHORT).show();
                     } else if (json.getString("success").equals("1")) {
                         JSONArray userList = json.getJSONArray("user");
                         userArrayList = new ArrayList<>(userList.length());
@@ -101,11 +99,8 @@ public class SearchUserListFragment extends ListFragment {
                             setListAdapter(new UsersAdapter(getActivity(), userArrayList));
                         }
                     }else{
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setMessage("Aucun résultat");
-                        builder.setPositiveButton("ok", null);
-                        builder.show();
                         setListAdapter(null);
+                        Toast.makeText(context, "Aucune résultat", Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {

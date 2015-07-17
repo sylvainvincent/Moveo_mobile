@@ -97,7 +97,7 @@ public class SettingsFragment extends Fragment {
 
 
                 if(count == 3){
-                    if(newPassword.getText().equals(checkNewPassword.getText())){
+                    if(newPassword.getText().toString().equals(checkNewPassword.getText().toString())){
                         new ExecuteThread().execute();
                     }else{
                         Toast.makeText(getActivity(),"Les mots de passes ne sont pas identiques",Toast.LENGTH_LONG).show();

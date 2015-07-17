@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
@@ -41,18 +46,10 @@ import fr.moveoteam.moveomobile.webservice.JSONTrip;
  */
 public class MyTripActivity extends Activity {
 
-    private TripDAO tripDAO;
-    private int id;
-    private int userId;
-
-    private AlertDialog.Builder alertDialog;
-
-    private ArrayList<Comment> commentArrayList;
+    // Element de vue
     private TextView modifycover;
     private TextView mytripcitytitle;
     private TextView mytriptitle;
-    private ScrollView mytrip;
-    private ListView listView;
     private EditText tripdescription;
     private TextView addtripdate;
     private Button modifydescription;
@@ -62,7 +59,11 @@ public class MyTripActivity extends Activity {
     private ImageView fooding;
     private ImageView cover;
     private ImageView comment;
+    private ImageView pictures;
 
+    private TripDAO tripDAO;
+    private int id;
+    private int userId;
     private String photoBase64;
     private String description;
 
@@ -93,8 +94,10 @@ public class MyTripActivity extends Activity {
         tripdescription.setText(description);
 
         if(trip.getCover() != null ) {
-            if(!trip.getCover().equals("") && !trip.getCover().equals("null"))
-            cover.setImageBitmap(Function.decodeBase64(trip.getCover()));
+            if(!trip.getCover().equals("") && !trip.getCover().equals("null")){
+                new DownloadImage().execute(trip.getCover());
+            }
+           // cover.setImageBitmap(Function.decodeBase64(trip.getCover()));
         }
         if(trip.getDate() != null)
             addtripdate.setText(addtripdate.getText() + " " + Function.dateSqlToFullDateJava(trip.getDate()));
@@ -182,6 +185,16 @@ public class MyTripActivity extends Activity {
 
             }
         });
+
+        pictures.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyTripActivity.this,MyGalleryPhotoActivity.class);
+                intent.putExtra("tripId",id);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initialize() {
@@ -189,7 +202,6 @@ public class MyTripActivity extends Activity {
         cover = (ImageView) findViewById(R.id.my_trip_cover);
         modifycover = (TextView) findViewById(R.id.modify_cover);
         mytripcitytitle = (TextView) findViewById(R.id.my_trip_city_title);
-        mytrip = (ScrollView) findViewById(R.id.my_trip);
         tripdescription = (EditText) findViewById(R.id.trip_description);
         addtripdate = (TextView) findViewById(R.id.add_trip_date);
         mytriptitle = (TextView) findViewById(R.id.my_trip_title);
@@ -199,150 +211,14 @@ public class MyTripActivity extends Activity {
         shopping = (ImageView) findViewById(R.id.shopping);
         hobbies = (ImageView) findViewById(R.id.hobbies);
         comment = (ImageView) findViewById(R.id.comment);
+        pictures = (ImageView) findViewById(R.id.pictures);
 
     }
 
-    private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
-        JSONArray placeList;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(MyTripActivity.this);
-            pDialog.setMessage("Chargement...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... args) {
-            JSONTrip jsonTrip = new JSONTrip();
-            return jsonTrip.getTrip(Integer.toString(id));
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject json) {
-            pDialog.dismiss();
-            try {
-                if(json == null){
-                    finish();
-                }
-                else if (json.getString("error").equals("0")) {
-
-                    tripDAO = new TripDAO(MyTripActivity.this);
-                    tripDAO.open();
-
-                    mytriptitle.setText(json.getJSONObject("trip").getString("trip_name"));
-                    mytripcitytitle.setText(json.getJSONObject("trip").getString("trip_country"));
-                    tripdescription.setText(json.getJSONObject("trip").getString("trip_description"));
-
-                    if(!json.getJSONObject("trip").getString("trip_cover").equals("null")) {
-                        cover.setImageBitmap(Function.decodeBase64(json.getJSONObject("trip").getString("trip_cover")));
-                    }
-
-                    addtripdate.setText(addtripdate.getText() + " " + Function.dateSqlToFullDateJava(json.getJSONObject("trip").getString("trip_created_at")));
-
-
-                    /*if((json.getString("success").equals("1")) || (json.getString("success").equals("2"))){
-
-                        placeArrayList = new ArrayList<>();
-
-                        if(!json.getString("fooding").equals("0")){
-                            placeList = json.getJSONArray("fooding");
-                            for (int i = 0; i < placeList.length(); i++) {
-                                placeArrayList.add(new Place(
-                                        placeList.getJSONObject(i).getInt("place_id"),
-                                        placeList.getJSONObject(i).getString("place_name"),
-                                        placeList.getJSONObject(i).getString("place_address"),
-                                        placeList.getJSONObject(i).getString("place_description"),
-                                        placeList.getJSONObject(i).getInt("category_id")
-                                ));
-                                Log.e("fooding", placeArrayList.get(i).toString());
-                            }
-                        }
-
-                        if(!json.getString("shopping").equals("0")){
-                            placeList = json.getJSONArray("shopping");
-                            for (int i = 0; i < placeList.length(); i++) {
-                                placeArrayList.add(new Place(
-                                        placeList.getJSONObject(i).getInt("place_id"),
-                                        placeList.getJSONObject(i).getString("place_name"),
-                                        placeList.getJSONObject(i).getString("place_address"),
-                                        placeList.getJSONObject(i).getString("place_description"),
-                                        placeList.getJSONObject(i).getInt("category_id")
-                                ));
-                                Log.e("shopping", placeArrayList.get(i).toString());
-                            }
-                        }
-
-                        if(!json.getString("leisure").equals("0")){
-                            JSONArray placeList = json.getJSONArray("leisure");
-                            placeArrayList = new ArrayList<>(placeList.length());
-                            for (int i = 0; i < placeList.length(); i++) {
-                                placeArrayList.add(new Place(
-                                        placeList.getJSONObject(i).getInt("place_id"),
-                                        placeList.getJSONObject(i).getString("place_name"),
-                                        placeList.getJSONObject(i).getString("place_address"),
-                                        placeList.getJSONObject(i).getString("place_description"),
-                                        placeList.getJSONObject(i).getInt("category_id")
-
-                                ));
-                                Log.e("leisure", placeArrayList.get(i).toString());
-                            }
-                        }
-
-                        PlaceDAO placeDAO = new PlaceDAO(MyTripActivity.this);
-                        placeDAO.open();
-                        placeDAO.addPlaceList(placeArrayList);
-                        placeDAO.close();
-                    }*/
-
-                    if((json.getString("success").equals("1")) || (json.getString("success").equals("3"))){
-                        JSONArray commentList = json.getJSONArray("comment");
-                        commentArrayList = new ArrayList<>(commentList.length());
-                        for (int i = 0; i < commentList.length(); i++) {
-                            commentArrayList.add(new Comment(
-                                    commentList.getJSONObject(i).getInt("comment_id"),
-                                    commentList.getJSONObject(i).getString("comment_message"),
-                                    commentList.getJSONObject(i).getString("comment_added_datetime"),
-                                    commentList.getJSONObject(i).getInt("user_id"),
-                                    commentList.getJSONObject(i).getString("user_last_name"),
-                                    commentList.getJSONObject(i).getString("user_first_name"),
-                                    commentList.getJSONObject(i).getString("user_link_avatar")
-
-                            ));
-                            Log.e("comment", commentArrayList.get(i).toString());
-                        }
-                    }
-                    mytrip.setAlpha(1);
-                    //pictures.setImageBitmap(tripDAO.getTripList().);
-                    /*tripName.setText(trip.getName());
-                    tripCountry.setText(trip.getCountry());
-                    tripDescription.setText(trip.getDescription());
-                    tripAuthor.setText(Html.fromHtml("<font color=#000>par</font> <b>"+trip.getAuthor_last_name()+" "+trip.getAuthor_first_name()+" </b>"));
-                    tripDate.setText(tripDate.getText()+" "+trip.getDate());
-                    tripHome.setVisibility(View.VISIBLE);*/
-
-                } else {
-
-                    alertDialog = new AlertDialog.Builder(
-                            MyTripActivity.this);
-                    alertDialog.setCancelable(false);
-                    alertDialog.setMessage("Une erreur s'est produite lors de la récupération du voyage");
-                    alertDialog.setNegativeButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    });
-                    alertDialog.show();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
     }
 
     private class ExecuteUpdateTripThread extends AsyncTask<String, String, JSONObject> {
@@ -470,7 +346,7 @@ public class MyTripActivity extends Activity {
 
                         TripDAO tripDAO = new TripDAO(MyTripActivity.this);
                         tripDAO.open();
-                        tripDAO.updateCover(id,photoBase64);
+                        tripDAO.updateCover(id,jsonObject.getString("link_cover"));
                         tripDAO.close();
                         setResult(RESULT_OK);
                     }else {
@@ -527,6 +403,40 @@ public class MyTripActivity extends Activity {
                     Toast.makeText(MyTripActivity.this, "Photo trop lourd", Toast.LENGTH_LONG).show();
                 }
 
+            }
+        }
+    }
+
+    private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+
+        String url;
+        URL urlImage;
+        HttpURLConnection connection = null;
+        InputStream inputStream = null;
+        Bitmap bitmap = null;
+
+        @Override
+        protected Bitmap doInBackground(String... args) {
+            url = args[0];
+            try {
+                urlImage = new URL("http://moveo.besaba.com/"+url);
+                connection = (HttpURLConnection) urlImage.openConnection();
+                if (connection != null) {
+                    inputStream = connection.getInputStream();
+                    bitmap = BitmapFactory.decodeStream(inputStream);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            if (result == null) {
+                cover.setImageResource(R.drawable.default_journey);
+            } else {
+                cover.setImageBitmap(result);
             }
         }
     }

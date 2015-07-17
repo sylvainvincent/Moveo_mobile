@@ -77,8 +77,8 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".activity.PhotoActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:name=".activity.AddPhotoActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 
         <activity
@@ -103,6 +103,10 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.CommentActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.MyGalleryPhotoActivity"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait"/>
 

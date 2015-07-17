@@ -41,18 +41,12 @@ public class OtherUserProfileActivity extends Activity {
     private TextView usernameprofile;
     private TextView livein;
     private TextView tripsnumber;
-    private TextView placesnumber;
     private ImageView sendmail;
     private ImageView addfriend;
-    private ImageView tripsuser;
-    private TextView tripsusertitle;
-    private LinearLayout userinfos;
-    private RelativeLayout userprofile;
+
 
     // Manipulation de la table friend (Base de données)
     private FriendDAO friendDAO;
-
-    ArrayList<Trip> tripArrayList;
 
     // FRAGMENT
     private TripListFragment tripListFragment;
@@ -115,8 +109,7 @@ public class OtherUserProfileActivity extends Activity {
         tripsnumber = (TextView) findViewById(R.id.trips_number);
         sendmail = (ImageView) findViewById(R.id.send_mail);
         addfriend = (ImageView) findViewById(R.id.add_friend);
-        tripsusertitle = (TextView) findViewById(R.id.trips_user_title);
-        userinfos = (LinearLayout) findViewById(R.id.user_infos);
+
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
@@ -203,7 +196,6 @@ public class OtherUserProfileActivity extends Activity {
                         livein.setVisibility(View.INVISIBLE);
                     }
 
-
                     if (tripCount == 1)
                         tripsnumber.setText(tripCount + " voyage");
                     else tripsnumber.setText(tripCount + " voyages");
@@ -274,7 +266,6 @@ public class OtherUserProfileActivity extends Activity {
             }
         }
 
-
     }
 
     private class ExecuteSendInvitationThread extends AsyncTask<String, String, JSONObject> {
@@ -344,7 +335,6 @@ public class OtherUserProfileActivity extends Activity {
                 e.printStackTrace();
             }
         }
-
 
     }
 

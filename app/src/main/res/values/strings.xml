@@ -206,7 +206,7 @@
     <string name="hint_description_trip">Votre description</string>
     <string name="text_my_comment">Votre Commentaire</string>
     <string name="delete">Supprimer</string>
-
+    <string name="add_photo">Ajouter une photo</string>
 
 
 </resources>

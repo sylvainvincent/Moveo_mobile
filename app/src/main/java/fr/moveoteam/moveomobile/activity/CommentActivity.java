@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.adapter.CommentListAdapter;
+import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Comment;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
@@ -31,6 +32,7 @@ public class CommentActivity extends Activity {
 
     private ListView listView;
     private int id;
+    private int userId;
     private ArrayList<Comment> commentArrayList;
     private int commentId;
 
@@ -42,11 +44,21 @@ public class CommentActivity extends Activity {
         getActionBar().setDisplayShowTitleEnabled(false);
 
         id = getIntent().getIntExtra("tripId",0);
+        UserDAO userDAO = new UserDAO(this);
+        userDAO.open();
+        userId = userDAO.getUserDetails().getId();
+        userDAO.close();
         setContentView(R.layout.my_comment_list);
         listView = (ListView) findViewById(R.id.my_comment_list);
 
         new ExecuteThread().execute();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
@@ -99,7 +111,7 @@ public class CommentActivity extends Activity {
                         Log.e("comment", commentArrayList.get(i).toString());
                     }
 
-                    listView.setAdapter(new CommentListAdapter(CommentActivity.this, commentArrayList));
+                    listView.setAdapter(new CommentListAdapter(CommentActivity.this, commentArrayList,userId));
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -111,7 +123,7 @@ public class CommentActivity extends Activity {
 
                 }else{
                     final AlertDialog.Builder builder = new AlertDialog.Builder(CommentActivity.this);
-                    builder.setMessage("Récupération des commentaires échoué");
+                    builder.setMessage("Pas de commentaires");
                     builder.setPositiveButton("OK", null);
                     builder.show();
                 }

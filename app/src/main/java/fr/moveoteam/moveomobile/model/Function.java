@@ -253,9 +253,13 @@ public class Function {
                     long diffDays = (actualyDate.getTime() - convertedDate.getTime()) / (1000*60*60*24);
                     if(diffDays > 7){
                         long diffWeeks = (actualyDate.getTime() - convertedDate.getTime()) /   ((1000 * 60 * 60) * (24 * 7));
-                        if(diffWeeks >4){
+                        if(diffWeeks > 4){
                             long diffMonths = (actualyDate.getTime() - convertedDate.getTime()) / (60000 * 60 * 24 * 7 * 30);
-                            dateDisplay = diffMonths + " mois";
+                            if(diffMonths > 12){
+                                dateDisplay = " + d'un an";
+                            }else{
+                                dateDisplay = diffMonths + " mois";
+                            }
                         }else{
                             dateDisplay = diffWeeks + " semaines";
                         }

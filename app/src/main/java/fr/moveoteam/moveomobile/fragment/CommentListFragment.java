@@ -22,6 +22,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
@@ -104,20 +107,8 @@ public class CommentListFragment extends ListFragment {
     }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
-       // private ProgressDialog pDialog;
 
-       /* @Override //Procedure appelée avant le traitement (optionnelle)
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            pDialog = new ProgressDialog(getActivity());
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }*/
-
-        @Override
-        //Méthode appelée pendant le traitement (obligatoire)
+        @Override //Méthode appelée pendant le traitement (obligatoire)
         protected JSONObject doInBackground(String... args) {
 
             JSONTrip jsonTrip = new JSONTrip();
@@ -127,7 +118,6 @@ public class CommentListFragment extends ListFragment {
         @Override
         //Procedure appelée après le traitement (optionnelle)
         protected void onPostExecute(JSONObject json) {
-            //pDialog.dismiss();
 
             try {
                 if(json == null){
@@ -136,7 +126,6 @@ public class CommentListFragment extends ListFragment {
                     builder.setMessage("Connexion perdue");
                     builder.setPositiveButton("OK", null);
                     builder.show();
-
                 }else if (json.getString("success").equals("1")) {
                     JSONArray commentList = json.getJSONArray("comment");
                     commentArrayList = new ArrayList<>(commentList.length());
@@ -152,15 +141,12 @@ public class CommentListFragment extends ListFragment {
                         ));
                         Log.e("comment", commentArrayList.get(i).toString());
                     }
-
-                    setListAdapter(new CommentListAdapter(getActivity(), commentArrayList));
+                    if(commentArrayList != null)
+                        setListAdapter(new CommentListAdapter(getActivity(), commentArrayList, userId));
 
                 }else{
                     setListAdapter(null);
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setMessage("Récupération des commentaires échoué");
-                    builder.setPositiveButton("OK", null);
-                    builder.show();
+                    Toast.makeText(getActivity(),"Il n'y a pas de commentaires",Toast.LENGTH_LONG).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

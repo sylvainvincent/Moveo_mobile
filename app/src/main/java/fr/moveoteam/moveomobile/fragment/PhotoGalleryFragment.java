@@ -3,6 +3,8 @@ package fr.moveoteam.moveomobile.fragment;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +20,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
@@ -35,6 +41,7 @@ public class PhotoGalleryFragment  extends Fragment{
     private GridView gridview;
     private ArrayList<Photo> photoArrayList;
     private int tripId;
+    ImageView image;
 
     @Nullable
     @Override
@@ -58,7 +65,6 @@ public class PhotoGalleryFragment  extends Fragment{
     // Classe qui permet de réaliser des tâches de manière asynchrone
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
-
 
         @Override //Procedure appelée avant le traitement (optionnelle)
         protected void onPreExecute() {
@@ -95,7 +101,6 @@ public class PhotoGalleryFragment  extends Fragment{
                                 photoList.getJSONObject(i).getString("photo_link"),
                                 photoList.getJSONObject(i).getString("photo_added_date"),
                                 tripId
-
                         ));
                     }
 
@@ -107,11 +112,11 @@ public class PhotoGalleryFragment  extends Fragment{
                             AlertDialog.Builder print= new AlertDialog.Builder(getActivity());
                             LayoutInflater factory = LayoutInflater.from(getActivity());
                             View photoView = factory.inflate(R.layout.photo, null);
-                            ImageView image = (ImageView) photoView.findViewById(R.id.photo);
+                            image = (ImageView) photoView.findViewById(R.id.photo);
                             TextView photoDate = (TextView) photoView.findViewById(R.id.photo_publication_date);
 
                             photoDate.setText(photoDate.getText()+" "+photoArrayList.get(position).getPublicationDate());
-                            image.setImageBitmap(Function.decodeBase64(photoArrayList.get(position).getPhotoBase64()));
+                            new DownloadImage().execute(photoArrayList.get(position).getPhotoBase64());
                             print.setView(photoView);
                             //AlertDialog d = print.create();
                             print.show();
@@ -132,4 +137,39 @@ public class PhotoGalleryFragment  extends Fragment{
             }
         }
     }
+
+    private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+
+        String url;
+        URL urlImage;
+        HttpURLConnection connection = null;
+        InputStream inputStream = null;
+        Bitmap bitmap = null;
+
+        @Override
+        protected Bitmap doInBackground(String... args) {
+            url = args[0];
+            try {
+                urlImage = new URL("http://moveo.besaba.com/"+url);
+                connection = (HttpURLConnection) urlImage.openConnection();
+                if (connection != null) {
+                    inputStream = connection.getInputStream();
+                    bitmap = BitmapFactory.decodeStream(inputStream);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            if (result == null) {
+                image.setImageResource(R.drawable.default_journey);
+            } else {
+                image.setImageBitmap(result);
+            }
+        }
+    }
+
 }

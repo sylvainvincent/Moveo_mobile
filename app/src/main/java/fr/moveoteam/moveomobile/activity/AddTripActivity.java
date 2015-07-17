@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -115,6 +116,11 @@ public class AddTripActivity extends Activity {
         image = (ImageView) findViewById(R.id.trip_image);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return true;
+    }
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject>{
 
@@ -167,8 +173,15 @@ public class AddTripActivity extends Activity {
                     trip.setId(Integer.parseInt(json.getString("trip_id")));
                     trip.setName(editTripName.getText().toString());
                     trip.setCountry(editCountry.getText().toString());
-                    if(photoBase64 != null)trip.setCover(photoBase64);
-                    if(!editdescriptiontrip.getText().toString().equals(""))trip.setDescription(editdescriptiontrip.getText().toString());
+                    trip.setDescription(editdescriptiontrip.getText().toString());
+
+                    if(photoBase64 != null){
+                       // trip.setCover(photoBase64);
+                        trip.setCover(json.getString("photo_link"));
+                    }else{
+                        trip.setCover("null");
+                    }
+
                     trip.setDate(json.getString("date"));
                     TripDAO tripDAO = new TripDAO(AddTripActivity.this);
                     tripDAO.open();

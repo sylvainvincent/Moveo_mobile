@@ -46,13 +46,15 @@ public class PlaceListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
 		
         super.onListItemClick(l, v, position, id);
-        Place place = placeArrayList.get(position); 
-        Log.e("Recuperation", ""+place.getId());
-        Intent intent = new Intent(getActivity(), PlaceActivity.class);
-        intent.putExtra("placeName",place.getName());
-        intent.putExtra("placeAddress",place.getAddress());
-        intent.putExtra("placeDescription",place.getDescription());
-        startActivity(intent);
+        if(placeArrayList != null){
+            Place place = placeArrayList.get(position);
+            Log.e("Recuperation", ""+place.getId());
+            Intent intent = new Intent(getActivity(), PlaceActivity.class);
+            intent.putExtra("placeName",place.getName());
+            intent.putExtra("placeAddress",place.getAddress());
+            intent.putExtra("placeDescription",place.getDescription());
+            startActivity(intent);
+        }
 
     }
 

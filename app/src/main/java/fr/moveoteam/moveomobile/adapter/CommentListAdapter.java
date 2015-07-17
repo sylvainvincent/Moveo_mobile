@@ -1,6 +1,9 @@
 package fr.moveoteam.moveomobile.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
@@ -23,12 +38,14 @@ public class CommentListAdapter extends BaseAdapter {
 
     private ArrayList<Comment> commentArrayList;
     private LayoutInflater layoutInflater;
-    private ViewHolderComment viewHolderComment;
+    ViewHolderComment viewHolderComment;
     private Context context;
+    private int userId;
 
-    public CommentListAdapter(Context context, ArrayList<Comment> commentArrayList){
+    public CommentListAdapter(Context context, ArrayList<Comment> commentArrayList, int userId){
         this.commentArrayList = commentArrayList;
         this.context = context;
+        this.userId = userId;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -73,17 +90,25 @@ public class CommentListAdapter extends BaseAdapter {
             viewHolderComment.modifyText.setVisibility(View.GONE);
         }
         else {
-            if (commentArrayList.get(position).getUserAvatarBase64() != null)
-                viewHolderComment.avatarComment.setImageBitmap(Function.decodeBase64(commentArrayList.get(position).getUserAvatarBase64()));
-                viewHolderComment.userNameComment.setText(commentArrayList.get(position).getUserFirstName() + " " + commentArrayList.get(position).getUserLastName());
-                viewHolderComment.commentContent.setText(commentArrayList.get(position).getMessage());
-                viewHolderComment.timeComment.setText("Il y a " + Function.differenceDate(commentArrayList.get(position).getDate()));
-                Log.e("position comment", position + "");
-                UserDAO userDAO = new UserDAO(context);
-                userDAO.open();
-            if (commentArrayList.get(position).getIdUser() != userDAO.getUserDetails().getId())
+            if (commentArrayList.get(position).getUserAvatarBase64() != null){
+                viewHolderComment.imageUrl = commentArrayList.get(position).getUserAvatarBase64();
+                new DownloadImage().execute(viewHolderComment);
+            }
+            //viewHolderComment.avatarComment.setImageBitmap(Function.decodeBase64(commentArrayList.get(position).getUserAvatarBase64()));
+            viewHolderComment.userNameComment.setText(commentArrayList.get(position).getUserFirstName() + " " + commentArrayList.get(position).getUserLastName());
+            viewHolderComment.commentContent.setText(commentArrayList.get(position).getMessage());
+            viewHolderComment.timeComment.setText("Il y a " + Function.differenceDate(commentArrayList.get(position).getDate()));
+            Log.e("position comment", position + "");
+            UserDAO userDAO = new UserDAO(context);
+            userDAO.open();
+            if (commentArrayList.get(position).getIdUser() != userId){
                 viewHolderComment.modifyText.setVisibility(View.INVISIBLE);
+            }
+            else{
+                viewHolderComment.modifyText.setVisibility(View.VISIBLE);
+            }
             userDAO.close();
+
         }
         return convertView;
     }
@@ -92,6 +117,49 @@ public class CommentListAdapter extends BaseAdapter {
         ImageView avatarComment;
         TextView userNameComment, commentContent, timeComment;
         TextView modifyText;
+        Bitmap bitmap;
+        String imageUrl;
+    }
+
+    private class DownloadImage extends AsyncTask<ViewHolderComment, Void, ViewHolderComment> {
+
+        URL urlImage;
+        HttpURLConnection connection = null;
+        InputStream inputStream = null;
+
+        @Override
+        protected ViewHolderComment doInBackground(ViewHolderComment... args) {
+            ViewHolderComment viewHolderTripImage = args[0];
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet("http://moveo.besaba.com/"+viewHolderTripImage.imageUrl);
+            HttpResponse response;
+            try {
+                response = (HttpResponse)client.execute(request);
+                HttpEntity entity = response.getEntity();
+                BufferedHttpEntity bufferedEntity = new BufferedHttpEntity(entity);
+                InputStream inputStream = bufferedEntity.getContent();
+                viewHolderTripImage.bitmap  = BitmapFactory.decodeStream(inputStream);
+
+                //urlImage = new URL("http://moveo.besaba.com/"+viewHolderTripImage.imageUrl);
+               // connection = (HttpURLConnection) urlImage.openConnection();
+                /*if (connection != null) {
+                    inputStream = connection.getInputStream();
+                    viewHolderTripImage.bitmap = BitmapFactory.decodeStream(inputStream);
+                }*/
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return viewHolderTripImage;
+        }
+
+        @Override
+        protected void onPostExecute(ViewHolderComment result) {
+            if (result.bitmap == null) {
+                result.avatarComment.setImageResource(R.drawable.default_avatar);
+            } else {
+                result.avatarComment.setImageBitmap(result.bitmap);
+            }
+        }
     }
 
 }

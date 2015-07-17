@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -107,6 +108,9 @@ public class TripListFragment extends ListFragment {
                     }else {
                         setListAdapter(null);
                     }
+                }else{
+                    setListAdapter(null);
+                    Toast.makeText(getActivity(),"L'utilisateur n'a pas de voyages",Toast.LENGTH_LONG).show();
                 }
 
             } catch (JSONException e1) {

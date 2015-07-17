@@ -2,6 +2,7 @@ package fr.moveoteam.moveomobile.fragment;
 
 import android.app.ListFragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ public class SearchTripListFragments extends ListFragment {
 
     private String query;
     private String userId;
-
+    Context context;
     private ArrayList<Trip> tripArrayList;
 
     @Override
@@ -42,6 +43,7 @@ public class SearchTripListFragments extends ListFragment {
         super.onActivityCreated(savedInstanceState);
         query = getArguments().getString("query");
         Log.e("Test Search",query);
+        context = getActivity();
         UserDAO userDAO = new UserDAO(getActivity());
         userDAO.open();
         userId = Integer.toString(userDAO.getUserDetails().getId());
@@ -61,7 +63,6 @@ public class SearchTripListFragments extends ListFragment {
 
     private class ExecuteThread extends AsyncTask<String, String, JSONObject> {
         private ProgressDialog pDialog;
-
 
         @Override
         protected void onPreExecute() {
@@ -84,8 +85,9 @@ public class SearchTripListFragments extends ListFragment {
             pDialog.dismiss();
             try {
                 if (json == null) {
+                    setListAdapter(null);
                     Log.e("test json", "null");
-                   Toast.makeText(getActivity(), "Une erreur est survenue lors de la recherche", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Connexion perdu", Toast.LENGTH_SHORT).show();
                 } else if (json.getString("success").equals("1")) {
                     JSONArray tripList = json.getJSONArray("trip");
                     tripArrayList = new ArrayList<>(tripList.length());
@@ -108,6 +110,7 @@ public class SearchTripListFragments extends ListFragment {
 
                 }else{
                     setListAdapter(null);
+                    Toast.makeText(context, "Aucune resultat", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (JSONException e) {
