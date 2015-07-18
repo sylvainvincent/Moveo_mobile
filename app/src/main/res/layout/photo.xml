@@ -17,8 +17,9 @@
             android:contentDescription="@string/photo_description" />
         <TextView
             android:id="@+id/photo_publication_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="300dp"
+            android:maxHeight="300dp"
             android:layout_marginTop="5dp"
             android:textColor="#FFF"
             android:layout_gravity="center_horizontal"

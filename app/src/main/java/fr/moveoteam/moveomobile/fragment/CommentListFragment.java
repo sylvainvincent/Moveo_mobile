@@ -44,7 +44,6 @@ public class CommentListFragment extends ListFragment {
     //Element de vue
     private EditText editComment;
 
-
     private ArrayList<Comment> commentArrayList;
     private int tripId;
     private int userId;
@@ -85,6 +84,7 @@ public class CommentListFragment extends ListFragment {
             adb.setView(alertDialogView);
 
             Button modifyButton = (Button)alertDialogView.findViewById(R.id.modify_comment);
+            Button deleteButton = (Button)alertDialogView.findViewById(R.id.delete_comment);
             editComment = (EditText)alertDialogView.findViewById(R.id.edit_my_comment);
             editComment.setText(comment.getMessage());
             modifyButton.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +96,23 @@ public class CommentListFragment extends ListFragment {
                         Log.e("comment", "id : "+commentId+" message : "+commentMessage);
                         new ExecuteModifyCommentThread().execute();
                     }
+                }
+            });
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Êtes vous sûr de supprimer le commentaire ?");
+                    builder.setPositiveButton("oui", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            commentId = commentArrayList.get(position).getId();
+                            new ExecuteDeleteCommentThread().execute();
+                        }
+                    });
+                    builder.setNegativeButton("non", null);
+                    builder.show();
                 }
             });
 
@@ -216,5 +233,64 @@ public class CommentListFragment extends ListFragment {
 
     }
 
+    private class ExecuteDeleteCommentThread extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+
+        @Override //Procedure appelée avant le traitement (optionnelle)
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Suppression en cours ...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        //Méthode appelée pendant le traitement (obligatoire)
+        protected JSONObject doInBackground(String... args) {
+
+            JSONTrip jsonTrip = new JSONTrip();
+            return jsonTrip.deleteComment(Integer.toString(commentId));
+        }
+
+        @Override
+        //Procedure appelée après le traitement (optionnelle)
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+
+            try {
+                if(json == null){
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Connexion perdue");
+                    builder.setPositiveButton("OK", null);
+                    builder.show();
+                }else if (json.getString("success").equals("1")) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Votre commentaire a été supprimé");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(getActivity().getIntent());
+                            getActivity().finish();
+                            //((TripActivity)getActivity()).refreshFragment();
+                        }
+                    });
+                    builder.show();
+
+                }else{
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Suppression du commentaire échoué");
+                    builder.setPositiveButton("OK", null);
+                    builder.show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
 
 }

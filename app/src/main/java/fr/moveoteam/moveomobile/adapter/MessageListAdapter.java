@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.activity.SendMessageActivity;
 import fr.moveoteam.moveomobile.model.Dialog;
+import fr.moveoteam.moveomobile.model.Function;
 
 /**
  * Created by Sylvain on 31/05/15.
@@ -30,7 +31,6 @@ public class MessageListAdapter extends BaseAdapter {
     public MessageListAdapter(Context context, ArrayList<Dialog> dialogArrayList){
         this.dialogArrayList = dialogArrayList;
         this.context = context;
-        layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class MessageListAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         if(convertView == null){
-
+            layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(R.layout.row_list_messages, null);
             viewHolderMessage = new ViewHolderMessage();
             viewHolderMessage.userName = (TextView) convertView.findViewById(R.id.message_username);
@@ -68,7 +68,7 @@ public class MessageListAdapter extends BaseAdapter {
 
         viewHolderMessage.userName.setText(dialogArrayList.get(position).getRecipientFirstName()+" "+dialogArrayList.get(position).getRecipientLastName());
         viewHolderMessage.content.setText(dialogArrayList.get(position).getMessage());
-        viewHolderMessage.date.setText(dialogArrayList.get(position).getDate());
+        viewHolderMessage.date.setText(Function.dateTimeSqlToFullDateJava(dialogArrayList.get(position).getDate()));
         if(dialogArrayList.get(position).isInbox()) {
             viewHolderMessage.reply.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,8 +81,11 @@ public class MessageListAdapter extends BaseAdapter {
                 }
             });
 			if(dialogArrayList.get(position).isRead()){
-				viewHolderMessage.row.setBackgroundColor(Color.parseColor("#BBBBBB"));
-			}
+				viewHolderMessage.row.setBackgroundColor(Color.parseColor("#CCCCCC"));
+                viewHolderMessage.userName.setTextColor(Color.parseColor("#999999"));
+			}else{
+                viewHolderMessage.row.setBackgroundColor(Color.parseColor("#EEEEEE"));
+            }
         }else{
              viewHolderMessage.reply.setVisibility(View.GONE);
             viewHolderMessage.replyIcon.setVisibility(View.GONE);

@@ -52,7 +52,8 @@ public class FriendsListAdapter extends BaseAdapter {
 
     public void updateResult(ArrayList<Friend> friendsList){
         this.friendsList = friendsList;
-        notifyDataSetChanged();
+        if(friendsList == null) notifyDataSetInvalidated();
+        else notifyDataSetChanged();
     }
 
     @Override
@@ -143,13 +144,7 @@ public class FriendsListAdapter extends BaseAdapter {
                                 new ExecuteThread().execute();
                             }
                         });
-                        alert.setNegativeButton("non", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-
-                            }
-                        });
+                        alert.setNegativeButton("non", null);
                         alert.show();
                     }
                 });
@@ -167,12 +162,7 @@ public class FriendsListAdapter extends BaseAdapter {
                                 new ExecuteThread().execute();
                             }
                         });
-                        alert.setNegativeButton("non", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
+                        alert.setNegativeButton("non", null);
                         alert.show();
                     }
                 });
@@ -214,6 +204,8 @@ public class FriendsListAdapter extends BaseAdapter {
 
         @Override
         protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+
             super.onPostExecute(json);
             if (json == null) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(context);
@@ -229,8 +221,6 @@ public class FriendsListAdapter extends BaseAdapter {
 
                     if (!accepted)
                         friendDAO.removeFriend(Integer.parseInt(friendId));
-
-                    pDialog.dismiss();
 
                     ((HomeActivity) context).refreshFragment();
                 }else{
@@ -255,6 +245,7 @@ public class FriendsListAdapter extends BaseAdapter {
         @Override
         protected ViewHolderFriend doInBackground(ViewHolderFriend... args) {
             ViewHolderFriend viewHolderTripImage = args[0];
+
             try {
                 urlImage = new URL("http://moveo.besaba.com/"+viewHolderTripImage.imageUrl);
                 connection = (HttpURLConnection) urlImage.openConnection();

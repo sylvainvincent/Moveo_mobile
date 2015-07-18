@@ -161,11 +161,12 @@ public class AddPhotoActivity extends Activity {
                     photoDAO.close();
                     final AlertDialog.Builder builder = new AlertDialog.Builder(AddPhotoActivity.this);
 
-                    builder.setMessage("La modification a été réalisé avec succès");
+                    builder.setMessage("La photo a été ajouté avec succès");
                     builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(AddPhotoActivity.this, MyGalleryPhotoActivity.class);
+                            intent.putExtra("tripId",tripId);
                             startActivity(intent);
                             finish();
                         }

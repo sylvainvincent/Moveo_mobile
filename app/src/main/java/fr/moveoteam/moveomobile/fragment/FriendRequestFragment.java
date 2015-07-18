@@ -2,6 +2,7 @@ package fr.moveoteam.moveomobile.fragment;
 
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -24,13 +25,17 @@ public class FriendRequestFragment extends ListFragment {
         friendDAO.open();
         friendArrayList = friendDAO.getFriendRequestList();
         friendDAO.close();
-        if(friendArrayList != null) {
-            if (listAdapter != null) listAdapter.updateResult(friendArrayList);
-            else listAdapter = new FriendsListAdapter(getActivity(), friendArrayList);
 
+        if(friendArrayList != null) {
+            if (listAdapter != null) {
+                listAdapter.updateResult(friendArrayList);
+            }
+            else {
+                listAdapter = new FriendsListAdapter(getActivity(), friendArrayList);
+            }
             setListAdapter(listAdapter);
         }else{
-            //if (listAdapter != null) listAdapter.updateResult(friendArrayList);
+            if (listAdapter != null) listAdapter.updateResult(friendArrayList);
              setListAdapter(null);
         }
         /*else {

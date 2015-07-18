@@ -124,14 +124,14 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:enabled="false"
                 android:id="@+id/link_photo_trip"
                 />
             <ImageView
                 android:id="@+id/trip_image"
-                android:layout_width="match_parent"
-                android:layout_height="228dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/content_description_trip_photo" />
             <Button
                 android:layout_width="wrap_content"
@@ -141,7 +141,7 @@
                 android:textColor="#fff"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:textAllCaps="true"
                 android:textSize="@dimen/text_size_button_form"
                 android:background="@drawable/submit_button"

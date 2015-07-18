@@ -100,26 +100,6 @@ public class JSONUser {
         return jsonParser.getJSONFromUrl(userURL, otherUserForm);
     }
 
-    public JSONObject sendMessage(String message, String userId, String recipientId){
-        List<NameValuePair> messageForm = new ArrayList<>();
-        messageForm.add(new BasicNameValuePair("tag", "addDialog"));
-        messageForm.add(new BasicNameValuePair("message", message));
-        messageForm.add(new BasicNameValuePair("userId", userId));
-        messageForm.add(new BasicNameValuePair("recipientId", recipientId));
-
-        return jsonParser.getJSONFromUrl(userURL,messageForm);
-    }
-	
-	public JSONObject readMessage (String userId, String recipientId, String date){
-		List<NameValuePair> isRead = new ArrayList<>();
-        isRead.add(new BasicNameValuePair("tag", "readDialog"));
-        isRead.add(new BasicNameValuePair("userId", userId));
-		isRead.add(new BasicNameValuePair("recipientId", recipientId));
-        isRead.add(new BasicNameValuePair("date", date));
-        
-		return jsonParser.getJSONFromUrl(userURL,isRead);
-	}
-
     public JSONObject changePassword (String userId, String password, String newPassword){
         List<NameValuePair> passwordForm = new ArrayList<>();
         passwordForm.add(new BasicNameValuePair("tag", "changePassword"));
@@ -147,6 +127,48 @@ public class JSONUser {
         accountRequest.add(new BasicNameValuePair("password", password));
 
         return jsonParser.getJSONFromUrl(userURL,accountRequest);
+    }
+
+
+    // LES MESSAGES
+    public JSONObject sendMessage(String message, String userId, String recipientId){
+        List<NameValuePair> messageForm = new ArrayList<>();
+        messageForm.add(new BasicNameValuePair("tag", "addDialog"));
+        messageForm.add(new BasicNameValuePair("message", message));
+        messageForm.add(new BasicNameValuePair("userId", userId));
+        messageForm.add(new BasicNameValuePair("recipientId", recipientId));
+
+        return jsonParser.getJSONFromUrl(userURL,messageForm);
+    }
+
+    public JSONObject readMessage (String userId, String recipientId, String date){
+        List<NameValuePair> isRead = new ArrayList<>();
+        isRead.add(new BasicNameValuePair("tag", "readDialog"));
+        isRead.add(new BasicNameValuePair("userId", userId));
+        isRead.add(new BasicNameValuePair("recipientId", recipientId));
+        isRead.add(new BasicNameValuePair("sentDatetime", date));
+
+        return jsonParser.getJSONFromUrl(userURL,isRead);
+    }
+
+    public JSONObject deleteMessageInbox (String userId, String recipientId, String date){
+        List<NameValuePair> deletemessage = new ArrayList<>();
+        deletemessage.add(new BasicNameValuePair("tag", "removeDialogInbox"));
+        deletemessage.add(new BasicNameValuePair("userId", userId));
+        deletemessage.add(new BasicNameValuePair("recipientId", recipientId));
+        deletemessage.add(new BasicNameValuePair("sentDatetime", date));
+
+        return jsonParser.getJSONFromUrl(userURL,deletemessage);
+    }
+
+    public JSONObject deleteMessageSendbox (String userId, String recipientId, String date){
+        List<NameValuePair> deletemessage = new ArrayList<>();
+        deletemessage.add(new BasicNameValuePair("tag", "removeDialogOutbox"));
+        deletemessage.add(new BasicNameValuePair("userId", userId));
+        deletemessage.add(new BasicNameValuePair("recipientId", recipientId));
+        deletemessage.add(new BasicNameValuePair("sentDatetime", date));
+
+        return jsonParser.getJSONFromUrl(userURL,deletemessage);
     }
         
 

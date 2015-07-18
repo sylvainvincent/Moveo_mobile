@@ -194,7 +194,6 @@ public class Function {
 
         Locale locale = Locale.getDefault();
 
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Log.i("Function",sdf.toString());
         Date convertedDate = null;
@@ -203,9 +202,26 @@ public class Function {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Log.i("Function",convertedDate.toString());
         // Date sous le format complet (1 janvier 2015)
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, locale);
+
+        return dateFormat.format(convertedDate);
+    }
+
+    public static String dateTimeSqlToFullDateJava (String date) {
+
+        Locale locale = Locale.getDefault();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Log.i("Function",sdf.toString());
+        Date convertedDate = null;
+        try {
+            convertedDate = sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        // Date sous le format complet (1 janvier 2015)
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.FULL,DateFormat.MEDIUM, locale);
 
         return dateFormat.format(convertedDate);
     }

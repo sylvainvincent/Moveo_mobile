@@ -47,12 +47,11 @@ public class JSONTrip {
         return jsonParser.getJSONFromUrl(tripURL,tripForm);
     }
 
-
     public JSONObject getExploreTrips(String userId){
-        List<NameValuePair> loginForm = new ArrayList<>();
-        loginForm.add(new BasicNameValuePair("tag","getTenTrips"));
-        loginForm.add(new BasicNameValuePair("user_id",userId));
-        return jsonParser.getJSONFromUrl(tripURL,loginForm);
+        List<NameValuePair> tripRequest = new ArrayList<>();
+        tripRequest.add(new BasicNameValuePair("tag","getTenTrips"));
+        tripRequest.add(new BasicNameValuePair("user_id",userId));
+        return jsonParser.getJSONFromUrl(tripURL,tripRequest);
     }
 
     public JSONObject getTrip(String id){
@@ -101,6 +100,13 @@ public class JSONTrip {
         photoRequest.add(new BasicNameValuePair("trip_id",tripId));
         return jsonParser.getJSONFromUrl(tripURL,photoRequest);
     }
+
+    public JSONObject deletePhoto(String photoId) {
+        List<NameValuePair> photoRequest = new ArrayList<>();
+        photoRequest.add(new BasicNameValuePair("tag","deletePhoto"));
+        photoRequest.add(new BasicNameValuePair("photo_id",photoId));
+        return jsonParser.getJSONFromUrl(tripURL,photoRequest);
+    }
     
     // COMMENTAIRE --------------------------
 	
@@ -134,8 +140,6 @@ public class JSONTrip {
         commentRequest.add(new BasicNameValuePair("message",message));
         return jsonParser.getJSONFromUrl(tripURL,commentRequest);
     }
-
-
 
     // LIEUX -------------------------------
     

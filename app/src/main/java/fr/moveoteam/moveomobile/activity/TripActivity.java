@@ -89,6 +89,7 @@ public class TripActivity extends Activity{
 
     private static final String HOME_FRAGMENT_TAG = "HOME";
     private LinearLayout tripcontent;
+    private LinearLayout tripMenu;
 
     private CustomScrollView scrollView;
 
@@ -97,7 +98,7 @@ public class TripActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cover);
         initialize();
-
+        tripMenu.setVisibility(View.INVISIBLE);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setDisplayShowTitleEnabled(false);
 
@@ -122,6 +123,7 @@ public class TripActivity extends Activity{
         imageCover = (ImageView) findViewById(R.id.image_cover);
         tripcontent = (LinearLayout) findViewById(R.id.trip_content);
         scrollView = (CustomScrollView) findViewById(R.id.cover);
+        tripMenu = (LinearLayout) findViewById(R.id.trip_menu);
     }
 
     @Override
@@ -238,38 +240,6 @@ public class TripActivity extends Activity{
                         }
                     }
 
-                    /*if(json.getString("comment").equals("1")){
-                        JSONArray commentList = json.getJSONArray("comment");
-                        commentArrayList = new ArrayList<>(commentList.length());
-                        for (int i = 0; i < commentList.length(); i++) {
-                            commentArrayList.add(new Comment(
-                                    commentList.getJSONObject(i).getInt("comment_id"),
-                                    commentList.getJSONObject(i).getString("comment_message"),
-                                    commentList.getJSONObject(i).getString("comment_added_datetime"),
-                                    commentList.getJSONObject(i).getInt("user_id"),
-                                    commentList.getJSONObject(i).getString("user_last_name"),
-                                    commentList.getJSONObject(i).getString("user_first_name"),
-                                    commentList.getJSONObject(i).getString("user_link_avatar")
-                            ));
-                            Log.e("comment", commentArrayList.get(i).toString());
-                            /*
-                            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            try {
-
-                                Date date = dateFormat.parse(commentList.getJSONObject(i).getString("trip_created_at"));
-                                Log.e("Test de date",""+Function.dateDifference(date));
-                                Log.e("Test de date 2", dateFormat.format(date));
-
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-
-
-
-                    }*/
-
                     homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category_blue));
                     imageCover.setImageBitmap(Function.decodeBase64(trip.getCover()));
                     imageCover.setVisibility(View.VISIBLE);
@@ -320,6 +290,7 @@ public class TripActivity extends Activity{
                     ft.replace(R.id.trip_content, homeCategoryFragment, HOME_FRAGMENT_TAG);
                     ft.commit();
                     tripcontent.setVisibility(View.VISIBLE);
+                    tripMenu.setVisibility(View.VISIBLE);
                     scrollView.setEnableScrolling(true);
 
 

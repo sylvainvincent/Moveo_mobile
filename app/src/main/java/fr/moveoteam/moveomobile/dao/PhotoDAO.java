@@ -66,8 +66,8 @@ public class PhotoDAO {
     public void addPhoto(Photo photo) {
         ContentValues values = new ContentValues();
         values.put(DataBaseHandler.KEY_PHOTO_ID, photo.getId());                   // ID
-        values.put(DataBaseHandler.KEY_PHOTO_BASE64, photo.getPhotoBase64());        // PHOTO EN BASE 64
-        values.put(DataBaseHandler.KEY_PHOTO_DATE, photo.getPublicationDate()); // DATE DE PUBLICATION
+        values.put(DataBaseHandler.KEY_PHOTO_BASE64, photo.getPhotoBase64());      // PHOTO EN BASE 64
+        values.put(DataBaseHandler.KEY_PHOTO_DATE, photo.getPublicationDate());    // DATE DE PUBLICATION
         values.put(DataBaseHandler.KEY_PHOTO_TRIP_ID, photo.getTripId());          // ID D'UN VOYAGE
         // Insérer la ligne
         database.insert(TABLE_PHOTO, null, values);
@@ -97,7 +97,6 @@ public class PhotoDAO {
         // database.close();
         if(photoList != null) {
             Log.i("PhotoDAO size", "" + photoList.size());
-            Log.i("PhotoDAO photo", "" + photoList.get(4).getPhotoBase64());
         }
         return photoList;
     }

@@ -186,7 +186,7 @@ public class LoginActivity extends Activity {
             pDialog = new ProgressDialog(LoginActivity.this);
             pDialog.setMessage("Connexion en cours...");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
+            pDialog.setCancelable(false);
             pDialog.show();
         }
         @Override

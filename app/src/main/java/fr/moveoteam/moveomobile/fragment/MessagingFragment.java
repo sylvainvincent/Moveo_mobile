@@ -23,6 +23,7 @@ public class MessagingFragment extends Fragment {
     private ImageView sendIcon;
     private ImageView receiveIcon;
     private TextView messageCount;
+    private TextView title;
     Fragment fragment;
 
     private int inboxCount;
@@ -35,6 +36,7 @@ public class MessagingFragment extends Fragment {
         messageCount = (TextView) view.findViewById(R.id.message_count);
         receiveIcon = (ImageView) view.findViewById(R.id.receive_messages_icon);
         sendIcon = (ImageView) view.findViewById(R.id.send_messages_icon);
+        title = (TextView) view.findViewById(R.id.message_title);
         return view;
     }
 
@@ -60,7 +62,6 @@ public class MessagingFragment extends Fragment {
         ft.commit();
     }
 
-
     public InboxListFragment getInboxListFragment() {
         return inboxListFragment;
     }
@@ -72,13 +73,15 @@ public class MessagingFragment extends Fragment {
     public void setRecieveIcon(){
         receiveIcon.setImageDrawable(getResources().getDrawable(R.drawable.receive_messages_hover));
         sendIcon.setImageDrawable(getResources().getDrawable(R.drawable.send_messages));
-        messageCount.setText(inboxCount+ " messages");
+        messageCount.setText("("+inboxCount+ " messages)");
+        title.setText("Boite de réception");
     }
 
     public void setSendIcon(){
         sendIcon.setImageDrawable(getResources().getDrawable(R.drawable.send_messages_hover));
         receiveIcon.setImageDrawable(getResources().getDrawable(R.drawable.receive_messages));
-        messageCount.setText(sendboxCount+" messages");
+        messageCount.setText("("+sendboxCount+" messages)");
+        title.setText("Boite d'envoi");
 
     }
 

@@ -44,7 +44,6 @@ public class OtherUserProfileActivity extends Activity {
     private ImageView sendmail;
     private ImageView addfriend;
 
-
     // Manipulation de la table friend (Base de données)
     private FriendDAO friendDAO;
 
@@ -100,6 +99,12 @@ public class OtherUserProfileActivity extends Activity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void initialize() {
 
         page = (LinearLayout) findViewById(R.id.user_profile);
@@ -121,7 +126,7 @@ public class OtherUserProfileActivity extends Activity {
             pDialog = new ProgressDialog(OtherUserProfileActivity.this);
             pDialog.setMessage("Chargement...");
             pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
+            pDialog.setCancelable(false);
             pDialog.show();
         }
 

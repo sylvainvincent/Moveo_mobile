@@ -158,6 +158,12 @@ public class FriendProfileActivity extends Activity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void initialize() {
 
         useravatar = (ImageView) findViewById(R.id.user_avatar);

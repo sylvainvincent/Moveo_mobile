@@ -133,6 +133,18 @@ public class DialogDAO {
         return sendboxArrayList;
     }
 
+    public boolean readMessage(int messageId){
+
+        ContentValues values = new ContentValues();
+        values.put(DataBaseHandler.KEY_DIALOG_READ, 1);
+        return database.update(TABLE_DIALOG, values, DataBaseHandler.KEY_DIALOG_ID+" = "+messageId, null)>0;
+
+    }
+
+    public boolean deleteMessage(int messageId){
+        return database.delete(TABLE_DIALOG, DataBaseHandler.KEY_DIALOG_ID+" = "+messageId, null)>0;
+    }
+
     /**
      * Récupere les informations du curseur pour les mettre dans la classe Trip
      * @param cursor un curseur
@@ -141,6 +153,7 @@ public class DialogDAO {
     Dialog cursorToDialog(Cursor cursor, boolean isInbox){
 
         Dialog dialog = new Dialog() ;
+        dialog.setId(cursor.getInt(DataBaseHandler.POSITION_DIALOG_ID));
         dialog.setRecipientId(cursor.getInt(DataBaseHandler.POSITION_DIALOG_RECIPIENT_ID));
         dialog.setRecipientLastName(cursor.getString(DataBaseHandler.POSITION_DIALOG_RECIPIENT_LASTNAME));
         dialog.setRecipientFirstName(cursor.getString(DataBaseHandler.POSITION_DIALOG_RECIPIENT_FIRSTNAME));

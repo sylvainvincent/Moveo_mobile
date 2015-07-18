@@ -34,7 +34,6 @@ public class PlaceActivity extends Activity{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-		// TEMPORAIRE ? 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.place);
 
@@ -45,6 +44,7 @@ public class PlaceActivity extends Activity{
         tripplacetitle.setText(placeName);
         tripplaceadress.setText(placeAddress);
         tripplacedescription.setText(placeDescription);
+        tripplacecity.setVisibility(View.GONE);
         tripplaceusername.setVisibility(View.GONE);
         tripplacecountry.setVisibility(View.GONE);
         place_pictures_category.setVisibility(View.GONE);

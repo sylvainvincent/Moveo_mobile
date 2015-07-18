@@ -7,6 +7,7 @@ package fr.moveoteam.moveomobile.model;
 public class Dialog {
 
     int id;
+    private int authorId;
     private int recipientId;
     private String recipientLastName;
     private String recipientFirstName;
@@ -36,6 +37,14 @@ public class Dialog {
         this.date = date;
         this.read = read;
         this.inbox = inbox;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getRecipientId() {

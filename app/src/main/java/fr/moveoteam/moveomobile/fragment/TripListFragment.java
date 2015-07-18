@@ -110,7 +110,9 @@ public class TripListFragment extends ListFragment {
                     }
                 }else{
                     setListAdapter(null);
-                    Toast.makeText(getActivity(),"L'utilisateur n'a pas de voyages",Toast.LENGTH_LONG).show();
+                    if(isVisible()){
+                        Toast.makeText(getActivity(),"L'utilisateur n'a pas de voyages",Toast.LENGTH_LONG).show();
+                    }
                 }
 
             } catch (JSONException e1) {

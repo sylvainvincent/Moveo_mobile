@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.activity.OtherUserProfileActivity;
+import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Trip;
 
 /**
@@ -66,7 +67,7 @@ public class HomeCategoryFragment extends Fragment {
         tripName.setText(getArguments().getString("name"));
         tripAuthor.setText(getArguments().getString("author"));
         tripDescription.setText(getArguments().getString("description"));
-        tripDate.setText(tripDate.getText()+" "+getArguments().getString("date"));
+        tripDate.setText(tripDate.getText()+" "+ Function.dateSqlToFullDateJava(getArguments().getString("date")));
         tripCountry.setText(getArguments().getString("country"));
         tripHome.setVisibility(View.VISIBLE);
 

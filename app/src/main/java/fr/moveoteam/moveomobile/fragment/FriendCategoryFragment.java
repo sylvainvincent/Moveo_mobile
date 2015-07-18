@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.activity.HomeActivity;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 
 /**
@@ -83,6 +84,8 @@ public class FriendCategoryFragment extends Fragment {
             friendcounter.setText(friendSize+" contact");
         else friendcounter.setText(friendSize+" "+" contacts");
 
+        
+
         // On actualise les ListFragments lors d'une mise à jour (accepter/refuser/supprimer un ami)
         if(friendListFragment != null) {
             Log.e("FriendCat","friendListFragment non null");
@@ -104,6 +107,7 @@ public class FriendCategoryFragment extends Fragment {
         }
     }
 
+    /*
     @Override // onDestroy est appelé lorsque l'activity est stoppé (onStop)
     public void onDestroyView() {
         super.onDestroyView();
@@ -111,6 +115,6 @@ public class FriendCategoryFragment extends Fragment {
                 .findFragmentById(R.id.fragment_friend_list);
         if (f != null)
             getFragmentManager().beginTransaction().remove(f).commit();
-    }
+    }*/
 
 }
