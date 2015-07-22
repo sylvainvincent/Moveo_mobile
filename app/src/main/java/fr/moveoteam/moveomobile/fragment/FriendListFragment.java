@@ -32,7 +32,6 @@ public class FriendListFragment extends ListFragment {
         friendArrayList = friendDAO.getFriendList();
         friendDAO.close();
 
-
         if(friendArrayList != null) {
             if(listAdapter != null) listAdapter.updateResult(friendArrayList);
             else {
@@ -61,18 +60,4 @@ public class FriendListFragment extends ListFragment {
         startActivity(intent);
     }
 
-    @Override
-      public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Log.e("FriendListFragment","attach");
-
-    }
-
-
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.e("FriendListFragment","detach");
-    }
 }

@@ -107,7 +107,15 @@ public class JSONTrip {
         photoRequest.add(new BasicNameValuePair("photo_id",photoId));
         return jsonParser.getJSONFromUrl(tripURL,photoRequest);
     }
-    
+
+    public JSONObject reportPhoto(String photoId, String userId) {
+        List<NameValuePair> photoRequest = new ArrayList<>();
+        photoRequest.add(new BasicNameValuePair("tag","reportPhoto"));
+        photoRequest.add(new BasicNameValuePair("photoId",photoId));
+        photoRequest.add(new BasicNameValuePair("userId",userId));
+        return jsonParser.getJSONFromUrl(tripURL,photoRequest);
+    }
+
     // COMMENTAIRE --------------------------
 	
 	public JSONObject addComment(String userId, String tripId, String message){

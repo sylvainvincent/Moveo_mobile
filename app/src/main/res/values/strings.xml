@@ -129,7 +129,7 @@
     <string name="new_password">Nouveau mot de passe</string>
     <string name="check_new_password">Vérification du mot de passe</string>
     <string name="notifications">Activer les notifications</string>
-    <string name="informations">Rendre mes informations visibles par tous</string>
+    <string name="informations">Rendre mes informations visibles par ce qui ne sont pas amis avec moi</string>
     <string name="validate">Valider</string>
 
     <!-- Les éléments du menu -->

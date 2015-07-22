@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.adapter.ImageAdapter;
+import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Photo;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
@@ -41,7 +42,10 @@ public class PhotoGalleryFragment  extends Fragment{
     private GridView gridview;
     private ArrayList<Photo> photoArrayList;
     private int tripId;
+    private int userId;
+    private int photoId;
     ImageView image;
+    TextView report;
 
     @Nullable
     @Override
@@ -55,6 +59,10 @@ public class PhotoGalleryFragment  extends Fragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        UserDAO userDAO = new UserDAO(getActivity());
+        userDAO.open();
+        userId = userDAO.getUserDetails().getId();
+        userDAO.close();
         tripId = getArguments().getInt("tripId");
         ExecuteThread executeThread = new ExecuteThread();
         executeThread.execute();
@@ -91,7 +99,12 @@ public class PhotoGalleryFragment  extends Fragment{
             pDialog.dismiss();
 
             try {
-                if (json.getString("success").equals("1")) {
+                if(json == null){
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("Connexion perdue");
+                    alertDialog.show();
+                } else if (json.getString("success").equals("1")) {
                     final JSONArray photoList = json.getJSONArray("photo");
                     photoArrayList = new ArrayList<>(photoList.length());
 
@@ -113,9 +126,18 @@ public class PhotoGalleryFragment  extends Fragment{
                             LayoutInflater factory = LayoutInflater.from(getActivity());
                             View photoView = factory.inflate(R.layout.photo, null);
                             image = (ImageView) photoView.findViewById(R.id.photo);
+                            report = (TextView) photoView.findViewById(R.id.photo_report);
+                            photoId = photoArrayList.get(position).getId();
+                            report.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    new ExecuteReportThread().execute();
+                                }
+                            });
+                            
                             TextView photoDate = (TextView) photoView.findViewById(R.id.photo_publication_date);
 
-                            photoDate.setText(photoDate.getText()+" "+photoArrayList.get(position).getPublicationDate());
+                            photoDate.setText(photoDate.getText()+" "+Function.dateSqlToFullDateJava(photoArrayList.get(position).getPublicationDate()));
                             new DownloadImage().execute(photoArrayList.get(position).getPhotoBase64());
                             print.setView(photoView);
                             //AlertDialog d = print.create();
@@ -171,5 +193,56 @@ public class PhotoGalleryFragment  extends Fragment{
             }
         }
     }
+
+    private class ExecuteReportThread extends AsyncTask<String, String, JSONObject> {
+        private ProgressDialog pDialog;
+
+        @Override //Procedure appelée avant le traitement (optionnelle)
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Signalement en cours...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
+        }
+
+        @Override
+        //Méthode appelée pendant le traitement (obligatoire)
+        protected JSONObject doInBackground(String... args) {
+
+            JSONTrip jsonTrip = new JSONTrip();
+            return jsonTrip.reportPhoto(Integer.toString(photoId), Integer.toString(userId));
+        }
+
+        @Override
+        //Procedure appelée après le traitement (optionnelle)
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+
+            try {
+                if(json == null){
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("Connexion perdue");
+                    alertDialog.show();
+                } else if (json.getString("success").equals("1")) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("Votre signalement a bien été pris en compte. Merci !");
+                    alertDialog.show();
+                } else {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                    alertDialog.setCancelable(true);
+                    alertDialog.setMessage("Un erreur est survenue lors de votre signalement");
+                    alertDialog.show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
 }

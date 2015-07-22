@@ -102,23 +102,10 @@ public class SendMessageActivity extends Activity {
             if(json == null){
                 Log.e("test json", "null");
                 AlertDialog.Builder builder = new AlertDialog.Builder(SendMessageActivity.this);
-                builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        System.exit(0);
-                    }
-                });
                 builder.setMessage("Connexion perdu");
-                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        System.exit(0);
-                    }
-                });
+                builder.setPositiveButton("ok", null);
                 builder.show();
-            }
-            // Si la récupération des voyages a été un succès on affecte les voyages dans un ArrayList
-            else {
+            }else {
                 try {
                     if(json.getString("success").equals("1")) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(SendMessageActivity.this);
@@ -127,9 +114,14 @@ public class SendMessageActivity extends Activity {
                         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                System.exit(0);
+                                finish();
                             }
                         });
+                        builder.show();
+                    }else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SendMessageActivity.this);
+                        builder.setMessage("Une erreur s'est produite lors l'envoi du message");
+                        builder.setPositiveButton("ok", null);
                         builder.show();
                     }
 

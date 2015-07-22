@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -22,7 +25,10 @@ import org.json.JSONObject;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.activity.HomeActivity;
+import fr.moveoteam.moveomobile.activity.LoginActivity;
+import fr.moveoteam.moveomobile.dao.DataBaseHandler;
 import fr.moveoteam.moveomobile.dao.UserDAO;
+import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
@@ -33,6 +39,7 @@ public class SettingsFragment extends Fragment {
     private EditText password;
     private EditText newPassword;
     private EditText checkNewPassword;
+    private TextView deleteAccount;
     private Button saveButton;
     private Switch informationVisibility;
     private String passwordSave;
@@ -50,6 +57,8 @@ public class SettingsFragment extends Fragment {
         checkNewPassword = (EditText) view.findViewById(R.id.settings_check_new_password);
         saveButton = (Button) view.findViewById(R.id.save_settings);
         informationVisibility = (Switch) view.findViewById(R.id.set_informations_visible);
+        deleteAccount = (TextView) view.findViewById(R.id.delete_account_button);
+
         return view;
     }
 
@@ -71,7 +80,7 @@ public class SettingsFragment extends Fragment {
                 int count = 0;
 
                 if(!password.getText().toString().isEmpty()){
-                    if(password.getText().toString().equals(passwordSave)){
+                    if(Function.encrypt(password.getText().toString()).equals(passwordSave)){
                         count ++;
                     }else{
                         password.setError("Mot de passe incorrect");
@@ -81,9 +90,11 @@ public class SettingsFragment extends Fragment {
                 }
 
                 if(!newPassword.getText().toString().isEmpty()){
-                    count++;
-                }else if(newPassword.getText().length() <= 7) {
-                    newPassword.setError("Votre mot de passe doit contenir 8 caractères ou plus.");
+                    if(newPassword.getText().length() <= 7){
+                        newPassword.setError("Votre mot de passe doit contenir 8 caractères ou plus.");
+                    }else{
+                        count++;
+                    }
                 }else{
                     newPassword.setError("Ce champ est vide");
                 }
@@ -94,15 +105,12 @@ public class SettingsFragment extends Fragment {
                     checkNewPassword.setError("Ce champ est vide");
                 }
 
-
-
                 if(count == 3){
                     if(newPassword.getText().toString().equals(checkNewPassword.getText().toString())){
                         new ExecuteThread().execute();
                     }else{
                         Toast.makeText(getActivity(),"Les mots de passes ne sont pas identiques",Toast.LENGTH_LONG).show();
                     }
-
                 }
             }
         });
@@ -115,6 +123,31 @@ public class SettingsFragment extends Fragment {
                 if(isChecked) access = 3;
                 else  access = 2;
                 new ExecuteInformationVisibilityThread().execute();
+            }
+        });
+
+        deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!password.getText().toString().isEmpty()){
+                    if(Function.encrypt(password.getText().toString()).equals(passwordSave)){
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("Êtes vous sûr de vouloir supprimer votre compte ?");
+                        builder.setNegativeButton("non", null);
+                        builder.setPositiveButton("oui", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new ExecuteDeleteAccountThread().execute();
+                            }
+                        });
+                        builder.show();
+                    }else{
+                        password.setError("Mot de passe incorrect");
+                    }
+                }else {
+                    password.setError("Remplir ce champ afin de valider la suppression");
+                }
             }
         });
     }
@@ -135,11 +168,13 @@ public class SettingsFragment extends Fragment {
         @Override
         protected JSONObject doInBackground(String... params) {
             JSONUser jsonUser = new JSONUser();
-            return jsonUser.changePassword(id, passwordSave, newPassword.getText().toString());
+            Log.e("pass",password.getText().toString()+" "+newPassword.getText().toString()+" id : "+id);
+            return jsonUser.changePassword(id, password.getText().toString(), newPassword.getText().toString());
         }
 
         @Override
         protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
             if(json == null){
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -165,26 +200,16 @@ public class SettingsFragment extends Fragment {
 
                     password.setText("");
                     newPassword.setText("");
-                    checkNewPassword.setError("");
+                    checkNewPassword.setText("");
 
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setMessage("Votre mot de passe a été modifié");
-                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
+                    builder.setPositiveButton("ok", null);
                     builder.show();
                 }else{
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                     builder.setMessage("Une erreur est survenue lors de l'enregistrement du mot de passe");
-                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
+                    builder.setPositiveButton("ok", null);
                     builder.show();
                 }
             } catch (JSONException e) {
@@ -248,6 +273,54 @@ public class SettingsFragment extends Fragment {
                             ((HomeActivity) getActivity()).refreshFragment();
                         }
                     });
+                    builder.show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class ExecuteDeleteAccountThread extends AsyncTask<String, String, JSONObject>{
+        ProgressDialog pDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Suppression en cours...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            JSONUser jsonUser = new JSONUser();
+            Log.e("access",""+access);
+            return jsonUser.deleteAccount(id, password.getText().toString());
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject json) {
+            pDialog.dismiss();
+            if(json == null){
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Connexion perdu");
+                builder.setPositiveButton("ok", null);
+                builder.show();
+            }else try {
+                if(json.getString("success").equals("1")){
+                    DataBaseHandler dataBaseHandler = new DataBaseHandler(getActivity());
+                    dataBaseHandler.resetTables();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.putExtra("deleteAccount",true);
+                    startActivity(intent);
+                    getActivity().finish();
+                }else{
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setMessage("Une erreur est survenue lors du changement de visibilité des informations");
+                    builder.setPositiveButton("ok", null);
                     builder.show();
                 }
             } catch (JSONException e) {

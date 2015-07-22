@@ -31,6 +31,6 @@
         android:layout_height="match_parent"
         android:id="@+id/my_grid_gallery"
         android:gravity="center"
-        android:numColumns="2" />
+        android:numColumns="3" />
 
 </LinearLayout>

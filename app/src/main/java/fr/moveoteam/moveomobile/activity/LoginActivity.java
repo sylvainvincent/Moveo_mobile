@@ -66,11 +66,29 @@ public class LoginActivity extends Activity {
 
         this.initialization();
         int register = getIntent().getIntExtra("register", 0);
+        boolean deleteAccount = getIntent().getBooleanExtra("deleteAccount", false);
         Log.e("register : ", "register" + register);
         if(register == 1) {
             layout.setAlpha((float) 0.8);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
             alertDialogBuilder.setMessage("Votre inscription a bien été prise en compte. Veuillez vérifier vos mails pour la confirmation de l'inscription.");
+            alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                    layout.setAlpha(1);
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+
+            alertDialog.show();
+        }
+
+        if(deleteAccount) {
+            layout.setAlpha((float) 0.8);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
+            alertDialogBuilder.setMessage("Votre compte a bien été supprimé.");
             alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -84,6 +102,8 @@ public class LoginActivity extends Activity {
             // Show it
             alertDialog.show();
         }
+
+
 
 
         buttonLogin.setOnClickListener(
@@ -205,7 +225,6 @@ public class LoginActivity extends Activity {
             try {
                 if(json == null){
                     final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-
                     builder.setMessage("Connexion perdu");
                     builder.setPositiveButton("ok", null);
                     builder.show();
@@ -219,7 +238,7 @@ public class LoginActivity extends Activity {
                     user.setBirthday(json.getJSONObject("user").getString("user_birthday"));
                     user.setAvatar(json.getJSONObject("user").getString("avatar"));
                     user.setEmail(json.getJSONObject("user").getString("user_email"));
-                    user.setPassword(password);
+                    user.setPassword(Function.encrypt(password));
                     user.setCountry(json.getJSONObject("user").getString("user_country"));
                     user.setCity(json.getJSONObject("user").getString("user_city"));
                     user.setAccess(Integer.parseInt(json.getJSONObject("user").getString("access_id")));

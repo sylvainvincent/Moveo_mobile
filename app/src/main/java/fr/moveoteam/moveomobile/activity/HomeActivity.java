@@ -200,9 +200,12 @@ public class HomeActivity extends Activity {
         if (savedInstanceState == null) {
             // La premiere page par défaut lors du lancement de l'application est "Explorer"
             if(fragment == null){
-
+                displayView(0);
+            }else{
                 displayView(0);
             }
+        }else{
+            displayView(0);
         }
 
         friendCategoryFragment = new FriendCategoryFragment();

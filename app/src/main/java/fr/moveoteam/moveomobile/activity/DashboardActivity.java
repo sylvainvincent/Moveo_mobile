@@ -49,9 +49,7 @@ public class DashboardActivity extends Activity {
     private Menu m = null;
 	private UserDAO userDAO;
     private Boolean internet = false;
-    Toast toast;
     RelativeLayout layout;
-    AlertDialog.Builder alertDialog;
 
     private String password;
     private ImageView logo;
@@ -150,7 +148,6 @@ public class DashboardActivity extends Activity {
             pDialog.show();
         }
 
-
         @Override
         protected JSONObject doInBackground(String... args) {
 
@@ -159,7 +156,7 @@ public class DashboardActivity extends Activity {
             userDAO.open();
             password = userDAO.getUserDetails().getPassword();
             Log.d("test",""+userDAO.getUserDetails().getEmail()+" "+password);
-            return jsonUser.loginUser(userDAO.getUserDetails().getEmail(), password);
+            return jsonUser.loginUser(userDAO.getUserDetails().getEmail(), Function.decrypt(password));
         }
 
         @Override
@@ -171,10 +168,18 @@ public class DashboardActivity extends Activity {
                     Log.e("test json","null");
                     AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
                     builder.setMessage("Connexion perdu");
-                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton("Quitter", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             System.exit(0);
+                        }
+                    });
+                    builder.setPositiveButton("Réessayer", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
                         }
                     });
                     builder.show();
@@ -284,7 +289,6 @@ public class DashboardActivity extends Activity {
                                     photoList.getJSONObject(i).getString("photo_added_date"),
                                     photoList.getJSONObject(i).getInt("trip_id")
                             ));
-
                         }
 
                         PhotoDAO photoDAO = new PhotoDAO(DashboardActivity.this);

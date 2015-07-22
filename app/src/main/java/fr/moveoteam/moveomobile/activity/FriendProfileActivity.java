@@ -211,9 +211,7 @@ public class FriendProfileActivity extends Activity {
                     friendDAO.open();
                     friendDAO.removeFriend(friendId);
                     friendDAO.close();
-                    Intent intent = getIntent();
                     finish();
-                    startActivity(intent);
 
                 } else {
                     AlertDialog.Builder alert = new AlertDialog.Builder(FriendProfileActivity.this);
