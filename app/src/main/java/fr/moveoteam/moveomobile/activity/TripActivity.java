@@ -241,7 +241,9 @@ public class TripActivity extends Activity{
                     }
 
                     homeCategory.setImageDrawable(getResources().getDrawable(R.drawable.home_category_blue));
-                    imageCover.setImageBitmap(Function.decodeBase64(trip.getCover()));
+                    if(!trip.getCover().equals("") &&!trip.getCover().equals("null"))imageCover.setImageBitmap(Function.decodeBase64(trip.getCover()));
+                    else imageCover.setImageDrawable(getResources().getDrawable(R.drawable.default_journey));
+
                     imageCover.setVisibility(View.VISIBLE);
 
                     fragmentManager = getFragmentManager();

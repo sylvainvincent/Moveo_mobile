@@ -29,6 +29,7 @@ import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.DialogDAO;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
+import fr.moveoteam.moveomobile.fragment.AboutFragment;
 import fr.moveoteam.moveomobile.fragment.AccountSettingsFragment;
 import fr.moveoteam.moveomobile.fragment.AddTripFragment;
 import fr.moveoteam.moveomobile.fragment.ExploreFragment;
@@ -282,7 +283,8 @@ public class HomeActivity extends Activity {
                 ft.add(R.id.frame_container, fragment);
                 break;
             case 6:
-
+                fragment = new AboutFragment();
+                ft.add(R.id.frame_container, fragment);
                 break;
             case 7:
                 userDAO = new UserDAO(HomeActivity.this);

@@ -77,7 +77,6 @@ public class MessageListAdapter extends BaseAdapter {
                     intent.putExtra("name", dialogArrayList.get(position).getRecipientFirstName() + " " + dialogArrayList.get(position).getRecipientLastName());
                     intent.putExtra("friendId", Integer.toString(dialogArrayList.get(position).getRecipientId()));
                     context.startActivity(intent);
-
                 }
             });
 			if(dialogArrayList.get(position).isRead()){

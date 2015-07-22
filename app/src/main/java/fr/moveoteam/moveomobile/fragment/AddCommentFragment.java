@@ -93,7 +93,7 @@ public class AddCommentFragment extends Fragment{
                 if (json == null) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                     alertDialog.setCancelable(true);
-                    alertDialog.setMessage("Une erreur s'est produite lors de l'ajout du commentaire");
+                    alertDialog.setMessage("Connexion perdue");
                     alertDialog.show();
                 } else if (json.getString("success").equals("1")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

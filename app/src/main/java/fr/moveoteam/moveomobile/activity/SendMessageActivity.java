@@ -18,7 +18,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.dao.DialogDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
+import fr.moveoteam.moveomobile.model.Dialog;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 
@@ -75,6 +77,11 @@ public class SendMessageActivity extends Activity {
         ProgressDialog pDialog;
         JSONUser jsonUser;
 
+        String recipientFirstName,
+               recipientLastName,
+               message,
+               date;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -87,7 +94,7 @@ public class SendMessageActivity extends Activity {
 
         @Override
         protected JSONObject doInBackground(String... params) {
-            String message = messageContent.getText().toString();
+            message = messageContent.getText().toString();
             jsonUser = new JSONUser();
 
             Log.e("id user",""+userId);
@@ -108,12 +115,20 @@ public class SendMessageActivity extends Activity {
             }else {
                 try {
                     if(json.getString("success").equals("1")) {
+                       recipientLastName = json.getString("lastname");
+                       recipientFirstName = json.getString("firstname");
+                       date = json.getString("date");
                         AlertDialog.Builder builder = new AlertDialog.Builder(SendMessageActivity.this);
 
                         builder.setMessage("Votre message a bien été envoyé");
                         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                Dialog newDialog = new Dialog(Integer.parseInt(recipientId), recipientLastName, recipientFirstName, message, date, false);
+                                DialogDAO dialogDAO = new DialogDAO(SendMessageActivity.this);
+                                dialogDAO.open();
+                                dialogDAO.addSendDialog(newDialog);
+                                dialogDAO.close();
                                 finish();
                             }
                         });

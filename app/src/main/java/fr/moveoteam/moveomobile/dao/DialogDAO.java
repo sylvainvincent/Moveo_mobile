@@ -55,6 +55,25 @@ public class DialogDAO {
         dbHandler.close();
     }
 
+    /**
+     *
+     * @param dialog dialog contenant le message reçu et envoyé
+     */
+    public void addSendDialog(Dialog dialog) {
+
+        ContentValues values;
+        values = new ContentValues();
+        values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_ID, dialog.getRecipientId());
+        values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_LASTNAME, dialog.getRecipientLastName());     // NOM
+        values.put(DataBaseHandler.KEY_DIALOG_RECIPIENT_FIRSTNAME, dialog.getRecipientFirstName());   // PRÉNOM
+        values.put(DataBaseHandler.KEY_DIALOG_MESSAGE, dialog.getMessage());
+        values.put(DataBaseHandler.KEY_DIALOG_DATE, dialog.getDate());
+        values.put(DataBaseHandler.KEY_DIALOG_IS_INBOX, dialog.isInbox()?1:0);
+        // Insérer la ligne
+        database.insert(TABLE_DIALOG, null, values);
+
+    }
+
 
     /**
      *
