@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -22,9 +21,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
@@ -33,7 +29,6 @@ import fr.moveoteam.moveomobile.activity.TripActivity;
 import fr.moveoteam.moveomobile.adapter.CommentListAdapter;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Comment;
-import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**

@@ -24,8 +24,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import fr.moveoteam.moveomobile.R;
-import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Photo;
 
 /**

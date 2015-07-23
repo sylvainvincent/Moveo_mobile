@@ -124,7 +124,8 @@ public class AccountSettingsFragment extends Fragment {
         modifyCity.setText(oldCity);
         modifyCountry.setText(oldCountry);
 
-        thumbnail.setImageBitmap(Function.decodeBase64(photoBase64));
+        if(!photoBase64.equals(""))thumbnail.setImageBitmap(Function.decodeBase64(photoBase64));
+        else thumbnail.setImageDrawable(getResources().getDrawable(R.drawable.default_avatar));
 
         // Afficher la photo de profil lors de la selection
         thumbnail.setOnClickListener(new View.OnClickListener() {
@@ -133,11 +134,13 @@ public class AccountSettingsFragment extends Fragment {
                 AlertDialog.Builder print= new AlertDialog.Builder(getActivity());
                 LayoutInflater factory = LayoutInflater.from(getActivity());
                 View photoView = factory.inflate(R.layout.photo, null);
+                TextView textView = (TextView) photoView.findViewById(R.id.photo_report);
                 ImageView image = (ImageView) photoView.findViewById(R.id.photo);
                 TextView photoDate = (TextView) photoView.findViewById(R.id.photo_publication_date);
 
                 // Recuperation du Bitmap de la photo de profil pour le mettre sur le la nouvelle vue
                 image.setImageBitmap(((BitmapDrawable)thumbnail.getDrawable()).getBitmap());
+                textView.setVisibility(View.GONE);
                 photoDate.setVisibility(View.GONE);
                 print.setView(photoView);
                 //AlertDialog d = print.create();

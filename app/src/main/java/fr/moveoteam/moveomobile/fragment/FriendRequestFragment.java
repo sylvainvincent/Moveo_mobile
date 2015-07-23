@@ -2,7 +2,6 @@ package fr.moveoteam.moveomobile.fragment;
 
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.util.ArrayList;
 

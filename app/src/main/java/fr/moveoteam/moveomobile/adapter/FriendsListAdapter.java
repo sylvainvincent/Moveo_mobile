@@ -29,7 +29,6 @@ import fr.moveoteam.moveomobile.activity.HomeActivity;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Friend;
-import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.webservice.JSONFriend;
 
 /**

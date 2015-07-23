@@ -22,10 +22,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
+import fr.moveoteam.moveomobile.dao.DataBaseHandler;
 import fr.moveoteam.moveomobile.dao.DialogDAO;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
 import fr.moveoteam.moveomobile.dao.TripDAO;
@@ -75,8 +76,6 @@ public class HomeActivity extends Activity {
     private MenuAdapter menuAdapter;
 
     private UserDAO userDAO;
-
-    Toast toast;
 
     private AlertDialog.Builder alertDialog;
 
@@ -161,20 +160,11 @@ public class HomeActivity extends Activity {
                 listMenuItems);
         listSliderMenu.setAdapter(menuAdapter);
 
-        // drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        /*try{
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-        } catch (Exception e){
-
-        }*/
-        //getActionBar().setIcon(R.drawable.ic_drawer);
         getActionBar().setHomeButtonEnabled(true); // Activer l'icône d'ouverture du menu
         getActionBar().setIcon(R.drawable.ic_drawer);
         userDAO = new UserDAO(HomeActivity.this);
         userDAO.open();
         Toolbar t = new Toolbar(getApplication());
-        //t.setNavigationIcon(R.drawable.ic_drawer);
-
 
         mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
                 t, // ToolBar
@@ -233,7 +223,7 @@ public class HomeActivity extends Activity {
 
     @Override // Gestion des évènements associés au menu
     public boolean onOptionsItemSelected(MenuItem item) {
-        // toggle nav drawer on selecting action bar app icon/title
+
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -242,9 +232,16 @@ public class HomeActivity extends Activity {
             case R.id.action_search:
                 Intent intent = new Intent(this,SearchActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.action_refresh:
+                Intent intent2 = new Intent(this,DashboardActivity.class);
+                finish();
+                startActivity(intent2);
+                break;
             default:
-                return super.onOptionsItemSelected(item);
+
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void displayView(int position) {
@@ -267,8 +264,6 @@ public class HomeActivity extends Activity {
             case 2:
                 fragment = new AccountSettingsFragment();
                 ft.add(R.id.frame_container, fragment);
-                /*Intent intent = new Intent(this,AccountSettingsActivity.class);
-                startActivity(intent);*/
                 break;
             case 3:
                 fragment = friendCategoryFragment;
@@ -301,8 +296,6 @@ public class HomeActivity extends Activity {
         }
 
         if (fragment != null) {
-         //   ft.remove(fragment);
-         //   ft.add(R.id.frame_container, fragment);
             ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
             ft.addToBackStack(null);
             ft.commit();
@@ -323,9 +316,6 @@ public class HomeActivity extends Activity {
      */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // Si le menu est ouvert, cacher certains items de la barre
-        // boolean drawerOpen = drawerLayout.isDrawerOpen(listSliderMenu);
-        // menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -333,7 +323,7 @@ public class HomeActivity extends Activity {
     @Override // Change le titre de l'actionBar
     public void setTitle(CharSequence title) {
         mTitle = title;
-            getActionBar().setTitle(mTitle);
+        getActionBar().setTitle(mTitle);
     }
 
     /**
@@ -344,7 +334,6 @@ public class HomeActivity extends Activity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
 
@@ -382,47 +371,15 @@ public class HomeActivity extends Activity {
         listView = (ListView) findViewById(R.id.listViewExploreTrip);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e("HomeActivity", "onActivity");
 
         if (resultCode == RESULT_OK) {
 
                 this.refreshFragment();
 
         }
-            /*
-            // Récupération des informations d'une photo sélectionné dans l'album
-            if (requestCode == 1) {
 
-                // RECUPERATION DE L'ADRESSE DE LA PHOTO
-                Uri selectedImage = data.getData();
-
-                String[] filePath = {MediaStore.Images.Media.DATA};
-
-                Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
-
-                c.moveToFirst();
-
-                int columnIndex = c.getColumnIndex(filePath[0]);
-
-                String picturePath = c.getString(columnIndex);
-                // FIN DE LA RECUPERATION
-                c.close();
-
-                Bitmap thumbnail2 = (BitmapFactory.decodeFile(picturePath));
-                Log.w("path de l'image", picturePath + "");
-                // Remplir le champ en dessous de la photo avec le chemin de la nouvelle
-                linkPhoto.setText(picturePath);
-
-                // Stoker la photo en base64 dans une variable
-                photoBase64 = Function.encodeBase64(thumbnail2);
-
-                // Changer la photo actuel avec la nouvelle
-                thumbnail.setImageBitmap(thumbnail2);
-            }
-        }*/
     }
 	
 	public void refreshFragment(){

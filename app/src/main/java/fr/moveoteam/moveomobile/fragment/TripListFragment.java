@@ -2,7 +2,6 @@ package fr.moveoteam.moveomobile.fragment;
 
 import android.app.AlertDialog;
 import android.app.ListFragment;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;

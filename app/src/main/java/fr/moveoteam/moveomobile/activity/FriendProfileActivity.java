@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
@@ -34,9 +32,7 @@ import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.fragment.TripListFragment;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
-import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONFriend;
-import fr.moveoteam.moveomobile.webservice.JSONTrip;
 
 /**
  * Created by Amélie on 27/04/2015.
@@ -48,7 +44,7 @@ public class FriendProfileActivity extends Activity {
     private TextView usernameprofile;
     private TextView livein;
     private TextView tripsnumber;
-    private TextView placesnumber;
+    private TextView birthday;
     private ImageView sendmail;
     private ImageView addfriend;
     private ImageView tripsuser;
@@ -59,7 +55,6 @@ public class FriendProfileActivity extends Activity {
 	
 	// Manipulation de la table friend (Base de données)
     private FriendDAO friendDAO;
-
 
 	// FRAGMENT
     private TripListFragment tripListFragment;
@@ -104,8 +99,10 @@ public class FriendProfileActivity extends Activity {
             new DownloadImage().execute(friend.getAvatarBase64());
         }
 
+        if(!friend.getBirthday().equals(""))birthday.setText("née le "+Function.dateSqlToDateJava(friend.getBirthday()));
+
         usernameprofile.setText(friend.getFirstName() + " " + friend.getLastName().toUpperCase());
-       // addfriend.setImageDrawable(getResources().getDrawable(R.drawable.refuse_friend));
+        // addfriend.setImageDrawable(getResources().getDrawable(R.drawable.refuse_friend));
 
         // Affichage du lieu de l'utilisateur
         if ((!friend.getCity().equals("null") && !friend.getCity().equals("")) && (!friend.getCountry().equals("null") && !friend.getCountry().equals("")))
@@ -175,6 +172,7 @@ public class FriendProfileActivity extends Activity {
         page = (LinearLayout) findViewById(R.id.user_profile);
         tripsusertitle = (TextView) findViewById(R.id.trips_user_title);
         userinfos = (LinearLayout) findViewById(R.id.user_infos);
+        birthday = (TextView) findViewById(R.id.birthday_text);
     }
 
     private class ExecuteDeleteFriendThread extends AsyncTask<String, String, JSONObject>{

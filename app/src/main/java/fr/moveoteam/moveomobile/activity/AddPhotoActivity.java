@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.AndroidCharacter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,12 +23,9 @@ import org.json.JSONObject;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.PhotoDAO;
-import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Photo;
-import fr.moveoteam.moveomobile.model.User;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;
-import fr.moveoteam.moveomobile.webservice.JSONUser;
 
 /**
  * Created by Sylvain on 17/07/15.
@@ -133,7 +129,6 @@ public class AddPhotoActivity extends Activity {
 
         @Override
         protected JSONObject doInBackground(String... params) {
-
             JSONTrip jsonTrip = new JSONTrip();
             return jsonTrip.addPhoto(Integer.toString(tripId), photoBase64);
         }

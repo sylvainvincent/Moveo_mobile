@@ -18,12 +18,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,12 +28,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.TripDAO;
 import fr.moveoteam.moveomobile.dao.UserDAO;
-import fr.moveoteam.moveomobile.model.Comment;
 import fr.moveoteam.moveomobile.model.Function;
 import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONTrip;

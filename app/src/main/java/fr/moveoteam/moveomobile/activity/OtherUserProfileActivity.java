@@ -13,13 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import fr.moveoteam.moveomobile.R;
 import fr.moveoteam.moveomobile.dao.FriendDAO;
@@ -27,7 +24,6 @@ import fr.moveoteam.moveomobile.dao.UserDAO;
 import fr.moveoteam.moveomobile.fragment.TripListFragment;
 import fr.moveoteam.moveomobile.model.Friend;
 import fr.moveoteam.moveomobile.model.Function;
-import fr.moveoteam.moveomobile.model.Trip;
 import fr.moveoteam.moveomobile.webservice.JSONFriend;
 import fr.moveoteam.moveomobile.webservice.JSONUser;
 

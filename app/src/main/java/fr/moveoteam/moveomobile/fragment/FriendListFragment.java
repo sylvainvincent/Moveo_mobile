@@ -1,6 +1,5 @@
 package fr.moveoteam.moveomobile.fragment;
 
-import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
