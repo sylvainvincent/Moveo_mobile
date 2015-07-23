@@ -3,8 +3,10 @@ package fr.moveoteam.moveomobile.fragment;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -41,6 +43,7 @@ public class SettingsFragment extends Fragment {
     private TextView deleteAccount;
     private Button saveButton;
     private Switch informationVisibility;
+    private Switch indicator;
     private String passwordSave;
     private int accessSave;
     private String id;
@@ -57,6 +60,7 @@ public class SettingsFragment extends Fragment {
         saveButton = (Button) view.findViewById(R.id.save_settings);
         informationVisibility = (Switch) view.findViewById(R.id.set_informations_visible);
         deleteAccount = (TextView) view.findViewById(R.id.delete_account_button);
+        indicator = (Switch) view.findViewById(R.id.activate_indicator);
 
         return view;
     }
@@ -71,6 +75,32 @@ public class SettingsFragment extends Fragment {
         accessSave = userDAO.getUserDetails().getAccess();
         id = Integer.toString(userDAO.getUserDetails().getId());
         userDAO.close();
+
+        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defaultindicator);
+        String value = sharedPref.getString(getString(R.string.indicator), defaultValue);
+
+        if(value.equals("indicator"))indicator.setChecked(true);
+        else indicator.setChecked(false);
+
+        indicator.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString(getString(R.string.indicator), "indicator");
+                    editor.commit();
+                    ((HomeActivity) getActivity()).changeIndicator(true);
+                }else{
+                    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString(getString(R.string.indicator), "nonindicator");
+                    editor.commit();
+                    ((HomeActivity) getActivity()).changeIndicator(false);
+                }
+            }
+        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override

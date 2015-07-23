@@ -112,7 +112,7 @@
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/activate_notifications" />
+                android:id="@+id/activate_indicator" />
 
             <!-- Set informations visible -->
             <TextView

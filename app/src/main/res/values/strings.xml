@@ -128,9 +128,11 @@
     <string name="my_password">Mon mot de passe</string>
     <string name="new_password">Nouveau mot de passe</string>
     <string name="check_new_password">Vérification du mot de passe</string>
-    <string name="notifications">Activer les notifications</string>
+    <string name="notifications">Afficher/cacher les indicateurs de notifications</string>
     <string name="informations">Rendre mes informations visibles par ce qui ne sont pas amis avec moi</string>
     <string name="validate">Valider</string>
+    <string name="defaultindicator">nonindicator</string>
+    <string name="indicator">indicator</string>
 
     <!-- Les éléments du menu -->
     <string-array name="nav_drawer_items">

@@ -5,8 +5,10 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -133,10 +135,20 @@ public class HomeActivity extends Activity {
             inboxRequestDisplay = true;
         }
 
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.defaultindicator);
+        String value = sharedPref.getString(getString(R.string.indicator), defaultValue);
+
+        if(value.equals("nonindicator")){
+            inboxRequestDisplay = false;
+            friendRequestDisplay = false;
+        }
+
+
         // EXPLORER
         listMenuItems.add(new MenuItems(listMenuTitles[0], listMenuIcons.getResourceId(0, -1)));
         // MES VOYAGES
-        listMenuItems.add(new MenuItems(listMenuTitles[1], listMenuIcons.getResourceId(1, -1),true,tripCounter));
+        listMenuItems.add(new MenuItems(listMenuTitles[1], listMenuIcons.getResourceId(1, -1)));
         // MON PROFIL
         listMenuItems.add(new MenuItems(listMenuTitles[2], listMenuIcons.getResourceId(2, -1)));
         // MES AMIS
@@ -404,6 +416,16 @@ public class HomeActivity extends Activity {
         messagingFragment.setSendIcon();
         ft.replace(R.id.messaging_content,messagingFragment.getSendboxListFragment());
         ft.commit();
+    }
+
+    public void changeIndicator(boolean activate){
+        listMenuItems.get(3).setCounterVisibility(activate);
+        listMenuItems.get(4).setCounterVisibility(activate);
+
+        menuAdapter = new MenuAdapter(HomeActivity.this,
+                listMenuItems);
+        listSliderMenu.setAdapter(menuAdapter);
+
     }
 
 }
