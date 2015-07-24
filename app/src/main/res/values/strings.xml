@@ -173,6 +173,12 @@
     <string name="send_message_button">ENVOYER</string>
     <string name="hint_message_editView">Votre message&#8230;</string>
 
+    <!-- ABOUT -->
+    <string name="developers_title">Développeurs :</string>
+    <string name="developers_name">Alexandre, Sylvain, Amélie</string>
+    <string name="version_title">Version :</string>
+    <string name="version_number">1.0</string>
+
     <!-- USER PROFILE -->
     <string name="live_in">Habite à</string>
     <string name="trips_number">12 voyages</string>
@@ -187,7 +193,7 @@
 
     <string name="hello_world">Hello world!</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_hint">Recherche…</string>
     <string name="friends_request_title">nouvelles demandes d\'amis</string>
