@@ -70,8 +70,6 @@ public class AddTripActivity extends Activity {
         userDAO.open();
         userId = userDAO.getUserDetails().getId();
 
-
-
         buttonAddPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

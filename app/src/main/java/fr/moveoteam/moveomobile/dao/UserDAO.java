@@ -116,10 +116,10 @@ public class UserDAO {
         // Se déplacer à la premiere ligne
         cursor.moveToFirst();
         if(cursor.getCount() > 0){
-            user.setId(cursor.getInt(POSITION_USER_ID));
-            user.setFirstName(cursor.getString(POSITION_USER_FIRSTNAME));
-            user.setLastName(cursor.getString(POSITION_USER_LASTNAME));
-            user.setBirthday(cursor.getString(POSITION_USER_BIRTHDAY));
+            user.setId(cursor.getInt(POSITION_USER_ID)); //0
+            user.setFirstName(cursor.getString(POSITION_USER_FIRSTNAME)); //1
+            user.setLastName(cursor.getString(POSITION_USER_LASTNAME)); // 2
+            user.setBirthday(cursor.getString(POSITION_USER_BIRTHDAY)); //3
             user.setAvatar(cursor.getString(POSITION_USER_AVATAR));
             user.setEmail(cursor.getString(POSITION_USER_EMAIL));
             user.setPassword(cursor.getString(POSITION_USER_PASSWORD));

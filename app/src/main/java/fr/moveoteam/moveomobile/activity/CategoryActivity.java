@@ -90,37 +90,7 @@ public class CategoryActivity extends Activity {
                 finish();
 
         }
-            /*
-            // Récupération des informations d'une photo sélectionné dans l'album
-            if (requestCode == 1) {
 
-                // RECUPERATION DE L'ADRESSE DE LA PHOTO
-                Uri selectedImage = data.getData();
-
-                String[] filePath = {MediaStore.Images.Media.DATA};
-
-                Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
-
-                c.moveToFirst();
-
-                int columnIndex = c.getColumnIndex(filePath[0]);
-
-                String picturePath = c.getString(columnIndex);
-                // FIN DE LA RECUPERATION
-                c.close();
-
-                Bitmap thumbnail2 = (BitmapFactory.decodeFile(picturePath));
-                Log.w("path de l'image", picturePath + "");
-                // Remplir le champ en dessous de la photo avec le chemin de la nouvelle
-                linkPhoto.setText(picturePath);
-
-                // Stoker la photo en base64 dans une variable
-                photoBase64 = Function.encodeBase64(thumbnail2);
-
-                // Changer la photo actuel avec la nouvelle
-                thumbnail.setImageBitmap(thumbnail2);
-            }
-        }*/
     }
 
 

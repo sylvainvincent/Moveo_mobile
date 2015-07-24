@@ -113,7 +113,6 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         public static final int POSITION_PLACE_CATEGORY = 4;
         public static final int POSITION_PLACE_TRIP_ID = 5;
 
-
         // Comment
         public static final int POSITION_COMMENT_ID = 0;
         public static final int POSITION_COMMENT_MESSAGE = 1;

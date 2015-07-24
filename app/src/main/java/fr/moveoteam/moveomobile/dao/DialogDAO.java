@@ -69,6 +69,7 @@ public class DialogDAO {
         values.put(DataBaseHandler.KEY_DIALOG_MESSAGE, dialog.getMessage());
         values.put(DataBaseHandler.KEY_DIALOG_DATE, dialog.getDate());
         values.put(DataBaseHandler.KEY_DIALOG_IS_INBOX, dialog.isInbox()?1:0);
+
         // Insérer la ligne
         database.insert(TABLE_DIALOG, null, values);
 
